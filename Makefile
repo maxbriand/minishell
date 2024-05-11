@@ -1,15 +1,25 @@
-NAME = 
-CC = 
-FLAGS = 
-SRC = 
-OBJ = 
+NAME = minishell 
+CC = cc
+#FLAGS = -Wall -Werror -Wextra 
+LIBFT = libft/libft.a
 
-all:
+SRC = 	exe/main.c \
+		\
+		builtins/ft_cd.c \
 
-$(NAME):
+all: $(NAME)
+
+$(NAME): $(LIBFT)
+	@$(CC) $(FLAGS) $(SRC) -Iinclude -Ilibft/include -Llibft -lft -lreadline -lhistory -o $(NAME)
+
+$(LIBFT):
+	@make --no-print-directory -C libft
 
 clean:
+	@make --no-print-directory clean -C libft
 
-fclean:
+fclean: clean
+	@make --no-print-directory fclean -C libft
+	@rm -f $(NAME)
 
-re:
+re: fclean all
