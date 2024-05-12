@@ -28,6 +28,8 @@ typedef struct s_minishell
 	int			open_dquote;
 }	t_minishell;
 
+// Error
+void	ft_exit_failure(char *msg, t_minishell *data);
 
 // Exe
 void	ft_exe(t_minishell *datas, t_commands *p_input);

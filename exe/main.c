@@ -29,14 +29,8 @@ int	main(int ac, char **av, char **env)
 		// input go through the parsing
 			//ft_parsing
 
-
-
 		// ft_parsing();
-		ft_exe();
-
-
-		if (ft_strncmp(input, "cd", 2) == 0)
-			ft_cd(env);
+		ft_exe(NULL, p_input);
 
 		// execution
 		if (ft_strcmp(input, "history -c") == 0)
