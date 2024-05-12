@@ -4,6 +4,7 @@ CC = cc
 LIBFT = libft/libft.a
 
 SRC = 	exe/main.c \
+		exe/ft_exe.c \
 		\
 		builtins/ft_cd.c \
 

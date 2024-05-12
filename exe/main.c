@@ -8,7 +8,19 @@ Parsing have to return:
 
 int	main(int ac, char **av, char **env)
 {
-	char	*input;
+	char		*input;
+	t_commands	*p_input;
+	
+	p_input = malloc(sizeof(t_commands *));
+	p_input->b_builtins = 1;
+	p_input->append_output = 0;
+	p_input->input = NULL;
+	p_input->output = NULL;
+	p_input->cmd = ft_strdup("cd");
+	p_input->option = NULL;
+	p_input->arg = NULL;
+	p_input->next = NULL;
+	p_input->heredoc = 0;
 
 	while (1)
 	{
@@ -17,7 +29,10 @@ int	main(int ac, char **av, char **env)
 		// input go through the parsing
 			//ft_parsing
 
-		// while(); commands iterations
+
+
+		// ft_parsing();
+		ft_exe();
 
 
 		if (ft_strncmp(input, "cd", 2) == 0)
