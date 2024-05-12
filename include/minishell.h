@@ -9,9 +9,10 @@
 
 typedef struct s_commands
 {
-	bool		b_builtins;
-	int		input;// standard input
-	int		output;// standard output
+	bool	b_builtins;
+	bool	append_output; // 0 - 1 for >> or >
+	char	*input;// standard input // append everytime
+	char	*output;// standard output
 	char	*cmd;
 	char	**option;
 	char	**arg;
