@@ -10,11 +10,12 @@ typedef struct s_commands
 {
 	bool	b_builtins;
 	bool	append_output; // 0 - 1 for >> or >
+	bool	heredoc;
 	char	*input;// standard input // append everytime
 	char	*output;// standard output
 	char	*cmd;
-	char	**option;
-	char	**arg;
+	char	*option;
+	char	*arg;
 	struct s_commands	*next;
 }	t_commands;
 
