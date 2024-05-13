@@ -7,7 +7,9 @@ SRC = 	src/parsing.c\
 		src/define_p.c\
 		src/main.c\
 		src/ultimate_free.c\
-		src/error_type.c
+		src/error_type.c\
+		src/define_first_arg.c\
+		src/error_p.c
 
 
 all: $(NAME)
