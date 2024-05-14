@@ -23,20 +23,37 @@
 // 	return(0);
 // }
 
-#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
-int main(void)
-{
-    // char    *pathname = "/bin/ls";
-    // char    *argv[] = {"ls", "-la", NULL};
+int main() {
+    char *input;
+    while (1) {
+        // Prompt the user for input
+        input = readline("Enter command (type 'exit' to quit): ");
 
-    char    *pathname = "/bin/echo";
-    char    *argv[] = {"echo", "indejcnje fjcendjsncjendjscs", NULL};
+        // Check if the input is NULL, indicating EOF or an error
+        if (!input) {
+            printf("EOF or read error occurred.\n");
+            break;
+        }
 
+        // Check if the user typed 'exit' to terminate the loop
+        if (strcmp(input, "exit") == 0) {
+            free(input);
+            break;
+        }
 
+        // Display the entered command
+        printf("You entered: '%s'\n", input);
 
-    execve(pathname, argv, NULL);
+        // Optional: add the input to the history
+        add_history(input);
 
-    return(0);
+        // Free the dynamically allocated input memory
+        free(input);
+    }
+    return 0;
 }
-

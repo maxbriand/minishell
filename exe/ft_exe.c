@@ -4,25 +4,87 @@
 // if (ft_strncmp(input, "cd", 2) == 0)
 // 	ft_cd(env);
 
-
-void	child_exe(t_minishell *datas, t_commands *p_input)
+static void	ft_redefine_stdout(t_minishell *data, t_commands *p_cmd, int *pipefd)
 {
 
+	// dup2 pipefd
+	// if no output 
+	// check append
+}
 
+static void	ft_redefine_stdin(t_minishell *data, t_commands *p_cmd, int *pipefd)
+{
+	dup2(pipefd[0], 0);
+	// if (p_cmd != NULL)
+		// append input text
+		
+
+
+	//append if 2 stdin define
+
+	//dup2 pipefd
 }
 
 
-void	ft_exe(t_minishell *datas, t_commands *p_input)
+static void	ft_builtins_exe(t_minishell *data, t_commands *p_cmd)
 {
-	int	pipefd[2];
+	if (strcmp(p_cmd->cmd, "cd") == 0)
+		ft_cd();
+	if (strcmp(p_cmd->cmd, "echo") == 0)
+		ft_echo();
+	if (strcmp(p_cmd->cmd, "env") == 0)
+		ft_env();
+	if (strcmp(p_cmd->cmd, "exit") == 0)
+		ft_exit();
+	if (strcmp(p_cmd->cmd, "export") == 0)
+		ft_export();
+	if (strcmp(p_cmd->cmd, "pwd") == 0)
+		ft_pwd();
+	if (strcmp(p_cmd->cmd, "unset") == 0)
+		ft_unset();
+}
 
-	if (p_input == NULL)
-		ft_exit_faillure("empty input");
+
+static void	ft_child_exe(t_minishell *data, t_commands *p_cmd, int *pipefd)
+{
+	// check existing command
+	if (p_cmd->b_builtins == 0)
+		//ft_check_path(); // add my pushed function not the pipex on my computer
+
+	// stdin redirection
+	if (p_cmd->stdinput != NULL || p_cmd->heredoc == 1 ) // add || pipefd[0] is not enpty
+		ft_redefine_stdin(data, p_cmd, pipefd);
+	close(pipefd[0]);
+
+	// stdout redirection
+	if (p_cmd->stdoutput != NULL || p_cmd->next != NULL)
+		ft_redefine_stdout(data, p_cmd, pipefd);
+	close(pipefd[1]);
+
+	// exec command
+	if (p_cmd->b_builtins == 0)
+		ft_printf("ok");//execve();
+	else
+		ft_builtins_exe(data, p_cmd);
+	ft_exit_failure("execution issue", data);
+}
+
+void	ft_exe(t_minishell *data, t_commands *p_cmd)
+{
+	int		pipefd[2];
+	pid_t	pid;
+
+	if (p_cmd == NULL)
+		ft_exit_failure("empty cmd issue", data);
 	if (pipe(pipefd) == -1)
-		ft_exit_faillure("pipe creation issue");
-	while (*p_input)
+		ft_exit_failure("pipe creation issue", data);
+	while (p_cmd)
 	{
-
-		p_input = p_input->next;
+		pid = fork();
+		if (pid == -1)
+			ft_exit_failure("fork creation issue", data);
+		if (pid == 0)
+			ft_child_exe(data, p_cmd, pipefd);
+		p_cmd = p_cmd->next;
 	}
 }
