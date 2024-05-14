@@ -6,7 +6,10 @@ t_pars	*new_node(char *input_no_pipe)
 	t_pars	*node;
 
 	node = malloc(sizeof(t_pars));
-	node->tab = ft_split(input_no_pipe, ' ');
+	node->spl_cmd = ft_split(input_no_pipe, ' ');
+	node->next_is_hd_stop = false;
+	node->next_is_infile = false;
+	node->next_is_outfile = false;
 	node->next = NULL;
 	return (node);
 }
@@ -22,6 +25,7 @@ t_pars	*define_p(char *input)
 	if (pipe_unexpected(input) == 0)
 	{
 		input_no_pipe = ft_split(input, '|');
+		//protection
 		if (!input_no_pipe)
 			error_and_exit ("Malloc error\n");
 		head = new_node(input_no_pipe[0]);

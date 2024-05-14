@@ -1,4 +1,4 @@
-#include "../parsing.h"
+#include "../../parsing.h"
 //1 = / error
 bool	error_p(int nb, char *cmd)
 {
@@ -7,4 +7,6 @@ bool	error_p(int nb, char *cmd)
 		printf("minishell: %s: No such file or directory\n", cmd);
 		return (true);
 	}
+
+	//if (nb == 2)
 }

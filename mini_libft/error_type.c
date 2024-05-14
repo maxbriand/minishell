@@ -1,5 +1,6 @@
-#include "../parsing.h"
+#include "../../parsing.h"
 
+//check if there is consecutive pipe
 int	pipe_unexpected(char *input)
 {
 	int	i;

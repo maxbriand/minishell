@@ -1,4 +1,4 @@
-#include "../parsing.h"
+#include "../../parsing.h"
 
 void	free_tab(char **tab)
 {
@@ -20,7 +20,7 @@ void	free_p(t_pars *p)
 	while(p)
 	{
 		p_buf = p;
-		free_tab(p->tab);
+		free_tab(p->spl_cmd);
 		p = p->next;
 		free(p_buf);
 	}

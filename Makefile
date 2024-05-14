@@ -3,13 +3,14 @@ CC = cc
 #FLAGS = -Wall -Werror -Wextra
 LIBFT = libft/libft.a
 
-SRC = 	src/parsing.c\
+SRC =	mini_libft/error_p.c\
+		mini_libft/ultimate_free.c\
+		mini_libft/error_type.c\
+		mini_libft/ft_realloc.c\
+		src/parsing.c\
 		src/define_p.c\
-		src/main.c\
-		src/ultimate_free.c\
-		src/error_type.c\
 		src/define_first_arg.c\
-		src/error_p.c
+		src/main.c
 
 
 all: $(NAME)
