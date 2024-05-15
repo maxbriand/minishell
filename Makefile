@@ -9,7 +9,8 @@ SRC =	mini_libft/error_p.c\
 		mini_libft/ft_realloc.c\
 		src/parsing.c\
 		src/define_p.c\
-		src/define_first_arg.c\
+		src/define_cmd.c\
+		src/define_arg_first.c\
 		src/main.c
 
 

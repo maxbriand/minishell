@@ -28,19 +28,19 @@
 // 	return (0);
 // }
 
-bool	is_operator(char *arg, t_commands *cmd, t_pars *node)
+bool	is_operator(char *arg, t_commands *cmd, t_pars *p)
 {
 	if (ft_strcmp(arg, "<") == 0 || ft_strcmp(arg, "<<") == 0 ||
 		ft_strcmp(arg, ">") == 0 || ft_strcmp(arg, ">>") == 0)
 	{
 		if (ft_strcmp(arg, "<<") == 0)
-			node->next_is_hd_stop = true;
+			p->next_is_hd_stop = true;
 		else if (ft_strcmp(arg, "<") == 0)
-			node->next_is_infile = true;
+			p->next_is_infile = true;
 		else if (ft_strcmp(arg, ">") == 0)
 		{
 			ft_addback_int(cmd->append_output, 0);
-			node->next_is_outfile = true;
+			p->next_is_outfile = true;
 		}
 		else if (ft_strcmp(arg, ">>") == 0)
 			ft_addback_int(cmd->append_output, 1);
@@ -50,10 +50,10 @@ bool	is_operator(char *arg, t_commands *cmd, t_pars *node)
 }
 
 //define if the first arg is a command, a redirection etc
-void	define_first_arg(char *first_arg, t_commands *cmd, t_pars *node)
+void	define_first_arg(char *first_arg, t_commands *cmd, t_pars *p)
 {
 	//is quote: need to do it here
-	if (is_operator(first_arg, cmd, node) == true)
+	if (is_operator(first_arg, cmd, p) == true)
 		return ;
 	//if ()
 	//if (error_p(verif_cmd_slash(first_arg), first_arg) == true)

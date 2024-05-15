@@ -1,5 +1,5 @@
 //to add to the libft later
-#include "../../parsing.h"
+#include "../parsing.h"
 
 //add 1 element to a array. Free the old array, so it's not needed to free it after
 char	**ft_addback(char **old_array, char *new_element)

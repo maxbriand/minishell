@@ -3,17 +3,17 @@
 //main's of the parsing. if return null, no command need to be done
 void	parsing(char *input, t_minishell *mini)
 {
-	t_pars	*node;
+	t_pars	*p;
 
 	if (ft_strlen(input) == 0)
 		return ;
-	node = define_p(input);
-	if (!node)
+	p = define_p(input);
+	if (!p)
 		return ;
 	//cree tout les maillons de cmd
 	//ceci est temporaire:
-	mini->p_cmd = malloc(sizeof(t_commands));
-	mini->p_cmd->append_output = NULL;
+	define_cmd(mini, p);
+	//printf("%s\n", mini->p_cmd->arg);
 
 
 
@@ -23,26 +23,30 @@ void	parsing(char *input, t_minishell *mini)
 
 
 
-	define_first_arg(node->spl_cmd[0], mini->p_cmd, node);
+	define_first_arg(p->spl_cmd[0], mini->p_cmd, p);
 	//for the moment I get a struct wich has been
 	//segmented with pipe to finally get segmented command
 
 	//test pour voir si je recupere bien tout split sur les |
 	int i;
+	int f;
+	f = 0;
 	t_pars *buf;
-	buf = node;
-	while(node)
+	buf = p;
+	while(p)
 	{
 		i = 0;
-		while (node->spl_cmd[i])
+		printf("\n\nMaillon %d:\n", f);
+		while (p->spl_cmd[i])
 		{
-			printf("%s\n", node->spl_cmd[i]);
+			printf(" Argument %d = %s\n", i, p->spl_cmd[i]);
 			i++;
 		}
-		node = node->next;
-		if (node)
+		p = p->next;
+		f++;
+		if (p)
 			printf("\n\n");
 	}
-	node = buf;
-	free_p(node);
+	p = buf;
+	free_p(p);
 }
