@@ -13,7 +13,7 @@ typedef struct s_parsing
 }	t_pars;
 
 // parsing
-void	parsing(char *input, t_minishell *mini);
+void	ft_parsing(char *input, t_minishell *mini);
 t_pars	*define_p(char *input);
 void	define_cmd(t_minishell *mini, t_pars *node);
 

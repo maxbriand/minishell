@@ -1,7 +1,7 @@
 #include "../parsing.h"
 
 //main's of the parsing. if return null, no command need to be done
-void	parsing(char *input, t_minishell *mini)
+void	ft_parsing(char *input, t_minishell *mini)
 {
 	t_pars	*p;
 

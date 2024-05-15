@@ -17,7 +17,8 @@ int main (int ac, char **av, char **env)
 			break;
 
 		mini = malloc(sizeof(t_minishell));
-		parsing(input, mini);
+		ft_parsing(input, mini);
+
 	}
 	return (0);
 }
