@@ -1,14 +1,16 @@
 #include "minishell.h"
 
-void	ft_cd(void)
+int	ft_cd(t_commands *p_cmd)
 {
-	// if (env == NULL)
-	// 	return ;
-	// ft_printf("HEY");
-	// while (*env)
-	// {
-	// 	ft_printf("%s\n", *env);
-	// 	env++;
-	// }
-	// return ;
+	if(chdir(p_cmd->arg)== 0)
+	{
+		ft_printf("the program move the current dir\n");
+		return (0);
+	}
+	else
+	{
+		ft_printf("an error occurs\n");
+		return (-1);
+	}
+	exit(EXIT_SUCCESS);
 }

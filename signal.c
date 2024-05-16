@@ -1,59 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <signal.h>
-
-// void sigint_handler(int signum) {
-//     printf("Signal SIGINT reçu.\n");
-//     exit(signum); // Sortir du programme avec le numéro de signal
-// }
-
-
-// int main(void)
-// {
-// 	struct sigaction sa;
-
-
-// 	sigemptyset(&sa.sa_mask);
-//     sa.sa_flags = 0;
-//     sa.sa_handler = sigint_handler;
-
-// 	sigaction(EOF, &sa, NULL);
-//     while(1) {}
-
-// 	return(0);
-// }
-
-#include <stdio.h>
-#include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
-int main() {
+int main() 
+{
     char *input;
-    while (1) {
-        // Prompt the user for input
-        input = readline("Enter command (type 'exit' to quit): ");
 
-        // Check if the input is NULL, indicating EOF or an error
+    while (1) 
+    {
+        input = readline("Enter command: ");
         if (!input) {
-            printf("EOF or read error occurred.\n");
             break;
         }
-
-        // Check if the user typed 'exit' to terminate the loop
-        if (strcmp(input, "exit") == 0) {
+        if (*input) {
+            add_history(input);
+        }
+        pid_t   pid;
+        int     pipefd[2];
+        pipe(pipefd);
+        pid = fork();
+        if (pid == 0)
+        {
+            close(pipefd[0]);
+            close(pipefd[1]);
             free(input);
-            break;
+            return (0);
         }
-
-        // Display the entered command
-        printf("You entered: '%s'\n", input);
-
-        // Optional: add the input to the history
-        add_history(input);
-
-        // Free the dynamically allocated input memory
+        close(pipefd[0]);
+        close(pipefd[1]);
         free(input);
+        wait(NULL);
+        return (0);
+        printf("You entered: %s\n", input);
     }
     return 0;
 }

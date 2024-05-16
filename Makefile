@@ -18,7 +18,7 @@ SRC = 	exe/main.c \
 all: $(NAME)
 
 $(NAME): $(LIBFT)
-	@$(CC) $(FLAGS) $(SRC) -g -Iinclude -Ilibft/include -Llibft -lft -lreadline -lhistory -o $(NAME)
+	@$(CC) $(FLAGS) $(SRC) -g -Iinclude -Ilibft/include -Llibft -lft -lreadline -lhistory -lncurses -o $(NAME)
 
 $(LIBFT):
 	@make --no-print-directory -C libft

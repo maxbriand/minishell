@@ -4,32 +4,32 @@
 // if (ft_strncmp(input, "cd", 2) == 0)
 // 	ft_cd(env);
 
-static void	ft_redefine_stdout(t_minishell *data, t_commands *p_cmd, int *pipefd)
-{
+// static void	ft_redefine_stdout(t_minishell *data, t_commands *p_cmd, int *pipefd)
+// {
 
-	// dup2 pipefd
-	// if no output 
-	// check append
-}
+// 	// dup2 pipefd
+// 	// if no output 
+// 	// check append
+// }
 
-static void	ft_redefine_stdin(t_minishell *data, t_commands *p_cmd, int *pipefd)
-{
-	dup2(pipefd[0], 0);
-	// if (p_cmd != NULL)
-		// append input text
+// static void	ft_redefine_stdin(t_minishell *data, t_commands *p_cmd, int *pipefd)
+// {
+// 	dup2(pipefd[0], 0);
+// 	// if (p_cmd != NULL)
+// 		// append input text
 		
 
 
-	//append if 2 stdin define
+// 	//append if 2 stdin define
 
-	//dup2 pipefd
-}
+// 	//dup2 pipefd
+// }
 
 
 static void	ft_builtins_exe(t_minishell *data, t_commands *p_cmd)
 {
 	if (strcmp(p_cmd->cmd, "cd") == 0)
-		ft_cd();
+		ft_cd(p_cmd);
 	if (strcmp(p_cmd->cmd, "echo") == 0)
 		ft_echo();
 	if (strcmp(p_cmd->cmd, "env") == 0)
@@ -42,40 +42,45 @@ static void	ft_builtins_exe(t_minishell *data, t_commands *p_cmd)
 		ft_pwd();
 	if (strcmp(p_cmd->cmd, "unset") == 0)
 		ft_unset();
+	// free
+	exit(EXIT_SUCCESS);
 }
 
 
 static void	ft_child_exe(t_minishell *data, t_commands *p_cmd, int *pipefd)
 {
-	// check existing command
-	if (p_cmd->b_builtins == 0)
+	//check existing command
+	// if (p_cmd->b_builtins == 0)
 		//ft_check_path(); // add my pushed function not the pipex on my computer
 
 	// stdin redirection
-	if (p_cmd->stdinput != NULL || p_cmd->heredoc == 1 ) // add || pipefd[0] is not enpty
-		ft_redefine_stdin(data, p_cmd, pipefd);
+	// if (p_cmd->stdinput != NULL || p_cmd->heredoc == 1 ) // add || pipefd[0] is not enpty
+	// 	ft_redefine_stdin(data, p_cmd, pipefd);
 	close(pipefd[0]);
 
 	// stdout redirection
-	if (p_cmd->stdoutput != NULL || p_cmd->next != NULL)
-		ft_redefine_stdout(data, p_cmd, pipefd);
+	// if (p_cmd->stdoutput != NULL || p_cmd->next != NULL)
+	// 	ft_redefine_stdout(data, p_cmd, pipefd);
 	close(pipefd[1]);
 
 	// exec command
 	if (p_cmd->b_builtins == 0)
-		ft_printf("ok");//execve();
+	{
+		printf("exe none builtin command\n"); 
+		//execve();
+	}
 	else
+	{
 		ft_builtins_exe(data, p_cmd);
-	ft_exit_failure("execution issue", data);
+	}
+	ft_exit_failure("execution issue\n", data);
 }
 
-void	ft_exe(t_minishell *data, t_commands *p_cmd)
+int	ft_exe(t_minishell *data, t_commands *p_cmd)
 {
 	int		pipefd[2];
 	pid_t	pid;
 
-	if (p_cmd == NULL)
-		ft_exit_failure("empty cmd issue", data);
 	if (pipe(pipefd) == -1)
 		ft_exit_failure("pipe creation issue", data);
 	while (p_cmd)
@@ -86,5 +91,10 @@ void	ft_exe(t_minishell *data, t_commands *p_cmd)
 		if (pid == 0)
 			ft_child_exe(data, p_cmd, pipefd);
 		p_cmd = p_cmd->next;
+		i++;
 	}
+	close(pipefd[0]);
+	close(pipefd[1]);
+	while(wait(NULL) != -1);
+	return (0);
 }
