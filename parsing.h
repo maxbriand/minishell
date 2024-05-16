@@ -30,7 +30,9 @@ int		*ft_addback_int(int *old_array, int	new_element);
 char	**ft_addback(char **old_array, char *new_element);
 void	free_tab(char **tab);
 void	free_p(t_pars *p);
-char	**ft_split_parsing(char const *s, char c);
+char	**ft_split_quote_ignore(char *str, char c);
+int	is_only_space(char *str);
+
 
 
 

@@ -7,6 +7,8 @@ SRC =	mini_libft/error_p.c\
 		mini_libft/ultimate_free.c\
 		mini_libft/error_type.c\
 		mini_libft/ft_realloc.c\
+		mini_libft/ft_split_quote_ignore.c\
+		mini_libft/ft_utils.c\
 		src/parsing.c\
 		src/define_p.c\
 		src/define_cmd.c\

@@ -6,7 +6,7 @@ t_pars	*new_node(char *input_no_pipe)
 	t_pars	*node;
 
 	node = malloc(sizeof(t_pars));
-	node->spl_cmd = ft_split(input_no_pipe, ' ');
+	node->spl_cmd = ft_split_quote_ignore(input_no_pipe, ' ');
 	node->next_is_hd_stop = false;
 	node->next_is_infile = false;
 	node->next_is_outfile = false;
@@ -22,9 +22,9 @@ t_pars	*define_p(char *input)
 	t_pars	*buf;
 
 	//check pipe at start or double pipe in input: 0 if all good
-	if (pipe_unexpected(input) == 0)
+	if (pipe_unexpected(input) == 0 && is_only_space(input) == 0)
 	{
-		input_no_pipe = ft_split(input, '|');
+		input_no_pipe = ft_split_quote_ignore(input, '|');
 		//protection
 		if (!input_no_pipe)
 			error_and_exit ("Malloc error\n");
