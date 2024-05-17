@@ -6,36 +6,26 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-int main() 
-{
-    char *input;
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
 
-    while (1) 
-    {
-        input = readline("Enter command: ");
-        if (!input) {
-            break;
+#define BUFFER_SIZE 1024
+
+int main() {
+    char buffer[BUFFER_SIZE];
+    ssize_t bytes_read;
+    char stop_word[] = "STOP\n";  // Define the stop word or sequence
+
+    printf("Enter text (type 'STOP' to finish):\n");
+
+    while ((bytes_read = read(STDIN_FILENO, buffer, BUFFER_SIZE - 1)) > 0) {
+        buffer[bytes_read] = '\0';  // Null-terminate the string
+        if (strcmp(buffer, stop_word) == 0) {
+            break;  // Stop reading if stop word is entered
         }
-        if (*input) {
-            add_history(input);
-        }
-        pid_t   pid;
-        int     pipefd[2];
-        pipe(pipefd);
-        pid = fork();
-        if (pid == 0)
-        {
-            close(pipefd[0]);
-            close(pipefd[1]);
-            free(input);
-            return (0);
-        }
-        close(pipefd[0]);
-        close(pipefd[1]);
-        free(input);
-        wait(NULL);
-        return (0);
-        printf("You entered: %s\n", input);
+        printf("Received: %s", buffer);
     }
+
     return 0;
 }

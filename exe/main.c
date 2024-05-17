@@ -14,30 +14,49 @@ static void	ft_free_tests(t_commands *p_cmd, char *cmd)
 
 // Malloc unprotected
 static t_commands	*ft_init_p_cmd_tests(t_commands *p_cmd)
-{
+{	
 	p_cmd = malloc(sizeof(t_commands));
 	p_cmd->b_builtins = 0;
-	p_cmd->append_output = 0;
-	p_cmd->stdinput = NULL;
-	p_cmd->stdoutput = NULL;
+	p_cmd->append_outfile = 0;
+	p_cmd->in_pipe = 0;
+	p_cmd->infile = NULL;
+	p_cmd->outfile = NULL;
 	p_cmd->cmd = ft_strdup("ls");
 	p_cmd->option = NULL;
-	p_cmd->arg = ft_strdup("exe");
+	p_cmd->arg = NULL;
+	p_cmd->arg_cmd = malloc(sizeof(char *) * 2);
+	p_cmd->arg_cmd[0] = ft_strdup("ls");
+	p_cmd->arg_cmd[1] = ft_strdup("-l");
+	p_cmd->arg_cmd[2] = NULL;
 	p_cmd->next = NULL;
 	p_cmd->hd_stop = NULL;
 
 	p_cmd->next = malloc(sizeof(t_commands));
+	p_cmd->next->in_pipe = 1;
 	p_cmd->next->b_builtins = 0;
-	p_cmd->next->append_output = 0;
-	p_cmd->next->stdinput = NULL;
-	p_cmd->next->stdoutput = NULL;
+	p_cmd->next->append_outfile = 0;
+	p_cmd->next->infile = NULL;
+	p_cmd->next->outfile = NULL;
 	p_cmd->next->cmd = ft_strdup("cat");
 	p_cmd->next->option = NULL;
-	p_cmd->next->arg = ft_strdup("exe");
+	p_cmd->next->arg = NULL;
+	p_cmd->next->arg_cmd = malloc(sizeof(char *) * 2);
+	p_cmd->next->arg_cmd[0] = ft_strdup("cat");
+	p_cmd->next->arg_cmd[1] = NULL;
 	p_cmd->next->next = NULL;
 	p_cmd->next->hd_stop = NULL;
 
 	return(p_cmd);
+}
+
+t_minishell	*ft_init_mish(t_minishell *mish, t_commands *p_cmd, char **env)
+{
+	mish = malloc(sizeof(t_minishell));
+	mish->p_cmd = p_cmd;
+	mish->env = env;
+	mish->open_dquote = 0;
+	mish->open_quote = 0;
+	return (mish);
 }
 
 /*
@@ -51,8 +70,9 @@ int	main(int ac, char **av, char **env)
 	t_commands	*p_cmd;
 	t_minishell	*mish;
 
+	mish = ft_init_mish(mish, p_cmd, env);
+
 	p_cmd = ft_init_p_cmd_tests(p_cmd);
-	
 	errcode = 0;
 	while (1)
 	{

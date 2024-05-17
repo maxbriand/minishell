@@ -6,6 +6,8 @@ LIBFT = libft/libft.a
 SRC = 	exe/main.c \
 		exe/ft_exe.c \
 		exe/ft_exit_failure.c \
+		exe/ft_check_path.c \
+		exe/ft_utils.c \
 		\
 		builtins/ft_cd.c \
 		builtins/ft_echo.c \
