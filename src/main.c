@@ -5,9 +5,16 @@ int main (int ac, char **av, char **env)
 	char	*input;
 	t_minishell	*mini;
 
+	//I absolutly need to have path->env define in mini before going to my parsing
+	//Same for mini->env
+	mini = malloc(sizeof(t_minishell));
+	mini->env = env;
+	mini->path_env = catch_path(env);
+
+
 	while (1)
 	{
-		input = readline("minishell> ");
+		input = readline("\n\nminishell> ");
 		add_history(input);
 
 		if (ft_strcmp(input, "history -c") == 0)
@@ -16,9 +23,12 @@ int main (int ac, char **av, char **env)
 		if (ft_strcmp(input, "exit") == 0)
 			break;
 
-		mini = malloc(sizeof(t_minishell));
+
+
 		ft_parsing(input, mini);
 
-	}
+		//DONT FORGET TO FREE MINI AND ALL P_CMD OR LEAAAKKS
+		free_tab(mini->path_env);
+		//free p_cmd 
 	return (0);
 }

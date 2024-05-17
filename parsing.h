@@ -9,6 +9,7 @@ typedef struct s_parsing
 	bool	next_is_hd_stop;
 	bool	next_is_infile;
 	bool	next_is_outfile;
+	bool	next_can_be_opt;
 	struct	s_parsing *next;
 }	t_pars;
 
@@ -22,8 +23,11 @@ int		pipe_unexpected(char *input);
 void	error_and_exit(char *error);
 bool	error_p(int nb, char *cmd);
 
+//check arg
+bool	is_error_quote(char *str);
+
 //define t_command
-void	define_first_arg(char *first_arg, t_commands *cmd, t_pars *node);
+void	define_first_arg(char *first_arg, t_minishell *mini, t_pars *p);
 
 //need to be added to libft ?
 int		*ft_addback_int(int *old_array, int	new_element);
@@ -31,7 +35,9 @@ char	**ft_addback(char **old_array, char *new_element);
 void	free_tab(char **tab);
 void	free_p(t_pars *p);
 char	**ft_split_quote_ignore(char *str, char c);
-int	is_only_space(char *str);
+int		is_only_space(char *str);
+char	**catch_path(char **envp);
+char	*verif_access(char *cmd, char **path);
 
 
 

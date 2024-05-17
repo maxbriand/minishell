@@ -9,10 +9,13 @@ SRC =	mini_libft/error_p.c\
 		mini_libft/ft_realloc.c\
 		mini_libft/ft_split_quote_ignore.c\
 		mini_libft/ft_utils.c\
+		mini_libft/ft_verif_access.c\
+		mini_libft/catch_path_env.c\
 		src/parsing.c\
 		src/define_p.c\
 		src/define_cmd.c\
 		src/define_arg_first.c\
+		src/check_arg.c\
 		src/main.c
 
 

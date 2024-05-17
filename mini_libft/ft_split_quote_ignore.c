@@ -57,7 +57,7 @@ static char	*split_here(char *str, int *i, int *last_split, char c)
 	char	*result;
 	int		j;
 
-	result = malloc(sizeof(char) * (*i - *last_split));
+	result = malloc(sizeof(char) * (*i - *last_split + 1));
 	j = 0;
 	while (*last_split < *i)
 	{

@@ -1,0 +1,10 @@
+--free the content of mini->cmd every loop in main
+
+--Patch verif_access who considers '/' like a cmd
+	is 'ld' a command ? //EDIT: Yes, it's a command
+
+--Patch verif_access who dont check if arg is already a absolut path
+
+--Rename some files like 'ft_split_quote_ignore', its too long (?)
+
+--Continue Parsing (logique)

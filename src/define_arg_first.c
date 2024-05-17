@@ -49,17 +49,34 @@ bool	is_operator(char *arg, t_commands *cmd, t_pars *p)
 	return (false);
 }
 
-//define if the first arg is a command, a redirection etc
-void	define_first_arg(char *first_arg, t_commands *cmd, t_pars *p)
+bool	is_arg_cmd(char *arg, t_commands *cmd, t_pars *p, char **path_env)
 {
-	//is quote: need to do it here
-	if (is_operator(first_arg, cmd, p) == true)
+	//&& cmd->cmd == NULL for the remaining node ?
+	cmd->cmd = verif_access(arg, path_env);
+	if (cmd->cmd != NULL)
+	{
+		p->next_can_be_opt = true;
+		cmd->cmd = ft_strdup(arg);
+		return (true);
+	}
+	return (false);
+}
+
+//define if the first arg is a command, a redirection etc
+void	define_first_arg(char *first_arg, t_minishell *mini, t_pars *p)
+{
+	//is quote: need to do it here like this :
+	//if there is quote at start and end, remove it and if its
+	//quote and not dqote, need to check absolut like $BLABLA
+	//passe ici sur
+	if (is_error_quote(first_arg) == true)
 		return ;
-	//if ()
+	if (is_operator(first_arg, mini->p_cmd, p) == true)
+		return ;
+	if (is_arg_cmd(first_arg, mini->p_cmd, p, mini->path_env) == true)
+		return ;
 	//if (error_p(verif_cmd_slash(first_arg), first_arg) == true)
 	//	return (1);
-	//if (is_cmd() == 1)
-	//	cmd->cmd =
 	//if (is_builtins() == 1)
 	//	return (3);
 }

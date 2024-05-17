@@ -10,6 +10,7 @@ t_pars	*new_node(char *input_no_pipe)
 	node->next_is_hd_stop = false;
 	node->next_is_infile = false;
 	node->next_is_outfile = false;
+	node->next_can_be_opt = false;
 	node->next = NULL;
 	return (node);
 }

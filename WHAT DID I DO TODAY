@@ -1,0 +1,42 @@
+FRIDAY 16 MAY
+
+--Patch leak that came from ft_split_quote_ignore
+
+-Patch segfault that came from ft_split_quote_ignore
+
+-Added the stockage of p_cmd->cmd. Now detect id the arg is a command
+
+-Add 3 new files:
+{
+	-check_arg:
+	in future, i will rejoin all global fonction needed to
+	check what the current arg is.
+
+	-catch_path_env:
+	this function take as arg env and returns the right path
+	exemple: /bin/
+
+	-ft_verif_access:
+	this function look if the arg is a command.
+	return the complete path join with the command
+	exemple: /bin/cat
+}
+
+-Struct t_pars has been pathed for better efficacity
+
+-and small stuff 'par-ci par-là' like french says
+
+log:
+		modified:   Makefile
+        new file:   TO DO LIST
+        new file:   WHAT DID I DO TODAY
+        new file:   mini_libft/catch_path_env.c
+        modified:   mini_libft/ft_split_quote_ignore.c
+        new file:   mini_libft/ft_verif_access.c
+        modified:   minishell.h
+        modified:   parsing.h
+        new file:   src/check_arg.c
+        modified:   src/define_arg_first.c
+        modified:   src/define_p.c
+        modified:   src/main.c
+        modified:   src/parsing.c

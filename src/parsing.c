@@ -23,30 +23,37 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 
 
-	define_first_arg(p->spl_cmd[0], mini->p_cmd, p);
+	define_first_arg(p->spl_cmd[0], mini, p);
 	//for the moment I get a struct wich has been
 	//segmented with pipe to finally get segmented command
 
+//test for see if i get as i need the arg
+	int i = 0;
+	printf("\n%s = arg\n", mini->p_cmd->cmd);
+	printf("%d = is next can be machin\n", p->next_can_be_opt);
+
+
+
 	//test pour voir si je recupere bien tout split sur les |
-	int i;
-	int f;
-	f = 0;
-	t_pars *buf;
-	buf = p;
-	while(p)
-	{
-		i = 0;
-		printf("\n\nMaillon %d:\n", f);
-		while (p->spl_cmd[i])
-		{
-			printf(" Argument %d = %s\n", i, p->spl_cmd[i]);
-			i++;
-		}
-		p = p->next;
-		f++;
-		if (p)
-			printf("\n\n");
-	}
-	p = buf;
+	// int i;
+	// int f;
+	// f = 0;
+	// t_pars *buf;
+	// buf = p;
+	// while(p)
+	// {
+	// 	i = 0;
+	// 	printf("\n\nMaillon %d:\n", f);
+	// 	while (p->spl_cmd[i])
+	// 	{
+	// 		printf(" Argument %d = %s\n", i, p->spl_cmd[i]);
+	// 		i++;
+	// 	}
+	// 	p = p->next;
+	// 	f++;
+	// 	if (p)
+	// 		printf("\n\n");
+	// }
+	// p = buf;
 	free_p(p);
 }
