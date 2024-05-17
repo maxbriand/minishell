@@ -77,7 +77,6 @@ static void	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 {
 	int		y;
 	int		i;
-	int		i_before;
 	int		last_split;
 
 	y = 0;
@@ -87,15 +86,16 @@ static void	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 	last_split = i;
 	while (str[i])
 	{
-		i_before = i;
 		if (on_quote[0] == false && on_quote[1] == false && str[i] == c)
 		{
 			result[y] = split_here(str, &i, &last_split, c);
 			y++;
 		}
-		define_on_quote(str, i, on_quote);
-		if (i == i_before)
+		else
+		{
+			define_on_quote(str, i, on_quote);
 			i++;
+		}
 	}
 	if (str[i - 1] != c)
 		result[y] = split_here(str, &i, &last_split, c);

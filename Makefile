@@ -1,6 +1,6 @@
 NAME = minishell
 CC = cc
-#FLAGS = -Wall -Werror -Wextra
+FLAGS = -g
 LIBFT = libft/libft.a
 
 SRC =	mini_libft/error_p.c\
