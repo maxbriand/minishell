@@ -9,10 +9,12 @@
 typedef struct s_commands
 {
 	bool	b_builtins;
-	int		*append_output; // 0 - 1 for >> or >
+	bool		append_output; // 0 - 1 for >> or >
 	char	**hd_stop;
-	char	**stdinput;// standard input // append everytime
-	char	**stdoutput;// standard output
+	bool	in_pipe;
+	char	*stdinfile;// standard input // append everytime
+	char	*stdoutput;// standard output // need to define the last outfile and
+	//I open all the outfile and close instant after being create
 	char	*cmd;
 	char	*option;
 	char	*arg;

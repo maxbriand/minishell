@@ -1,4 +1,32 @@
-FRIDAY 16 MAY
+SATURDAY 17 MAY
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   Makefile
+        modified:   TO DO LIST
+        modified:   WHAT DID I DO TODAY
+        new file:   call Maxime
+        renamed:    src/main.c -> main.c
+        modified:   mini_libft/catch_path_env.c
+        modified:   mini_libft/ft_realloc.c
+        modified:   mini_libft/ft_verif_access.c
+        modified:   minishell.h
+        modified:   parsing.h
+        modified:   src/check_arg.c
+        deleted:    src/define_arg_first.c
+        modified:   src/define_cmd.c
+        modified:   src/define_p.c
+        new file:   src/define_pcmd.c
+        new file:   src/define_pcmd_first.c
+        modified:   src/parsing.c
+
+
+
+--------------------------------------------------------------------
+
+
+
+FRIDAY 17 MAY
 
 --Patch leak that came from ft_split_quote_ignore
 

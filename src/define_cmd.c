@@ -9,7 +9,8 @@ t_commands	*node_create_cmd(void)
 	node->b_builtins = false;
 	node->append_output = NULL;
 	node->hd_stop = NULL;
-	node->stdinput = NULL;
+	node->in_pipe = false;
+	node->stdinfile = NULL;
 	node->stdoutput = NULL;
 	node->cmd = NULL;
 	node->option = NULL;

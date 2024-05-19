@@ -8,3 +8,21 @@
 --Rename some files like 'ft_split_quote_ignore', its too long (?)
 
 --Continue Parsing (logique)
+
+I need to return cmd whatever if he is good or not
+
+
+
+
+-----
+
+change input et output
+
+change cmd who dont need to be good or direct access like i did
+
+append outfile is now a bool and need to be on the last outfile find in the current node
+
+
+
+
+-- <infile should work, same for outfile

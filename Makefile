@@ -14,9 +14,10 @@ SRC =	mini_libft/error_p.c\
 		src/parsing.c\
 		src/define_p.c\
 		src/define_cmd.c\
-		src/define_arg_first.c\
+		src/define_pcmd_first.c\
+		src/define_pcmd.c\
 		src/check_arg.c\
-		src/main.c
+		main.c
 
 
 all: $(NAME)

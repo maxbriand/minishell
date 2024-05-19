@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "minishell.h"
 //NOT THE REAL MAIN, THIS ONE IS JUST FOR TESTING MY PARS
 int main (int ac, char **av, char **env)
 {
@@ -9,7 +9,7 @@ int main (int ac, char **av, char **env)
 	//Same for mini->env
 	mini = malloc(sizeof(t_minishell));
 	mini->env = env;
-	mini->path_env = catch_path(env);
+	//mini->path_env = catch_path(env);
 
 
 	while (1)
@@ -24,11 +24,11 @@ int main (int ac, char **av, char **env)
 			break;
 
 
-
+		//here
 		ft_parsing(input, mini);
 
 		//DONT FORGET TO FREE MINI AND ALL P_CMD OR LEAAAKKS
-		free_tab(mini->path_env);
-		//free p_cmd 
+		//free p_cmd
+	}
 	return (0);
 }

@@ -7,10 +7,17 @@ t_pars	*new_node(char *input_no_pipe)
 
 	node = malloc(sizeof(t_pars));
 	node->spl_cmd = ft_split_quote_ignore(input_no_pipe, ' ');
+	if (node->spl_cmd == NULL)
+	{
+		free(node->spl_cmd);
+		free(node);
+		return (NULL);
+	}
 	node->next_is_hd_stop = false;
 	node->next_is_infile = false;
 	node->next_is_outfile = false;
 	node->next_can_be_opt = false;
+	node->next_can_be_arg = false;
 	node->next = NULL;
 	return (node);
 }
@@ -35,6 +42,8 @@ t_pars	*define_p(char *input)
 		while (input_no_pipe[i])
 		{
 			buf->next = new_node(input_no_pipe[i]);
+			if (buf->next == NULL)
+				break ;
 			buf = buf->next;
 			i++;
 		}
@@ -43,3 +52,5 @@ t_pars	*define_p(char *input)
 	}
 	return (0);
 }
+
+//ah ouais ca fouille dans le code je vois je vois 
