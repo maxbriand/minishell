@@ -23,15 +23,15 @@ typedef struct s_commands
 	char	*infile; // last infile -> only if this infile it's the last input redirection / after heredoc
 	bool	in_pipe; //pipe before the command or not (0 or 1)
 	char	*outfile; // last outfile -> last fd
-	bool	append_outfile;
+	bool	append_outfile; // only need to know if the last outfile is an append
 	char	*cmd;
 	char	*option;
 	char	*arg;
 	char	**arg_cmd; // cmd + option + arg
 	struct s_commands	*next;
+	int		test;
 	// int		out_pipe; => don't because the last cmd have null on next
 }	t_commands;
-
 
 // +1 for the boolean ONLY is the other one is 0 / false
 typedef struct s_minishell
@@ -42,6 +42,8 @@ typedef struct s_minishell
 	int			open_dquote;
 }	t_minishell;
 
+void ft_print_fd_content(int fd);
+
 // Error
 void	ft_exit_failure(char *msg, t_minishell *data);
 int		ft_write_error(char *msg);
@@ -50,6 +52,8 @@ int		ft_write_error(char *msg);
 int		ft_exe(t_minishell *data, t_commands *p_cmd);
 char	*ft_check_path(t_minishell *data, t_commands *current_cmd);
 int		ft_sc(char **str);
+void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd);
+void	ft_output_redir(t_minishell *data, t_commands *p_cmd, int *pipefd);
 
 // Builtins
 int		ft_cd(t_commands *p_cmd);
