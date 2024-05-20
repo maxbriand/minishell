@@ -1,4 +1,26 @@
+MONDAY 20 MAY
+
+-- Patch :
+
+- <<infile or >>outfile is now working.
+- in_pipe has been fixed
+- Norminette
+
+
+
+
+
+
+
+-----------------------------------------------------
+
 SATURDAY 17 MAY
+
+
+--Removed catch_path_env and verif_acces from last patch:
+Not usefull finally...
+
+
 
 Changes to be committed:
   (use "git restore --staged <file>..." to unstage)

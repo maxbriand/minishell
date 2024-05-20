@@ -44,6 +44,5 @@ void	define_p_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 		arg_cmd(arg, p_cmd, p);
 	}
 
-	//note: need to set cmd->is_arg_can_be_opt to "false"
 	//after finding something else if already set to "true"
 }

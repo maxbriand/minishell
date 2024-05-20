@@ -25,28 +25,49 @@ bool	is_error_quote(char *str)
 	return (false);
 }
 
-bool	is_operator(char *arg, t_commands *cmd, t_pars *p)
+static bool	is_operator_not_append(char *arg, t_commands *cmd, t_pars *p)
 {
-	//need to make : <infile should work
-	if (ft_strcmp(arg, "<") == 0 || ft_strcmp(arg, "<<") == 0 ||
-		ft_strcmp(arg, ">") == 0 || ft_strcmp(arg, ">>") == 0 )
+	if (ft_strncmp(arg, "<", 1) == 0)
 	{
-		if (ft_strcmp(arg, "<<") == 0)
-			p->next_is_hd_stop = true;
-		else if (ft_strcmp(arg, "<") == 0)
+		if (ft_strlen(arg) > 1)
+			cmd->stdinfile = ft_strdup(arg + 1);
+		else
 			p->next_is_infile = true;
-		else if (ft_strcmp(arg, ">") == 0)
-		{
-			cmd->append_output = false;
-			p->next_is_outfile = true;
-		}
-		else if (ft_strcmp(arg, ">>") == 0)
-		{
-			cmd->append_output = true;
-			p->next_is_outfile = true;
-		}
 		return (true);
 	}
+	else if (ft_strncmp(arg, ">", 1) == 0)
+	{
+		cmd->append_output = false;
+		if (ft_strlen(arg) > 1)
+			cmd->stdoutput = ft_strdup(arg + 1);
+		else
+			p->next_is_outfile = true;
+		return (true);
+	}
+	return (false);
+}
+
+bool	is_operator(char *arg, t_commands *cmd, t_pars *p)
+{
+	if (ft_strncmp(arg, "<<", 2) == 0)
+	{
+		if (ft_strlen(arg) > 2)
+			cmd->stdinfile = ft_strdup(arg + 2);
+		else
+			p->next_is_hd_stop = true;
+		return (true);
+	}
+	else if (ft_strncmp(arg, ">>", 2) == 0)
+	{
+		cmd->append_output = true;
+		if (ft_strlen(arg) > 2)
+			cmd->stdoutput = ft_strdup(arg + 2);
+		else
+			p->next_is_outfile = true;
+		return (true);
+	}
+	else if (is_operator_not_append(arg, cmd, p) == true)
+		return (true);
 	return (false);
 //Seul les bg ultime lirons ce message
 }

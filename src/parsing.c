@@ -25,10 +25,10 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 
 	buf = mini->p_cmd;
-	while (buf )
+	while (buf)
 	{
 		if (buf != mini->p_cmd)
-			mini->p_cmd->in_pipe = true;
+			buf->in_pipe = true;
 		define_first_pcmd(p->spl_cmd[0], buf, p);
 		i= 1;
 		while (p->spl_cmd[i])
@@ -36,6 +36,8 @@ void	ft_parsing(char *input, t_minishell *mini)
 			define_p_cmd(p->spl_cmd[i], buf, p);
 			i++;
 		}
+		//if (buf->arg_cmd == NULL && buf->cmd && buf->arg && buf-)
+		//comment je gere les arg apres cmd
 
 
 

@@ -1,1 +1,7 @@
 what to do in this case "minishell> cat coucou |" is stdout redirect ?
+
+
+
+char	**arg_cmd; // cmd + option + arg
+is like this ?  ; cat | NULL | arg ?
+or just ; cat | arg ?
