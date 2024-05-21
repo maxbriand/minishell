@@ -13,6 +13,7 @@ t_pars	*new_node(char *input_no_pipe)
 		free(node);
 		return (NULL);
 	}
+	//apply_quote(node->spl_cmd);
 	node->next_is_hd_stop = false;
 	node->next_is_infile = false;
 	node->next_is_outfile = false;
@@ -21,6 +22,7 @@ t_pars	*new_node(char *input_no_pipe)
 	node->next = NULL;
 	return (node);
 }
+
 //function for get a structure with segmented line of command
 t_pars	*define_p(char *input)
 {
@@ -33,9 +35,6 @@ t_pars	*define_p(char *input)
 	if (pipe_unexpected(input) == 0 && is_only_space(input) == 0)
 	{
 		input_no_pipe = ft_split_quote_ignore(input, '|');
-		//protection
-		if (!input_no_pipe)
-			error_and_exit ("Malloc error\n");
 		head = new_node(input_no_pipe[0]);
 		buf = head;
 		i = 1;
@@ -53,4 +52,4 @@ t_pars	*define_p(char *input)
 	return (0);
 }
 
-//ah ouais ca fouille dans le code je vois je vois 
+//ah ouais ca fouille dans le code je vois je vois

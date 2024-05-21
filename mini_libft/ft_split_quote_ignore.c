@@ -12,7 +12,7 @@
 
 #include "../parsing.h"
 
-static void	define_on_quote(char *str, int i, bool *on_quote)
+void	ft_define_on_quote(char *str, int i, bool *on_quote)
 {
 	if (str[i] == '\'' && on_quote[0] == false && on_quote[1] == false)
 		on_quote[0] = true;
@@ -43,7 +43,7 @@ static int	count_cut(char *str, char c, bool *on_quote)
 		}
 		else
 		{
-			define_on_quote(str, i, on_quote);
+			ft_define_on_quote(str, i, on_quote);
 			i++;
 		}
 	}
@@ -93,7 +93,7 @@ static void	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 		}
 		else
 		{
-			define_on_quote(str, i, on_quote);
+			ft_define_on_quote(str, i, on_quote);
 			i++;
 		}
 	}
@@ -113,6 +113,8 @@ char	**ft_split_quote_ignore(char *str, char c)
 	on_quote[1] = false;
 	nb_cut = count_cut(str, c, on_quote);
 	result = ft_calloc(nb_cut + 1, sizeof(char *));
+	if (!result)
+		exit(1); //mayday error !
 	on_quote[0] = false;
 	on_quote[1] = false;
 	ft_split_parsing(str, on_quote, result, c);

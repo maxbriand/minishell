@@ -11,12 +11,14 @@ SRC =	mini_libft/error_p.c\
 		mini_libft/ft_utils.c\
 		mini_libft/ft_verif_access.c\
 		mini_libft/catch_path_env.c\
+		mini_libft/apply_quote.c\
 		src/parsing.c\
 		src/define_p.c\
 		src/define_cmd.c\
 		src/define_pcmd_first.c\
 		src/define_pcmd.c\
 		src/check_arg.c\
+		src/cmd_arg_join.c\
 		main.c
 
 

@@ -51,10 +51,6 @@ static bool	is_builtins(char *arg, t_pars *p, t_commands *p_cmd)
 //define if the first arg is a command, a redirection etc
 void	define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p)
 {
-	//is quote: need to do it here like this :
-	//if there is quote at start and end, remove it and if its
-	//quote and not dqote, need to check absolut like $BLABLA
-	//passe ici sur
 	if (is_error_quote(first_arg) == true)
 		return ;
 	if (is_operator(first_arg, p_cmd, p) == true)

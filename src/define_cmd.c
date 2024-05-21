@@ -1,6 +1,5 @@
 #include "../parsing.h"
 
-
 t_commands	*node_create_cmd(void)
 {
 	t_commands	*node;

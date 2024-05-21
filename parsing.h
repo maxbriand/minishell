@@ -33,6 +33,9 @@ bool	is_error_quote(char *str);
 bool	is_operator(char *arg, t_commands *cmd, t_pars *p);
 bool	is_option(char *arg, t_commands *cmd, t_pars *p);
 bool	arg_cmd(char *arg, t_commands *cmd, t_pars *p);
+void	cmd_arg_join(t_commands *cmd);
+
+void	ft_define_on_quote(char *str, int i, bool *on_quote);
 
 //need to be added to libft ?
 int		*ft_addback_int(int *old_array, int	new_element);

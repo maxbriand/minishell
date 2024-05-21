@@ -18,12 +18,6 @@ void	ft_parsing(char *input, t_minishell *mini)
 	//printf("%s\n", mini->p_cmd->arg);
 
 
-
-	//I NEED TO DEFINE ALL ARG FROM 'p_cmd' BEFORE TESTING,
-	// SO LEAKS OR CRASH IS NORMAL ACTUALLY
-
-
-
 	buf = mini->p_cmd;
 	while (buf)
 	{
@@ -36,8 +30,8 @@ void	ft_parsing(char *input, t_minishell *mini)
 			define_p_cmd(p->spl_cmd[i], buf, p);
 			i++;
 		}
-		//if (buf->arg_cmd == NULL && buf->cmd && buf->arg && buf-)
-		//comment je gere les arg apres cmd
+		if (buf->arg_cmd == NULL && buf->cmd)
+			cmd_arg_join(buf);
 
 
 
@@ -58,7 +52,17 @@ void	ft_parsing(char *input, t_minishell *mini)
 			}
 		}
 		printf("%s = outfile\n", buf->outfile);
-		printf("%s = infile\n\n", buf->infile);
+		printf("%s = infile\n", buf->infile);
+		y = 0;
+		if (buf->arg_cmd)
+		{
+			while (buf->arg_cmd[y])
+			{
+				printf("%s = cmd+arg+opt[%d]\n", buf->arg_cmd[y], y);
+				y++;
+			}
+		}
+
 		//END OF PRINTF
 
 
@@ -66,8 +70,6 @@ void	ft_parsing(char *input, t_minishell *mini)
 		p = p->next;
 		buf = buf->next;
 	}
-	//for the moment I get a struct wich has been
-	//segmented with pipe to finally get segmented command
 
 //test for see if i get as i need the arg
 	// int i = 0;
