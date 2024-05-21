@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:41:19 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/20 16:05:24 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/20 23:58:34 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,29 @@ void	ft_output_redir(t_minishell *data, t_commands *p_cmd, int *pipefd)
 
 	if (p_cmd->outfile && p_cmd->append_outfile == 1)
 	{
-		fd = open(p_cmd->outfile, O_WRONLY, O_APPEND);
+		fd = open(p_cmd->outfile, O_WRONLY | O_APPEND);
 		if (dup2(fd, 1) == -1)
 			ft_exit_failure("dup2 issue", data);
+		write(2, "append of ", 10 );
+		write(2, p_cmd->test, 1);
+		write(2, "\n", 1);
 		close(fd);
 	}
 	else if (p_cmd->outfile)
 	{
-		fd = open(p_cmd->outfile, O_WRONLY);
+		fd = open(p_cmd->outfile, O_WRONLY | O_TRUNC);
 		if (dup2(fd, 1) == -1)
 			ft_exit_failure("dup2 issue", data);
-		write(2, "outfile\n", 8);
+		write(2, "outfile of ", 11);
+		write(2, p_cmd->test, 1);
+		write(2, "\n", 1);
 		close(fd);
 	}
 	else
 	{
 		dup2(pipefd[1], 1);
-		write(2, "pipefd[1]\n", 10);
+		write(2, "pipefd[1] of ", 13);
+		write(2, p_cmd->test, 1);
+		write(2, "\n", 1);
 	}
 }

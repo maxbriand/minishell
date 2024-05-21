@@ -12,20 +12,11 @@
 
 #define BUFFER_SIZE 1024
 
-int main() {
-    char buffer[BUFFER_SIZE];
-    ssize_t bytes_read;
-    char stop_word[] = "STOP\n";  // Define the stop word or sequence
+int main(void) 
+{
+    int test_fd[6][2];
 
-    printf("Enter text (type 'STOP' to finish):\n");
-
-    while ((bytes_read = read(STDIN_FILENO, buffer, BUFFER_SIZE - 1)) > 0) {
-        buffer[bytes_read] = '\0';  // Null-terminate the string
-        if (strcmp(buffer, stop_word) == 0) {
-            break;  // Stop reading if stop word is entered
-        }
-        printf("Received: %s", buffer);
-    }
-
+    test_fd[3][0] = 4;
+    printf("%d\n", test_fd[3][1]);
     return 0;
 }

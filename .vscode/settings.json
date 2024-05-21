@@ -3,6 +3,7 @@
 		"readline.h": "c",
 		"minishell.h": "c",
 		"stdio.h": "c",
-		"curses.h": "c"
+		"curses.h": "c",
+		"parsing.h": "c"
 	}
 }

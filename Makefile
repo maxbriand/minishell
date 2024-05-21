@@ -19,6 +19,23 @@ SRC = 	exe/test.c \
 		builtins/ft_export.c \
 		builtins/ft_pwd.c \
 		builtins/ft_unset.c \
+		\
+		parsing/apply_quote.c \
+		parsing/catch_path_env.c \
+		parsing/check_arg.c \
+		parsing/cmd_arg_join.c \
+		parsing/define_cmd.c \
+		parsing/define_p.c \
+		parsing/define_pcmd_first.c \
+		parsing/define_pcmd.c \
+		parsing/error_p.c \
+		parsing/error_type.c \
+		parsing/ft_realloc.c \
+		parsing/ft_split_quote_ignore.c \
+		parsing/ft_utils.c \
+		parsing/ft_verif_access.c \
+		parsing/parsing.c \
+		parsing/ultimate_free.c \
 
 all: $(NAME)
 

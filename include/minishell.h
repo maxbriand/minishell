@@ -16,6 +16,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+
 typedef struct s_commands
 {
 	bool	b_builtins;
@@ -29,7 +30,7 @@ typedef struct s_commands
 	char	*arg;
 	char	**arg_cmd; // cmd + option + arg
 	struct s_commands	*next;
-	int		test;
+	char	*test;
 	// int		out_pipe; => don't because the last cmd have null on next
 }	t_commands;
 
@@ -42,7 +43,12 @@ typedef struct s_minishell
 	int			open_dquote;
 }	t_minishell;
 
+# include "parsing.h"
+
 void ft_print_fd_content(int fd);
+
+// Utils
+int	ft_cmd_counter(t_commands *p_cmd);
 
 // Error
 void	ft_exit_failure(char *msg, t_minishell *data);
