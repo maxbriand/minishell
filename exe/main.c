@@ -123,7 +123,7 @@ int	main(int ac, char **av, char **env)
 		// have to delete the condition
 		if (ft_strcmp(cmd, "exe") == 0)
 		{
-			errcode = ft_exe(mish, p_cmd);
+			errcode = ft_exe(mish, mish->p_cmd);
 			if (errcode == -1)
 				return (ft_write_error("parent issue in exe"));
 		}

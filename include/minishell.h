@@ -16,7 +16,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-
 typedef struct s_commands
 {
 	bool	b_builtins;
@@ -39,6 +38,7 @@ typedef struct s_minishell
 {
 	t_commands	*p_cmd;
 	char		**env;
+	char		**path_env;
 	int			open_quote;
 	int			open_dquote;
 }	t_minishell;
