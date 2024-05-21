@@ -80,7 +80,7 @@ bool	is_option(char *arg, t_commands *cmd, t_pars *p)
 		{
 			cmd->option = ft_strjoin(cmd->option, arg + 1);
 			if (!cmd->option)
-				exit (1);//mayday return error ?
+				exit (1); //mayday return error ?
 		}
 		else
 		{
@@ -99,6 +99,6 @@ bool	arg_cmd(char *arg, t_commands *cmd, t_pars *p)
 	p->next_can_be_arg = true;
 	cmd->cmd = ft_strdup(arg);
 	if (!cmd->cmd)
-		exit (1);//Error message ?
+		exit (1); //Error message ?
 	return (true);
 }

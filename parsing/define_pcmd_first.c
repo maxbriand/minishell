@@ -5,7 +5,6 @@
 // 	if (access(first_arg, X_OK) == 1)
 // }
 
-
 // static int	verif_cmd_slash(char *first_arg)
 // {
 // 	int	i;
@@ -28,10 +27,6 @@
 // 	return (0);
 // }
 
-
-
-
-
 static bool	is_builtins(char *arg, t_pars *p, t_commands *p_cmd)
 {
 	//echo cd pwd export unset env exit
@@ -42,6 +37,7 @@ static bool	is_builtins(char *arg, t_pars *p, t_commands *p_cmd)
 	{
 		p->next_can_be_opt = true;
 		p_cmd->b_builtins = true;
+		// p->next_can_be_arg = true;
 		p_cmd->cmd = ft_strdup(arg);
 		return (true);
 	}

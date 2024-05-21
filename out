@@ -1,2 +1,12 @@
-hello world
-hello world
+total 128
+drwxrwxr-x 2 maxime maxime  4096 mai   13 17:58 builtins
+drwxrwxr-x 2 maxime maxime  4096 mai   18 20:46 exe
+-rw-rw---- 1 maxime maxime    12 mai   18 21:20 in
+drwxrwxr-x 2 maxime maxime  4096 mai   21 21:39 include
+drwxrwxr-x 4 maxime maxime  4096 mai   21 22:25 libft
+-rw-rw-r-- 1 maxime maxime  1194 mai   21 21:56 Makefile
+-rwxrwxr-x 1 maxime maxime 93744 mai   21 22:25 minishell
+-rw-rw-r-- 1 maxime maxime     0 mai   21 22:26 out
+drwxrwxr-x 2 maxime maxime  4096 mai   21 21:39 parsing
+-rw-rw-r-- 1 maxime maxime    37 mai   12 23:53 README.md
+-rw-rw-r-- 1 maxime maxime   368 mai   20 18:24 signal.c
