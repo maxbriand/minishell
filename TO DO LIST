@@ -26,3 +26,9 @@ append outfile is now a bool and need to be on the last outfile find in the curr
 
 
 -- <infile should work, same for outfile
+
+
+-- echo aa <> out
+I open the direct close, and i dont stock out in "stdout"
+
+--change include minishelle.h
