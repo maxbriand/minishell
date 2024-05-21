@@ -30,6 +30,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 			define_p_cmd(p->spl_cmd[i], buf, p);
 			i++;
 		}
+		if (buf->cmd )
 		if (buf->arg_cmd == NULL && buf->cmd)
 			cmd_arg_join(buf);
 

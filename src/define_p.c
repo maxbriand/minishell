@@ -7,13 +7,39 @@ t_pars	*new_node(char *input_no_pipe)
 
 	node = malloc(sizeof(t_pars));
 	node->spl_cmd = ft_split_quote_ignore(input_no_pipe, ' ');
-	if (node->spl_cmd == NULL)
-	{
-		free(node->spl_cmd);
-		free(node);
-		return (NULL);
-	}
+	//if (node->spl_cmd == NULL)
+	//{
+		//free(node->spl_cmd);
+		//free(node);
+		//return (NULL);
+	//} why did i put this ??
+
+	//remove uneeded quote
+
 	//apply_quote(node->spl_cmd);
+	remove_quote_bslash(node->spl_cmd, false);
+
+	int i = 0;
+	while (node->spl_cmd[i])
+	{
+		printf("\n%s = arg %d", node->spl_cmd[i], i);
+		i++;
+	}
+
+
+	//int i = 0;
+	// while (node->spl_cmd[i])
+	// {
+	// 	is_error_quote(node->spl_cmd[i]);
+	// 	//if (is_error_quote(node->spl_cmd[i]) == true)// error is just a text or exit too ?
+	// 	//{
+	// 	//	//free(node->spl_cmd[i]);
+	// 	//	//node->spl_cmd = malloc(sizeof(char *) * 1);
+	// 	//	//node->spl_cmd[0] = NULL;
+	// 	//	//je pourrais faire une fonction qui retire juste la chaine en question de spl_cmm
+	// 	//}
+	// 	i++;
+	// }
 	node->next_is_hd_stop = false;
 	node->next_is_infile = false;
 	node->next_is_outfile = false;

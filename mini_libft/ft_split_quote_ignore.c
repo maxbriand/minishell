@@ -118,7 +118,7 @@ char	**ft_split_quote_ignore(char *str, char c)
 	on_quote[0] = false;
 	on_quote[1] = false;
 	ft_split_parsing(str, on_quote, result, c);
-	if (result[0] == NULL)
-		return (NULL);
+	//if (result[0] == NULL)
+	//	return (NULL); why did i put this protection ?? useful ??
 	return (result);
 }

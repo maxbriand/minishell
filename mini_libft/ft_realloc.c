@@ -73,3 +73,33 @@ int	*ft_addback_int(int *old_array, int	new_element)
 	return (new_array);
 	//coucou maxime va bosser au lieu de mater mon beau code
 }
+
+
+char	*ft_charaddback(char **old_array, char new_element)
+{
+	char	*new_array;
+	int		i;
+
+	i = 0;
+	if (*old_array)
+	{
+		while ((*old_array)[i])
+			i++;
+	}
+	new_array = malloc(sizeof(char) * (i + 2));
+	if (!new_array)
+		exit (1); //error to write?
+	if ((*old_array))
+	{
+		i = 0;
+		while ((*old_array)[i])
+		{
+			new_array[i] = (*old_array)[i];
+			i++;
+		}
+		free(*old_array);
+	}
+	new_array[i] = new_element;
+	new_array[i + 1] = '\0';
+	return (new_array);
+}
