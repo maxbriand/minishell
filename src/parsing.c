@@ -47,7 +47,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 		printf("%d = builtins\n", buf->b_builtins);
 		printf("%s = option\n", buf->option);
 		printf("%s = arg\n", buf->arg);
-		printf("%d = append-out\n", buf->append_output);
+		printf("%d = append-out\n", buf->append_outfile);
 		int y = 0;
 		if (buf->hd_stop != NULL)
 		{
@@ -57,8 +57,8 @@ void	ft_parsing(char *input, t_minishell *mini)
 				y++;
 			}
 		}
-		printf("%s = outfile\n", buf->stdoutput);
-		printf("%s = infile\n\n", buf->stdinfile);
+		printf("%s = outfile\n", buf->outfile);
+		printf("%s = infile\n\n", buf->infile);
 		//END OF PRINTF
 
 

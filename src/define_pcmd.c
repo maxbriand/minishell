@@ -16,20 +16,20 @@ void	define_p_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 	}
 	if (p->next_is_infile)
 	{
-		if (p_cmd->stdinfile)
-			free(p_cmd->stdinfile);
-		p_cmd->stdinfile = ft_strdup(arg);
-		if (!p_cmd->stdinfile)
+		if (p_cmd->infile)
+			free(p_cmd->infile);
+		p_cmd->infile = ft_strdup(arg);
+		if (!p_cmd->infile)
 			exit (1); //mayday error ?
 		p->next_is_infile = false;
 		return ;
 	}
 	if (p->next_is_outfile)
 	{
-		if (p_cmd->stdoutput)
-			free(p_cmd->stdoutput);
-		p_cmd->stdoutput = ft_strdup(arg);
-		if (!p_cmd->stdoutput)
+		if (p_cmd->outfile)
+			free(p_cmd->outfile);
+		p_cmd->outfile = ft_strdup(arg);
+		if (!p_cmd->outfile)
 			exit (1); //mayday error ?
 		p->next_is_outfile = false;
 		return ;

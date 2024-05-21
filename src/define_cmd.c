@@ -7,11 +7,11 @@ t_commands	*node_create_cmd(void)
 
 	node = malloc(sizeof(t_commands));
 	node->b_builtins = false;
-	node->append_output = NULL;
+	node->append_outfile = NULL;
 	node->hd_stop = NULL;
 	node->in_pipe = false;
-	node->stdinfile = NULL;
-	node->stdoutput = NULL;
+	node->infile = NULL;
+	node->outfile = NULL;
 	node->cmd = NULL;
 	node->option = NULL;
 	node->arg = NULL;

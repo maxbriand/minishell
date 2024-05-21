@@ -30,16 +30,16 @@ static bool	is_operator_not_append(char *arg, t_commands *cmd, t_pars *p)
 	if (ft_strncmp(arg, "<", 1) == 0)
 	{
 		if (ft_strlen(arg) > 1)
-			cmd->stdinfile = ft_strdup(arg + 1);
+			cmd->infile = ft_strdup(arg + 1);
 		else
 			p->next_is_infile = true;
 		return (true);
 	}
 	else if (ft_strncmp(arg, ">", 1) == 0)
 	{
-		cmd->append_output = false;
+		cmd->append_outfile = false;
 		if (ft_strlen(arg) > 1)
-			cmd->stdoutput = ft_strdup(arg + 1);
+			cmd->outfile = ft_strdup(arg + 1);
 		else
 			p->next_is_outfile = true;
 		return (true);
@@ -52,16 +52,16 @@ bool	is_operator(char *arg, t_commands *cmd, t_pars *p)
 	if (ft_strncmp(arg, "<<", 2) == 0)
 	{
 		if (ft_strlen(arg) > 2)
-			cmd->stdinfile = ft_strdup(arg + 2);
+			cmd->infile = ft_strdup(arg + 2);
 		else
 			p->next_is_hd_stop = true;
 		return (true);
 	}
 	else if (ft_strncmp(arg, ">>", 2) == 0)
 	{
-		cmd->append_output = true;
+		cmd->append_outfile = true;
 		if (ft_strlen(arg) > 2)
-			cmd->stdoutput = ft_strdup(arg + 2);
+			cmd->outfile = ft_strdup(arg + 2);
 		else
 			p->next_is_outfile = true;
 		return (true);
