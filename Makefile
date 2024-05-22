@@ -11,6 +11,9 @@ SRC = 	exe/test.c \
 		exe/ft_utils.c \
 		exe/ft_input_redir.c \
 		exe/ft_output_redir.c \
+		exe/ft_create_pipes.c \
+		exe/ft_set_pipefd.c \
+		exe/ft_close_pipes.c \
 		\
 		builtins/ft_cd.c \
 		builtins/ft_echo.c \
@@ -53,5 +56,5 @@ fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
-	clear
-	./minishell
+# clear
+# ./minishell

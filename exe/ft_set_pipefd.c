@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_set_pipefd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 17:36:56 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/22 16:02:37 by mbriand          ###   ########.fr       */
+/*   Created: 2024/05/21 23:26:01 by mbriand           #+#    #+#             */
+/*   Updated: 2024/05/22 17:53:47 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_sc(char **str)
+void	ft_set_pipefd(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 {
-	int	i;
+	if (c == 0)
+		c_cmd->pipefd0 = NULL;
+	else
+		c_cmd->pipefd0 = pipefds[c-1];
 
-	if (str == NULL)
-		return (0);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	ft_pipe_counter(t_commands *p_cmd)
-{
-	int c; 
-	
-	c = 0;
-	while (p_cmd->next != NULL)
-	{
-		p_cmd = p_cmd->next;
-		c++;
-	}
-	return (c);
+	if (c >= data->pipe_nbr)
+		c_cmd->pipefd1 = NULL;
+	else
+		c_cmd->pipefd1 = pipefds[c];
 }

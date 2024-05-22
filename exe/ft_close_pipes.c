@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_close_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 17:36:56 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/22 16:02:37 by mbriand          ###   ########.fr       */
+/*   Created: 2024/05/21 23:09:18 by mbriand           #+#    #+#             */
+/*   Updated: 2024/05/22 15:54:25 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_sc(char **str)
+void	ft_close_pipes(t_minishell *data, int **pipefds)
 {
 	int	i;
 
-	if (str == NULL)
-		return (0);
 	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	ft_pipe_counter(t_commands *p_cmd)
-{
-	int c; 
-	
-	c = 0;
-	while (p_cmd->next != NULL)
+	while (i < data->pipe_nbr)
 	{
-		p_cmd = p_cmd->next;
-		c++;
+		free(pipefds[i]);
+		i++;
 	}
-	return (c);
+	free (pipefds);
 }

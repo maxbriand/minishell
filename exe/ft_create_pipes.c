@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_create_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 17:36:56 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/22 16:02:37 by mbriand          ###   ########.fr       */
+/*   Created: 2024/05/21 22:55:09 by mbriand           #+#    #+#             */
+/*   Updated: 2024/05/22 17:53:15 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_sc(char **str)
+int	**ft_create_pipes(int pipenbr, t_minishell *data)
 {
+	int	**pipefds;
 	int	i;
 
-	if (str == NULL)
-		return (0);
+	pipefds = malloc(sizeof(int *) * pipenbr);
+	// add protection
 	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	ft_pipe_counter(t_commands *p_cmd)
-{
-	int c; 
-	
-	c = 0;
-	while (p_cmd->next != NULL)
+	while (i < pipenbr)
 	{
-		p_cmd = p_cmd->next;
-		c++;
+		pipefds[i] = malloc(sizeof(int) *2);
+		if (pipe(pipefds[i]) == -1)
+			ft_exit_failure("pipe issue", data);
+		i++;
 	}
-	return (c);
+	return (pipefds);
 }
