@@ -35,33 +35,33 @@ void	ft_parsing(char *input, t_minishell *mini)
 			cmd_arg_join(buf);
 
 		//COMMENT THE NEXT BLOCK IF YOU DONT WANT PRINTF OF p_cmd
-		printf("THE PARSING RESULT IS: \n");
-		printf("%d = builtins\n", buf->b_builtins);
-		int y = 0;
-		printf("%s = infile\n", buf->infile);
-		if (buf->hd_stop != NULL)
-		{
-			while (buf->hd_stop[y])
-			{
-				printf("%s = hd_stop n%d\n", buf->hd_stop[y], y);
-				y++;
-			}
-		}
-		printf("%d = in pipe\n", buf->in_pipe);
-		printf("%s = outfile\n", buf->outfile);
-		printf("%d = append-out\n", buf->append_outfile);
-		printf("%s = cmd\n", buf->cmd);
-		printf("%s = option\n", buf->option);
-		printf("%s = arg\n", buf->arg);
-		y = 0;
-		if (buf->arg_cmd)
-		{
-			while (buf->arg_cmd[y])
-			{
-				printf("%s = cmd+arg+opt[%d]\n\n", buf->arg_cmd[y], y);
-				y++;
-			}
-		}
+		// printf("THE PARSING RESULT IS: \n");
+		// printf("%d = builtins\n", buf->b_builtins);
+		// int y = 0;
+		// printf("%s = infile\n", buf->infile);
+		// if (buf->hd_stop != NULL)
+		// {
+		// 	while (buf->hd_stop[y])
+		// 	{
+		// 		printf("%s = hd_stop n%d\n", buf->hd_stop[y], y);
+		// 		y++;
+		// 	}
+		// }
+		// printf("%d = in pipe\n", buf->in_pipe);
+		// printf("%s = outfile\n", buf->outfile);
+		// printf("%d = append-out\n", buf->append_outfile);
+		// printf("%s = cmd\n", buf->cmd);
+		// printf("%s = option\n", buf->option);
+		// printf("%s = arg\n", buf->arg);
+		// y = 0;
+		// if (buf->arg_cmd)
+		// {
+		// 	while (buf->arg_cmd[y])
+		// 	{
+		// 		printf("%s = cmd+arg+opt[%d]\n\n", buf->arg_cmd[y], y);
+		// 		y++;
+		// 	}
+		// }
 
 		//END OF PRINTF
 

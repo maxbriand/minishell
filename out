@@ -1,13 +1,2 @@
-a.out
-builtins
-exe
-in
-include
-libft
-Makefile
-minishell
-out
-outt
-parsing
-README.md
-signal.c
+
+hello world

@@ -56,9 +56,6 @@ void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
 		fd = open(c_cmd->infile, O_RDONLY);
 		if (fd == -1)
 			ft_exit_failure("adup2 issue", data);
-		write(2, "infile of ", 10);
-		// write(2, c_cmd->test, 1);
-		write(2, "\n", 1);
 	}
 	else if (!c_cmd->hd_stop)
 	{
@@ -66,7 +63,6 @@ void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
 		unlink("heredoc");
 		if (dup2(pipefd[0], 0) == -1)
 			ft_exit_failure("bdup2 issue", data);
-		ft_printf("the value of pipefd[0] is %d\n", pipefd[0]);
 		return ;
 	}
 	if (dup2(fd, 0) == -1)

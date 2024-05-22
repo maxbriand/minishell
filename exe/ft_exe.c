@@ -55,8 +55,8 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	// write(2, "before exe of ", 14);
 	// write(2, "\n", 1);
 
-	if (c_cmd->b_builtins == 0)
-		execve(path, c_cmd->arg_cmd, data->env);
+	// if (c_cmd->b_builtins == 0)
+	execve(path, c_cmd->arg_cmd, data->env);
 	ft_exit_failure("execution issue\n", data);
 	// else
 	// 	ft_builtins_exe(data, c_cmd);
