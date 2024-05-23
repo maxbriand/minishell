@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/22 17:08:37 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:14:03 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_minishell
 	int			open_quote;
 	int			open_dquote;
 	int			**pipefds;
+	int			ok;
 }	t_minishell;
 
 # include "parsing.h"
@@ -81,12 +82,12 @@ void	ft_set_pipefd(t_minishell *data, t_commands *c_cmd, int **pipefds, int c);
 void	ft_close_pipes(t_minishell *data, int **pipefds);
 
 // Builtins
-int		ft_cd(t_commands *p_cmd);
-void	ft_exit(void);
-void	ft_echo(void);
-void	ft_env(void);
-void	ft_export(void);
-void	ft_pwd(void);
-void	ft_unset(void);
+int		ft_cd(t_minishell *mish, t_commands *p_cmd);
+void	ft_exit(t_minishell *mish, t_commands *p_cmd);
+void	ft_echo(t_minishell *mish, t_commands *p_cmd);
+void	ft_env(t_minishell *mish, t_commands *p_cmd);
+void	ft_export(t_minishell *mish, t_commands *p_cmd);
+void	ft_pwd(t_minishell *mish, t_commands *p_cmd);
+void	ft_unset(t_minishell *mish, t_commands *p_cmd);
 
 #endif

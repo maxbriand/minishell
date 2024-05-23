@@ -58,3 +58,6 @@ fclean: clean
 re: fclean all
 # clear
 # ./minishell
+
+#re v: fclean all
+#valgrind --tool=memcheck --track-origins=yes --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes -s --suppressions=valgrind.supp ./minishell

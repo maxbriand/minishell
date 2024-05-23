@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_free_str_array.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 17:36:56 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/23 17:00:02 by mbriand          ###   ########.fr       */
+/*   Created: 2024/05/02 16:22:52 by mbriand           #+#    #+#             */
+/*   Updated: 2024/05/23 17:02:45 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
+// We don't need to free the NULL pointer because it's not malloc
 
-int	ft_pipe_counter(t_commands *p_cmd)
+void	ft_arrfree(char **str_array)
 {
-	int c; 
-	
-	c = 0;
-	while (p_cmd->next != NULL)
+	char	**save_str_array;
+
+	if (str_array == 0)
+		return ;
+	save_str_array = str_array;
+	while (*str_array)
 	{
-		p_cmd = p_cmd->next;
-		c++;
+		free(*str_array);
+		str_array++;
 	}
-	return (c);
+	free(save_str_array);
 }

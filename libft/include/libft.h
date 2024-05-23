@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:44:24 by mbriand           #+#    #+#             */
-/*   Updated: 2024/04/19 23:42:06 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:10:03 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # include "ft_stdio.h"
 # include "ft_stdlib.h"
 # include "ft_string.h"
+# include "ft_arrstr.h"
+# include "ft_list.h"
 # include "get_next_line.h"
-# include "list.h"
 
 #endif

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	ft_cd(t_commands *p_cmd)
+int	ft_cd(t_minishell *mish, t_commands *p_cmd)
 {
 	if(chdir(p_cmd->arg)== 0)
 	{

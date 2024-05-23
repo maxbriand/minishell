@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_arrstr.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 17:36:56 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/23 17:00:02 by mbriand          ###   ########.fr       */
+/*   Created: 2024/05/23 16:54:19 by mbriand           #+#    #+#             */
+/*   Updated: 2024/05/23 17:10:56 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef FT_ARRSTR_H
+# define FT_ARRSTR_H
 
-int	ft_pipe_counter(t_commands *p_cmd)
-{
-	int c; 
-	
-	c = 0;
-	while (p_cmd->next != NULL)
-	{
-		p_cmd = p_cmd->next;
-		c++;
-	}
-	return (c);
-}
+void	ft_arrfree(char **str_array);
+int		ft_arrlen(char **str);
+char	**ft_arrcat(char **array, char *str);
+
+#endif

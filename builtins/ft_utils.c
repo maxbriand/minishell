@@ -1,30 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_str_array.c                                :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 16:22:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/02 16:22:53 by mbriand          ###   ########.fr       */
+/*   Created: 2024/05/23 17:49:24 by mbriand           #+#    #+#             */
+/*   Updated: 2024/05/23 17:50:19 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-// We don't need to free the NULL pointer because it's not malloc
-
-void	ft_free_str_array(char **str_array)
-{
-	char	**save_str_array;
-
-	if (str_array == NULL)
-		return ;
-	save_str_array = str_array;
-	while (*str_array)
-	{
-		free(*str_array);
-		str_array++;
-	}
-	free(save_str_array);
-}

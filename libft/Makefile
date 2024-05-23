@@ -9,7 +9,8 @@ FT_STDIO = src/ft_stdio/
 FT_STDLIB = src/ft_stdlib/
 FT_STRING = src/ft_string/
 GNL = src/get_next_line/
-LIST = src/list/
+LIST = src/ft_list/
+ARRAY = src/ft_arrstr/
 
 SRC =	$(FT_CTYPE)ft_isalpha.c \
 		$(FT_CTYPE)ft_isdigit.c \
@@ -62,7 +63,6 @@ SRC =	$(FT_CTYPE)ft_isalpha.c \
 		$(FT_STRING)ft_strtrim.c \
 		$(FT_STRING)ft_count_char.c \
 		$(FT_STRING)ft_strcut.c \
-		$(FT_STRING)ft_free_str_array.c \
 		\
 		$(GNL)get_next_line.c \
 		$(GNL)get_next_line_utils.c \
@@ -75,7 +75,11 @@ SRC =	$(FT_CTYPE)ft_isalpha.c \
 		$(LIST)ft_list_push_front.c \
 		$(LIST)ft_list_push_strs.c \
 		$(LIST)ft_list_reverse.c \
-		$(LIST)ft_list_size.c
+		$(LIST)ft_list_size.c \
+		\
+		$(ARRAY)ft_arrfree.c \
+		$(ARRAY)ft_arrcat.c \
+		$(ARRAY)ft_arrlen.c \
 
 OBJ = $(patsubst %.c, %.o, $(SRC))
 

@@ -1,31 +1,5 @@
 #include "minishell.h"
 
-// return 0 = malloc error
-// if fail during the process the new_array / 
-	//beginning of the new array is free
-static char	**ft_modify_full_array(char **array, char *str)
-{
-	char	**new_array;
-	int		i;
-
-	i = 0;
-	new_array = malloc(sizeof(char *) * (ft_sc(array) + 1));
-	if (new_array == NULL)
-		return (0);
-	while (array[i])
-	{
-		new_array[i] = ft_strjoin(array[i], str);
-		if (new_array[i] == NULL)
-		{
-			ft_free_str_array(new_array);
-			return (0);
-		}
-		i++;
-	}
-	new_array[i] = array[i];
-	return (new_array);
-}
-
 static char	**ft_get_env_paths(t_minishell *data)
 {
 	char	**env_paths;
@@ -45,8 +19,8 @@ static char	**ft_get_env_paths(t_minishell *data)
 	if (!env_paths)
 		ft_exit_failure("Malloc issue during path searching", data);
 	save_env_paths = env_paths;
-	env_paths = ft_modify_full_array(env_paths, "/");
-	ft_free_str_array(save_env_paths);
+	env_paths = ft_arrcat(env_paths, "/");
+	ft_arrfree(save_env_paths);
 	if (!env_paths)
 		ft_exit_failure("Malloc issue during path searching", data);
 	return (env_paths);
@@ -59,8 +33,8 @@ static char	**ft_get_path_list(t_minishell *data, t_commands *current_cmd)
 
 	path_list = ft_get_env_paths(data);
 	save_path_list = path_list;
-	path_list = ft_modify_full_array(path_list, current_cmd->cmd);
-	ft_free_str_array(save_path_list);
+	path_list = ft_arrcat(path_list, current_cmd->cmd);
+	ft_arrfree(save_path_list);
 	if (path_list == NULL)
 		ft_exit_failure ("Malloc issue during path creation", data);
 	return (path_list);
@@ -95,14 +69,14 @@ char	*ft_check_path(t_minishell *data, t_commands *current_cmd)
 		if (access(*paths, R_OK) == 0)
 		{
 			store = ft_strdup(*paths);
-			ft_free_str_array(save_paths);
+			ft_arrfree(save_paths);
 			if (store == NULL)
 				ft_exit_failure("strdup malloc issue", data);
 			return (store);
 		}
 		paths++;
 	}
-	ft_free_str_array(save_paths);
+	ft_arrfree(save_paths);
 	ft_exit_failure("Not existing path for a command", data);
 	return (NULL);
 }
