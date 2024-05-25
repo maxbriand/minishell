@@ -1,4 +1,4 @@
-#include "../parsing.h"
+#include "minishell.h"
 
 //check if there is consecutive pipe
 int	pipe_unexpected(char *input)

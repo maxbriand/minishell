@@ -1,4 +1,4 @@
-#include "../parsing.h"
+#include "minishell.h"
 //1 = / error
 bool	error_p(int nb, char *cmd)
 {

@@ -1,4 +1,4 @@
-#include "../parsing.h"
+#include "minishell.h"
 
 bool	is_error_quote(char *str)
 {
@@ -27,6 +27,8 @@ bool	is_error_quote(char *str)
 
 static bool	is_operator_not_append(char *arg, t_commands *cmd, t_pars *p)
 {
+	int	fdout;
+
 	if (ft_strncmp(arg, "<", 1) == 0)
 	{
 		if (ft_strlen(arg) > 1)
@@ -39,7 +41,11 @@ static bool	is_operator_not_append(char *arg, t_commands *cmd, t_pars *p)
 	{
 		cmd->append_outfile = false;
 		if (ft_strlen(arg) > 1)
+		{
 			cmd->outfile = ft_strdup(arg + 1);
+			fdout = open(cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			close(fdout);
+		}
 		else
 			p->next_is_outfile = true;
 		return (true);
@@ -49,10 +55,12 @@ static bool	is_operator_not_append(char *arg, t_commands *cmd, t_pars *p)
 
 bool	is_operator(char *arg, t_commands *cmd, t_pars *p)
 {
+	int	fdout;
+
 	if (ft_strncmp(arg, "<<", 2) == 0)
 	{
 		if (ft_strlen(arg) > 2)
-			cmd->infile = ft_strdup(arg + 2);
+			cmd->hd_stop = ft_addback(cmd->hd_stop, arg + 2);//
 		else
 			p->next_is_hd_stop = true;
 		return (true);
@@ -61,14 +69,16 @@ bool	is_operator(char *arg, t_commands *cmd, t_pars *p)
 	{
 		cmd->append_outfile = true;
 		if (ft_strlen(arg) > 2)
+		{
 			cmd->outfile = ft_strdup(arg + 2);
+			fdout = open(cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			close(fdout);
+		}
 		else
 			p->next_is_outfile = true;
 		return (true);
 	}
-	else if (is_operator_not_append(arg, cmd, p) == true)
-		return (true);
-	return (false);
+	return (is_operator_not_append(arg, cmd, p));
 //Seul les bg ultime lirons ce message
 }
 
@@ -93,12 +103,20 @@ bool	is_option(char *arg, t_commands *cmd, t_pars *p)
 	return (false);
 }
 
-bool	arg_cmd(char *arg, t_commands *cmd, t_pars *p)
+bool	arg_is_cmd(char *arg, t_commands *cmd, t_pars *p)
 {
 	p->next_can_be_opt = true;
 	p->next_can_be_arg = true;
 	cmd->cmd = ft_strdup(arg);
 	if (!cmd->cmd)
 		exit (1);//Error message ?
+	if (strcmp(arg, "echo") == 0 || strcmp(arg, "cd") == 0 || \
+		strcmp(arg, "pwd") == 0 || strcmp(arg, "export") == 0 || \
+			strcmp(arg, "unset") == 0 || strcmp(arg, "env") == 0 || \
+				strcmp(arg, "export") == 0)
+	{
+		cmd->b_builtins = true;
+		return (true);
+	}
 	return (true);
 }

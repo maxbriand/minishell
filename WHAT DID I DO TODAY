@@ -1,3 +1,27 @@
+Thurday 23 may
+
+--Patch:
+{
+  -Now outfile is correctly open.
+  -Arg is now correctly detected even if he's after another command or outfile etc..
+  -Herdoc is not anymore define has outfile.
+
+  -When the operator was glue to the outfile or infile,
+          operator was define with like <<out was the outfile.
+  
+}
+
+--In file:
+{
+  -Optimize a bit code like joined arg and builtins function
+  -Renamed files names
+  -Change the include from "../parsing.h" to "minishell.h" like asked
+  -Files are not anymore in directory
+
+}
+
+
+-----------------------------------------------------
 MONDAY 20 MAY
 
 -- Patch :
@@ -9,7 +33,7 @@ MONDAY 20 MAY
 
 
 
-
+//not all is righted...
 
 
 -----------------------------------------------------

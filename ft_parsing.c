@@ -1,4 +1,4 @@
-#include "../parsing.h"
+#include "minishell.h"
 
 //main's of the parsing. if return null, no command need to be done
 void	ft_parsing(char *input, t_minishell *mini)
@@ -9,7 +9,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 	if (ft_strlen(input) == 0)
 		return ;
-	p = define_p(input);
+	p = define_p(input, mini);
 	if (!p)
 		return ;
 	//cree tout les maillons de cmd

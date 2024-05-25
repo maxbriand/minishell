@@ -3,29 +3,32 @@ CC = cc
 FLAGS = -g
 LIBFT = libft/libft.a
 
-SRC =	mini_libft/error_p.c\
-		mini_libft/ultimate_free.c\
-		mini_libft/error_type.c\
-		mini_libft/ft_realloc.c\
-		mini_libft/ft_split_quote_ignore.c\
-		mini_libft/ft_utils.c\
-		mini_libft/ft_verif_access.c\
-		mini_libft/catch_path_env.c\
-		mini_libft/apply_quote.c\
-		src/parsing.c\
-		src/define_p.c\
-		src/define_cmd.c\
-		src/define_pcmd_first.c\
-		src/define_pcmd.c\
-		src/check_arg.c\
-		src/cmd_arg_join.c\
+SRC =	ft_error_p.c\
+		ft_ultimate_free.c\
+		ft_error_type.c\
+		ft_realloc.c\
+		ft_split_quote_ignore.c\
+		ft_utils.c\
+		ft_verif_access.c\
+		ft_catch_env.c\
+		ft_apply_quote.c\
+		ft_parsing.c\
+		ft_define_p.c\
+		ft_define_cmd.c\
+		ft_define_pcmd_first.c\
+		ft_define_pcmd.c\
+		ft_check_arg.c\
+		ft_cmd_arg_join.c\
+		ft_strjoin_free.c\
+		ft_remove_element.c\
+		ft_strlen_array.c\
 		main.c
 
 
 all: $(NAME)
 
 $(NAME): $(LIBFT)
-	@$(CC) $(FLAGS) $(SRC) -Iinclude -Ilibft/include -Llibft -lft -lreadline -lhistory -o $(NAME)
+	@$(CC) $(FLAGS) $(SRC) -g -Iinclude -Ilibft/include -Llibft -lft -lreadline -lhistory -lncurses -o $(NAME)
 
 $(LIBFT):
 	@make --no-print-directory -C libft

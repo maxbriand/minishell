@@ -1,36 +1,33 @@
 --free the content of mini->cmd every loop in main
 
---Patch verif_access who considers '/' like a cmd
-	is 'ld' a command ? //EDIT: Yes, it's a command
-
---Patch verif_access who dont check if arg is already a absolut path
-
 --Rename some files like 'ft_split_quote_ignore', its too long (?)
 
 --Continue Parsing (logique)
 
-I need to return cmd whatever if he is good or not
 
 
 
 
 -----
 
-change input et output
-
-change cmd who dont need to be good or direct access like i did
-
-append outfile is now a bool and need to be on the last outfile find in the current node
-
-
-
-
--- <infile should work, same for outfile
-
-
 -- echo aa <> out
-I open the direct close, and i dont stock out in "stdout"
+I open then direct close, and i dont stock out in "stdout"
 
---change include minishelle.h
 
 if bqcslqsh at the end of arg = error
+
+quote
+
+echo aa edfe>dd out
+this should echo in dd this:
+aa edfe out
+
+ ""test" is error because quote is detected but not with '
+
+ --if echo $test > out*
+ out is not open and create
+
+ cat > out* look for the file stating with out
+cat > *out search for the file ending with out
+
+put a \n before right 

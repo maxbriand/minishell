@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "minishell.h"
 
 void	ft_define_on_quote(char *str, int i, bool *on_quote)
 {

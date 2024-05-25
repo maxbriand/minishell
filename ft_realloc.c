@@ -1,5 +1,5 @@
 //to add to the libft later
-#include "../parsing.h"
+#include "minishell.h"
 
 
 static char	*strdup_protect(char *new_element)

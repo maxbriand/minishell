@@ -1,4 +1,4 @@
-#include "../parsing.h"
+#include "minishell.h"
 
 t_commands	*node_create_cmd(void)
 {

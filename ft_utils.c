@@ -1,4 +1,4 @@
-#include "../parsing.h"
+#include "minishell.h"
 
 int	is_only_space(char *str)
 {
