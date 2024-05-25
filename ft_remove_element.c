@@ -1,40 +1,73 @@
 #include "minishell.h"
-
-//remove an element from a char **
-char	**ft_remove_element(char **old_array, int id_rm)
+//mettre un \0
+void	free_tab_hole(char **tab)
 {
-	char	**new_array;
-	int		i;
-	int		j;
-	int		len;
+	int	i;
 
-	if (id_rm < 0 || old_array == NULL)
-		return (NULL);
-	len = ft_strlen_array(old_array);
-	printf("%d = len\n", len);
-	if (len == 1)
-	{
-		free_tab(old_array);
-		return (NULL);
-	}
-	new_array = malloc(sizeof(char *) * (len - 1));
-	if (!new_array)
-		exit (1);//mayday error
 	i = 0;
-	j = 0;
-	while (old_array[i])
+	while (tab[i])
 	{
-		if (i != id_rm)
-		{
-			new_array[j] = ft_strdup(old_array[i]);
-			if (!new_array[j])
-				exit (1); //mayday error ?
-			j++;
-		}
+		free(tab[i]);
 		i++;
 	}
-	new_array[j] = NULL;
-	free_tab(old_array);
-	old_array = NULL;
-	return (new_array);
+	free(tab[i]);
+	i++;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }
+//remove an element from a char **
+// char	**ft_remove_element(char **old_array, int id_rm)
+// {
+// 	char	**new_array;
+// 	int		i;
+// 	int		j;
+// 	int		len;
+// 	bool	is_hole;
+
+// 	if (id_rm < 0 || old_array == NULL)
+// 		return (NULL);
+// 	len = ft_strlen_array(old_array);
+// 	printf("%d = len\n", len);
+// 	if (len == 1)
+// 	{
+// 		free(old_array[0]);
+// 		return ();
+// 	}
+// 	new_array = malloc(sizeof(char *) * (len + 1));
+// 	if (!new_array)
+// 		exit (1);//mayday error
+// 	i = 0;
+// 	while (i < id_rm)
+// 	{
+// 		new_array[i] = ft_strdup(old_array[i]);
+// 		if (!new_array[i])
+// 		{
+// 			while (i-- >= 0)
+// 				free(new_array[i]);
+// 			free(new_array);
+// 			exit (1); //mayday error ?
+// 		}
+// 		i++;
+// 	}
+// 	while (old_array[i + 1])
+// 	{
+// 		new_array[i] = ft_strdup(old_array[i + 1]);
+// 		if (!new_array[i + 1])
+// 		{
+
+// 			while (i-- >= 0)
+// 				free(new_array[i]);
+// 			free(new_array);
+// 			exit (1); //mayday error ?
+// 		}
+// 		i++;
+// 	}
+// 	new_array[i] = NULL;
+// 	free_tab_hole(old_array);
+// 	old_array = NULL;
+// 	return (new_array);
+// }

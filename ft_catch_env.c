@@ -21,6 +21,7 @@ char	*catch_env(char **envp, char *str)
 		y++;
 	}
 	free(str);
+	printf("%s = PATH\n", path);
 	return (path);
 }
 

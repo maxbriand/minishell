@@ -49,7 +49,7 @@ void	free_p(t_pars *p);
 char	**ft_split_quote_ignore(char *str, char c);
 int		is_only_space(char *str);
 char	*catch_env(char **envp, char *str);
-char	*ft_strjoin_free(char *s1, char const *s2);
+char	*ft_strjoin_free(char *s1, char *s2);
 int		ft_strlen_array(char **array);
 char	**ft_remove_element(char **old_array, int id_rm);
 

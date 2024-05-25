@@ -31,6 +31,8 @@
 //define if the first arg is a command, a redirection etc
 void	define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p)
 {
+	if (first_arg[0] == '\0')
+		return ;
 	if (is_error_quote(first_arg) == true)
 		return ;
 	if (is_operator(first_arg, p_cmd, p) == true)

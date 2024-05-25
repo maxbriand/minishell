@@ -5,6 +5,8 @@ void	define_p_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	int	fdout;
 	//need to look at quote here ?? or define before  ?
+	if (arg[0] == '\0')
+		return ;
 	if (p->next_can_be_opt && is_option(arg, p_cmd, p) == true)
 			return ;
 	if (is_operator(arg, p_cmd, p) == true)

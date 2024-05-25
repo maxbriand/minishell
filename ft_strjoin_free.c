@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 //free s1 but not s2, and accept if s1 or s2 is empty
-char	*ft_strjoin_free(char *s1, char const *s2)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*result;
 	int	i;
@@ -19,6 +19,7 @@ char	*ft_strjoin_free(char *s1, char const *s2)
 			result = ft_charaddback(&result, s2[i]);
 			i++;
 		}
+		free(s2);
 	}
 	return(result);
 }

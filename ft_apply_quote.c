@@ -21,8 +21,7 @@ void	remove_quote_bslash(char **str, bool skipped, t_minishell *mini)
 		str[i] = apply_var_env(str, i, mini);
 		if (str[i] == NULL)
 		{
-			str = ft_remove_element(str, i);
-			printf("\n");
+			str[i] = malloc(sizeof(char) * 1);
 			if (!str)
 			{
 				printf("bla\n");
@@ -30,24 +29,20 @@ void	remove_quote_bslash(char **str, bool skipped, t_minishell *mini)
 					free(buf);
 				return ;
 			}
+			str[i][0] = '\0';
 		}
 		else
 		{
 			while (str[i][j]) // are we shure that str(i(j existe ?
 			{
-				if (str[i][j] == '\\' && skipped == false && str[i][j + 1])
-					skipped = true;
-				else
-				{
-					//here ? apply
-					buf = ft_charaddback(&buf, str[i][j]);
-					skipped = false;
-				}
+				//here ? apply
+				buf = ft_charaddback(&buf, str[i][j]);
+				skipped = false;
 				j++;
 			}
 			free_and_strdup(str, i, buf);
-			i++;
 		}
+		i++;
 		if (buf)
 			free(buf);
 	}
@@ -97,11 +92,10 @@ char	*apply_var_env(char **arg, int j, t_minishell *mini)
 	while (arg[j][i])
 	{
 		ft_define_on_quote(arg[j], i, on_quote);
-		if (arg[j][i] == '$' && !on_quote[0] && !is_b_slash_before(i, arg[j]))
+		if (arg[j][i] == '$' && !on_quote[0])
 		{
 			var_env = catch_env(mini->env, just_name_env(arg[j], i));
 			result = ft_strjoin_free(result, var_env);
-			free(var_env);
 			i++;
 			while (arg[j][i] && (ft_isalnum(arg[j][i]) || arg[j][i] == '_'))
 				i++;
