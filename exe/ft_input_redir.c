@@ -24,7 +24,7 @@ static int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
 	int	fd;
 	
 	if (!c_cmd->hd_stop)
-		return (-1);
+		return (0);
 	i = 0;
 	while (c_cmd->hd_stop[i])
 	{
@@ -39,7 +39,7 @@ static int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
 		i++;
 	}
 	close(fd);
-	return (0);
+	return (1);
 }
 
 void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
@@ -51,7 +51,7 @@ void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
 	fd = open("heredoc", O_RDONLY);
 	if (c_cmd->infile)
 	{
-		if (here_open != -1)
+		if (here_open != 0)
 			close(fd);
 		fd = open(c_cmd->infile, O_RDONLY);
 		if (fd == -1)

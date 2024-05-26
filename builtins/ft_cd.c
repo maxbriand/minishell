@@ -1,16 +1,16 @@
 #include "minishell.h"
 
-int	ft_cd(t_minishell *mish, t_commands *p_cmd)
+// static void	ft_cd_home(void)
+// {
+// 	chdir();
+
+
+// }
+
+void	ft_cd(t_minishell *mish, t_commands *c_cmd)
 {
-	if(chdir(p_cmd->arg)== 0)
-	{
-		ft_printf("the program move the current dir\n");
-		return (0);
-	}
-	else
-	{
-		ft_printf("an error occurs\n");
-		return (-1);
-	}
-	exit(EXIT_SUCCESS);
+	// if (c_cmd->option == NULL && c_cmd->arg == NULL)
+	// 	ft_cd_home();
+
+
 }

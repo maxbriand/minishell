@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/23 18:14:03 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/25 14:59:25 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,19 @@
 
 typedef struct s_commands
 {
-	bool	b_builtins;
-	char	*infile; // last infile -> only if this infile it's the last input redirection / after heredoc
-	char	**hd_stop;
-	bool	in_pipe; //pipe before the command or not (0 or 1)
-	char	*outfile; // last outfile -> last fd
-	bool	append_outfile; // only need to know if the last outfile is an append
-	char	*cmd;
-	char	*option;
-	char	*arg;
-	char	**arg_cmd; // cmd + option + arg
+	bool				b_builtins;
+	char				*infile; // last infile -> only if this infile it's the last input redirection / after heredoc
+	char				**hd_stop;
+	bool				in_pipe; //pipe before the command or not (0 or 1)
+	char				*outfile; // last outfile -> last fd
+	bool				append_outfile; // only need to know if the last outfile is an append
+	char				*cmd;
+	char				*option;
+	char				*arg;
+	char				**arg_cmd; // cmd + option + arg
 	struct s_commands	*next;
-	int		*pipefd0;
-	int		*pipefd1;
-	// int		out_pipe; => don't because the last cmd have null on next
+	int					*pipefd0;
+	int					*pipefd1;
 }	t_commands;
 
 // +1 for the boolean ONLY is the other one is 0 / false
@@ -55,7 +54,7 @@ typedef struct s_minishell
 	int			open_quote;
 	int			open_dquote;
 	int			**pipefds;
-	int			ok;
+	int			exit_stat;
 }	t_minishell;
 
 # include "parsing.h"
@@ -75,6 +74,7 @@ char	*ft_check_path(t_minishell *data, t_commands *current_cmd);
 int		ft_sc(char **str);
 void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd);
 void	ft_output_redir(t_minishell *data, t_commands *p_cmd, int *pipefd);
+void	ft_builtins_exe(t_minishell *data, t_commands *c_cmd);
 
 // Exe - Pipes management
 int		**ft_create_pipes(int pipenbr, t_minishell *data);
@@ -82,7 +82,7 @@ void	ft_set_pipefd(t_minishell *data, t_commands *c_cmd, int **pipefds, int c);
 void	ft_close_pipes(t_minishell *data, int **pipefds);
 
 // Builtins
-int		ft_cd(t_minishell *mish, t_commands *p_cmd);
+void	ft_cd(t_minishell *mish, t_commands *p_cmd);
 void	ft_exit(t_minishell *mish, t_commands *p_cmd);
 void	ft_echo(t_minishell *mish, t_commands *p_cmd);
 void	ft_env(t_minishell *mish, t_commands *p_cmd);

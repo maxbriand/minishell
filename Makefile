@@ -14,6 +14,7 @@ SRC = 	exe/test.c \
 		exe/ft_create_pipes.c \
 		exe/ft_set_pipefd.c \
 		exe/ft_close_pipes.c \
+		exe/ft_builtins_exe.c \
 		\
 		builtins/ft_cd.c \
 		builtins/ft_echo.c \
@@ -56,8 +57,8 @@ fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
-# clear
-# ./minishell
+	clear
+	./minishell
 
-#re v: fclean all
-#valgrind --tool=memcheck --track-origins=yes --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes -s --suppressions=valgrind.supp ./minishell
+rev: fclean all
+	valgrind --tool=memcheck --track-origins=yes --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes -s --suppressions=valgrind.supp ./minishell

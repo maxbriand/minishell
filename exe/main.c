@@ -75,6 +75,7 @@ static t_commands	*ft_init_p_cmd_tests(t_commands *p_cmd)
 t_minishell	*ft_init_mish(t_minishell *mish, t_commands *p_cmd, char **env)
 {
 	mish = malloc(sizeof(t_minishell));
+	mish->exit_stat = 0;
 	mish->p_cmd = p_cmd;
 	mish->env = env;
 	mish->open_dquote = 0;
@@ -91,10 +92,10 @@ int	main(int ac, char **av, char **env)
 	char 		*cmd;
 	int			errcode;
 	t_commands	*p_cmd;
-	t_minishell	*mish;
+	t_minishell	*data;
 
-	mish = ft_init_mish(mish, p_cmd, env);
-	//mish->p_cmd = ft_init_p_cmd_tests(mish->p_cmd);
+	data = ft_init_mish(data, p_cmd, env);
+	//data->p_cmd = ft_init_p_cmd_tests(data->p_cmd);
 	errcode = 0;
 	while (1)
 	{
@@ -107,8 +108,9 @@ int	main(int ac, char **av, char **env)
 			clear_history();
 		if (ft_strcmp(cmd, "exit") == 0)
 			break;
-		ft_parsing(cmd, mish);
-		ft_exe(mish, mish->p_cmd);
+		ft_parsing(cmd, data);
+		ft_exe(data, data->p_cmd);
+		ft_printf("fgbrhe %d\n", data->exit_stat);
 		free(cmd);
 	}
 	//ft_free_tests(p_cmd, cmd);
