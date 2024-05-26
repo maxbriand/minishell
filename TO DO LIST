@@ -30,11 +30,11 @@ aa edfe out
  cat > out* look for the file stating with out
 cat > *out search for the file ending with out
 
-put a \n before right
+put a \n before right ecrire
 
 
 $path est compris comme plusieurs commandes
-if ambigous je cqsse lq cmd qctuelle et on go sur la suivante
+if ambigous je casse la cmd qctuelle et on go sur la suivante
 
 export "coucou"="> out echo coucou"
 $coucou coucou coucou cou

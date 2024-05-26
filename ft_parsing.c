@@ -16,6 +16,31 @@ void	ft_parsing(char *input, t_minishell *mini)
 		return ;
 	define_cmd(mini, p);
 	buf = mini->p_cmd;
+
+//ddddd
+	int f;
+	f = 0;
+	t_pars *buf2;
+	buf2 = p;
+	while(p)
+	{
+		i = 0;
+		printf("\n\nMaillon %d:\n", f);
+		while (p->spl_cmd[i])
+		{
+			printf(" Argument %d = %s\n", i, p->spl_cmd[i]);
+			i++;
+		}
+		p = p->next;
+		f++;
+		if (p)
+			printf("\n\n");
+	}
+	p = buf2;
+
+
+
+	//ddd
 	while (buf)
 	{
 		if (buf != mini->p_cmd)
@@ -33,32 +58,32 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 
 		//COMMENT THE NEXT BLOCK IF YOU DONT WANT PRINTF OF p_cmd
-		printf("\n%d = in pipe\n", buf->in_pipe);
-		printf("%s = cmd\n", buf->cmd);
-		printf("%d = builtins\n", buf->b_builtins);
-		printf("%s = option\n", buf->option);
-		printf("%s = arg\n", buf->arg);
-		printf("%d = append-out\n", buf->append_outfile);
-		int y = 0;
-		if (buf->hd_stop != NULL)
-		{
-			while (buf->hd_stop[y])
-			{
-				printf("%s = hd_stop n%d\n", buf->hd_stop[y], y);
-				y++;
-			}
-		}
-		printf("%s = outfile\n", buf->outfile);
-		printf("%s = infile\n", buf->infile);
-		y = 0;
-		if (buf->arg_cmd)
-		{
-			while (buf->arg_cmd[y])
-			{
-				printf("%s = cmd+arg+opt[%d]\n", buf->arg_cmd[y], y);
-				y++;
-			}
-		}
+		// printf("\n%d = in pipe\n", buf->in_pipe);
+		// printf("%s = cmd\n", buf->cmd);
+		// printf("%d = builtins\n", buf->b_builtins);
+		// printf("%s = option\n", buf->option);
+		// printf("%s = arg\n", buf->arg);
+		// printf("%d = append-out\n", buf->append_outfile);
+		// int y = 0;
+		// if (buf->hd_stop != NULL)
+		// {
+		// 	while (buf->hd_stop[y])
+		// 	{
+		// 		printf("%s = hd_stop n%d\n", buf->hd_stop[y], y);
+		// 		y++;
+		// 	}
+		// }
+		// printf("%s = outfile\n", buf->outfile);
+		// printf("%s = infile\n", buf->infile);
+		// y = 0;
+		// if (buf->arg_cmd)
+		// {
+		// 	while (buf->arg_cmd[y])
+		// 	{
+		// 		printf("%s = cmd+arg+opt[%d]\n", buf->arg_cmd[y], y);
+		// 		y++;
+		// 	}
+		// }
 
 		//END OF PRINTF
 
@@ -67,5 +92,15 @@ void	ft_parsing(char *input, t_minishell *mini)
 		p = p->next;
 		buf = buf->next;
 	}
+	//test for see if i get as i need the arg
+	// int i = 0;
+	// printf("\n%s = arg\n", mini->p_cmd->cmd);
+	// printf("%d = is next can be machin\n", p->next_can_be_opt);
+	// printf("%d = builtins\n", mini->p_cmd->b_builtins);
+
+
+
+	//test pour voir si je recupere bien tout split sur les |
+
 	free_p(p);
 }

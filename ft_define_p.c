@@ -6,7 +6,7 @@ t_pars	*new_node(char *input_no_pipe, t_minishell *mini)
 	t_pars	*node;
 
 	node = malloc(sizeof(t_pars));
-	node->spl_cmd = ft_split_quote_ignore(input_no_pipe, ' ');
+	node->spl_cmd = ft_split_separator(input_no_pipe);
 	//CHANEGEGGEGE
 
 

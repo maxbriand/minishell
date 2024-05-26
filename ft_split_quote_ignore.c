@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/26 08:14:02 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/05/26 21:04:05 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static char	*split_here(char *str, int *i, int *last_split, char c)
 	int		j;
 
 	result = malloc(sizeof(char) * (*i - *last_split + 1));
+	if (!result)
+		exit (1);//mayday eerror 
 	j = 0;
 	while (*last_split < *i)
 	{

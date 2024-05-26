@@ -49,6 +49,7 @@ void	free_p(t_pars *p);
 void	free_p_cmd(t_commands *p_cmd);
 
 char	**ft_split_quote_ignore(char *str, char c);
+char	**ft_split_separator(char *str);
 int		is_only_space(char *str);
 char	*catch_env(char **envp, char *str);
 char	*ft_strjoin_free(char *s1, char *s2);

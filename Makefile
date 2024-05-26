@@ -8,6 +8,7 @@ SRC =	ft_error_p.c\
 		ft_error_type.c\
 		ft_realloc.c\
 		ft_split_quote_ignore.c\
+		ft_split_separator.c\
 		ft_utils.c\
 		ft_verif_access.c\
 		ft_catch_env.c\
