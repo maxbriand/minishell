@@ -29,6 +29,8 @@ typedef struct s_commands
 	char	*arg;
 	char	**arg_cmd; // cmd + option + arg
 	struct s_commands	*next;
+	int		*pipefd0;
+	int		*pipefd1;
 }	t_commands;
 
 typedef struct s_minishell

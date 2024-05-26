@@ -4,31 +4,26 @@ static void	free_and_strdup(char **str, int i, char *buf)
 {
 	free(str[i]);
 	str[i] = ft_strdup(buf);
+	free(buf);
 }
 
-void	remove_quote_bslash(char **str, bool skipped, t_minishell *mini)
+void	remove_quote_bslash(char **str, t_minishell *mini)
 {
 	int	i;
 	int	j;
 	char	*buf;
 
-	buf = NULL;
 	i = 0;
 	while (str[i])
 	{
 		buf = NULL;
 		j = 0;
-		str[i] = apply_var_env(str, i, mini);
+		str[i] = apply_var_env(str, i, mini);//je dois faire par rapoirt auchar
 		if (str[i] == NULL)
 		{
 			str[i] = malloc(sizeof(char) * 1);
-			if (!str)
-			{
-				printf("bla\n");
-				if (buf)
-					free(buf);
-				return ;
-			}
+			if (!str[i])
+				exit (1); //mayday error
 			str[i][0] = '\0';
 		}
 		else
@@ -37,19 +32,15 @@ void	remove_quote_bslash(char **str, bool skipped, t_minishell *mini)
 			{
 				//here ? apply
 				buf = ft_charaddback(&buf, str[i][j]);
-				skipped = false;
 				j++;
 			}
 			free_and_strdup(str, i, buf);
 		}
 		i++;
-		if (buf)
-			free(buf);
 	}
 }
 
-
-char	*just_name_env(char *arg, int start)
+char	*just_name_env(char *arg, int start, bool *on_quote)
 {
 	char	end;
 	char *result;
@@ -59,51 +50,45 @@ char	*just_name_env(char *arg, int start)
 	end = start;
 	while (arg[end])
 	{
-		if (!ft_isalnum(arg[end]))
+		if (!ft_isalpha(arg[end]) || (arg[end] != '\'' && on_quote[0]) || (arg[end] == '\"' && on_quote[1]))
 			break ;
 		end++;
 	}
-	result = ft_substr(arg, start, end);
+	result = ft_substr(arg, start, end - start);
 	return (result);
 }
 
-
-bool	is_b_slash_before(int i, char *arg)
-{
-	if (i > 0)
-	{
-		if (arg[i - 1] != '\\')
-			return (true);
-	}
-	return (false);
-}
-
-char	*apply_var_env(char **arg, int j, t_minishell *mini)
+char	*apply_var_env(char **arg, int i, t_minishell *mini)
 {
 	char	*var_env;
 	bool	on_quote[2];
 	char	*result;
-	int		i;
+	bool	can_copy;
+	int		j;
 
 	on_quote[0] = false;
 	on_quote[1] = false;
 	result = NULL;
-	i = 0;
-	while (arg[j][i])
+	j = 0;
+	while (arg[i][j])
 	{
-		ft_define_on_quote(arg[j], i, on_quote);
-		if (arg[j][i] == '$' && !on_quote[0])
+		if (ft_define_on_quote(arg[i], j, on_quote) == true)
+			can_copy = false;
+		else
+			can_copy = true;
+		if (arg[i][j] == '$' && !on_quote[0])
 		{
-			var_env = catch_env(mini->env, just_name_env(arg[j], i));
+			var_env = catch_env(mini->env, just_name_env(arg[i], j, on_quote));
 			result = ft_strjoin_free(result, var_env);
-			i++;
-			while (arg[j][i] && (ft_isalnum(arg[j][i]) || arg[j][i] == '_'))
-				i++;
+			j++;
+			while (arg[i][j] && (ft_isalnum(arg[i][j]) || arg[i][j] == '_'))
+				j++;
 		}
 		else
 		{
-			result = ft_charaddback(&result, arg[j][i]);
-			i++;
+			if (can_copy == true)
+				result = ft_charaddback(&result, arg[i][j]);
+			j++;
 		}
 	}
 	return (result);

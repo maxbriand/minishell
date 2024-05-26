@@ -1,30 +1,5 @@
 #include "minishell.h"
 
-bool	is_error_quote(char *str)
-{
-	int	i;
-	int	nb_quote;
-	int	nb_dquote;
-
-	i = 0;
-	nb_quote = 0;
-	nb_dquote = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-			nb_quote++;
-		else if (str[i] == '\"')
-			nb_dquote++;
-		i++;
-	}
-	if (nb_quote % 2 == 1 || nb_dquote % 2 == 1)
-	{
-		printf("minishell: Error syntax: Quote not closed\n");//mayday exit error ?
-		return (true);
-	}
-	return (false);
-}
-
 static bool	is_operator_not_append(char *arg, t_commands *cmd, t_pars *p)
 {
 	int	fdout;
@@ -110,10 +85,16 @@ bool	arg_is_cmd(char *arg, t_commands *cmd, t_pars *p)
 	cmd->cmd = ft_strdup(arg);
 	if (!cmd->cmd)
 		exit (1);//Error message ?
-	if (strcmp(arg, "echo") == 0 || strcmp(arg, "cd") == 0 || \
-		strcmp(arg, "pwd") == 0 || strcmp(arg, "export") == 0 || \
-			strcmp(arg, "unset") == 0 || strcmp(arg, "env") == 0 || \
-				strcmp(arg, "export") == 0)
+		// || (access(arg, F_OK) == 1
+		// && (strcmp(arg + (ft_strlen(arg) - 5), "\\echo") == 0
+		// || strcmp(arg + (ft_strlen(arg) - 3), "\\cd") == 0
+		// || strcmp(arg + (ft_strlen(arg) - 4), "\\pwd") == 0
+		// || strcmp(arg + (ft_strlen(arg) - 7), "\\export") == 0
+		// || strcmp(arg + (ft_strlen(arg) - 6), "\\unset") == 0
+		// || strcmp(arg + (ft_strlen(arg) - 4), "\\env") == 0)))
+	if (strcmp(arg, "echo") == 0 || strcmp(arg, "cd") == 0
+		|| strcmp(arg, "pwd") == 0 || strcmp(arg, "export") == 0
+		|| strcmp(arg, "unset") == 0 || strcmp(arg, "env") == 0)
 	{
 		cmd->b_builtins = true;
 		return (true);

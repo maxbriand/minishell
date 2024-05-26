@@ -9,15 +9,12 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 	if (ft_strlen(input) == 0)
 		return ;
+	if (is_error_quote(input) == true)
+		return ;
 	p = define_p(input, mini);
 	if (!p)
 		return ;
-	//cree tout les maillons de cmd
-	//ceci est temporaire:
 	define_cmd(mini, p);
-	//printf("%s\n", mini->p_cmd->arg);
-
-
 	buf = mini->p_cmd;
 	while (buf)
 	{
@@ -30,7 +27,6 @@ void	ft_parsing(char *input, t_minishell *mini)
 			define_p_cmd(p->spl_cmd[i], buf, p);
 			i++;
 		}
-		if (buf->cmd )
 		if (buf->arg_cmd == NULL && buf->cmd)
 			cmd_arg_join(buf);
 
@@ -71,35 +67,5 @@ void	ft_parsing(char *input, t_minishell *mini)
 		p = p->next;
 		buf = buf->next;
 	}
-
-//test for see if i get as i need the arg
-	// int i = 0;
-	// printf("\n%s = arg\n", mini->p_cmd->cmd);
-	// printf("%d = is next can be machin\n", p->next_can_be_opt);
-	// printf("%d = builtins\n", mini->p_cmd->b_builtins);
-
-
-
-	//test pour voir si je recupere bien tout split sur les |
-	// int i;
-	// int f;
-	// f = 0;
-	// t_pars *buf;
-	// buf = p;
-	// while(p)
-	// {
-	// 	i = 0;
-	// 	printf("\n\nMaillon %d:\n", f);
-	// 	while (p->spl_cmd[i])
-	// 	{
-	// 		printf(" Argument %d = %s\n", i, p->spl_cmd[i]);
-	// 		i++;
-	// 	}
-	// 	p = p->next;
-	// 	f++;
-	// 	if (p)
-	// 		printf("\n\n");
-	// }
-	// p = buf;
 	free_p(p);
 }

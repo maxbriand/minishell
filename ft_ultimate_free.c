@@ -27,3 +27,29 @@ void	free_p(t_pars *p)
 	if (p)
 		free(p);
 }
+
+void	free_p_cmd(t_commands *p_cmd)
+{
+	t_commands	*buf;
+
+	while (p_cmd)
+	{
+		buf = p_cmd;
+		p_cmd = p_cmd->next;
+		if (buf->arg)
+			free(buf->arg);
+		if (buf->arg_cmd)
+			free_tab(buf->arg_cmd);
+		if (buf->cmd)
+			free(buf->cmd);
+		if (buf->hd_stop)
+			free_tab(buf->hd_stop);
+		if (buf->infile)
+			free(buf->infile);
+		if (buf->option)
+			free(buf->option);
+		if (buf->outfile)
+			free(buf->outfile);
+		free(buf);
+	}
+}

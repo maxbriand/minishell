@@ -7,6 +7,9 @@ t_pars	*new_node(char *input_no_pipe, t_minishell *mini)
 
 	node = malloc(sizeof(t_pars));
 	node->spl_cmd = ft_split_quote_ignore(input_no_pipe, ' ');
+	//CHANEGEGGEGE
+
+
 	//if (node->spl_cmd == NULL)
 	//{
 		//free(node->spl_cmd);
@@ -17,10 +20,14 @@ t_pars	*new_node(char *input_no_pipe, t_minishell *mini)
 	//remove uneeded quote
 
 	//apply_quote(node->spl_cmd);
-	node->arg_was_dollar = false;
-	remove_quote_bslash(node->spl_cmd, false, mini);
-	if (!node->spl_cmd)
+
+
+
+	remove_quote_bslash(node->spl_cmd, mini);
+	if (!node->spl_cmd || node->spl_cmd[0][0] == '\0')
 	{
+		if (node->spl_cmd[0])
+			free(node->spl_cmd[0]);
 		free (node);
 		return NULL;
 	}
@@ -58,7 +65,6 @@ t_pars	*define_p(char *input, t_minishell *mini)
 	char	**input_no_pipe;
 	t_pars	*head;
 	t_pars	*buf;
-
 	//check pipe at start or double pipe in input: 0 if all good
 	if (pipe_unexpected(input) == 0 && is_only_space(input) == 0)
 	{

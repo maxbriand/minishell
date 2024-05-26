@@ -8,6 +8,7 @@ char	*catch_env(char **envp, char *str)
 
 	y = 0;
 	path = NULL;
+	printf("%s = str\n", str);
 	while (envp[y] != NULL)
 	{
 		if (ft_strncmp(envp[y], str, ft_strlen(str)) == 0 && envp[y][ft_strlen(str)] == '=')//pas sur
@@ -21,7 +22,7 @@ char	*catch_env(char **envp, char *str)
 		y++;
 	}
 	free(str);
-	printf("%s = PATH\n", path);
+	printf("%s = path\n", path);
 	return (path);
 }
 

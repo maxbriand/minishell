@@ -16,6 +16,8 @@ t_commands	*node_create_cmd(void)
 	node->arg = NULL;
 	node->arg_cmd = NULL;
 	node->next = NULL;
+	node->pipefd0 = NULL;
+	node->pipefd1 = NULL;
 	return (node);
 }
 void	define_cmd(t_minishell *mini, t_pars *p)

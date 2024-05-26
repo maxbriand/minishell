@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_quote_ignore.c                            :+:      :+:    :+:   */
+/*   ft_split_separator.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/26 08:14:02 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/05/26 14:44:34 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,30 @@ bool	ft_define_on_quote(char *str, int i, bool *on_quote)
 	return (false);
 }
 
-static int	count_cut(char *str, char c, bool *on_quote)
+static bool	is_sep(char c, char *sep)
+{
+	int	i;
+
+	i = 0;
+	while (sep[i])
+	{
+		if (sep[i] == c)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+//je doos gerer les <> sepqremenbt poiur les sepqrqrteur
+//if celui davant n'est pas un sep et que i est plus grqnd aue 1 ou 0jsp,
+//alors on cute sur les <>
+static int	count_cut(char *str, bool *on_quote, char *sep)
 {
 	int		i;
 	int		nb_cut;
 
 	i = 0;
 	nb_cut = 0;
-	while (str[i] == c)
+	while (is_sep(str[i], sep) == true)
 		i++;
 	while (str[i])
 	{
@@ -116,15 +132,19 @@ static void	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 
 //a split but when char priority is found, seach for the next char priority
 //and then split, and continue with char c.
-char	**ft_split_quote_ignore(char *str, char c)
+char	**ft_split_separator(char *str, char c)
 {
 	int		nb_cut;
 	char	**result;
 	bool	on_quote[2];
+	char	*sep;
 
+	sep = " ";
+	sep = ft_charaddback(sep, '\n');
+	sep = ft_charaddback(sep, '\t');
 	on_quote[0] = false;
 	on_quote[1] = false;
-	nb_cut = count_cut(str, c, on_quote);
+	nb_cut = count_cut(str, on_quote, sep);
 	result = ft_calloc(nb_cut + 1, sizeof(char *));
 	if (!result)
 		exit(1); //mayday error !
