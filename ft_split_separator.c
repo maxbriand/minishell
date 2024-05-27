@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/26 23:09:09 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/05/27 15:25:03 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,8 @@ static char	*split_here(char *str, int *i, int *last_split, char *sep)
 	int		j;
 	int		len;
 
-	//if (str[*i] != '\0')
-	//	return (NULL);
-	(*i)++;
+	if (str[*i] != '\0')
+		(*i)++;
 	len = *i - *last_split;
 	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
@@ -92,7 +91,7 @@ static char	*split_here(char *str, int *i, int *last_split, char *sep)
 		(*i)--;
 	}
 	*last_split = *i;
-	//if (str[*i] != '\0')
+	if (str[*i] != '\0')
 		*i = *i + 1;
 	return (result);
 }
@@ -119,18 +118,12 @@ static void	ft_split_parsing(char *str, char *sep, char **result)
 		{
 			printf("%d = y\n", y);
 			result[y] = split_here(str, &i, &last_split, sep);
-			//if (result[y] == NULL)
-			//	return ;
-
-			//ft_printf("%s\n", result[y]);
-			//if (str[i + 1] == '<' || str[i + 1] == '>')
 			if (str[i] == '\0')
 				return ;
 			y++;
 		}
 		else
 		{
-			//ft_printf("hey\n");
 			ft_define_on_quote(str, i, on_quote);
 			i++;
 		}
@@ -164,7 +157,5 @@ char	**ft_split_separator(char *str)
 
 	ft_split_parsing(str, sep, result);
 	free(sep);
-	//if (result[0] == NULL)
-	//	return (NULL); why did i put this protection ?? useful ??
 	return (result);
 }
