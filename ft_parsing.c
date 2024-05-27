@@ -17,30 +17,31 @@ void	ft_parsing(char *input, t_minishell *mini)
 	define_cmd(mini, p);
 	buf = mini->p_cmd;
 
-//ddddd
-	int f;
-	f = 0;
-	t_pars *buf2;
-	buf2 = p;
-	while(p)
-	{
-		i = 0;
-		printf("\n\nMaillon %d:\n", f);
-		while (p->spl_cmd[i])
-		{
-			printf(" Argument %d = %s\n", i, p->spl_cmd[i]);
-			i++;
-		}
-		p = p->next;
-		f++;
-		if (p)
-			printf("\n\n");
-	}
-	p = buf2;
+//THIS BLOCK IS FOR PRINTF ALL CUT MADE WITH SPLIT
+//COMMENT THIS FOR NO PRINTF
+	// int f;
+	// f = 0;
+	// t_pars *buf2;
+	// buf2 = p;
+	// while(p)
+	// {
+	// 	i = 0;
+	// 	printf("\n\nMaillon %d:\n", f);
+	// 	while (p->spl_cmd[i])
+	// 	{
+	// 		printf(" Argument %d = %s\n", i, p->spl_cmd[i]);
+	// 		i++;
+	// 	}
+	// 	p = p->next;
+	// 	f++;
+	// 	if (p)
+	// 		printf("\n\n");
+	// }
+	// p = buf2;
+//END OF PRINTF
 
 
 
-	//ddd
 	while (buf)
 	{
 		if (buf != mini->p_cmd)

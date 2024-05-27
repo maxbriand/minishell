@@ -33,6 +33,9 @@ cat > *out search for the file ending with out
 put a \n before right ecrire
 
 
+
+
+
 $path est compris comme plusieurs commandes
 if ambigous je casse la cmd qctuelle et on go sur la suivante
 

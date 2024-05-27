@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/27 15:25:03 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/05/27 15:55:55 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ static void	ft_split_parsing(char *str, char *sep, char **result)
 		if (on_quote[0] == false && on_quote[1] == false && (is_sep(str[i], sep) == true
 		|| ((str[i + 1] == '<' || str[i + 1] == '>') && (str[i] != '<' && str[i] != '>'))))
 		{
-			printf("%d = y\n", y);
 			result[y] = split_here(str, &i, &last_split, sep);
 			if (str[i] == '\0')
 				return ;
@@ -129,10 +128,7 @@ static void	ft_split_parsing(char *str, char *sep, char **result)
 		}
 	}
 	if (is_sep(str[i - 1], sep) == false && str[i - 1] != '<' && str[i - 1] != '>')
-	{
-		printf("JE RENTRE ICI\n");//PKK
 		result[y] = split_here(str, &i, &last_split, sep);
-	}
 }
 
 //a split but when char priority is found, seach for the next char priority
@@ -149,8 +145,6 @@ char	**ft_split_separator(char *str)
 	on_quote[0] = false;
 	on_quote[1] = false;
 	nb_cut = count_cut(str, on_quote, sep);
-	printf("%d = nb\n", nb_cut);
-	printf("%s = STR\n", str);
 	result = ft_calloc(nb_cut + 1, sizeof(char *));
 	if (!result)
 		exit(1); //mayday error !

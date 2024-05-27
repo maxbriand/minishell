@@ -54,7 +54,7 @@ int		is_only_space(char *str);
 char	*catch_env(char **envp, char *str);
 char	*ft_strjoin_free(char *s1, char *s2);
 int		ft_strlen_array(char **array);
-char	**ft_remove_element(char **old_array, int id_rm);
+//char	**ft_remove_element(char **old_array, int id_rm);
 
 
 
