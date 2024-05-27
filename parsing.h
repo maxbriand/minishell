@@ -34,7 +34,7 @@ void	define_p_cmd(char *arg, t_commands *p_cmd, t_pars *p);
 //check arg
 bool	is_error_quote(char *str);
 bool	is_operator(char *arg, t_commands *cmd, t_pars *p);
-bool	is_option(char *arg, t_commands *cmd, t_pars *p);
+bool	is_option(char *arg, t_commands *cmd);
 bool	arg_is_cmd(char *arg, t_commands *cmd, t_pars *p);
 void	cmd_arg_join(t_commands *cmd);
 char	*apply_var_env(char **arg, int i, t_minishell *mini);

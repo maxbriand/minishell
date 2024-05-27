@@ -42,7 +42,7 @@ void	remove_quote_bslash(char **str, t_minishell *mini)
 
 char	*just_name_env(char *arg, int start, bool *on_quote)
 {
-	char	end;
+	int	end;
 	char *result;
 
 	if (arg[start] == '$')

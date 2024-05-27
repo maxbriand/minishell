@@ -11,7 +11,8 @@ int main (int ac, char **av, char **env)
 	mini->env = env;
 	//mini->path_env = catch_path(env);
 
-
+	(void)ac;
+	(void)av;
 	while (1)
 	{
 		input = readline("\n\nminishell> ");

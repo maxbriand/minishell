@@ -13,9 +13,6 @@
 -- echo aa <> out
 I open then direct close, and i dont stock out in "stdout"
 
-echo aa edfe>dd out
-this should echo in dd this:
-aa edfe out
 
  --if echo $test > out*
  out is not open and create

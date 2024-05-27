@@ -22,9 +22,8 @@ t_pars	*new_node(char *input_no_pipe, t_minishell *mini)
 	//apply_quote(node->spl_cmd);
 
 
-
 	remove_quote_bslash(node->spl_cmd, mini);
-	if (!node->spl_cmd || node->spl_cmd[0][0] == '\0')
+	if (!node->spl_cmd || !node->spl_cmd[0] || node->spl_cmd[0][0] == '\0')
 	{
 		if (node->spl_cmd[0])
 			free(node->spl_cmd[0]);

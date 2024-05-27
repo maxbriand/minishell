@@ -66,7 +66,7 @@ bool	is_operator(char *arg, t_commands *p_cmd, t_pars *p)
 //Seul les bg ultime lirons ce message
 }
 
-bool	is_option(char *arg, t_commands *p_cmd, t_pars *p)
+bool	is_option(char *arg, t_commands *p_cmd)
 {
 	if (arg[0] == '-')
 	{

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/27 20:35:42 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/05/27 21:27:49 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ static char	*split_here(char *str, int *i, int *last_split, char *sep)
 	int		j;
 	int		len;
 
-	//if (str[*i] != '\0')
-	//	(*i)++;
 	len = *i - *last_split;
 	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
@@ -88,7 +86,6 @@ static char	*split_here(char *str, int *i, int *last_split, char *sep)
 	{
 		while (is_sep(str[*i], sep))
 			(*i)++;
-		//(*i)--;
 	}
 	*last_split = *i;
 	if (str[*i] != '\0')
@@ -113,8 +110,8 @@ static void	ft_split_parsing(char *str, char *sep, char **result)
 	last_split = i;
 	while (str[i])
 	{
-		if (on_quote[0] == false && on_quote[1] == false && (is_sep(str[i], sep) == true
-		|| ((str[i + 1] == '<' || str[i + 1] == '>') && (str[i] != '<' && str[i] != '>'))))
+		if (i > 0 && on_quote[0] == false && on_quote[1] == false && (is_sep(str[i], sep)
+		|| ((str[i] == '<' || str[i] == '>') && (str[i - 1] != '<' && str[i - 1] != '>'))))
 		{
 			result[y] = split_here(str, &i, &last_split, sep);
 			if (str[i] == '\0')
@@ -148,7 +145,6 @@ char	**ft_split_separator(char *str)
 	result = ft_calloc(nb_cut + 1, sizeof(char *));
 	if (!result)
 		exit(1); //mayday error !
-
 	ft_split_parsing(str, sep, result);
 	free(sep);
 	return (result);
