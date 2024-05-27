@@ -1,5 +1,49 @@
 #include "minishell.h"
 
+void	define_outfile_error(t_commands *p_cmd)
+{
+	if (p_cmd->msg_error == NULL)
+	{
+		p_cmd->msg_error = ft_better_strdup("minishell: %s: Permission denied\n", p_cmd->outfile);
+		p_cmd->err_is_outfile = true;
+		p_cmd->code_error = 1;
+	}
+	else
+		free(p_cmd->outfile);
+	p_cmd->outfile = NULL;
+}
+
+void	define_infile_error(t_commands *p_cmd)
+{
+	if (access(p_cmd->infile, F_OK) == 0)
+	{
+		if (access(p_cmd->infile, R_OK) != 0)
+		{
+			if (p_cmd->msg_error == NULL)
+			{
+				p_cmd->err_is_infile = true;
+				p_cmd->msg_error = ft_better_strdup("minishell: %s: Permission denied\n", p_cmd->infile);
+				p_cmd->code_error = 1;
+			}
+			else
+				free(p_cmd->infile);
+			p_cmd->infile = NULL;
+		}
+	}
+	else
+	{
+		if (p_cmd->msg_error == NULL)
+		{
+			p_cmd->err_is_infile = true;
+			p_cmd->msg_error = ft_better_strdup("minishell: %s: No such file or directory\n", p_cmd->infile);
+
+			p_cmd->code_error = 1;
+		}
+		else
+			free(p_cmd->infile);
+		p_cmd->infile = NULL;
+	}
+}
 
 void	define_p_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 {
@@ -24,6 +68,7 @@ void	define_p_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 		p_cmd->infile = ft_strdup(arg);
 		if (!p_cmd->infile)
 			exit (1); //mayday error ?
+		define_infile_error(p_cmd);
 		p->next_is_infile = false;
 		return ;
 	}
@@ -35,8 +80,10 @@ void	define_p_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 		if (!p_cmd->outfile)
 			exit (1); //mayday error ?
 		fdout = open(p_cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		close(fdout);
-		p->next_is_outfile = false;
+		if (fdout <= 0)
+			define_outfile_error(p_cmd);
+		else
+			close(fdout);
 		return ;
 	}
 	if(p->next_can_be_arg)

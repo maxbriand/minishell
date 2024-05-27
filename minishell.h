@@ -31,6 +31,10 @@ typedef struct s_commands
 	struct s_commands	*next;
 	int		*pipefd0;
 	int		*pipefd1;
+	bool	err_is_infile;
+	bool	err_is_outfile;
+	int		code_error;
+	char	*msg_error;
 }	t_commands;
 
 typedef struct s_minishell

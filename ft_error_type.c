@@ -23,8 +23,30 @@ int	pipe_unexpected(char *input)
 	return (0);
 }
 
-void error_and_exit(char *error)
+void	error_and_exit(char *error)
 {
 	ft_putstr_fd(error, 1);
 	exit (1);
+}
+
+void	ft_better_putstr_fd(char *str, char *arg, int error)
+{
+	int	i;
+
+	if (!str || !arg)
+		return ;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '%' && str[i + 1] == 's')
+		{
+			ft_putstr_fd(arg, error);
+			i += 2;
+		}
+		else
+		{
+			write(error, &str[i], 1);
+			i++;
+		}
+	}
 }

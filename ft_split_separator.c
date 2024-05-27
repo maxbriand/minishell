@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/27 15:55:55 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/05/27 20:35:42 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ static char	*split_here(char *str, int *i, int *last_split, char *sep)
 	int		j;
 	int		len;
 
-	if (str[*i] != '\0')
-		(*i)++;
+	//if (str[*i] != '\0')
+	//	(*i)++;
 	len = *i - *last_split;
 	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
@@ -88,7 +88,7 @@ static char	*split_here(char *str, int *i, int *last_split, char *sep)
 	{
 		while (is_sep(str[*i], sep))
 			(*i)++;
-		(*i)--;
+		//(*i)--;
 	}
 	*last_split = *i;
 	if (str[*i] != '\0')

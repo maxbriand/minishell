@@ -24,6 +24,7 @@ SRC =	ft_error_p.c\
 		ft_remove_element.c\
 		ft_strlen_array.c\
 		ft_check_quote.c\
+		ft_better_strdup.c\
 		main.c
 
 

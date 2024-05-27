@@ -13,16 +13,9 @@
 -- echo aa <> out
 I open then direct close, and i dont stock out in "stdout"
 
-
-if bqcslqsh at the end of arg = error
-
-quote
-
 echo aa edfe>dd out
 this should echo in dd this:
 aa edfe out
-
- ""test" is error because quote is detected but not with '
 
  --if echo $test > out*
  out is not open and create
