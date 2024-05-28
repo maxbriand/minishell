@@ -3,25 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_quote_ignore.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/21 21:51:22 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/26 21:04:05 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_define_on_quote(char *str, int i, bool *on_quote)
+bool	ft_define_on_quote(char *str, int i, bool *on_quote)
 {
 	if (str[i] == '\'' && on_quote[0] == false && on_quote[1] == false)
+	{
 		on_quote[0] = true;
+		return (true);
+	}
 	else if (str[i] == '\'' && on_quote[0] == true && on_quote[1] == false)
+	{
 		on_quote[0] = false;
+		return (true);
+	}
 	if (str[i] == '\"' && on_quote[0] == false && on_quote[1] == false)
+	{
 		on_quote[1] = true;
+		return (true);
+	}
 	else if (str[i] == '\"' && on_quote[0] == false && on_quote[1] == true)
+	{
 		on_quote[1] = false;
+		return (true);
+	}
+	return (false);
 }
 
 static int	count_cut(char *str, char c, bool *on_quote)
@@ -58,6 +71,8 @@ static char	*split_here(char *str, int *i, int *last_split, char c)
 	int		j;
 
 	result = malloc(sizeof(char) * (*i - *last_split + 1));
+	if (!result)
+		exit (1);//mayday eerror 
 	j = 0;
 	while (*last_split < *i)
 	{

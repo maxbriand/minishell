@@ -1,6 +1,6 @@
-NAME = minishell 
+NAME = minishell
 CC = cc
-#FLAGS = -Wall -Werror -Wextra 
+#FLAGS = -Wall -Werror -Wextra
 LIBFT = libft/libft.a
 
 SRC = 	exe/test.c \
@@ -24,22 +24,27 @@ SRC = 	exe/test.c \
 		builtins/ft_pwd.c \
 		builtins/ft_unset.c \
 		\
-		parsing/apply_quote.c \
-		parsing/catch_path_env.c \
-		parsing/check_arg.c \
-		parsing/cmd_arg_join.c \
-		parsing/define_cmd.c \
-		parsing/define_p.c \
-		parsing/define_pcmd_first.c \
-		parsing/define_pcmd.c \
-		parsing/error_p.c \
-		parsing/error_type.c \
+		parsing/ft_apply_quote.c \
+		parsing/ft_catch_env.c \
+		parsing/ft_check_arg.c \
+		parsing/ft_cmd_arg_join.c \
+		parsing/ft_define_cmd.c \
+		parsing/ft_define_p.c \
+		parsing/ft_define_pcmd_first.c \
+		parsing/ft_define_pcmd.c \
+		parsing/ft_error_p.c \
+		parsing/ft_error_type.c \
 		parsing/ft_realloc.c \
 		parsing/ft_split_quote_ignore.c \
 		parsing/ft_utils.c \
 		parsing/ft_verif_access.c \
-		parsing/parsing.c \
-		parsing/ultimate_free.c \
+		parsing/ft_parsing.c \
+		parsing/ft_ultimate_free.c \
+		parsing/ft_split_separator.c \
+		parsing/ft_strjoin_free.c \
+		parsing/ft_better_strdup.c \
+		parsing/ft_check_quote.c \
+
 
 all: $(NAME)
 

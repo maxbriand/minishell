@@ -14,7 +14,7 @@ static void	ft_free_tests(t_commands *p_cmd, char *cmd)
 
 // Malloc unprotected
 static t_commands	*ft_init_p_cmd_tests(t_commands *p_cmd)
-{	
+{
 	p_cmd = malloc(sizeof(t_commands));
 	p_cmd->b_builtins = 0;
 	// stdinput
@@ -77,9 +77,9 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 	int i;
 	printf("\n\033[1;33mPARSING RESULT:\033[0m");
 	while (p_cmd)
-	{	
+	{
 		printf("\n\033[1;32mInput redirection:\033[0m");
-		if (p_cmd->infile == NULL && !p_cmd->hd_stop && p_cmd->in_pipe == 0)	
+		if (p_cmd->infile == NULL && !p_cmd->hd_stop && p_cmd->in_pipe == 0)
 			printf("\033[1;31m(no redirection)\033[0m");
 		printf("\n");
 		printf("Infile: %s\n", p_cmd->infile);
@@ -119,9 +119,15 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 		}
 		printf("\n");
 		printf("Builtins: %d\n", p_cmd->b_builtins);
+		printf("\n\033[1;32mError:\033[0m\n");
+		printf("Msg error: %s\n", p_cmd->msg_error);
+		printf("Code error: %d\n", p_cmd->code_error);
+		printf("Is Infile Error: %d\n", p_cmd->err_is_infile);
+		printf("Is Outfile Error: %d\n", p_cmd->err_is_outfile);
 		p_cmd = p_cmd->next;
 	}
 	printf("\n\033[1;32mOutput result: \033[0m\n");
+	printf("\n\n");
 }
 
 t_minishell	*ft_init_mish(t_minishell *mish, t_commands *p_cmd, char **env)
@@ -136,7 +142,7 @@ t_minishell	*ft_init_mish(t_minishell *mish, t_commands *p_cmd, char **env)
 }
 
 /*
-	p_cmd contains contains only good values 
+	p_cmd contains contains only good values
 	except a bad cmd / option / argument
 */
 int	main(int ac, char **av, char **env)
@@ -164,6 +170,7 @@ int	main(int ac, char **av, char **env)
 		ft_printf_parsing(data->p_cmd);
 		ft_exe(data, data->p_cmd);
 		free(cmd);
+		//free_p_cmd(data->p_cmd);
 	}
 	//ft_free_tests(p_cmd, cmd);
 	return (0);

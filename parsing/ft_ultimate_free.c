@@ -1,0 +1,55 @@
+#include "minishell.h"
+
+void	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+void	free_p(t_pars *p)
+{
+	t_pars	*p_buf;
+
+	while(p)
+	{
+		p_buf = p;
+		free_tab(p->spl_cmd);
+		p = p->next;
+		free(p_buf);
+	}
+	if (p)
+		free(p);
+}
+
+void	free_p_cmd(t_commands *p_cmd)
+{
+	t_commands	*buf;
+
+	while (p_cmd)
+	{
+		buf = p_cmd;
+		p_cmd = p_cmd->next;
+		if (buf->arg)
+			free(buf->arg);
+		if (buf->arg_cmd)
+			free_tab(buf->arg_cmd);
+		if (buf->cmd)
+			free(buf->cmd);
+		if (buf->hd_stop)
+			free_tab(buf->hd_stop);
+		if (buf->infile)
+			free(buf->infile);
+		if (buf->option)
+			free(buf->option);
+		if (buf->outfile)
+			free(buf->outfile);
+		free(buf);
+	}
+}
