@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/28 17:48:09 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/28 23:47:44 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 {
 	char	*path;
 	
+	if (c_cmd->code_error != 0)
+		exit (c_cmd->code_error);
 	ft_set_pipefd(data, c_cmd, pipefds, c);
 	if (c_cmd->b_builtins == 0)
 		path = ft_check_path(data, c_cmd);
