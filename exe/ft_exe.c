@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/26 21:52:50 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/28 17:48:09 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	ft_set_pipefd(data, c_cmd, pipefds, c);
 	if (c_cmd->b_builtins == 0)
 		path = ft_check_path(data, c_cmd);
-	ft_printf("test");
 	if (c_cmd->infile || c_cmd->hd_stop || c_cmd->in_pipe)
 		ft_input_redir(data, c_cmd, c_cmd->pipefd0);
 	if (c_cmd->outfile || c_cmd->next != NULL)
@@ -60,9 +59,7 @@ void	ft_exe(t_minishell *data, t_commands *p_cmd)
 		p_cmd = p_cmd->next;
 		c++;
 	}
-	ft_close_pipes(data, data->pipefds);
-	
+	ft_close_pipes(data, data->pipefds);	
 	while(wait(&(data->exit_stat)) != -1);
 	data->exit_stat = WEXITSTATUS(data->exit_stat);
-	ft_printf("the value of test is %d\n", data->exit_stat);
 }

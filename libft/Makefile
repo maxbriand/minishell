@@ -80,6 +80,8 @@ SRC =	$(FT_CTYPE)ft_isalpha.c \
 		$(ARRAY)ft_arrfree.c \
 		$(ARRAY)ft_arrcat.c \
 		$(ARRAY)ft_arrlen.c \
+		$(ARRAY)ft_arrprintf.c \
+		$(ARRAY)ft_arrjoin.c \
 
 OBJ = $(patsubst %.c, %.o, $(SRC))
 

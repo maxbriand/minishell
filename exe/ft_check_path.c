@@ -77,6 +77,6 @@ char	*ft_check_path(t_minishell *data, t_commands *current_cmd)
 		paths++;
 	}
 	ft_arrfree(save_paths);
-	ft_exit_failure("Not existing path for a command", data);
+	ft_exit_failure("command not found", data);
 	return (NULL);
 }

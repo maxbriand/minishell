@@ -22,32 +22,37 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int main() {
-    char *currentDir;
-    size_t size = 50; // Specify the size of the buffer.
+#include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
 
-    // Allocate memory for the buffer.
-    currentDir = malloc(size);
-    if (currentDir == NULL) {
-        perror("Malloc failed");
-        exit(EXIT_FAILURE);
+int main() 
+{
+    char cwd[1024];
+
+    // Get and print the current working directory
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        printf("Current working directory: %s\n", cwd);
+    } else {
+        perror("getcwd error");
+        return 1;
     }
 
-    // Get the current working directory.
-    if (getcwd(currentDir, size) == NULL) 
-    {
-        perror("getcwd failed");
-        free(currentDir);
-        exit(EXIT_FAILURE);
+    // Change the working directory
+    const char *new_directory = "/nfs/homes/mbriand/minishell/builtins"; // Replace with a valid directory path
+    if (chdir(new_directory) != 0) {
+        perror("chdir error");
+        return 1;
     }
 
-    // Print the current directory.
-    printf("Current working directory: %s\n", currentDir);
-
-    // Free the allocated memory.
-    free(currentDir);
+    // Get and print the new current working directory
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        printf("New working directory: %s\n", cwd);
+    } else {
+        perror("getcwd error");
+        return 1;
+    }
 
     return 0;
 }
-
-

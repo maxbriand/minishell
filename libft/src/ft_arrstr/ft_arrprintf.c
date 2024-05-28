@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arrstr.h                                        :+:      :+:    :+:   */
+/*   ft_arrprintf.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 16:54:19 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/23 17:33:54 by mbriand          ###   ########.fr       */
+/*   Created: 2024/05/23 17:20:18 by mbriand           #+#    #+#             */
+/*   Updated: 2024/05/23 17:27:53 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ARRSTR_H
-# define FT_ARRSTR_H
+#include "libft.h"
 
-void	ft_arrfree(char **str_array);
-int		ft_arrlen(char **str);
-char	**ft_arrcat(char **array, char *str);
-void	ft_arrprintf(char **arr_of_str);
-char	**ft_arrjoin(char **fst_array, char **snd_array);
-
-#endif
+void	ft_arrprintf(char **arr_of_str)
+{
+	if (arr_of_str == NULL)
+		return ;
+	while (*arr_of_str)
+	{
+		ft_printf("%s\n", *arr_of_str);
+		arr_of_str++;
+	}
+}

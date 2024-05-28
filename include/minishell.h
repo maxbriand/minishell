@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/25 14:59:25 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/28 15:43:43 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 
 typedef struct s_commands
 {
-	bool				b_builtins;
 	char				*infile; // last infile -> only if this infile it's the last input redirection / after heredoc
 	char				**hd_stop;
 	bool				in_pipe; //pipe before the command or not (0 or 1)
@@ -39,6 +38,7 @@ typedef struct s_commands
 	char				*option;
 	char				*arg;
 	char				**arg_cmd; // cmd + option + arg
+	bool				b_builtins;
 	struct s_commands	*next;
 	int					*pipefd0;
 	int					*pipefd1;
