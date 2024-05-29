@@ -157,7 +157,7 @@ int	main(int ac, char **av, char **env)
 	errcode = 0;
 	while (1)
 	{
-		cmd = readline("-> minishell: ");
+		cmd = readline("minishell: ");
 		if (!cmd)
 			break;
 		if (*cmd)
@@ -167,7 +167,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strcmp(cmd, "exit") == 0)
 			break;
 		ft_parsing(cmd, data);
-		ft_printf("hello");
+		// ft_printf_parsing(data->p_cmd);
 		ft_exe(data, data->p_cmd);
 		free(cmd);
 		//free_p_cmd(data->p_cmd);
