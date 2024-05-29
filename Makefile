@@ -14,8 +14,8 @@ SRC =	ft_error_p.c\
 		ft_catch_env.c\
 		ft_apply_quote.c\
 		ft_parsing.c\
-		ft_define_p.c\
-		ft_define_cmd.c\
+		ft_init_p.c\
+		ft_init_pcmd.c\
 		ft_define_pcmd_first.c\
 		ft_define_pcmd.c\
 		ft_check_arg.c\
@@ -25,6 +25,8 @@ SRC =	ft_error_p.c\
 		ft_strlen_array.c\
 		ft_check_quote.c\
 		ft_better_strdup.c\
+		ft_define_shure_arg.c\
+		ft_check_nb_op.c\
 		main.c
 
 

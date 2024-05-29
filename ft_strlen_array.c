@@ -9,6 +9,5 @@ int	ft_strlen_array(char **array)
 	len = 0;
 	while (array[len])
 		len++;
-	printf("%s = array\n", array[0]);
 	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/27 21:27:49 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/05/29 22:07:24 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,38 +39,54 @@ static int	count_cut(char *str, bool *on_quote, char *sep)
 		i++;
 	while (str[i])
 	{
-		if (on_quote[0] == false && on_quote[1] == false && (is_sep(str[i], sep) == true
-			|| str[i] == '<' || str[i] == '>'))
+		printf("%c = str[%d]\n", str[i], i);
+		if (i > 0 && on_quote[0] == false && on_quote[1] == false
+			&& (is_sep(str[i], sep) == true || str[i] == '<' || str[i] == '>'))
 		{
-			nb_cut++;
-			if ((str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>'))
+			printf("JE PASSE ICI\n");
+			if ((str[i] == '<') || (str[i] == '>') && is_sep(str[i - 1], sep) == false)
 			{
-				while ((str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>'))
+				nb_cut++;
+				while (str[i] == '<' || str[i] == '>')
 					i++;
 			}
 			else
 			{
-				if (is_sep(str[i], sep))
+				if (str[i] == '<' || str[i] == '>')
 				{
-					nb_cut++;
-					while (is_sep(str[i], sep))
-					i++;
+					while (str[i] == '<' || str[i] == '>')
+						i++;
 				}
 				else
-					i++;
+				{
+					if (is_sep(str[i], sep))
+					{
+						nb_cut++;
+						while (is_sep(str[i], sep))
+							i++;
+					}
+					else
+						i++;
+				}
 			}
 		}
 		else
 		{
 			ft_define_on_quote(str, i, on_quote);
+			//if (str[i] == '<' || str[i] == '>')
+			//{
+			//	while (str[i] == '<' || str[i] == '>')
+			//		i++;
+			//}
+			//else
 			i++;
 		}
 		//printf("%d = i\n", i);
-		//printf("%d = count\n", nb_cut);
+		printf("%d = count\n", nb_cut);
 	}
-	if (is_sep(str[i - 1], sep) == false && str[i - 1] != '<' && str[i - 1] != '>')
+	if (is_sep(str[i - 1], sep) == false)
 		nb_cut++;
-	//printf("%d = count FINAL\n", nb_cut);
+	printf("%d = count FINAL\n", nb_cut);
 	return (nb_cut);
 }
 
@@ -147,7 +163,7 @@ static void	ft_split_parsing(char *str, char *sep, char **result)
 		//printf("\n%d = onquote\n", on_quote[0]);
 		//printf("%d = ondquote\n", on_quote[1]);
 	}
-	if (is_sep(str[i - 1], sep) == false && str[i - 1] != '<' && str[i - 1] != '>')
+	if (is_sep(str[i - 1], sep) == false)
 		result[y] = split_here(str, &i, &last_split, on_quote);
 }
 

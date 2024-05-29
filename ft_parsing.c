@@ -19,7 +19,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 //THIS BLOCK IS FOR PRINTF ALL CUT MADE WITH SPLIT
 //COMMENT THIS FOR NO PRINTF
-	// int f;
+	//  int f;
 	// f = 0;
 	// t_pars *buf2;
 	// buf2 = p;
@@ -30,6 +30,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 	// 	while (p->spl_cmd[i])
 	// 	{
 	// 		printf(" Argument %d = %s.\n", i, p->spl_cmd[i]);
+	// 		printf(" is_arg shure %d = %d.\n", i, p->is_arg[i]);
 	// 		i++;
 	// 	}
 	// 	p = p->next;
@@ -47,10 +48,10 @@ void	ft_parsing(char *input, t_minishell *mini)
 		if (buf != mini->p_cmd)
 			buf->in_pipe = true;
 		define_first_pcmd(p->spl_cmd[0], buf, p);
-		i= 1;
+		i = 1;
 		while (p->spl_cmd[i])
 		{
-			define_p_cmd(p->spl_cmd[i], buf, p);
+			define_p_cmd(p->spl_cmd[i], p->is_arg[i], buf, p);
 			i++;
 		}
 		if (buf->arg_cmd == NULL && buf->cmd)

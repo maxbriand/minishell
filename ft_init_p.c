@@ -7,21 +7,7 @@ t_pars	*new_node(char *input_no_pipe, t_minishell *mini)
 
 	node = malloc(sizeof(t_pars));
 	node->spl_cmd = ft_split_separator(input_no_pipe);
-	//CHANEGEGGEGE
-
-
-	//if (node->spl_cmd == NULL)
-	//{
-		//free(node->spl_cmd);
-		//free(node);
-		//return (NULL);
-	//} why did i put this ??
-
-	//remove uneeded quote
-
-	//apply_quote(node->spl_cmd);
-
-
+	node->is_arg = define_shure_arg(node->spl_cmd);
 	remove_quote_bslash(node->spl_cmd, mini);
 	if (!node->spl_cmd || !node->spl_cmd[0] || node->spl_cmd[0][0] == '\0')
 	{
@@ -30,24 +16,10 @@ t_pars	*new_node(char *input_no_pipe, t_minishell *mini)
 		free (node);
 		return NULL;
 	}
-	//i need to do a check of every arg for > or >>
-
-
-
-
-	//int i = 0;
-	// while (node->spl_cmd[i])
-	// {
-	// 	is_error_quote(node->spl_cmd[i]);
-	// 	//if (is_error_quote(node->spl_cmd[i]) == true)// error is just a text or exit too ?
-	// 	//{
-	// 	//	//free(node->spl_cmd[i]);
-	// 	//	//node->spl_cmd = malloc(sizeof(char *) * 1);
-	// 	//	//node->spl_cmd[0] = NULL;
-	// 	//	//je pourrais faire une fonction qui retire juste la chaine en question de spl_cmm
-	// 	//}
-	// 	i++;
-	// }
+	node->code_error = 0;
+	node->file_err[0] = false;
+	node->file_err[1] = false;
+	node->error_msg = NULL;
 	node->next_is_hd_stop = false;
 	node->next_is_infile = false;
 	node->next_is_outfile = false;
@@ -69,6 +41,12 @@ t_pars	*define_p(char *input, t_minishell *mini)
 	{
 		input_no_pipe = ft_split_quote_ignore(input, '|');
 		head = new_node(input_no_pipe[0], mini);
+		if (!head)
+		{
+			free_tab(input_no_pipe);
+			return NULL;
+		}
+		check_nb_op(head->spl_cmd, &head->error_msg, head->file_err, &head->code_error);
 		buf = head;
 		i = 1;
 		while (input_no_pipe[i])
@@ -76,6 +54,7 @@ t_pars	*define_p(char *input, t_minishell *mini)
 			buf->next = new_node(input_no_pipe[i], mini);
 			if (buf->next != NULL)
 				buf = buf->next;
+			check_nb_op(buf->spl_cmd, &buf->error_msg, buf->file_err, &buf->code_error);
 			i++;
 		}
 		free_tab(input_no_pipe);
