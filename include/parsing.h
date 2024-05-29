@@ -6,6 +6,11 @@
 typedef struct s_parsing
 {
 	char	**spl_cmd;
+	//i need to do a function where
+	//is arg is define about if splitcmd[x] has quote
+	//c'est forcement un argument si on quote sauf
+	//si next is outfile etc
+	bool	*is_arg;
 	bool	next_is_hd_stop;
 	bool	next_is_infile;
 	bool	next_is_outfile;
@@ -19,6 +24,7 @@ void	ft_parsing(char *input, t_minishell *mini);
 t_pars	*define_p(char *input, t_minishell *mini);
 void	define_cmd(t_minishell *mini, t_pars *node);
 void	remove_quote_bslash(char **str, t_minishell *mini);
+bool	*define_shure_arg(char **splt_cmd);
 
 //error
 int		pipe_unexpected(char *input);
@@ -29,7 +35,7 @@ void	ft_better_putstr_fd(char *str, char *arg, int error);
 
 //define t_command
 void	define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p);
-void	define_p_cmd(char *arg, t_commands *p_cmd, t_pars *p);
+void	define_p_cmd(char *arg, bool is_arg, t_commands *p_cmd, t_pars *p);
 
 //check arg
 bool	is_error_quote(char *str);

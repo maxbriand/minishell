@@ -45,12 +45,23 @@ void	define_infile_error(t_commands *p_cmd)
 	}
 }
 
-void	define_p_cmd(char *arg, t_commands *p_cmd, t_pars *p)
+void	define_p_cmd(char *arg, bool is_arg, t_commands *p_cmd, t_pars *p)
 {
 	int	fdout;
 	//need to look at quote here ?? or define before  ?
 	if (arg[0] == '\0')
 		return ;
+	if (is_arg == true)
+	{
+		if (p_cmd->arg)
+		{
+			p_cmd->arg = ft_strjoin(p_cmd->arg, " ");
+			p_cmd->arg = ft_strjoin(p_cmd->arg, arg);
+		}
+		else
+			p_cmd->arg = ft_strdup(arg);
+		return ;
+	}
 	if (p->next_can_be_opt && is_option(arg, p_cmd) == true)
 			return ;
 	if (is_operator(arg, p_cmd, p) == true)
@@ -95,6 +106,7 @@ void	define_p_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 		}
 		else
 			p_cmd->arg = ft_strdup(arg);
+		return ;
 	}
 	if (p_cmd->cmd == NULL)
 	{

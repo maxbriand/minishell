@@ -21,6 +21,7 @@ void	free_p(t_pars *p)
 	{
 		p_buf = p;
 		free_tab(p->spl_cmd);
+		free(p->is_arg);
 		p = p->next;
 		free(p_buf);
 	}
@@ -50,6 +51,8 @@ void	free_p_cmd(t_commands *p_cmd)
 			free(buf->option);
 		if (buf->outfile)
 			free(buf->outfile);
+		if (buf->msg_error)
+			free(buf->msg_error);
 		free(buf);
 	}
 }

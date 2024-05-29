@@ -44,6 +44,8 @@ SRC = 	exe/test.c \
 		parsing/ft_strjoin_free.c \
 		parsing/ft_better_strdup.c \
 		parsing/ft_check_quote.c \
+		parsing/ft_define_shure_arg.c \
+		parsing/ft_strlen_array.c \
 
 
 all: $(NAME)
