@@ -6,6 +6,11 @@
 typedef struct s_parsing
 {
 	char	**spl_cmd;
+	//i need to do a function where
+	//is arg is define about if splitcmd[x] has quote
+	//c'est forcement un argument si on quote sauf
+	//si next is outfile etc
+	bool	*is_arg;
 	bool	next_is_hd_stop;
 	bool	next_is_infile;
 	bool	next_is_outfile;

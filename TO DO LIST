@@ -20,7 +20,7 @@ I open then direct close, and i dont stock out in "stdout"
  cat > out* look for the file stating with out
 cat > *out search for the file ending with out
 
-put a \n before right ecrire
+put a \n before write ecrire
 
 
 
