@@ -38,7 +38,17 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 			printf("\n\033[1;32mCommand:\033[0m\n");
 			printf("Cmd: %s\n", p_cmd->cmd);
 			printf("Option: %s\n", p_cmd->option);
-			printf("Arg: %s\n", p_cmd->arg);
+			y = 0;
+			if (p_cmd->arg)
+			{
+				while (p_cmd->arg[y])
+				{
+					printf("Arg[%d]: %s\n", y, p_cmd->arg[y]);
+					y++;
+				}
+			}
+			else
+				printf("Arg: NULL\n");
 			y = 0;
 			printf("cmd+arg+opt: ");
 			if (!p_cmd->arg_cmd)

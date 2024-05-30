@@ -26,7 +26,7 @@ typedef struct s_commands
 	//I open all the outfile and close instant after being create
 	char	*cmd;
 	char	*option;
-	char	*arg;
+	char	**arg;
 	char	**arg_cmd; // cmd + option + arg
 	struct s_commands	*next;
 	int		*pipefd0;

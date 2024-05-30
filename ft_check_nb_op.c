@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 //true = error
-void	check_nb_op(char **spl_cmd, char **error_msg, bool *file_err, int *code_error)
+/*void	check_nb_op(char **spl_cmd, char **error_msg, bool *file_err, int *code_error)
 {
 	int	i;
 	int	j;
@@ -33,12 +33,12 @@ void	check_nb_op(char **spl_cmd, char **error_msg, bool *file_err, int *code_err
 			{
 				if (*error_msg == NULL)
 				{
-					if (nb_l > 2)
-						*error_msg = ft_strdup("minishell: syntax error near unexpected token `<<'");
-					if (nb_r > 2)
-						*error_msg = ft_strdup("minishell: syntax error near unexpected token `>>'");
 					if (spl_cmd[i][j] == '<')
 						*error_msg = ft_strdup("minishell: syntax error near unexpected token `><'");
+					else if (nb_l > 2)
+						*error_msg = ft_strdup("minishell: syntax error near unexpected token `<<'");
+					else if (nb_r > 2)
+						*error_msg = ft_strdup("minishell: syntax error near unexpected token `>>'");
 					*code_error = 2;
 				}
 				return ;
@@ -65,9 +65,9 @@ void	check_nb_op(char **spl_cmd, char **error_msg, bool *file_err, int *code_err
 				{
 					if (nb_l > 2)
 						*error_msg = ft_strdup("minishell: syntax error near unexpected token `<<'");
-					if (nb_r > 2)
+					else if (nb_r > 2)
 						*error_msg = ft_strdup("minishell: syntax error near unexpected token `>>'");
-					if (spl_cmd[i][j] == '>')
+					else if (spl_cmd[i][j] == '>')
 						*error_msg = ft_strdup("minishell: syntax error near unexpected token `<>'");
 					*code_error = 2;
 				}
@@ -76,4 +76,4 @@ void	check_nb_op(char **spl_cmd, char **error_msg, bool *file_err, int *code_err
 		}
 		i++;
 	}
-}
+}*/

@@ -52,13 +52,7 @@ void	define_p_cmd(char *arg, bool is_arg, t_commands *p_cmd, t_pars *p)
 		return ;
 	if (is_arg == true)
 	{
-		if (p_cmd->arg)
-		{
-			p_cmd->arg = ft_strjoin(p_cmd->arg, " ");
-			p_cmd->arg = ft_strjoin(p_cmd->arg, arg);
-		}
-		else
-			p_cmd->arg = ft_strdup(arg);
+		p_cmd->arg = ft_addback(p_cmd->arg, arg);
 		return ;
 	}
 	if (p->next_can_be_opt && is_option(arg, p_cmd) == true)
@@ -98,13 +92,7 @@ void	define_p_cmd(char *arg, bool is_arg, t_commands *p_cmd, t_pars *p)
 	}
 	if(p->next_can_be_arg)
 	{
-		if (p_cmd->arg)
-		{
-			p_cmd->arg = ft_strjoin(p_cmd->arg, " ");
-			p_cmd->arg = ft_strjoin(p_cmd->arg, arg);
-		}
-		else
-			p_cmd->arg = ft_strdup(arg);
+		p_cmd->arg = ft_addback(p_cmd->arg, arg);
 		return ;
 	}
 	if (p_cmd->cmd == NULL)

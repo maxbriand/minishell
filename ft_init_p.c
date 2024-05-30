@@ -46,7 +46,7 @@ t_pars	*define_p(char *input, t_minishell *mini)
 			free_tab(input_no_pipe);
 			return NULL;
 		}
-		check_nb_op(head->spl_cmd, &head->error_msg, head->file_err, &head->code_error);
+		//check_nb_op(head->spl_cmd, &head->error_msg, head->file_err, &head->code_error);
 		buf = head;
 		i = 1;
 		while (input_no_pipe[i])
@@ -54,7 +54,7 @@ t_pars	*define_p(char *input, t_minishell *mini)
 			buf->next = new_node(input_no_pipe[i], mini);
 			if (buf->next != NULL)
 				buf = buf->next;
-			check_nb_op(buf->spl_cmd, &buf->error_msg, buf->file_err, &buf->code_error);
+			//check_nb_op(buf->spl_cmd, &buf->error_msg, buf->file_err, &buf->code_error);
 			i++;
 		}
 		free_tab(input_no_pipe);
