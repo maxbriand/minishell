@@ -6,6 +6,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 	t_pars		*p;
 	t_commands	*buf;
 	int			i;
+	int			fdout;
 
 	if (ft_strlen(input) == 0)
 		return ;
@@ -56,6 +57,14 @@ void	ft_parsing(char *input, t_minishell *mini)
 		}
 		if (buf->arg_cmd == NULL && buf->cmd)
 			cmd_arg_join(buf);
+		if (buf->outfile && buf->err_is_infile == false)
+		{
+			fdout = open(buf->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (fdout <= 0)
+				define_outfile_error(buf);
+			else
+				close(fdout);
+		}
 
 
 

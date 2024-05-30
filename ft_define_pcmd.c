@@ -83,11 +83,7 @@ void	define_p_cmd(char *arg, bool is_arg, t_commands *p_cmd, t_pars *p)
 		p_cmd->outfile = ft_strdup(arg);
 		if (!p_cmd->outfile)
 			exit (1); //mayday error ?
-		fdout = open(p_cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fdout <= 0)
-			define_outfile_error(p_cmd);
-		else
-			close(fdout);
+		//
 		return ;
 	}
 	if(p->next_can_be_arg)
