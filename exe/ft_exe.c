@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/28 23:47:44 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/29 18:47:53 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 {
 	char	*path;
 	
-	if (c_cmd->code_error != 0)
-		exit (c_cmd->code_error);
+	if (c_cmd->code_error != 0 && c_cmd->err_is_infile == 1)
+		ft_exit_failure(c_cmd->msg_error, c_cmd, data);
 	ft_set_pipefd(data, c_cmd, pipefds, c);
 	if (c_cmd->b_builtins == 0)
 		path = ft_check_path(data, c_cmd);
+	if (c_cmd->code_error != 0 && c_cmd->err_is_outfile == 1)
+		ft_exit_failure(c_cmd->msg_error, c_cmd, data);
 	if (c_cmd->infile || c_cmd->hd_stop || c_cmd->in_pipe)
 		ft_input_redir(data, c_cmd, c_cmd->pipefd0);
 	if (c_cmd->outfile || c_cmd->next != NULL)
@@ -29,7 +31,7 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	if (c_cmd->b_builtins == 0)
 	{
 		execve(path, c_cmd->arg_cmd, data->env);
-		ft_exit_failure("execution issue\n", data);
+		ft_exit_failure("execution issue\n", c_cmd, data);
 	}
 	else
 	{
@@ -55,7 +57,7 @@ void	ft_exe(t_minishell *data, t_commands *p_cmd)
 	{
 		pid = fork();
 		if (pid == -1)
-			ft_exit_failure("fork creation issue", data);
+			ft_exit_failure("fork creation issue", NULL, data);
 		if (pid == 0)
 				ft_child_exe(data, p_cmd, data->pipefds, c);
 		p_cmd = p_cmd->next;

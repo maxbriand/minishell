@@ -13,9 +13,11 @@ int	ft_write_error(char *msg)
 	return (0);
 }
 
-void	ft_exit_failure(char *msg, t_minishell *data)
+void	ft_exit_failure(char *msg, t_commands *c_cmd, t_minishell *data)
 {
-	ft_write_error(msg);
+	ft_write_error(msg);	
+	if (c_cmd->code_error != 0)
+		exit(c_cmd->code_error);
 	// close all pipes
 	// ft_close_pipes(data->pipefds);
 	exit(EXIT_FAILURE);

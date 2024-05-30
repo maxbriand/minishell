@@ -23,6 +23,7 @@ SRC = 	exe/test.c \
 		builtins/ft_export.c \
 		builtins/ft_pwd.c \
 		builtins/ft_unset.c \
+		builtins/ft_butils.c \
 		\
 		parsing/ft_apply_quote.c \
 		parsing/ft_catch_env.c \
@@ -65,7 +66,7 @@ fclean: clean
 
 re: fclean all
 	clear
-	./minishell
+#./minishell
 
 rev: fclean all
 	valgrind --tool=memcheck --track-origins=yes --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes -s --suppressions=valgrind.supp ./minishell

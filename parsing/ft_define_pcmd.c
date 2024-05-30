@@ -4,7 +4,7 @@ void	define_outfile_error(t_commands *p_cmd)
 {
 	if (p_cmd->msg_error == NULL)
 	{
-		p_cmd->msg_error = ft_better_strdup("minishell: %s: Permission denied\n", p_cmd->outfile);
+		p_cmd->msg_error = ft_better_strdup("minishell: %s: Permission denied", p_cmd->outfile);
 		p_cmd->err_is_outfile = true;
 		p_cmd->code_error = 1;
 	}
@@ -22,7 +22,7 @@ void	define_infile_error(t_commands *p_cmd)
 			if (p_cmd->msg_error == NULL)
 			{
 				p_cmd->err_is_infile = true;
-				p_cmd->msg_error = ft_better_strdup("minishell: %s: Permission denied\n", p_cmd->infile);
+				p_cmd->msg_error = ft_better_strdup("minishell: %s: Permission denied", p_cmd->infile);
 				p_cmd->code_error = 1;
 			}
 			else
@@ -35,7 +35,7 @@ void	define_infile_error(t_commands *p_cmd)
 		if (p_cmd->msg_error == NULL)
 		{
 			p_cmd->err_is_infile = true;
-			p_cmd->msg_error = ft_better_strdup("minishell: %s: No such file or directory\n", p_cmd->infile);
+			p_cmd->msg_error = ft_better_strdup("minishell: %s: No such file or directory", p_cmd->infile);
 
 			p_cmd->code_error = 1;
 		}

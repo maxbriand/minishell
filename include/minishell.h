@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/28 15:43:43 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/29 22:30:10 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void ft_print_fd_content(int fd);
 int	ft_pipe_counter(t_commands *p_cmd);
 
 // Error
-void	ft_exit_failure(char *msg, t_minishell *data);
+void	ft_exit_failure(char *msg, t_commands *c_cmd, t_minishell *data);
 int		ft_write_error(char *msg);
 
 // Exe
@@ -91,7 +91,10 @@ void	ft_exit(t_minishell *mish, t_commands *p_cmd);
 void	ft_echo(t_minishell *mish, t_commands *p_cmd);
 void	ft_env(t_minishell *mish, t_commands *p_cmd);
 void	ft_export(t_minishell *mish, t_commands *p_cmd);
-void	ft_pwd(t_minishell *mish, t_commands *p_cmd);
+char	*ft_pwd(t_minishell *mish, t_commands *p_cmd, int i);
 void	ft_unset(t_minishell *mish, t_commands *p_cmd);
+
+// Builtins utils
+char	*ft_get_env_var(char **env, char *var);
 
 #endif

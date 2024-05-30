@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_pwd(t_minishell *mish, t_commands *p_cmd)
+char	*ft_pwd(t_minishell *data, t_commands *p_cmd, int i)
 {
 	char	*buf;
 	char	*err_buf;
@@ -18,5 +18,9 @@ void	ft_pwd(t_minishell *mish, t_commands *p_cmd)
 		size++;
 	}
 	ft_printf("%s\n", buf);
-	free(buf);
+	if (i == 0)
+		free(buf);
+	else
+		return (buf);
+	return (NULL);
 }

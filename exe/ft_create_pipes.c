@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 22:55:09 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/22 17:53:15 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/29 18:09:35 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	**ft_create_pipes(int pipenbr, t_minishell *data)
 	{
 		pipefds[i] = malloc(sizeof(int) *2);
 		if (pipe(pipefds[i]) == -1)
-			ft_exit_failure("pipe issue", data);
+			ft_exit_failure("pipe issue", NULL, data);
 		i++;
 	}
 	return (pipefds);

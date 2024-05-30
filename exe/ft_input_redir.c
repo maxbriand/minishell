@@ -9,7 +9,7 @@ static void	ft_write_heredoc(int fd, char *hd_stop, t_minishell *data)
 	{
 		input = readline("> ");
 		if (!input)
-			ft_exit_failure("readline issue", data);
+			ft_exit_failure("readline issue", NULL, data);
 		if (strcmp(input, hd_stop) == 0)
 			break;
 		write(fd, input, strlen(input));
@@ -34,7 +34,7 @@ static int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
 		fd = open("heredoc", O_WRONLY | O_APPEND | O_CREAT, \
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH); // check heredoc file permissions 
 		if (fd == -1)
-			ft_exit_failure("open issue", data);
+			ft_exit_failure("open issue", NULL, data);
 		ft_write_heredoc(fd, c_cmd->hd_stop[i], data);
 		i++;
 	}
@@ -55,18 +55,18 @@ void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
 			close(fd);
 		fd = open(c_cmd->infile, O_RDONLY);
 		if (fd == -1)
-			ft_exit_failure("adup2 issue", data);
+			ft_exit_failure("adup2 issue", NULL, data);
 	}
 	else if (!c_cmd->hd_stop)
 	{
 		close(fd);
 		unlink("heredoc");
 		if (dup2(pipefd[0], 0) == -1)
-			ft_exit_failure("bdup2 issue", data);
+			ft_exit_failure("bdup2 issue", NULL, data);
 		return ;
 	}
 	if (dup2(fd, 0) == -1)
-		ft_exit_failure("edup2 issue", data);
+		ft_exit_failure("edup2 issue", NULL, data);
 	close(fd);
 	unlink("heredoc");
 }
