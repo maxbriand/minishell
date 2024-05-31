@@ -12,7 +12,6 @@ static char	*strdup_protect(char *new_element)
 	return (new_array);
 }
 
-
 //add 1 element to a array. Free the old array, so it's not needed to free it after
 char	**ft_addback(char **old_array, char *new_element)
 {
@@ -86,8 +85,6 @@ char	*ft_charaddback(char **old_array, char new_element)
 		while ((*old_array)[i])
 			i++;
 	}
-	if (new_element == '\0' && !*old_array)
-		new_array = malloc(sizeof(char));
 	new_array = malloc(sizeof(char) * (i + 2));
 	if (!new_array)
 		exit (1); //error to write?
@@ -102,7 +99,6 @@ char	*ft_charaddback(char **old_array, char new_element)
 		free(*old_array);
 	}
 	new_array[i] = new_element;
-	if (new_element != '\0')
-		new_array[i + 1] = '\0';
+	new_array[i + 1] = '\0';
 	return (new_array);
 }

@@ -31,14 +31,6 @@
 //define if the first arg is a command, a redirection etc
 void	define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p)
 {
-	/*if (p->error_msg)
-	{
-		p_cmd->code_error = p->code_error;
-		p_cmd->err_is_infile = p->file_err[0];
-		p_cmd->err_is_outfile = p->file_err[1];
-		p_cmd->msg_error = ft_strdup(p->error_msg);
-		return;
-	}*/
 	if (first_arg[0] == '\0')
 		return ;
 	if (is_operator(first_arg, p_cmd, p) == true)

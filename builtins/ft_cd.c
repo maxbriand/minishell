@@ -13,7 +13,7 @@ void	ft_cd(t_minishell *data, t_commands *c_cmd)
 		ft_cd_home(data, c_cmd);
 	if (c_cmd->option == NULL && c_cmd->arg != NULL)
 	{
-		if(chdir(*c_cmd->arg) == -1)
+		if(chdir(c_cmd->arg) == -1)
 			ft_write_error("minishell: No such file or directory");
 	}
 }
