@@ -4,7 +4,7 @@ void	define_outfile_error(t_commands *p_cmd)
 {
 	if (p_cmd->msg_error == NULL)
 	{
-		p_cmd->msg_error = ft_better_strdup("minishell: %s: Permission denied", p_cmd->outfile);
+		p_cmd->msg_error = ft_better_strdup("minishell: %s: Permission denied\n", p_cmd->outfile);
 		p_cmd->err_is_outfile = true;
 		p_cmd->code_error = 1;
 	}
@@ -22,7 +22,7 @@ void	define_infile_error(t_commands *p_cmd)
 			if (p_cmd->msg_error == NULL)
 			{
 				p_cmd->err_is_infile = true;
-				p_cmd->msg_error = ft_better_strdup("minishell: %s: Permission denied", p_cmd->infile);
+				p_cmd->msg_error = ft_better_strdup("minishell: %s: Permission denied\n", p_cmd->infile);
 				p_cmd->code_error = 1;
 			}
 			else
@@ -35,8 +35,7 @@ void	define_infile_error(t_commands *p_cmd)
 		if (p_cmd->msg_error == NULL)
 		{
 			p_cmd->err_is_infile = true;
-			p_cmd->msg_error = ft_better_strdup("minishell: %s: No such file or directory", p_cmd->infile);
-
+			p_cmd->msg_error = ft_better_strdup("minishell: %s: No such file or directory\n", p_cmd->infile);
 			p_cmd->code_error = 1;
 		}
 		else
@@ -53,13 +52,7 @@ void	define_p_cmd(char *arg, bool is_arg, t_commands *p_cmd, t_pars *p)
 		return ;
 	if (is_arg == true)
 	{
-		if (p_cmd->arg)
-		{
-			p_cmd->arg = ft_strjoin(p_cmd->arg, " ");
-			p_cmd->arg = ft_strjoin(p_cmd->arg, arg);
-		}
-		else
-			p_cmd->arg = ft_strdup(arg);
+		p_cmd->arg = ft_addback(p_cmd->arg, arg);
 		return ;
 	}
 	if (p->next_can_be_opt && is_option(arg, p_cmd) == true)
@@ -90,22 +83,11 @@ void	define_p_cmd(char *arg, bool is_arg, t_commands *p_cmd, t_pars *p)
 		p_cmd->outfile = ft_strdup(arg);
 		if (!p_cmd->outfile)
 			exit (1); //mayday error ?
-		fdout = open(p_cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fdout <= 0)
-			define_outfile_error(p_cmd);
-		else
-			close(fdout);
 		return ;
 	}
 	if(p->next_can_be_arg)
 	{
-		if (p_cmd->arg)
-		{
-			p_cmd->arg = ft_strjoin(p_cmd->arg, " ");
-			p_cmd->arg = ft_strjoin(p_cmd->arg, arg);
-		}
-		else
-			p_cmd->arg = ft_strdup(arg);
+		p_cmd->arg = ft_addback(p_cmd->arg, arg);
 		return ;
 	}
 	if (p_cmd->cmd == NULL)

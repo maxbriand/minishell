@@ -8,8 +8,16 @@ static bool	is_operator_not_append(char *arg, t_commands *p_cmd, t_pars *p)
 	{
 		if (ft_strlen(arg) > 1)
 		{
-			p_cmd->infile = ft_strdup(arg + 1);
-			define_infile_error(p_cmd);
+			if (arg[1] != '>')
+			{
+				p_cmd->infile = ft_strdup(arg + 1);
+				define_infile_error(p_cmd);
+			}
+			else
+			{
+				p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator");
+				p_cmd->code_error = 2;
+			}
 		}
 		else
 			p->next_is_infile = true;
@@ -17,15 +25,19 @@ static bool	is_operator_not_append(char *arg, t_commands *p_cmd, t_pars *p)
 	}
 	else if (ft_strncmp(arg, ">", 1) == 0)
 	{
-		p_cmd->append_outfile = false;
 		if (ft_strlen(arg) > 1)
 		{
-			p_cmd->outfile = ft_strdup(arg + 1);
-			fdout = open(p_cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fdout <= 0)
-				define_outfile_error(p_cmd);
+			if (arg[1] != '<' && p_cmd->err_is_infile == false)
+			{
+				p_cmd->outfile = ft_strdup(arg + 1);
+				if (!p_cmd->outfile)
+					exit(1);//mayday error ?
+			}
 			else
-				close(fdout);
+			{
+				p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator");
+				p_cmd->code_error = 2;
+			}
 		}
 		else
 			p->next_is_outfile = true;
@@ -41,25 +53,41 @@ bool	is_operator(char *arg, t_commands *p_cmd, t_pars *p)
 	if (ft_strncmp(arg, "<<", 2) == 0)
 	{
 		if (ft_strlen(arg) > 2)
-			p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg + 2);
+		{
+			if (arg[2] != '<' && arg[2] != '>')
+				p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg + 2);
+			else
+			{
+				p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator");
+				p_cmd->code_error = 2;
+			}
+		}
 		else
 			p->next_is_hd_stop = true;
 		return (true);
 	}
 	else if (ft_strncmp(arg, ">>", 2) == 0)
 	{
-		p_cmd->append_outfile = true;
 		if (ft_strlen(arg) > 2)
 		{
-			p_cmd->outfile = ft_strdup(arg + 2);
-			fdout = open(p_cmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fdout <= 0)
-				define_outfile_error(p_cmd);
+			if (arg[2] != '<' && arg[2] != '>' && p_cmd->err_is_infile == false)
+			{
+				p_cmd->append_outfile = true;
+				p_cmd->outfile = ft_strdup(arg + 2);
+				if (!p_cmd->outfile)
+					exit (1); //mayday error ?
+			}
 			else
-				close(fdout);
+			{
+				p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator");
+				p_cmd->code_error = 2;
+			}
 		}
 		else
+		{
 			p->next_is_outfile = true;
+			p_cmd->append_outfile = true;
+		}
 		return (true);
 	}
 	return (is_operator_not_append(arg, p_cmd, p));

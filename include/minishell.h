@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/29 22:30:10 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:52:11 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_commands
 	bool				append_outfile; // only need to know if the last outfile is an append
 	char				*cmd;
 	char				*option;
-	char				*arg;
+	char				**arg;
 	char				**arg_cmd; // cmd + option + arg
 	bool				b_builtins;
 	struct s_commands	*next;

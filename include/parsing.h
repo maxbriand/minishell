@@ -16,14 +16,17 @@ typedef struct s_parsing
 	bool	next_is_outfile;
 	bool	next_can_be_opt;
 	bool	next_can_be_arg;
+	char	*error_msg;
+	int		code_error;
+	bool	file_err[2];
 	struct	s_parsing *next;
 }	t_pars;
 
 // parsing
 void	ft_parsing(char *input, t_minishell *mini);
 t_pars	*define_p(char *input, t_minishell *mini);
-void	define_cmd(t_minishell *mini, t_pars *node);
-void	remove_quote_bslash(char **str, t_minishell *mini);
+void	init_pcmd(t_minishell *mini, t_pars *node);
+void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p);
 bool	*define_shure_arg(char **splt_cmd);
 
 //error
@@ -43,10 +46,10 @@ bool	is_operator(char *arg, t_commands *cmd, t_pars *p);
 bool	is_option(char *arg, t_commands *cmd);
 bool	arg_is_cmd(char *arg, t_commands *cmd, t_pars *p);
 void	cmd_arg_join(t_commands *cmd);
-char	*apply_var_env(char **arg, int i, t_minishell *mini);
 bool	ft_define_on_quote(char *str, int i, bool *on_quote);
 void	define_outfile_error(t_commands *p_cmd);
 void	define_infile_error(t_commands *p_cmd);
+void	check_nb_op(char **spl_cmd, char **error_msg, bool *file_err, int *code_error);
 
 
 //need to be added to libft ?

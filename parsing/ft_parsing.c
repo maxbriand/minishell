@@ -6,6 +6,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 	t_pars		*p;
 	t_commands	*buf;
 	int			i;
+	int			fdout;
 
 	if (ft_strlen(input) == 0)
 		return ;
@@ -14,12 +15,12 @@ void	ft_parsing(char *input, t_minishell *mini)
 	p = define_p(input, mini);
 	if (!p)
 		return ;
-	define_cmd(mini, p);
+	init_pcmd(mini, p);
 	buf = mini->p_cmd;
 
 //THIS BLOCK IS FOR PRINTF ALL CUT MADE WITH SPLIT
 //COMMENT THIS FOR NO PRINTF
-	// int f;
+	//  int f;
 	// f = 0;
 	// t_pars *buf2;
 	// buf2 = p;
@@ -47,15 +48,41 @@ void	ft_parsing(char *input, t_minishell *mini)
 	{
 		if (buf != mini->p_cmd)
 			buf->in_pipe = true;
-		define_first_pcmd(p->spl_cmd[0], buf, p);
-		i= 1;
-		while (p->spl_cmd[i])
+
+		//
+
+		// if (!p->spl_cmd || !p->spl_cmd[0] || p->spl_cmd[0][0] == '\0')
+		// {
+		// 	if (p->spl_cmd[0])
+		// 		free(p->spl_cmd[0]);
+		// 	free(p);
+		// 	return NULL;
+		// }
+		//
+
+
+		if (p->spl_cmd[0])
 		{
-			define_p_cmd(p->spl_cmd[i], p->is_arg[i], buf, p);
-			i++;
+			remove_quote_bslash(p->spl_cmd, 0, mini, p);//
+			define_first_pcmd(p->spl_cmd[0], buf, p);
+			i = 1;
+			while (p->spl_cmd[i])
+			{
+				remove_quote_bslash(p->spl_cmd, i, mini, p);
+				define_p_cmd(p->spl_cmd[i], p->is_arg[i], buf, p);
+				i++;
+			}
+			if (buf->arg_cmd == NULL && buf->cmd)
+				cmd_arg_join(buf);
+			if (buf->outfile && buf->err_is_infile == false)
+			{
+				fdout = open(buf->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				if (fdout <= 0)
+					define_outfile_error(buf);
+				else
+					close(fdout);
+			}
 		}
-		if (buf->arg_cmd == NULL && buf->cmd)
-			cmd_arg_join(buf);
 
 
 

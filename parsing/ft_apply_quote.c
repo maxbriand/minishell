@@ -1,44 +1,13 @@
 #include "minishell.h"
 
-static void	free_and_strdup(char **str, int i, char *buf)
+static void	free_and_strdup(char **str, char *buf)
 {
-	free(str[i]);
-	str[i] = ft_strdup(buf);
+	free(str[0]);
+	str[0] = ft_strdup(buf);
 	free(buf);
 }
 
-void	remove_quote_bslash(char **str, t_minishell *mini)
-{
-	int	i;
-	int	j;
-	char	*buf;
-
-	i = 0;
-	while (str[i])
-	{
-		buf = NULL;
-		j = 0;
-		str[i] = apply_var_env(str, i, mini);//je dois faire par rapoirt auchar
-		if (str[i] == NULL)
-		{
-			str[i] = malloc(sizeof(char) * 1);
-			if (!str[i])
-				exit (1); //mayday error
-			str[i][0] = '\0';
-		}
-		else
-		{
-			while (str[i][j]) // are we shure that str(i(j existe ?
-			{
-				//here ? apply
-				buf = ft_charaddback(&buf, str[i][j]);
-				j++;
-			}
-			free_and_strdup(str, i, buf);
-		}
-		i++;
-	}
-}
+//pas backslash mais dollar
 
 char	*just_name_env(char *arg, int start, bool *on_quote)
 {
@@ -58,7 +27,7 @@ char	*just_name_env(char *arg, int start, bool *on_quote)
 	return (result);
 }
 
-char	*apply_var_env(char **arg, int i, t_minishell *mini)
+static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
 {
 	char	*var_env;
 	bool	on_quote[2];
@@ -76,7 +45,7 @@ char	*apply_var_env(char **arg, int i, t_minishell *mini)
 			can_copy = false;
 		else
 			can_copy = true;
-		if (arg[i][j] == '$' && !on_quote[0])
+		if (arg[i][j] == '$' && !on_quote[0] && p->next_is_hd_stop == false)
 		{
 			var_env = catch_env(mini->env, just_name_env(arg[i], j, on_quote));
 			result = ft_strjoin_free(result, var_env);
@@ -92,4 +61,30 @@ char	*apply_var_env(char **arg, int i, t_minishell *mini)
 		}
 	}
 	return (result);
+}
+
+void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
+{
+	int	j;
+	char	*buf;
+
+	buf = NULL;
+	j = 0;
+	str[i] = apply_var_env(str, i, mini, p);//je dois faire par rapoirt auchar
+	if (str[i] == NULL)
+	{
+		str[i] = malloc(sizeof(char) * 1);
+		if (!str[i])
+			exit (1); //mayday error
+		str[i][0] = '\0';
+	}
+	else
+	{
+		while (str[i][j]) // are we shure that str(i(j existe ?
+		{
+			buf = ft_charaddback(&buf, str[i][j]);
+			j++;
+		}
+		free_and_strdup(&(str[i]), buf);
+	}
 }
