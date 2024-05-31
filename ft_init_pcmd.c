@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_commands	*node_create_cmd(void)
+t_commands	*node_create_pcmd(void)
 {
 	t_commands	*node;
 
@@ -24,18 +24,18 @@ t_commands	*node_create_cmd(void)
 	node->msg_error = NULL;;
 	return (node);
 }
-void	define_cmd(t_minishell *mini, t_pars *p)
+void	init_pcmd(t_minishell *mini, t_pars *p)
 {
 	t_pars		*buf_p;
 	t_commands	*buf_cmd;
 	t_commands	*next_node;
 
 	buf_p = p;
-	buf_cmd = node_create_cmd();
+	buf_cmd = node_create_pcmd();
 	mini->p_cmd = buf_cmd;
 	while (buf_p->next)
 	{
-		next_node = node_create_cmd();
+		next_node = node_create_pcmd();
 		buf_cmd->next = next_node;
 		buf_cmd = buf_cmd->next;
 		buf_p = buf_p->next;

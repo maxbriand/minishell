@@ -83,7 +83,6 @@ void	define_p_cmd(char *arg, bool is_arg, t_commands *p_cmd, t_pars *p)
 		p_cmd->outfile = ft_strdup(arg);
 		if (!p_cmd->outfile)
 			exit (1); //mayday error ?
-		//
 		return ;
 	}
 	if(p->next_can_be_arg)

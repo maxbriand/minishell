@@ -7,9 +7,9 @@
 
 static void	ft_printf_parsing(t_commands *p_cmd)
 {
-	printf("\n\033[1;33mPARSING RESULT:\033[0m");
 	if (p_cmd)
 	{
+		printf("\n\033[1;33mPARSING RESULT:\033[0m");
 		while (p_cmd)
 		{
 			printf("\n\033[1;32mInput redirection:\033[0m");
@@ -69,6 +69,8 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 			printf("Is Infile Error: %d\n", p_cmd->err_is_infile);
 			printf("Is Outfile Error: %d\n", p_cmd->err_is_outfile);
 			p_cmd = p_cmd->next;
+			if (p_cmd)
+				printf("\n\n\033[1;33mNEW NODE:\033[0m");
 		}
 		printf("\n\033[1;32mOutput result: \033[0m\n");
 		printf("\n\n");
@@ -85,6 +87,7 @@ int main (int ac, char **av, char **env)
 	//I absolutly need to have path->env define in mini before going to my parsing
 	//Same for mini->env
 	mini = malloc(sizeof(t_minishell));
+	mini->p_cmd = NULL;
 	mini->env = env;
 	//mini->path_env = catch_path(env);
 
@@ -103,7 +106,10 @@ int main (int ac, char **av, char **env)
 
 		//here
 		ft_parsing(input, mini);
-		ft_printf_parsing(mini->p_cmd);
+		if (mini)
+			ft_printf_parsing(mini->p_cmd);
+		free_p_cmd(mini->p_cmd);
+		mini->p_cmd = NULL;
 		//DONT FORGET TO FREE MINI AND ALL P_CMD OR LEAAAKKS
 		//free p_cmd
 	}

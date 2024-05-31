@@ -7,14 +7,10 @@ t_pars	*new_node(char *input_no_pipe, t_minishell *mini)
 
 	node = malloc(sizeof(t_pars));
 	node->spl_cmd = ft_split_separator(input_no_pipe);
-	node->is_arg = define_shure_arg(node->spl_cmd);
-	remove_quote_bslash(node->spl_cmd, mini);
-	if (!node->spl_cmd || !node->spl_cmd[0] || node->spl_cmd[0][0] == '\0')
+	if (node->spl_cmd[0])
 	{
-		if (node->spl_cmd[0])
-			free(node->spl_cmd[0]);
-		free (node);
-		return NULL;
+		node->is_arg = define_shure_arg(node->spl_cmd);
+		//herebslash etc
 	}
 	node->code_error = 0;
 	node->file_err[0] = false;
@@ -52,6 +48,9 @@ t_pars	*define_p(char *input, t_minishell *mini)
 		while (input_no_pipe[i])
 		{
 			buf->next = new_node(input_no_pipe[i], mini);
+			printf("%s = input\n", input_no_pipe[i]);
+			printf("%p = buf->next\n", buf->next);
+
 			if (buf->next != NULL)
 				buf = buf->next;
 			//check_nb_op(buf->spl_cmd, &buf->error_msg, buf->file_err, &buf->code_error);
