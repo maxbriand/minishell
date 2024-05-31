@@ -48,8 +48,8 @@ t_pars	*define_p(char *input, t_minishell *mini)
 		while (input_no_pipe[i])
 		{
 			buf->next = new_node(input_no_pipe[i], mini);
-			printf("%s = input\n", input_no_pipe[i]);
-			printf("%p = buf->next\n", buf->next);
+			//printf("%s = input\n", input_no_pipe[i]);
+			//printf("%p = buf->next\n", buf->next);
 
 			if (buf->next != NULL)
 				buf = buf->next;
