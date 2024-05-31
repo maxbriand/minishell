@@ -10,6 +10,7 @@ t_pars	*new_node(char *input_no_pipe, t_minishell *mini)
 	if (node->spl_cmd[0])
 	{
 		node->is_arg = define_shure_arg(node->spl_cmd);
+		//printf("%d...........\n", node->is_arg[0]);
 		//herebslash etc
 	}
 	node->code_error = 0;
@@ -39,7 +40,7 @@ t_pars	*define_p(char *input, t_minishell *mini)
 		head = new_node(input_no_pipe[0], mini);
 		if (!head)
 		{
-			free_tab(input_no_pipe);
+			free_array(input_no_pipe);
 			return NULL;
 		}
 		//check_nb_op(head->spl_cmd, &head->error_msg, head->file_err, &head->code_error);
@@ -56,7 +57,7 @@ t_pars	*define_p(char *input, t_minishell *mini)
 			//check_nb_op(buf->spl_cmd, &buf->error_msg, buf->file_err, &buf->code_error);
 			i++;
 		}
-		free_tab(input_no_pipe);
+		free_array(input_no_pipe);
 		return (head);
 	}
 	return (0);

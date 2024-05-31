@@ -52,6 +52,11 @@ void	define_p_cmd(char *arg, bool is_arg, t_commands *p_cmd, t_pars *p)
 		return ;
 	if (is_arg == true)
 	{
+		if (p_cmd->cmd == NULL)
+		{
+			arg_is_cmd(arg, p_cmd, p);
+			return ;
+		}
 		p_cmd->arg = ft_addback(p_cmd->arg, arg);
 		return ;
 	}

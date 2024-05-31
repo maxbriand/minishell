@@ -36,7 +36,7 @@ char	**ft_addback(char **old_array, char *new_element)
 			new_array[i] = strdup_protect(old_array[i]);
 			i++;
 		}
-		free_tab(old_array);
+		free_array(old_array);
 	}
 	new_array[i] = strdup_protect(new_element);
 	new_array[i + 1] = NULL;

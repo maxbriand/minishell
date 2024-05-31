@@ -41,6 +41,11 @@ void	define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p)
 	}*/
 	if (first_arg[0] == '\0')
 		return ;
+	if (p->is_arg[0] == true)
+	{
+		if (arg_is_cmd(first_arg, p_cmd, p) == true)
+		return ;
+	}
 	if (is_operator(first_arg, p_cmd, p) == true)
 		return ;
 	if (arg_is_cmd(first_arg, p_cmd, p) == true)

@@ -106,8 +106,8 @@ int main (int ac, char **av, char **env)
 
 		//here
 		ft_parsing(input, mini);
-		//if (mini)
-			//ft_printf_parsing(mini->p_cmd);
+		if (mini)
+			ft_printf_parsing(mini->p_cmd);
 		free_p_cmd(mini->p_cmd);
 		mini->p_cmd = NULL;
 		//DONT FORGET TO FREE MINI AND ALL P_CMD OR LEAAAKKS

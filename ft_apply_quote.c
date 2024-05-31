@@ -7,8 +7,6 @@ static void	free_and_strdup(char **str, char *buf)
 	free(buf);
 }
 
-//pas backslash mais dollar
-
 char	*just_name_env(char *arg, int start, bool *on_quote)
 {
 	int	end;
@@ -53,6 +51,10 @@ static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
 			while (arg[i][j] && (ft_isalnum(arg[i][j]) || arg[i][j] == '_'))
 				j++;
 		}
+		else if (arg[i][j] == '*' && !on_quote[0])
+		{
+
+		}
 		else
 		{
 			if (can_copy == true)
@@ -63,9 +65,10 @@ static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
 	return (result);
 }
 
+//pas backslash mais dollar
 void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
 {
-	int	j;
+	int		j;
 	char	*buf;
 
 	buf = NULL;

@@ -63,11 +63,15 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 		if (p->spl_cmd[0])
 		{
+			//printf("%s = spltcmd\n", p->spl_cmd[0]);
+			//printf("%d = is_arg\n", p->is_arg[0]);
 			remove_quote_bslash(p->spl_cmd, 0, mini, p);//
 			define_first_pcmd(p->spl_cmd[0], buf, p);
 			i = 1;
 			while (p->spl_cmd[i])
 			{
+				//printf("%s = spltcmd\n", p->spl_cmd[i]);
+				//printf("%d = is_arg\n", p->is_arg[i]);
 				remove_quote_bslash(p->spl_cmd, i, mini, p);
 				define_p_cmd(p->spl_cmd[i], p->is_arg[i], buf, p);
 				i++;

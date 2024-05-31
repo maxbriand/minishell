@@ -58,7 +58,7 @@ char	**ft_addback(char **old_array, char *new_element);
 char	*ft_charaddback(char **old_array, char new_element);
 char	*ft_better_strdup(char *s, char *arg);
 //ultimate_free
-void	free_tab(char **tab);
+void	free_array(char **tab);
 void	free_p(t_pars *p);
 void	free_p_cmd(t_commands *p_cmd);
 
