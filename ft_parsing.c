@@ -63,9 +63,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 		if (p->spl_cmd[0])
 		{
-			printf("%s =AVANT\n", p->spl_cmd[0]),
 			remove_quote_bslash(p->spl_cmd, 0, mini, p);//
-			printf("%s =APRES\n", p->spl_cmd[0]),
 			define_first_pcmd(p->spl_cmd[0], buf, p);
 			i = 1;
 			while (p->spl_cmd[i])
