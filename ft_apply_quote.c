@@ -45,15 +45,19 @@ static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
 			can_copy = true;
 		if (arg[i][j] == '$' && !on_quote[0] && p->next_is_hd_stop == false)
 		{
-			var_env = catch_env(mini->env, just_name_env(arg[i], j, on_quote));
-			result = ft_strjoin_free(result, var_env);
+			if (arg[i][j] == '$' && arg[i][j + 1] == '?')
+			{
+				result = ft_strjoin_free(result, ft_itoa(mini->exit_code));
+				j++;
+			}
+			else
+			{
+				var_env = catch_env(mini->env, just_name_env(arg[i], j, on_quote));
+				result = ft_strjoin_free(result, var_env);
+			}
 			j++;
 			while (arg[i][j] && (ft_isalnum(arg[i][j]) || arg[i][j] == '_'))
 				j++;
-		}
-		else if (arg[i][j] == '*' && !on_quote[0])
-		{
-
 		}
 		else
 		{

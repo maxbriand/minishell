@@ -89,6 +89,7 @@ int main (int ac, char **av, char **env)
 	mini = malloc(sizeof(t_minishell));
 	mini->p_cmd = NULL;
 	mini->env = env;
+	mini->exit_code = 0;
 	//mini->path_env = catch_path(env);
 
 	(void)ac;

@@ -11,6 +11,7 @@ typedef struct s_parsing
 	//c'est forcement un argument si on quote sauf
 	//si next is outfile etc
 	bool	*is_arg;
+	bool	*is_expand;
 	bool	next_is_hd_stop;
 	bool	next_is_infile;
 	bool	next_is_outfile;

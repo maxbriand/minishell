@@ -8,11 +8,8 @@ t_pars	*new_node(char *input_no_pipe, t_minishell *mini)
 	node = malloc(sizeof(t_pars));
 	node->spl_cmd = ft_split_separator(input_no_pipe);
 	if (node->spl_cmd[0])
-	{
 		node->is_arg = define_shure_arg(node->spl_cmd);
-		//printf("%d...........\n", node->is_arg[0]);
-		//herebslash etc
-	}
+	node->is_expand = NULL;
 	node->code_error = 0;
 	node->file_err[0] = false;
 	node->file_err[1] = false;

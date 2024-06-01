@@ -40,11 +40,13 @@ typedef struct s_commands
 typedef struct s_minishell
 {
 	t_commands	*p_cmd;
+	int			pipe_nbr;
 	char		**env;
 	char		**path_env;
-	// +1 for the boolean ONLY is the other one is 0 / false
 	int			open_quote;
 	int			open_dquote;
+	int			**pipefds;
+	int			exit_code;
 }	t_minishell;
 
 #include "parsing.h"

@@ -122,18 +122,13 @@ bool	arg_is_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 	p_cmd->cmd = ft_strdup(arg);
 	if (!p_cmd->cmd)
 		exit (1);//Error message ?
-		// || (access(arg, F_OK) == 1
-		// && (strcmp(arg + (ft_strlen(arg) - 5), "\\echo") == 0
-		// || strcmp(arg + (ft_strlen(arg) - 3), "\\cd") == 0
-		// || strcmp(arg + (ft_strlen(arg) - 4), "\\pwd") == 0
-		// || strcmp(arg + (ft_strlen(arg) - 7), "\\export") == 0
-		// || strcmp(arg + (ft_strlen(arg) - 6), "\\unset") == 0
-		// || strcmp(arg + (ft_strlen(arg) - 4), "\\env") == 0)))
 	if (strcmp(arg, "echo") == 0 || strcmp(arg, "cd") == 0
 		|| strcmp(arg, "pwd") == 0 || strcmp(arg, "export") == 0
 		|| strcmp(arg, "unset") == 0 || strcmp(arg, "env") == 0)
 	{
 		p_cmd->b_builtins = true;
+		if (strcmp(arg, "env") == 0)
+			p->next_is_infile = true;
 		return (true);
 	}
 	return (true);
