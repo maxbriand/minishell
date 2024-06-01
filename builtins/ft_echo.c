@@ -2,5 +2,6 @@
 
 void	ft_echo(t_minishell *mish, t_commands *p_cmd)
 {
-	ft_printf("%s\n", p_cmd->arg);
+	ft_arrprintf(p_cmd->arg);
+	// update exit code
 }

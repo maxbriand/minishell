@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	free_tab(char **tab)
+void	free_array(char **tab)
 {
 	int	i;
 
@@ -20,8 +20,9 @@ void	free_p(t_pars *p)
 	while(p)
 	{
 		p_buf = p;
-		free_tab(p->spl_cmd);
+		free_array(p->spl_cmd);
 		free(p->is_arg);
+		free(p->is_expand);
 		p = p->next;
 		free(p_buf);
 	}
@@ -40,11 +41,11 @@ void	free_p_cmd(t_commands *p_cmd)
 		if (buf->arg)
 			free(buf->arg);
 		if (buf->arg_cmd)
-			free_tab(buf->arg_cmd);
+			free_array(buf->arg_cmd);
 		if (buf->cmd)
 			free(buf->cmd);
 		if (buf->hd_stop)
-			free_tab(buf->hd_stop);
+			free_array(buf->hd_stop);
 		if (buf->infile)
 			free(buf->infile);
 		if (buf->option)

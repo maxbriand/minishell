@@ -104,7 +104,10 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 		printf("\n\033[1;32mCommand:\033[0m\n");
 		printf("Cmd: %s\n", p_cmd->cmd);
 		printf("Option: %s\n", p_cmd->option);
-		printf("Arg: %s\n", p_cmd->arg);
+		printf("Arg: ");
+		sleep(1);
+		ft_arrprintf(p_cmd->arg);
+		printf("\n");
 		y = 0;
 		printf("cmd+arg+opt: ");
 		if (!p_cmd->arg_cmd)
@@ -120,8 +123,8 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 		printf("\n");
 		printf("Builtins: %d\n", p_cmd->b_builtins);
 		printf("\n\033[1;32mError:\033[0m\n");
-		printf("Msg error: %s\n", p_cmd->msg_error);
-		printf("Code error: %d\n", p_cmd->code_error);
+		printf("Msg error: %s", p_cmd->msg_error);
+		printf("Code error: %d\n", p_cmd->exit_code);
 		printf("Is Infile Error: %d\n", p_cmd->err_is_infile);
 		printf("Is Outfile Error: %d\n", p_cmd->err_is_outfile);
 		p_cmd = p_cmd->next;
@@ -133,7 +136,7 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 t_minishell	*ft_init_mish(t_minishell *mish, t_commands *p_cmd, char **env)
 {
 	mish = malloc(sizeof(t_minishell));
-	mish->exit_stat = 0;
+	mish->exit_code = 0;
 	mish->p_cmd = p_cmd;
 	mish->env = env;
 	mish->open_dquote = 0;
@@ -162,16 +165,28 @@ int	main(int ac, char **av, char **env)
 			break;
 		if (*cmd)
 			add_history(cmd);
-		if (ft_strcmp(cmd, "history -c") == 0)
-			clear_history();
-		if (ft_strcmp(cmd, "exit") == 0)
-			break;
 		ft_parsing(cmd, data);
-		ft_printf_parsing(data->p_cmd);
+		// ft_printf_parsing(data->p_cmd);
 		ft_exe(data, data->p_cmd);
+		//ft_printf("the current error code is %d\n", data->exit_code);
+		// if (strcmp(data->p_cmd->cmd, "exit") == 0)
+		// {
+		// 	dup2(2, 1);
+		// 	ft_printf("hey men");
+		// 	break;
+		// }
 		free(cmd);
 		//free_p_cmd(data->p_cmd);
 	}
-	//ft_free_tests(p_cmd, cmd);
-	return (0);
+	// write(2, "hdsi", 4);
+	// t_commands	*test = data->p_cmd;
+	// sleep(1);
+	// while (test)
+	// {
+	// 	// ft_printf("cmd: %s ff\n", test->cmd);
+	// 	test = test->next;
+	// }
+	return (data->exit_code);
 }
+// if (ft_strcmp(cmd, "history -c") == 0)
+// 	clear_history();

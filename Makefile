@@ -29,8 +29,8 @@ SRC =	main.c \
 		parsing/ft_catch_env.c \
 		parsing/ft_check_arg.c \
 		parsing/ft_cmd_arg_join.c \
-		parsing/ft_define_cmd.c \
-		parsing/ft_define_p.c \
+		parsing/ft_init_pcmd.c \
+		parsing/ft_init_p.c \
 		parsing/ft_define_pcmd_first.c \
 		parsing/ft_define_pcmd.c \
 		parsing/ft_error_p.c \
@@ -66,7 +66,7 @@ fclean: clean
 
 re: fclean all
 	clear
-#./minishell
+	./minishell
 
 rev: fclean all
 	valgrind --tool=memcheck --track-origins=yes --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes -s --suppressions=valgrind.supp ./minishell

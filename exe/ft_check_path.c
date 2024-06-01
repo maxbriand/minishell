@@ -52,17 +52,17 @@ static char	*ft_is_already_path(char *full_cmd)
 	return (NULL);
 }
 
-char	*ft_check_path(t_minishell *data, t_commands *current_cmd)
+char	*ft_check_path(t_minishell *data, t_commands *c_cmd)
 {
 	char	**paths;
 	char	**save_paths;
 	char	*store;
 	char	*al_path;
 
-	al_path = ft_is_already_path(current_cmd->cmd);
+	al_path = ft_is_already_path(c_cmd->cmd);
 	if (al_path != NULL)
 		return (al_path);
-	paths = ft_get_path_list(data, current_cmd);
+	paths = ft_get_path_list(data, c_cmd);
 	save_paths = paths;
 	while (*paths)
 	{
@@ -77,6 +77,7 @@ char	*ft_check_path(t_minishell *data, t_commands *current_cmd)
 		paths++;
 	}
 	ft_arrfree(save_paths);
-	ft_exit_failure("command not found", NULL, data);
+	c_cmd->exit_code = 1;
+	ft_exit_failure(" command not found", NULL, data);
 	return (NULL);
 }

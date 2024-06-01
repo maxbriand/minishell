@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/29 18:47:53 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/01 21:50:40 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 {
 	char	*path;
 	
-	if (c_cmd->code_error != 0 && c_cmd->err_is_infile == 1)
+	if (c_cmd->exit_code != 0 && c_cmd->err_is_infile == 1)
 		ft_exit_failure(c_cmd->msg_error, c_cmd, data);
 	ft_set_pipefd(data, c_cmd, pipefds, c);
 	if (c_cmd->b_builtins == 0)
 		path = ft_check_path(data, c_cmd);
-	if (c_cmd->code_error != 0 && c_cmd->err_is_outfile == 1)
+	if (c_cmd->exit_code != 0 && c_cmd->err_is_outfile == 1)
 		ft_exit_failure(c_cmd->msg_error, c_cmd, data);
 	if (c_cmd->infile || c_cmd->hd_stop || c_cmd->in_pipe)
 		ft_input_redir(data, c_cmd, c_cmd->pipefd0);
@@ -31,7 +31,8 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	if (c_cmd->b_builtins == 0)
 	{
 		execve(path, c_cmd->arg_cmd, data->env);
-		ft_exit_failure("execution issue\n", c_cmd, data);
+		c_cmd->exit_code = 1;
+		ft_exit_failure(" execution issue\n", c_cmd, data);
 	}
 	else
 	{
@@ -63,7 +64,8 @@ void	ft_exe(t_minishell *data, t_commands *p_cmd)
 		p_cmd = p_cmd->next;
 		c++;
 	}
-	ft_close_pipes(data, data->pipefds);	
-	while(wait(&(data->exit_stat)) != -1);
-	data->exit_stat = WEXITSTATUS(data->exit_stat);
+	ft_close_pipes(data, data->pipefds);
+	while (wait(&(data->exit_code)) != -1);
+	data->exit_code = WEXITSTATUS(data->exit_code);
+//	ft_printf("the exit code is %d\n", data->exit_code);
 }

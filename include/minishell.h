@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/29 22:30:10 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/01 19:54:34 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_commands
 	bool				append_outfile; // only need to know if the last outfile is an append
 	char				*cmd;
 	char				*option;
-	char				*arg;
+	char				**arg;
 	char				**arg_cmd; // cmd + option + arg
 	bool				b_builtins;
 	struct s_commands	*next;
@@ -44,7 +44,7 @@ typedef struct s_commands
 	int					*pipefd1;
 	bool				err_is_infile;
 	bool				err_is_outfile;
-	int					code_error;
+	int					exit_code;
 	char				*msg_error;
 }	t_commands;
 
@@ -58,7 +58,7 @@ typedef struct s_minishell
 	int			open_quote;
 	int			open_dquote;
 	int			**pipefds;
-	int			exit_stat;
+	int			exit_code;
 }	t_minishell;
 
 # include "parsing.h"
