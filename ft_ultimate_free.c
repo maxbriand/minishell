@@ -22,6 +22,7 @@ void	free_p(t_pars *p)
 		p_buf = p;
 		free_array(p->spl_cmd);
 		free(p->is_arg);
+		free(p->is_expand);
 		p = p->next;
 		free(p_buf);
 	}

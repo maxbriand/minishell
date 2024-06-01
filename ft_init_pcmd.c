@@ -20,7 +20,7 @@ t_commands	*node_create_pcmd(void)
 	node->pipefd1 = NULL;
 	node->err_is_infile = false;
 	node->err_is_outfile = false;
-	node->code_error = 0;
+	node->exit_code = 0;
 	node->msg_error = NULL;;
 	return (node);
 }

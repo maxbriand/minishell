@@ -45,6 +45,7 @@ static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
 			can_copy = true;
 		if (arg[i][j] == '$' && !on_quote[0] && p->next_is_hd_stop == false)
 		{
+			p->is_expand[i] = true;
 			if (arg[i][j] == '$' && arg[i][j + 1] == '?')
 			{
 				result = ft_strjoin_free(result, ft_itoa(mini->exit_code));
@@ -61,6 +62,7 @@ static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
 		}
 		else
 		{
+			p->is_expand[i] = false;
 			if (can_copy == true)
 				result = ft_charaddback(&result, arg[i][j]);
 			j++;

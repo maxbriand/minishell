@@ -29,23 +29,6 @@ put a \n before write ecrire
 $path est compris comme plusieurs commandes
 if ambigous je casse la cmd qctuelle et on go sur la suivante
 
-export "coucou"="> out echo coucou"
-$coucou coucou coucou cou
-
-export "coucou"="ls"
-execute ls mais ce quil y a apres est compris comme un seul arg
---
-
-gmersch@2G2:~/monGit/Actuelle/parsing$ export coucou="ls -l"
-gmersch@2G2:~/monGit/Actuelle/parsing$ $coucou
-total 188
-...(tout les fichier)
-
------
-gmersch@2G2:~/monGit/Actuelle/parsing$ "$coucou"
-ls -l: command not found
---
-ceci est suppose etre compris comme une full cmd
 
 
 

@@ -48,7 +48,7 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 				}
 			}
 			else
-				printf("Arg: NULL\n");
+				printf("Arg: (null)\n");
 			y = 0;
 			printf("cmd+arg+opt: ");
 			if (!p_cmd->arg_cmd)
@@ -65,7 +65,7 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 			printf("Builtins: %d\n", p_cmd->b_builtins);
 			printf("\n\033[1;32mError:\033[0m\n");
 			printf("Msg error: %s\n", p_cmd->msg_error);
-			printf("Code error: %d\n", p_cmd->code_error);
+			printf("Code error: %d\n", p_cmd->exit_code);
 			printf("Is Infile Error: %d\n", p_cmd->err_is_infile);
 			printf("Is Outfile Error: %d\n", p_cmd->err_is_outfile);
 			p_cmd = p_cmd->next;
@@ -107,8 +107,8 @@ int main (int ac, char **av, char **env)
 
 		//here
 		ft_parsing(input, mini);
-		if (mini)
-			ft_printf_parsing(mini->p_cmd);
+		//if (mini)
+			//ft_printf_parsing(mini->p_cmd);
 		free_p_cmd(mini->p_cmd);
 		mini->p_cmd = NULL;
 		//DONT FORGET TO FREE MINI AND ALL P_CMD OR LEAAAKKS
