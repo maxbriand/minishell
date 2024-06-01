@@ -42,8 +42,6 @@ void	ft_parsing(char *input, t_minishell *mini)
 	// p = buf2;
 //END OF PRINTF
 
-
-
 	while (buf)
 	{
 		if (buf != mini->p_cmd)
@@ -66,6 +64,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 			//printf("%s = spltcmd\n", p->spl_cmd[0]);
 			//printf("%d = is_arg\n", p->is_arg[0]);
 			remove_quote_bslash(p->spl_cmd, 0, mini, p);//
+			//je dois define si le premier truc est une commande
 			define_first_pcmd(p->spl_cmd[0], buf, p);
 			i = 1;
 			while (p->spl_cmd[i])

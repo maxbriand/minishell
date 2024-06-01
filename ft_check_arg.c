@@ -124,7 +124,8 @@ bool	arg_is_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 		exit (1);//Error message ?
 	if (strcmp(arg, "echo") == 0 || strcmp(arg, "cd") == 0
 		|| strcmp(arg, "pwd") == 0 || strcmp(arg, "export") == 0
-		|| strcmp(arg, "unset") == 0 || strcmp(arg, "env") == 0)
+		|| strcmp(arg, "unset") == 0 || strcmp(arg, "env") == 0
+		|| strcmp(arg, "exit") == 0)
 	{
 		p_cmd->b_builtins = true;
 		if (strcmp(arg, "env") == 0)
