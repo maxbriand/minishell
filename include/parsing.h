@@ -25,7 +25,7 @@ typedef struct s_parsing
 
 // parsing
 void	ft_parsing(char *input, t_minishell *mini);
-t_pars	*define_p(char *input, t_minishell *mini);
+t_pars	*define_p(char *input);
 void	init_pcmd(t_minishell *mini, t_pars *node);
 void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p);
 bool	*define_shure_arg(char **splt_cmd);
@@ -35,6 +35,9 @@ int		pipe_unexpected(char *input);
 void	error_and_exit(char *error);
 bool	error_p(int nb, char *cmd);
 void	ft_better_putstr_fd(char *str, char *arg, int error);
+void	set_error_op(t_commands *p_cmd);
+void	ft_is_expand(char *arg, int i, t_commands *p_cmd);
+
 
 
 //define t_command

@@ -166,7 +166,7 @@ int	main(int ac, char **av, char **env)
 		if (*cmd)
 			add_history(cmd);
 		ft_parsing(cmd, data);
-		// ft_printf_parsing(data->p_cmd);
+		ft_printf_parsing(data->p_cmd);
 		ft_exe(data, data->p_cmd);
 		free(cmd);
 		//free_p_cmd(data->p_cmd);

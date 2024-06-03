@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_define_pcmd.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
+/*   Updated: 2024/06/03 17:47:21 by gmersch          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	define_outfile_error(t_commands *p_cmd)
@@ -46,7 +58,6 @@ void	define_infile_error(t_commands *p_cmd)
 
 void	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 {
-	int		fdout;
 	char	**expand;
 	//need to look at quote here ?? or define before  ?
 	if (arg[0] == '\0')
