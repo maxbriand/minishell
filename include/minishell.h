@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/01 19:54:34 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/03 20:48:24 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_minishell
 	t_commands	*p_cmd;
 	int			pipe_nbr;
 	char		**env;
+	bool		env_malloc;
 	char		**path_env;
 	int			open_quote;
 	int			open_dquote;

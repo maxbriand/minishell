@@ -168,24 +168,9 @@ int	main(int ac, char **av, char **env)
 		ft_parsing(cmd, data);
 		// ft_printf_parsing(data->p_cmd);
 		ft_exe(data, data->p_cmd);
-		//ft_printf("the current error code is %d\n", data->exit_code);
-		// if (strcmp(data->p_cmd->cmd, "exit") == 0)
-		// {
-		// 	dup2(2, 1);
-		// 	ft_printf("hey men");
-		// 	break;
-		// }
 		free(cmd);
 		//free_p_cmd(data->p_cmd);
 	}
-	// write(2, "hdsi", 4);
-	// t_commands	*test = data->p_cmd;
-	// sleep(1);
-	// while (test)
-	// {
-	// 	// ft_printf("cmd: %s ff\n", test->cmd);
-	// 	test = test->next;
-	// }
 	return (data->exit_code);
 }
 // if (ft_strcmp(cmd, "history -c") == 0)

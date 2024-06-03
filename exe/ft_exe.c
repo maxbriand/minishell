@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/01 21:50:40 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:49:08 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	else
 	{
 		ft_builtins_exe(data, c_cmd);
-		exit(EXIT_SUCCESS);
+		exit(data->exit_code);
 	}
 }
 
@@ -49,6 +49,11 @@ void	ft_exe(t_minishell *data, t_commands *p_cmd)
 	data->pipe_nbr = ft_pipe_counter(p_cmd);
 	if (data->pipe_nbr == 0 && p_cmd->b_builtins == 1)
 	{
+		if (p_cmd->exit_code != 0)
+		{
+			data->exit_code = p_cmd->exit_code;
+			return ;
+		}
 		ft_builtins_exe(data, p_cmd);
 		return ;
 	}
@@ -67,5 +72,4 @@ void	ft_exe(t_minishell *data, t_commands *p_cmd)
 	ft_close_pipes(data, data->pipefds);
 	while (wait(&(data->exit_code)) != -1);
 	data->exit_code = WEXITSTATUS(data->exit_code);
-//	ft_printf("the exit code is %d\n", data->exit_code);
 }

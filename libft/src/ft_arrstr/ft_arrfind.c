@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arrjoin_str.c                                   :+:      :+:    :+:   */
+/*   ft_arrfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 20:23:37 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/31 20:26:44 by mbriand          ###   ########.fr       */
+/*   Created: 2024/06/03 18:41:15 by mbriand           #+#    #+#             */
+/*   Updated: 2024/06/03 18:46:30 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// return NULL if str is null or arr is null
-char	**ft_arrjoin_str(char **arr, char *str)
+// return indicator of first occurence of the ref
+int	ft_arrfind(char **arr, char *ref)
 {
-	char **new_arr;
+	int	i;
 
-	if (!str || !arr)
-		return (NULL);
-	while ()
+	if (!arr || !ref)
+		return (-1);
+	i = 0;
+	while (arr[i])
 	{
-		
+		if (ft_strcmp(arr[i], ref) == 0)
+			return (i);
+		i++;
 	}
-
-	return (new_arr);
+	return (-1);
 }
