@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 17:47:21 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/03 23:14:33 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 			expand = ft_split(arg, ' ');
 			if (ft_strlen_array(expand) > 1  && p_cmd->msg_error == NULL)
 			{
-				p_cmd->msg_error = ft_better_strdup("minishell: %s: ambiguous redirect", arg);
+				p_cmd->msg_error = ft_better_strdup("minishell: %s: ambiguous redirect\n", arg);
 				p_cmd->exit_code = 1;
 				return ;
 			}
@@ -111,7 +111,7 @@ void	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 			expand = ft_split(arg, ' ');
 			if (ft_strlen_array(expand) > 1  && p_cmd->msg_error == NULL)
 			{
-				p_cmd->msg_error = ft_better_strdup("minishell: %s: ambiguous redirect", arg);
+				p_cmd->msg_error = ft_better_strdup("minishell: %s: ambiguous redirect\n", arg);
 				p_cmd->exit_code = 1;
 				return ;
 			}

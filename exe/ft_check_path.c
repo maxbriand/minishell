@@ -5,7 +5,7 @@ static char	**ft_get_env_paths(t_minishell *data)
 	char	**env_paths;
 	char	**save_env_paths;
 	int		i;
-	
+
 	i = 0;
 	while (data->env[i])
 	{
@@ -77,7 +77,7 @@ char	*ft_check_path(t_minishell *data, t_commands *c_cmd)
 		paths++;
 	}
 	ft_arrfree(save_paths);
-	c_cmd->exit_code = 1;
-	ft_exit_failure(" command not found", NULL, data);
+	c_cmd->exit_code = 127;
+	ft_exit_failure(" command not found", c_cmd, data);
 	return (NULL);
 }

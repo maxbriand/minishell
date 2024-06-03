@@ -72,5 +72,4 @@ rev: fclean all
 	valgrind --tool=memcheck --track-origins=yes --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes -s --suppressions=valgrind.supp ./minishell
 
 rew: fclean all
-	cp minishell minishell_tester/src
 	cd minishell_tester/src

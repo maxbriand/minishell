@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/03 19:49:08 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/03 22:59:30 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 {
 	char	*path;
-	
+
 	if (c_cmd->exit_code != 0 && c_cmd->err_is_infile == 1)
 		ft_exit_failure(c_cmd->msg_error, c_cmd, data);
 	ft_set_pipefd(data, c_cmd, pipefds, c);
@@ -31,7 +31,7 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	if (c_cmd->b_builtins == 0)
 	{
 		execve(path, c_cmd->arg_cmd, data->env);
-		c_cmd->exit_code = 1;
+		c_cmd->exit_code = 127;
 		ft_exit_failure(" execution issue\n", c_cmd, data);
 	}
 	else

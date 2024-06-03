@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/03 17:40:19 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/04 00:04:46 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ static int	count_cut(char *str, char c, bool *on_quote)
 			i++;
 		}
 	}
-	if (str[i - 1] != c)
-		nb_cut++;
+	nb_cut++;
 	return (nb_cut);
 }
 
@@ -112,8 +111,7 @@ static void	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 			i++;
 		}
 	}
-	if (str[i - 1] != c)
-		result[y] = split_here(str, &i, &last_split, c);
+	result[y] = split_here(str, &i, &last_split, c);
 }
 
 //a split but when char priority is found, seach for the next char priority
