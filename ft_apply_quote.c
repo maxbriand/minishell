@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 20:11:32 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/03 20:19:50 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
 			can_copy = false;
 		else
 			can_copy = true;
-		if (arg[i][j] == '$' && ((ft_isalnum(arg[i][j + 1]) || arg[i][j + 1] == '\"' || arg[i][j + 1] == '\'') && !on_quote[1])  && !on_quote[0] && p->next_is_hd_stop == false)
+		if (arg[i][j] == '$' && (ft_isalnum(arg[i][j + 1]) || arg[i][j + 1] == '\"' || arg[i][j + 1] == '\'') && !on_quote[0] && p->next_is_hd_stop == false)
 		{
 			p->is_expand[i] = true;
 			if (arg[i][j] == '$' && arg[i][j + 1] == '?')
