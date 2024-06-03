@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
+/*   Updated: 2024/06/03 17:46:51 by gmersch          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 //main's of the parsing. if return null, no command need to be done
@@ -12,7 +24,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 		return ;
 	if (is_error_quote(input) == true)
 		return ;
-	p = define_p(input, mini);
+	p = define_p(input);
 	if (!p)
 		return ;
 	init_pcmd(mini, p);

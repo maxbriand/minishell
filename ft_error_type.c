@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_error_type.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
+/*   Updated: 2024/06/03 19:17:32 by gmersch          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 //check if there is consecutive pipe
@@ -49,4 +61,24 @@ void	ft_better_putstr_fd(char *str, char *arg, int error)
 			i++;
 		}
 	}
+}
+
+void	ft_is_expand(char *arg, int i, t_commands *p_cmd)
+{
+	char **expand;
+
+	expand = ft_split(arg + i, ' ');
+	if (ft_strlen_array(expand) > 1  && p_cmd->msg_error == NULL)
+	{
+		p_cmd->msg_error = ft_better_strdup("minishell: %s: ambiguous redirect", arg + i);
+		p_cmd->exit_code = 1;
+		p_cmd->err_is_infile = 1;
+	}
+	free_array(expand);
+}
+
+void	set_error_op(t_commands *p_cmd)
+{
+	p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator");
+	p_cmd->exit_code = 2;
 }

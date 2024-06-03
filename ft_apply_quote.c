@@ -1,11 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_apply_quote.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
+/*   Updated: 2024/06/03 18:49:38 by gmersch          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void	free_and_strdup(char **str, char *buf)
-{
-	free(str[0]);
-	str[0] = ft_strdup(buf);
-	free(buf);
-}
+#include "minishell.h"
 
 char	*just_name_env(char *arg, int start, bool *on_quote)
 {
@@ -71,6 +76,63 @@ static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
 	return (result);
 }
 
+//trying to norm but i didnt win this fight...
+// static bool	is_dollar(char *arg, char **result, t_minishell *mini, char *name_env)
+// {
+// 	char	*var_env;
+
+// 	if (arg[0] == '$' && arg[1] == '?')
+// 	{
+// 		*result = ft_strjoin_free(*result, ft_itoa(mini->exit_code));
+// 		return (true);
+// 	}
+// 	else
+// 	{
+// 		var_env = catch_env(mini->env, name_env);
+// 		*result = ft_strjoin_free(*result, var_env);
+// 	}
+// 	return (false);
+// }
+
+// static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
+// {
+// 	bool	on_quote[2];
+// 	char	*result;
+// 	bool	can_copy;
+// 	int		j;
+// 	char	*name_env;
+
+// 	on_quote[0] = false;
+// 	on_quote[1] = false;
+// 	result = NULL;
+// 	j = 0;
+// 	while (arg[i][j])
+// 	{
+// 		if (ft_define_on_quote(arg[i], j, on_quote) == true)
+// 			can_copy = false;
+// 		else
+// 			can_copy = true;
+// 		if (arg[i][j] == '$' && !on_quote[0] && p->next_is_hd_stop == false)
+// 		{
+// 			p->is_expand[i] = true;
+// 			name_env = just_name_env(*arg, j, on_quote);
+// 			if (is_dollar(&arg[i][j], &result, mini, name_env) == true) //
+// 				j++;
+// 			j++;
+// 			while (*arg[j] && (ft_isalnum(*arg[j]) || *arg[j] == '_'))
+// 				j++;
+// 		}
+// 		else
+// 		{
+// 			p->is_expand[i] = false;
+// 			if (can_copy == true)
+// 				result = ft_charaddback(&result, arg[i][j]);
+// 			j++;
+// 		}
+// 	}
+// 	return (result);
+// }
+
 //pas backslash mais dollar
 void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
 {
@@ -94,6 +156,8 @@ void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
 			buf = ft_charaddback(&buf, str[i][j]);
 			j++;
 		}
-		free_and_strdup(&(str[i]), buf);
+		free(str[i]);
+		str[i] = ft_strdup(buf);
+		free(buf);
 	}
 }

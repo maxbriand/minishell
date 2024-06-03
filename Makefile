@@ -1,6 +1,6 @@
 NAME = minishell
 CC = cc
-FLAGS = -g
+FLAGS = -g -Wall -Werror -Wextra
 LIBFT = libft/libft.a
 
 SRC =	ft_error_p.c\
@@ -19,6 +19,7 @@ SRC =	ft_error_p.c\
 		ft_define_pcmd_first.c\
 		ft_define_pcmd.c\
 		ft_check_arg.c\
+		ft_check_arg_op.c\
 		ft_cmd_arg_join.c\
 		ft_strjoin_free.c\
 		ft_remove_element.c\
