@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 17:46:51 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/04 00:16:46 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 //THIS BLOCK IS FOR PRINTF ALL CUT MADE WITH SPLIT
 //COMMENT THIS FOR NO PRINTF
-	//  int f;
+	// int f;
 	// f = 0;
 	// t_pars *buf2;
 	// buf2 = p;
@@ -56,6 +56,11 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 	while (buf)
 	{
+		if (p->spl_cmd == NULL)
+		{
+			free_p(p);
+			return ;
+		}
 		if (buf != mini->p_cmd)
 			buf->in_pipe = true;
 		if (p->spl_cmd[0])
