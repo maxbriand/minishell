@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 20:19:50 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/03 21:06:24 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
 			can_copy = false;
 		else
 			can_copy = true;
-		if (arg[i][j] == '$' && (ft_isalnum(arg[i][j + 1]) || arg[i][j + 1] == '\"' || arg[i][j + 1] == '\'') && !on_quote[0] && p->next_is_hd_stop == false)
+		printf("%d = onquote\n", on_quote[0]);
+		printf("%d = ddonquote\n", on_quote[1]);
+		printf("%c = c\n", arg[i][j]);
+		if (arg[i][j] == '$' && (ft_isalnum(arg[i][j + 1]) || ((arg[i][j + 1] == '\"' || arg[i][j + 1] == '\'') && (!on_quote[0] && !on_quote[1]))) && !on_quote[0] && p->next_is_hd_stop == false)
 		{
+			printf("JESUISDEDANS\n");
 			p->is_expand[i] = true;
 			if (arg[i][j] == '$' && arg[i][j + 1] == '?')
 			{
