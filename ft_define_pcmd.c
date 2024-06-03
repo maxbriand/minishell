@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 17:47:21 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/03 22:28:00 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,15 @@ void	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 	if (p->is_expand[i] == true && p_cmd->cmd == NULL)
 	{
 		expand = ft_split(arg, ' ');
-		arg_is_cmd(expand[0], p_cmd, p);
+		if (access(expand[0], F_OK) != 0)
+			arg_is_cmd(expand[0], p_cmd, p);
+		else if (!p_cmd->msg_error)
+		{
+			p_cmd->msg_error = ft_better_strdup("minishell: %s: Is a directory", arg);
+			p_cmd->exit_code = 126;
+			free_array(expand);
+			return ;
+		}
 		i = 1;
 		if (expand[i])
 		{
