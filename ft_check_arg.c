@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:22 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 23:15:02 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/04 21:18:29 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,21 @@
 
 bool	is_option(char *arg, t_commands *p_cmd)
 {
+	int	i;
+
 	if (arg[0] == '-')
 	{
+		i = 1;
+		if (ft_isdigit(arg[i]))
+		{
+			while (ft_isdigit(arg[i]))
+				i++;
+			if (arg[i] == '\0')
+			{
+				p_cmd->arg = ft_addback(p_cmd->arg, arg);
+				return (true);
+			}
+		}
 		if (p_cmd->option)
 		{
 			p_cmd->option = ft_strjoin(p_cmd->option, arg + 1);
