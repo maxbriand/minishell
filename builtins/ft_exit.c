@@ -1,41 +1,81 @@
 #include "minishell.h"
 
-static int	ft_strcheck(char *str)
+// static int	ft_arrcheck(t_commands *c_cmd)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (c_cmd->arg[i])
+// 	{
+// 		if (ft_strcheck(c_cmd->arg[i]) == 1)
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+static int	ft_check_long(const char *s)
 {
-	while (*str)
+	long		nbr;
+	const char	*sign;
+	int			digit;	
+
+	nbr = 0;
+	sign = s;
+	if (*s == '-' || *s == '+')
+		s++;
+	while (*s)
 	{
-		if (ft_isdigit(*str) == 1)
+		digit = *s - '0';
+		if ((((LONG_MAX / 10 == nbr) && digit > LONG_MAX % 10)
+				|| (LONG_MAX / 10 < nbr)) && *sign != '-')
 			return (1);
-		str++;
+		if ((((LONG_MIN / 10 == -nbr) && - digit < LONG_MIN % 10)
+				|| (LONG_MIN / 10 > -nbr)) && *sign == '-')
+			return (1);
+		nbr *= 10;
+		nbr += (*s) - 48;
+		s++;
 	}
+	if (*sign == '-')
+		nbr *= -1;
 	return (0);
 }
 
-static int	ft_arrcheck(t_commands *c_cmd)
+static int	ft_strcheck(char *str)
 {
-	int	i;
-
+	int		i;
+	char	*exit_code;
+	
+	exit_code = str;
+	while (ft_isspace(*str) == 1)
+		str++;
+	if (*str == '-' || *str == '+')
+		str++;
 	i = 0;
-	while (c_cmd->arg[i])
+	while (str[i])
 	{
-		if (ft_strcheck(c_cmd->arg[i]) == 1)
+		if (ft_isdigit(str[i]) != 1)
 			return (1);
 		i++;
 	}
+	if (i == 0)
+		return (1);
+	if (ft_check_long(exit_code) == 1)
+		return (1);
 	return (0);
 }
 
+// stop if the first arg is non numeric
 static int	ft_exit_parsing(t_minishell *data, t_commands *c_cmd)
 {
-	// non numeric argument
-	if (ft_arrcheck(c_cmd) != 0)
+	if (ft_strcheck(c_cmd->arg[0]) == 1)
 	{
 		ft_write_error("exit");
 		ft_write_error(" numeric argument required");
 		data->exit_code = 2;
 		exit(2);
 	}
-	// too many arguments
 	if (ft_arrlen(c_cmd->arg) > 1)
 	{
 		ft_write_error("exit");
@@ -48,8 +88,13 @@ static int	ft_exit_parsing(t_minishell *data, t_commands *c_cmd)
 
 void	ft_exit(t_minishell *data, t_commands *c_cmd)
 {
-	if (c_cmd->arg == NULL)
+	long	exit_code;
+
+	if (!c_cmd->arg)
 		exit(data->exit_code);
 	if (ft_exit_parsing(data, c_cmd) != 0)
 		return ;
+	exit_code = ft_atol(*(c_cmd->arg));
+	data->exit_code = exit_code;
+	exit(exit_code);
 }

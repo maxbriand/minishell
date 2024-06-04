@@ -19,5 +19,4 @@ void	ft_exit_failure(char *msg, t_commands *c_cmd, t_minishell *data)
 	exit(c_cmd->exit_code);
 	// close all pipes
 	// ft_close_pipes(data->pipefds);
-	exit(EXIT_FAILURE);
 }

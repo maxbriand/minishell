@@ -6,11 +6,18 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:04:34 by mbriand           #+#    #+#             */
-/*   Updated: 2024/04/02 18:04:34 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/04 18:22:36 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static long	ft_handle_sign(const char *sign, long nbr)
+{
+	if (*sign == '-')
+		nbr *= -1;
+	return (nbr);
+}
 
 long	ft_atol(const char *s)
 {
@@ -19,6 +26,8 @@ long	ft_atol(const char *s)
 	int			digit;	
 
 	nbr = 0;
+	while (ft_isspace(*s) == 1)
+		s++;
 	sign = s;
 	if (*s == '-' || *s == '+')
 		s++;
@@ -35,7 +44,6 @@ long	ft_atol(const char *s)
 		nbr += (*s) - 48;
 		s++;
 	}
-	if (*sign == '-')
-		nbr *= -1;
+	nbr = ft_handle_sign(sign, nbr);
 	return (nbr);
 }

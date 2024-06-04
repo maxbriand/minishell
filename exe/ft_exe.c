@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/03 19:49:08 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/04 19:19:44 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	if (c_cmd->b_builtins == 0)
 	{
 		execve(path, c_cmd->arg_cmd, data->env);
-		c_cmd->exit_code = 1;
-		ft_exit_failure(" execution issue\n", c_cmd, data);
+		c_cmd->exit_code = 127;
+		ft_exit_failure(" command not found\n", c_cmd, data);
 	}
 	else
 	{

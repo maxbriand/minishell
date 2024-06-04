@@ -19,6 +19,7 @@ SRC =	$(FT_CTYPE)ft_isalpha.c \
 		$(FT_CTYPE)ft_isprint.c \
 		$(FT_CTYPE)ft_toupper.c \
 		$(FT_CTYPE)ft_tolower.c \
+		$(FT_CTYPE)ft_isspace.c \
 		\
 		$(FT_PRINTF)ft_printf.c \
 		$(FT_PRINTF)ft_parser.c \

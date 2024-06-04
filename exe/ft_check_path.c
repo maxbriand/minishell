@@ -40,15 +40,17 @@ static char	**ft_get_path_list(t_minishell *data, t_commands *current_cmd)
 	return (path_list);
 }
 
-static char	*ft_is_already_path(char *full_cmd)
+static char	*ft_is_already_path(char *cmd)
 {
-	char	*al_path;
+//	char	*al_path;
 
-	al_path = ft_strcut(full_cmd, ' ');
-	if (access(al_path, R_OK) == 0)
-		return (al_path);
-	if (al_path != full_cmd)
-		free(al_path);
+//	al_path = ft_strcut(cmd, ' ');
+	// if (access(al_path, R_OK) == 0)
+	// 	return (al_path);
+	// if (al_path != cmd)
+	// 	free(al_path);
+	if (access(cmd, R_OK) == 0)
+		return (cmd);
 	return (NULL);
 }
 
@@ -77,7 +79,7 @@ char	*ft_check_path(t_minishell *data, t_commands *c_cmd)
 		paths++;
 	}
 	ft_arrfree(save_paths);
-	c_cmd->exit_code = 1;
-	ft_exit_failure(" command not found", NULL, data);
+	c_cmd->exit_code = 127;
+	ft_exit_failure(" No such file or directory", c_cmd, data);
 	return (NULL);
 }

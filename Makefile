@@ -4,7 +4,6 @@ CC = cc
 LIBFT = libft/libft.a
 
 SRC =	main.c \
-		exe/test.c \
 		exe/ft_exe.c \
 		exe/ft_exit_failure.c \
 		exe/ft_check_path.c \
@@ -15,6 +14,7 @@ SRC =	main.c \
 		exe/ft_set_pipefd.c \
 		exe/ft_close_pipes.c \
 		exe/ft_builtins_exe.c \
+		exe/ft_signals.c \
 		\
 		builtins/ft_cd.c \
 		builtins/ft_echo.c \
