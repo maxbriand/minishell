@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 17:46:36 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/04 00:34:41 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,34 @@ static t_pars	*new_node(char *input_no_pipe)
 	t_pars	*node;
 
 	node = malloc(sizeof(t_pars));
-	node->spl_cmd = ft_split_separator(input_no_pipe);
-	if (node->spl_cmd[0])
+	if (ft_strlen(input_no_pipe) == 0)
 	{
-		node->is_arg = define_shure_arg(node->spl_cmd);
-		node->is_expand = malloc(sizeof(bool) * ft_strlen_array(node->spl_cmd));
+		node->exit_code = 2;
+		node->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'");
+		node->spl_cmd = NULL;
+		node->is_arg = NULL;
+		node->is_expand = NULL;
+		//printf("%d  = p->exit 0\n", node->exit_code);
+		//printf("ICIiiiiiiiiiiiii\n");
 	}
 	else
 	{
-		node->is_arg = NULL;
-		node->is_expand = NULL;
+		node->spl_cmd = ft_split_separator(input_no_pipe);
+		if (node->spl_cmd[0])
+		{
+			node->is_arg = define_shure_arg(node->spl_cmd);
+			node->is_expand = malloc(sizeof(bool) * ft_strlen_array(node->spl_cmd));
+		}
+		else
+		{
+			node->is_arg = NULL;
+			node->is_expand = NULL;
+		}
+		node->exit_code = 0;
+		node->error_msg = NULL;
 	}
-	node->exit_code = 0;
 	node->file_err[0] = false;
 	node->file_err[1] = false;
-	node->error_msg = NULL;
 	node->next_is_hd_stop = false;
 	node->next_is_infile = false;
 	node->next_is_outfile = false;
@@ -54,6 +67,7 @@ t_pars	*define_p(char *input)
 	{
 		input_no_pipe = ft_split_quote_ignore(input, '|');
 		head = new_node(input_no_pipe[0]);
+		//printf("%d  = p->exit 1\n", head->exit_code);
 		if (!head)
 		{
 			free_array(input_no_pipe);

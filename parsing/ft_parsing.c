@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 17:46:51 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/04 21:13:18 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 //THIS BLOCK IS FOR PRINTF ALL CUT MADE WITH SPLIT
 //COMMENT THIS FOR NO PRINTF
-	//  int f;
+	// int f;
 	// f = 0;
 	// t_pars *buf2;
 	// buf2 = p;
@@ -56,6 +56,11 @@ void	ft_parsing(char *input, t_minishell *mini)
 
 	while (buf)
 	{
+		if (p->spl_cmd == NULL)
+		{
+			free_p(p);
+			return ;
+		}
 		if (buf != mini->p_cmd)
 			buf->in_pipe = true;
 		if (p->spl_cmd[0])
@@ -70,18 +75,18 @@ void	ft_parsing(char *input, t_minishell *mini)
 				remove_quote_bslash(p->spl_cmd, i, mini, p);
 				//printf("%d = is_expand\n", p->is_expand[i]);
 				define_p_cmd(p->spl_cmd[i], i, buf, p);
+				if (buf->outfile && buf->err_is_infile == false)
+				{
+					fdout = open(buf->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+					if (fdout <= 0)
+						define_outfile_error(buf);
+					else
+						close(fdout);
+				}
 				i++;
 			}
 			if (buf->arg_cmd == NULL && buf->cmd)
 				cmd_arg_join(buf);
-			if (buf->outfile && buf->err_is_infile == false)
-			{
-				fdout = open(buf->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-				if (fdout <= 0)
-					define_outfile_error(buf);
-				else
-					close(fdout);
-			}
 		}
 		p = p->next;
 		buf = buf->next;

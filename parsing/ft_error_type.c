@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 19:17:32 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/03 22:50:55 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_is_expand(char *arg, int i, t_commands *p_cmd)
 	expand = ft_split(arg + i, ' ');
 	if (ft_strlen_array(expand) > 1  && p_cmd->msg_error == NULL)
 	{
-		p_cmd->msg_error = ft_better_strdup("minishell: %s: ambiguous redirect", arg + i);
+		p_cmd->msg_error = ft_better_strdup("minishell: %s: ambiguous redirect\n", arg + i);
 		p_cmd->exit_code = 1;
 		p_cmd->err_is_infile = 1;
 	}
@@ -79,6 +79,6 @@ void	ft_is_expand(char *arg, int i, t_commands *p_cmd)
 
 void	set_error_op(t_commands *p_cmd)
 {
-	p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator");
+	p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator\n");
 	p_cmd->exit_code = 2;
 }
