@@ -31,13 +31,13 @@ void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p);
 bool	*define_shure_arg(char **splt_cmd);
 
 //error
-int		pipe_unexpected(char *input);
+int	pipe_unexpected(char *input, t_pars *p);
 void	error_and_exit(char *error);
 bool	error_p(int nb, char *cmd);
 void	ft_better_putstr_fd(char *str, char *arg, int error);
 void	set_error_op(t_commands *p_cmd);
 void	ft_is_expand(char *arg, int i, t_commands *p_cmd);
-
+void	error_next_file(t_commands *p_cmd);
 
 
 //define t_command

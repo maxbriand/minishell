@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/05 09:26:11 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/05 10:22:02 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void	ft_parsing(char *input, t_minishell *mini)
 			}
 			if (buf->arg_cmd == NULL && buf->cmd)
 				cmd_arg_join(buf);
+			if (p->next_is_infile || p->next_is_outfile)
+				error_next_file(buf);
 		}
 		p = p->next;
 		buf = buf->next;

@@ -6,33 +6,51 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 22:50:55 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/05 10:37:42 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //check if there is consecutive pipe
-int	pipe_unexpected(char *input)
+int	pipe_unexpected(char *input, t_pars *p)
 {
-	int	i;
+	int		i;
+	bool	on_quote[2];
 
+	on_quote[0] = false;
+	on_quote[1] = false;
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '|' && input[i + 1] == '|')
+		ft_define_on_quote(input, i, on_quote);
+		if (!p->error_msg)
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `||'\n", 1);//Not shure for 1 for stderror
-			return (1);
-		}
-		if (input[i] == '|' && i == 0)
-		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 1);//Not shure for 1 for stderror
-			return (1);
+			if (input[i] == '|' && input[i + 1] == '|' && !on_quote[0] && !on_quote[1])
+			{
+				p->error_msg = ft_strdup("minishell: syntax error near unexpected token `||'\n");
+				p->exit_code = 2;
+				return (1);
+			}
+			if (input[i] == '|' && i == 0)
+			{
+				p->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'\n");
+				p->exit_code = 2;
+				return (1);
+			}
 		}
 		i++;
 	}
 	return (0);
+}
+
+void	error_next_file(t_commands *p_cmd)
+{
+	if (p_cmd->exit_code == 0)
+	{
+		p_cmd->exit_code = 2;
+		p_cmd->msg_error = ft_strdup("syntax error near unexpected token `newline'");
+	}
 }
 
 void	error_and_exit(char *error)

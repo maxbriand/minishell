@@ -6,14 +6,14 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/05 10:01:48 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/05 10:24:57 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //create a new node for my struct t_pars. every node is a command separed by pipe
-static t_pars	*new_node(char *input_no_pipe, char *input)
+static t_pars	*new_node(char *input_no_pipe)
 {
 	t_pars	*node;
 
@@ -21,10 +21,10 @@ static t_pars	*new_node(char *input_no_pipe, char *input)
 	if (!node)
 		exit (1);//mayday error
 
-	if (ft_strlen(input_no_pipe) == 0 || is_only_space(input_no_pipe) == 1 || pipe_unexpected(input) == 0)
+	if (ft_strlen(input_no_pipe) == 0 || is_only_space(input_no_pipe) == 1)
 	{
 		node->exit_code = 2;
-		node->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'");
+		node->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'\n");
 		node->spl_cmd = NULL;
 		node->is_arg = NULL;
 		node->is_expand = NULL;
@@ -68,7 +68,7 @@ t_pars	*define_p(char *input)
 	if (is_only_space(input) == 0)
 	{
 		input_no_pipe = ft_split_quote_ignore(input, '|');
-		head = new_node(input_no_pipe[0], input);
+		head = new_node(input_no_pipe[0]);
 		if (!head)
 		{
 			free_array(input_no_pipe);
@@ -78,11 +78,12 @@ t_pars	*define_p(char *input)
 		i = 1;
 		while (input_no_pipe[i])
 		{
-			buf->next = new_node(input_no_pipe[i], input);
+			buf->next = new_node(input_no_pipe[i]);
 			if (buf->next != NULL)
 				buf = buf->next;
 			i++;
 		}
+		pipe_unexpected(input, head);
 		free_array(input_no_pipe);
 		return (head);
 	}
