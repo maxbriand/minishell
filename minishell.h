@@ -41,6 +41,7 @@ typedef struct s_minishell
 {
 	t_commands	*p_cmd;
 	int			pipe_nbr;
+	char		**export;
 	char		**env;
 	char		**path_env;
 	int			open_quote;

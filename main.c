@@ -90,6 +90,7 @@ int main (int ac, char **av, char **env)
 	mini->p_cmd = NULL;
 	mini->env = env;
 	mini->exit_code = 0;
+	mini->export = NULL;
 	//mini->path_env = catch_path(env);
 
 	(void)ac;

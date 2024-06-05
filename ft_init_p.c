@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/04 00:34:41 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:33:10 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,16 @@ static t_pars	*new_node(char *input_no_pipe)
 	t_pars	*node;
 
 	node = malloc(sizeof(t_pars));
-	if (ft_strlen(input_no_pipe) == 0)
+	if (!node)
+		exit (1);//mayday error
+	if (ft_strlen(input_no_pipe) == 0 || is_only_space(input_no_pipe) == 1)
 	{
 		node->exit_code = 2;
 		node->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'");
 		node->spl_cmd = NULL;
 		node->is_arg = NULL;
 		node->is_expand = NULL;
-		//printf("%d  = p->exit 0\n", node->exit_code);
-		//printf("ICIiiiiiiiiiiiii\n");
+
 	}
 	else
 	{
@@ -67,24 +68,18 @@ t_pars	*define_p(char *input)
 	{
 		input_no_pipe = ft_split_quote_ignore(input, '|');
 		head = new_node(input_no_pipe[0]);
-		//printf("%d  = p->exit 1\n", head->exit_code);
 		if (!head)
 		{
 			free_array(input_no_pipe);
-			return NULL;
+			return (NULL);
 		}
-		//check_nb_op(head->spl_cmd, &head->error_msg, head->file_err, &head->exit_code);
 		buf = head;
 		i = 1;
 		while (input_no_pipe[i])
 		{
 			buf->next = new_node(input_no_pipe[i]);
-			//printf("%s = input\n", input_no_pipe[i]);
-			//printf("%p = buf->next\n", buf->next);
-
 			if (buf->next != NULL)
 				buf = buf->next;
-			//check_nb_op(buf->spl_cmd, &buf->error_msg, buf->file_err, &buf->exit_code);
 			i++;
 		}
 		free_array(input_no_pipe);

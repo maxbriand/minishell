@@ -62,6 +62,7 @@ char	**ft_addback(char **old_array, char *new_element);
 char	*ft_charaddback(char **old_array, char new_element);
 char	*ft_better_strdup(char *s, char *arg);
 char	*ft_better_strdup_free(char *s, char *arg);
+char	**ft_strdup_array(char **array);
 
 //ultimate_free
 void	free_array(char **tab);
@@ -70,11 +71,12 @@ void	free_p_cmd(t_commands *p_cmd);
 
 char	**ft_split_quote_ignore(char *str, char c);
 char	**ft_split_separator(char *str);
+char	**ft_init_export(char **env);
 int		is_only_space(char *str);
 char	*catch_env(char **envp, char *str);
 char	*ft_strjoin_free(char *s1, char *s2);
 int		ft_strlen_array(char **array);
-//char	**ft_remove_element(char **old_array, int id_rm);
+void	ft_remove_element(char **array, int id_rm);
 
 
 

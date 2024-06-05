@@ -27,6 +27,7 @@ SRC =	ft_error_p.c\
 		ft_check_quote.c\
 		ft_better_strdup.c\
 		ft_define_shure_arg.c\
+		ft_init_export.c\
 		main.c
 
 

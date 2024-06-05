@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 17:40:11 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/05 04:04:12 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	*ft_addback_int(int *old_array, int	new_element)
 	//coucou maxime va bosser au lieu de mater mon beau code
 }
 
-
+//add a char to a string, need to send a adress of the string to old array
 char	*ft_charaddback(char **old_array, char new_element)
 {
 	char	*new_array;
