@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/04 21:13:18 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/05 10:53:14 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,24 @@ void	ft_parsing(char *input, t_minishell *mini)
 	t_commands	*buf;
 	int			i;
 	int			fdout;
+
+	if (!mini->export)
+		mini->export = ft_init_export(mini->env);
+	i = 0;
+	//while (mini->export[i])
+	//{
+	//	printf("%s\n", mini->export[i]);
+	//	i++;
+	//}
+	//printf("\n\n");
+	//i = 0;
+	//while (mini->env[i])
+	//{
+	//	printf("%s\n", mini->env[i]);
+	//	i++;
+	//}
+	//i = 0;
+
 
 	if (ft_strlen(input) == 0)
 		return ;
@@ -40,12 +58,17 @@ void	ft_parsing(char *input, t_minishell *mini)
 	// {
 	// 	i = 0;
 	// 	printf("\n\nMaillon %d:\n", f);
-	// 	while (p->spl_cmd[i])
+	// 	if (p->spl_cmd)
 	// 	{
-	// 		printf(" Argument %d = %s.\n", i, p->spl_cmd[i]);
-	// 		printf(" is_arg shure %d = %d.\n", i, p->is_arg[i]);
-	// 		i++;
+	// 		while (p->spl_cmd[i])
+	// 		{
+	// 			printf(" Argument %d = %s.\n", i, p->spl_cmd[i]);
+	// 			printf(" is_arg shure %d = %d.\n", i, p->is_arg[i]);
+	// 			i++;
+	// 		}
 	// 	}
+	// 	else
+	// 		printf("c'est non\n");
 	// 	p = p->next;
 	// 	f++;
 	// 	if (p)
@@ -87,6 +110,8 @@ void	ft_parsing(char *input, t_minishell *mini)
 			}
 			if (buf->arg_cmd == NULL && buf->cmd)
 				cmd_arg_join(buf);
+			if (p->next_is_infile || p->next_is_outfile || p->next_is_hd_stop)
+				error_next_file(buf);
 		}
 		p = p->next;
 		buf = buf->next;

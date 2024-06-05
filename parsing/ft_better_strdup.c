@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:16 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 17:39:17 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/05 08:34:09 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,24 @@ char	*ft_better_strdup_free(char *s, char *arg)
 		i++;
 	}
 	return (NULL);
+}
+
+char	**ft_strdup_array(char **array)
+{
+	char	**result;
+	int		i;
+
+	if (!array)
+		return (NULL);
+	i = 0;
+	result = malloc(sizeof(char *) * (ft_strlen_array(array) + 1));
+	if (!result)
+		exit (1);//mayday error
+	while(array[i])
+	{
+		result[i] = ft_strdup(array[i]);
+		i++;
+	}
+	result[i] = NULL;
+	return (result);
 }

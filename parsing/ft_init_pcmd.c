@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:03 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/04 00:34:04 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:32:24 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,20 @@ void	init_pcmd(t_minishell *mini, t_pars *p)
 
 	buf_p = p;
 	buf_cmd = node_create_pcmd();
-	//printf("%d  = p->exit2\n", p->exit_code);
+	if (buf_p->exit_code)
+	{
+		if (p->error_msg)
+			buf_cmd->msg_error = ft_strdup(p->error_msg);
+		buf_cmd->exit_code = p->exit_code;
+	}
 	mini->p_cmd = buf_cmd;
 	while (buf_p->next)
 	{
 		next_node = node_create_pcmd();
-
 		if (buf_p->exit_code)
 		{
-			//printf("ICI\n");
 			if (p->error_msg)
-			next_node->msg_error = ft_strdup(p->error_msg);
+				next_node->msg_error = ft_strdup(p->error_msg);
 			next_node->exit_code = p->exit_code;
 		}
 		buf_cmd->next = next_node;

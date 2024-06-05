@@ -48,6 +48,8 @@ SRC =	main.c \
 		parsing/ft_define_shure_arg.c \
 		parsing/ft_strlen_array.c \
 		parsing/ft_check_arg_op.c \
+		parsing/ft_init_export.c \
+		parsing/ft_remove_element.c \
 
 all: $(NAME)
 

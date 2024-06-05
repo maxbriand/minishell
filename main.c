@@ -141,6 +141,7 @@ t_minishell	*ft_init_mish(t_minishell *mish, t_commands *p_cmd, char **env)
 	mish->env = env;
 	mish->open_dquote = 0;
 	mish->open_quote = 0;
+	mish->export = NULL;
 	return (mish);
 }
 
@@ -168,7 +169,7 @@ int	main(int ac, char **av, char **env)
 		ft_parsing(cmd, data);
 		//ft_printf("the cmd is %s\n", data->p_cmd->cmd);
 		// ft_printf_parsing(data->p_cmd);
-		ft_exe(data, data->p_cmd);		
+		ft_exe(data, data->p_cmd);
 		free(cmd);
 		// free_p_cmd(data->p_cmd);
 	}
