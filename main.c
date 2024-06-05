@@ -72,65 +72,69 @@ static t_commands	*ft_init_p_cmd_tests(t_commands *p_cmd)
 	return(p_cmd);
 }
 
-static void	ft_printf_parsing(t_commands *p_cmd)
+static void	ft_printf_parsing(t_minishell *data, t_commands *p_cmd)
 {
 	int i;
-	printf("\n\033[1;33mPARSING RESULT:\033[0m");
+	ft_printf("\n\033[1;33mPARSING RESULT:\033[0m");
 	while (p_cmd)
 	{
-		printf("\n\033[1;32mInput redirection:\033[0m");
+		ft_printf("\n\033[1;32mInput redirection:\033[0m");
 		if (p_cmd->infile == NULL && !p_cmd->hd_stop && p_cmd->in_pipe == 0)
-			printf("\033[1;31m(no redirection)\033[0m");
-		printf("\n");
-		printf("Infile: %s\n", p_cmd->infile);
+			ft_printf("\033[1;31m(no redirection)\033[0m");
+		ft_printf("\n");
+		ft_printf("Infile: %s\n", p_cmd->infile);
 		int y = 0;
 		if (!p_cmd->hd_stop)
-			printf("hd_stop: (null) \n");
+			ft_printf("hd_stop: (null) \n");
 		else
 		{
 			while (p_cmd->hd_stop[y] && p_cmd->hd_stop)
 			{
-				printf("hd_stop: %s n%d\n", p_cmd->hd_stop[y], y);
+				ft_printf("hd_stop: %s n%d\n", p_cmd->hd_stop[y], y);
 				y++;
 			}
 		}
-		printf("In pipe: %d\n", p_cmd->in_pipe);
-		printf("\n\033[1;32mOutput redirection:\033[0m");
+		ft_printf("In pipe: %d\n", p_cmd->in_pipe);
+		ft_printf("\n\033[1;32mOutput redirection:\033[0m");
 		if (p_cmd->outfile == NULL)
-			printf("\033[1;31m(no redirection)\033[0m");
-		printf("\n");
-		printf("Outfile: %s \n", p_cmd->outfile);
-		printf("Append-out: %d\n", p_cmd->append_outfile);
-		printf("\n\033[1;32mCommand:\033[0m\n");
-		printf("Cmd: %s\n", p_cmd->cmd);
-		printf("Option: %s\n", p_cmd->option);
-		printf("Arg: ");
-		sleep(1);
+			ft_printf("\033[1;31m(no redirection)\033[0m");
+		ft_printf("\n");
+		ft_printf("Outfile: %s \n", p_cmd->outfile);
+		ft_printf("Append-out: %d\n", p_cmd->append_outfile);
+		ft_printf("\n\033[1;32mCommand:\033[0m\n");
+		ft_printf("Cmd: %s\n", p_cmd->cmd);
+		ft_printf("Option: %s\n", p_cmd->option);
+		ft_printf("Arg: ");
 		ft_arrprintf(p_cmd->arg);
-		printf("\n");
+		ft_printf("\n");
+		ft_printf("Nbr of arg: %d\n", ft_arrlen(p_cmd->arg));
 		y = 0;
-		printf("cmd+arg+opt: ");
+		ft_printf("cmd+arg+opt: ");
 		if (!p_cmd->arg_cmd)
-			printf("(null)");
+			ft_printf("(null)");
 		else
 		{
 			while (p_cmd->arg_cmd[y])
 			{
-				printf("%s ", p_cmd->arg_cmd[y]);
+				ft_printf("%s ", p_cmd->arg_cmd[y]);
 				y++;
 			}
 		}
-		printf("\n");
-		printf("Builtins: %d\n", p_cmd->b_builtins);
-		printf("\n\033[1;32mError:\033[0m\n");
-		printf("Msg error: %s", p_cmd->msg_error);
-		printf("Code error: %d\n", p_cmd->exit_code);
-		printf("Is Infile Error: %d\n", p_cmd->err_is_infile);
-		printf("Is Outfile Error: %d\n", p_cmd->err_is_outfile);
+		ft_printf("\n");
+		ft_printf("Builtins: %d\n", p_cmd->b_builtins);
+		ft_printf("\n\033[1;32mError:\033[0m\n");
+		if (!p_cmd->msg_error)
+			ft_printf("Msg error: %s\n", p_cmd->msg_error);
+		else
+			ft_printf("Msg error: %s\n", p_cmd->msg_error);
+		ft_printf("Code error: %d\n", p_cmd->exit_code);
+		ft_printf("Is Infile Error: %d\n", p_cmd->err_is_infile);
+		ft_printf("Is Outfile Error: %d\n", p_cmd->err_is_outfile);
 		p_cmd = p_cmd->next;
 	}
-	printf("\n\033[1;32mOutput result: \033[0m\n");
-	printf("\n");
+	ft_printf("\n\033[1;32mOutput result: \033[0m\n");
+
+	// ft_printf("This is the env variable pt: %p and fst element %s\n", data->env, *data->env);
 }
 
 t_minishell	*ft_init_mish(t_minishell *mish, t_commands *p_cmd, char **env)
@@ -168,7 +172,7 @@ int	main(int ac, char **av, char **env)
 			add_history(cmd);
 		ft_parsing(cmd, data);
 		//ft_printf("the cmd is %s\n", data->p_cmd->cmd);
-		// ft_printf_parsing(data->p_cmd);
+		// ft_printf_parsing(data, data->p_cmd);
 		ft_exe(data, data->p_cmd);
 		free(cmd);
 		// free_p_cmd(data->p_cmd);

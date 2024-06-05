@@ -1,15 +1,15 @@
 #include "minishell.h"
 
-void	ft_env(t_minishell *mish, t_commands *p_cmd)
+void	ft_env(t_minishell *data, t_commands *p_cmd)
 {
 	int	i;
 
-	if (!mish->env)
+	if (!data->env)
 		return ;
 	i = 0;
-	while (mish->env[i])
+	while (data->env[i])
 	{
-		ft_printf("%s\n", mish->env[i]);
+		ft_printf("%s\n", data->env[i]);
 		i++;
 	}
 }

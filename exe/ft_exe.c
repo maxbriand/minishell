@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/05 01:26:15 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:53:30 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_exe(t_minishell *data, t_commands *p_cmd)
 	pid_t	pid;
 
 	// do I need to keep this line to handle empty cmd?
-	if (p_cmd->cmd == NULL)
+	if (!p_cmd->cmd)
 	{
 		data->exit_code = p_cmd->exit_code;		
 		return ;

@@ -1,19 +1,5 @@
 #include "minishell.h"
 
-// static int	ft_arrcheck(t_commands *c_cmd)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (c_cmd->arg[i])
-// 	{
-// 		if (ft_strcheck(c_cmd->arg[i]) == 1)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 static int	ft_check_long(const char *s)
 {
 	long		nbr;
@@ -22,6 +8,8 @@ static int	ft_check_long(const char *s)
 
 	nbr = 0;
 	sign = s;
+	while (ft_isspace(*s) == 1)
+		s++;
 	if (*s == '-' || *s == '+')
 		s++;
 	while (*s)
@@ -71,14 +59,12 @@ static int	ft_exit_parsing(t_minishell *data, t_commands *c_cmd)
 {
 	if (ft_strcheck(c_cmd->arg[0]) == 1)
 	{
-		ft_write_error("exit");
 		ft_write_error(" numeric argument required");
 		data->exit_code = 2;
 		exit(2);
 	}
 	if (ft_arrlen(c_cmd->arg) > 1)
 	{
-		ft_write_error("exit");
 		ft_write_error(" too many arguments");
 		data->exit_code = 1;
 		return (1);
@@ -90,6 +76,7 @@ void	ft_exit(t_minishell *data, t_commands *c_cmd)
 {
 	long	exit_code;
 
+	ft_write_error("exit");
 	if (!c_cmd->arg)
 		exit(data->exit_code);
 	if (ft_exit_parsing(data, c_cmd) != 0)
