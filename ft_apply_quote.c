@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 22:30:29 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/05 10:48:32 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,16 @@ static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
 			if (arg[i][j] == '$' && arg[i][j + 1] == '?')
 			{
 				result = ft_strjoin_free(result, ft_itoa(mini->exit_code));
-				j++;
+				j += 2;
 			}
 			else
 			{
 				var_env = catch_env(mini->env, just_name_env(arg[i], j, on_quote));
 				result = ft_strjoin_free(result, var_env);
-			}
-			j++;
-			while (arg[i][j] && (ft_isalnum(arg[i][j]) || arg[i][j] == '_')) //mayday need really only isalnum ????
 				j++;
+				while (arg[i][j] && (ft_isalnum(arg[i][j]) || arg[i][j] == '_')) //mayday need really only isalnum ????
+					j++;
+			}
 		}
 		else
 		{
