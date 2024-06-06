@@ -17,6 +17,7 @@ typedef struct s_parsing
 	bool	next_is_outfile;
 	bool	next_can_be_opt;
 	bool	next_can_be_arg;
+	bool	next_is_arg;
 	char	*error_msg;
 	int		exit_code;
 	bool	file_err[2];

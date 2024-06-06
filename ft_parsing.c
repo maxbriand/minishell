@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/05 10:51:48 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/06 05:52:35 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,12 @@ void	ft_parsing(char *input, t_minishell *mini)
 			if (buf->arg_cmd == NULL && buf->cmd)
 				cmd_arg_join(buf);
 			if (p->next_is_infile || p->next_is_outfile || p->next_is_hd_stop)
+			{
+				printf("%d = infile\n", p->next_is_infile);
+				printf("%d = outfile\n", p->next_is_outfile);
+				printf("%d = hd_stop\n", p->next_is_hd_stop);
 				error_next_file(buf);
+			}
 		}
 		p = p->next;
 		buf = buf->next;
