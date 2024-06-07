@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/05 09:06:01 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 13:38:18 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static char	**result_declare(char **result, char **res_ncmplt, int count)
 	return (result);
 }
 
-char	**ft_init_export(char **env)
+char	**ft_init_export(char **env, t_minishell *mini)
 {
 	int		count;
 	char	**result;
@@ -114,6 +114,7 @@ char	**ft_init_export(char **env)
 
 	i = 0;
 	count = 0;
+	mini->env = ft_strdup_array(env);
 	while (env[i])
 	{
 		if (ft_strchr(env[i], '='))
