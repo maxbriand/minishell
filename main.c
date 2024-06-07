@@ -161,9 +161,9 @@ int	main(int ac, char **av, char **env)
 	int			errcode;
 	t_commands	*p_cmd;
 	t_minishell	*data;
-	
+
 	data = ft_init_mish(data, p_cmd, env);
-	ft_set_newterm(data);
+	//ft_set_newterm(data);
 	ft_signals(data);
 	//data->p_cmd = ft_init_p_cmd_tests(data->p_cmd);
 	errcode = 0;

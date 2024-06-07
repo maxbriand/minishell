@@ -17,6 +17,7 @@ typedef struct s_parsing
 	bool	next_is_outfile;
 	bool	next_can_be_opt;
 	bool	next_can_be_arg;
+	bool	next_is_arg;
 	char	*error_msg;
 	int		exit_code;
 	bool	file_err[2];
@@ -71,7 +72,7 @@ void	free_p_cmd(t_commands *p_cmd);
 
 char	**ft_split_quote_ignore(char *str, char c);
 char	**ft_split_separator(char *str);
-char	**ft_init_export(char **env);
+char	**ft_init_export(t_minishell *mini);
 int		is_only_space(char *str);
 char	*catch_env(char **envp, char *str);
 char	*ft_strjoin_free(char *s1, char *s2);

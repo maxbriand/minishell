@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/05 19:25:03 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:22:26 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,28 +104,29 @@ static char	**result_declare(char **result, char **res_ncmplt, int count)
 	return (result);
 }
 
-char	**ft_init_export(char **env)
+char	**ft_init_export(t_minishell *mini)
 {
 	int		count;
-//	char	**result;
+	char	**result;
 	char	**res_not_complete;
 	int		j;
 	int		i;
 
 	i = 0;
 	count = 0;
-	while (env[i])
+	mini->env_malloc = ft_strdup_array(mini->env);
+	while (mini->env[i])
 	{
-		if (ft_strchr(env[i], '='))
+		if (ft_strchr(mini->env[i], '='))
 			count++;
 		i++;
 	}
-	// result = malloc(sizeof(char *) * (count + 1));
-	// if (!result)
-	// 	exit (1);//mayday error ?
-	// result[count] = NULL;
-	res_not_complete = sort_export(count, env);
-	//result = result_declare(result, res_not_complete, count);
-	//free_array(res_not_complete);
-	return (res_not_complete);
+	result = malloc(sizeof(char *) * (count + 1));
+	if (!result)
+		exit (1);//mayday error ?
+	result[count] = NULL;
+	res_not_complete = sort_export(count, mini->env);
+	result = result_declare(result, res_not_complete, count);
+	free_array(res_not_complete);
+	return (result);
 }
