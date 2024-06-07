@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 14:21:18 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 18:18:48 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 	int			i;
 	int			fdout;
 
+	mini->env = ft_strdup_array(mini->env);
 	if (!mini->export)
 		mini->export = ft_init_export(mini);
 	i = 0;
@@ -75,7 +76,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 	// 		printf("\n\n");
 	// }
 	// p = buf2;
-//END OF PRINTF
+//END OF PRINTF 351 386/456
 
 	while (buf)
 	{
@@ -92,12 +93,17 @@ void	ft_parsing(char *input, t_minishell *mini)
 			//printf("%d = is_expand\n", p->is_expand[0]);
 			if (p->spl_cmd[0][0] != '\0')
 				define_first_pcmd(p->spl_cmd[0], buf, p);
+			else if (p->is_arg[0] == true)
+				buf->cmd = ft_strdup("");
 			i = 1;
 			while (p->spl_cmd[i])
 			{
 				remove_quote_bslash(p->spl_cmd, i, mini, p);
 				//printf("%d = is_expand\n", p->is_expand[i]);
-				define_p_cmd(p->spl_cmd[i], i, buf, p);
+				if (p->spl_cmd[i][0] != '\0')
+					define_p_cmd(p->spl_cmd[i], i, buf, p);
+				else if (p->is_arg[i] == true)
+					buf->cmd = ft_strdup("");
 				if (buf->outfile && buf->err_is_infile == false)
 				{
 					fdout = open(buf->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);

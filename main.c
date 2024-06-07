@@ -179,8 +179,8 @@ int	main(int ac, char **av, char **env)
 			add_history(cmd);
 		ft_parsing(cmd, data);
 		// // HAVE TO DELETE that
-		if (strcmp(cmd, "env") == 0)
-			ft_env(data, data->p_cmd);
+		//if (strcmp(cmd, "env") == 0)
+			//ft_env(data, data->p_cmd);
 		// ft_printf_parsing(data, data->p_cmd);
 		ft_signals(1);
 		ft_exe(data, data->p_cmd);

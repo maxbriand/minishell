@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:03 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/05 09:32:24 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:06:24 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ t_commands	*node_create_pcmd(void)
 	node->err_is_infile = false;
 	node->err_is_outfile = false;
 	node->exit_code = 0;
-	node->msg_error = NULL;;
+	node->msg_error = NULL;
+	node->bf_cmd = true;
 	return (node);
 }
 void	init_pcmd(t_minishell *mini, t_pars *p)

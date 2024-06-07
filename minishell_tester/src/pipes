@@ -3,10 +3,10 @@ cat ./test_files/infile_big | grep oi
 cat minishell.h | grep ");"$
 export GHOST=123 | env | grep GHOST
 ls | ls
-ls | 				ls
-ls 					| ls
-ls 				| 				ls
-ls             			|               					ls
-	   ls             			|               					ls
- ls             			|               					ls
-	ls             			|               					ls
+ls |                          ls
+ls                    | ls
+ls                               |                               ls
+ls                     |                                                       ls
+           ls                     |                                     ls
+ ls                           |                                ls
+       ls                                        |                                                            ls

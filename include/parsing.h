@@ -17,6 +17,8 @@ typedef struct s_parsing
 	bool	next_is_outfile;
 	bool	next_can_be_opt;
 	bool	next_can_be_arg;
+	bool	last_was_echo;
+	bool	last_was_env;
 	bool	next_is_arg;
 	char	*error_msg;
 	int		exit_code;
@@ -48,7 +50,7 @@ void	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p);
 //check arg
 bool	is_error_quote(char *str);
 bool	is_operator(char *arg, bool is_expand, t_commands *cmd, t_pars *p);
-bool	is_option(char *arg, t_commands *cmd);
+bool	is_option(char *arg, t_commands *cmd, t_pars *p);
 bool	arg_is_cmd(char *arg, t_commands *cmd, t_pars *p);
 void	cmd_arg_join(t_commands *cmd);
 bool	ft_define_on_quote(char *str, int i, bool *on_quote);

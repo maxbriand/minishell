@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 14:22:26 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 22:04:16 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	define_sort(char **env, int count, char **result)
 		ft_remove_element(env_buf, buf);
 		current++;
 	}
-	i = 0;
 	free_array(env_buf);
 }
 
@@ -76,6 +75,7 @@ static char	**sort_export(int count, char **env)
 	return(result);
 }
 
+//need to change name to quote add
 static char	**result_declare(char **result, char **res_ncmplt, int count)
 {
 	int		i;
@@ -86,7 +86,7 @@ static char	**result_declare(char **result, char **res_ncmplt, int count)
 	while (res_ncmplt[i])
 	{
 		j = 0;
-		result[i] = ft_strdup("declare -x ");
+		//result[i] = ft_strdup("declare -x ");
 		is_quote = false;
 		while (res_ncmplt[i][j])
 		{
@@ -114,7 +114,6 @@ char	**ft_init_export(t_minishell *mini)
 
 	i = 0;
 	count = 0;
-	mini->env_malloc = ft_strdup_array(mini->env);
 	while (mini->env[i])
 	{
 		if (ft_strchr(mini->env[i], '='))

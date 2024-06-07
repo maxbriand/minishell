@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/07 19:17:00 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/07 22:24:00 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_commands
 	struct s_commands	*next;
 	int					*pipefd0;
 	int					*pipefd1;
+	bool				bf_cmd;
 	bool				err_is_infile;
 	bool				err_is_outfile;
 	int					exit_code;
