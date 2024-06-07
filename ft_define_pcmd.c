@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/06 05:56:37 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/03 23:14:33 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,26 @@ void	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 	//need to look at quote here ?? or define before  ?
 	if (arg[0] == '\0')
 		return ;
+	if (p->is_arg[i] == true)
+	{
+		if (p_cmd->cmd == NULL)
+		{
+			arg_is_cmd(arg, p_cmd, p);
+			return ;
+		}
+		p_cmd->arg = ft_addback(p_cmd->arg, arg);
+		return ;
+	}
+	if (p->next_can_be_opt && is_option(arg, p_cmd) == true)
+			return ;
+	if (is_operator(arg, p->is_expand[i], p_cmd, p) == true)
+		return ;
+	if (p->next_is_hd_stop)
+	{
+		p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg);
+		p->next_is_hd_stop = false;
+		return ;
+	}
 	if (p->next_is_infile)
 	{
 		if (p->is_expand[i])
@@ -102,37 +122,8 @@ void	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 		p_cmd->outfile = ft_strdup(arg);
 		if (!p_cmd->outfile)
 			exit (1); //mayday error ?
-		p->next_is_outfile = false;
 		return ;
 	}
-	if (p->next_is_hd_stop)
-	{
-		p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg);
-		p->next_is_hd_stop = false;
-		return ;
-	}
-	if (p->is_arg[i] == true)
-	{
-
-		if (p_cmd->cmd == NULL)
-		{
-			arg_is_cmd(arg, p_cmd, p);
-			return ;
-		}
-		p_cmd->arg = ft_addback(p_cmd->arg, arg);
-		return ;
-	}
-	if (p->next_can_be_opt && is_option(arg, p_cmd) == true)
-			return ;
-	if (is_operator(arg, p->is_expand[i], p_cmd, p) == true)
-		return ;
-	if (p->next_is_arg == true)
-	{
-		p->next_is_arg = false;
-		p_cmd->arg = ft_addback(p_cmd->arg, arg);
-		return ;
-	}
-	//stop here
 	if(p->next_can_be_arg)
 	{
 		p_cmd->arg = ft_addback(p_cmd->arg, arg);
