@@ -33,6 +33,7 @@ typedef struct s_commands
 	int		*pipefd1;
 	bool	err_is_infile;
 	bool	err_is_outfile;
+	bool	bf_cmd;
 	int		exit_code;
 	char	*msg_error;
 }	t_commands;

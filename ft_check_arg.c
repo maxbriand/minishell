@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:22 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 13:36:20 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:11:54 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,8 @@ bool	arg_is_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	p->next_can_be_opt = true;
 	p->next_can_be_arg = true;
-	if (access(arg, F_OK) == 0 && !p_cmd->msg_error && arg[0] == '/')
-	{
-		p_cmd->msg_error = ft_better_strdup("minishell: %s: Is a directory\n", arg);
-		p_cmd->exit_code = 126;
-		return true;
-	}
+	if (p_cmd->msg_error == NULL)
+		p_cmd->bf_cmd = false;
 	p_cmd->cmd = ft_strdup(arg);
 	if (!p_cmd->cmd)
 		exit (1);//Error message ?

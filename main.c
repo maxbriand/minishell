@@ -36,7 +36,7 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 			printf("Outfile: %s \n", p_cmd->outfile);
 			printf("Append-out: %d\n", p_cmd->append_outfile);
 			printf("\n\033[1;32mCommand:\033[0m\n");
-			printf("Cmd: %s\n", p_cmd->cmd);
+			printf("Cmd:%s.\n", p_cmd->cmd);
 			printf("Option: %s\n", p_cmd->option);
 			y = 0;
 			if (p_cmd->arg)
