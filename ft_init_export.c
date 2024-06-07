@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 17:27:50 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:52:20 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char	**result_declare(char **result, char **res_ncmplt, int count)
 	while (res_ncmplt[i])
 	{
 		j = 0;
-		result[i] = ft_strdup("declare -x ");
+		//result[i] = ft_strdup("declare -x ");
 		is_quote = false;
 		while (res_ncmplt[i][j])
 		{

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:22 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 19:11:54 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:56:49 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	arg_is_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 	{
 		p_cmd->b_builtins = true;
 		if (strcmp(arg, "env") == 0)
-			p->next_is_infile = true;
+			p->last_was_env = true;
 		if (strcmp(arg, "exit") == 0)
 			p->next_is_arg = true;
 		return (true);
