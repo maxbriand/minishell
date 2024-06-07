@@ -15,12 +15,15 @@ SRC =	main.c \
 		exe/ft_close_pipes.c \
 		exe/ft_builtins_exe.c \
 		exe/ft_signals.c \
+		exe/ft_set_newterm.c \
 		\
 		builtins/ft_cd.c \
 		builtins/ft_echo.c \
 		builtins/ft_env.c \
 		builtins/ft_exit.c \
 		builtins/ft_export.c \
+		builtins/ft_export2.c \
+		builtins/ft_export3.c \
 		builtins/ft_pwd.c \
 		builtins/ft_unset.c \
 		builtins/ft_butils.c \

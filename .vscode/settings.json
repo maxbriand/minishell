@@ -4,7 +4,8 @@
     "minishell.h": "c",
     "stdio.h": "c",
     "curses.h": "c",
-    "parsing.h": "c"
+    "parsing.h": "c",
+    "libft.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

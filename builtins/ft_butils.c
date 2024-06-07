@@ -6,11 +6,36 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:49:24 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/01 17:24:26 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/06 16:40:17 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// return index from 0 to the var in env or export
+int	ft_lfor_var(char **arr, char *var)
+{
+	int	i;
+	int lvar;
+
+	// FIND THE LEN OF THE VAR NAME
+	if (ft_strchr(var, '=') !=  0)
+		lvar = ft_strchr(var, '=') - var;
+	else
+		lvar = ft_strlen(var);
+	// LOOKING FOR THIS NAME IN THE ARR
+	i = 0;
+	while (arr[i])
+	{
+		if (strncmp(arr[i], var, lvar) == 0)
+		{
+			if (arr[i][lvar] == '=' || arr[i][lvar] == '\0')
+				return (i);
+		}
+		i++;
+	}
+	return (-1);
+}
 
 // Find the variable in env
 char	*ft_get_env_var(char **env, char *var)

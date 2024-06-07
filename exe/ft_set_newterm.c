@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signals.c                                       :+:      :+:    :+:   */
+/*   ft_set_newterm.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 20:36:12 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/07 02:49:30 by mbriand          ###   ########.fr       */
+/*   Created: 2024/06/06 22:18:41 by mbriand           #+#    #+#             */
+/*   Updated: 2024/06/07 02:31:27 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	handle_ctrl_c(int sig)
+void ft_set_newterm(t_minishell *data)
 {
-	g_sig = 2;
-	// ft_printf("\n");
-    rl_replace_line("", 0);
-    // Redisplay the prompt on a new line
-    rl_on_new_line();
-    rl_redisplay();
-}
+	struct termios	newterm;
 
-void	ft_signals(t_minishell *data)
-{	
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handle_ctrl_c);
+	if (tcgetattr(STDIN_FILENO, &newterm) < 0)
+	{
+		ft_write_error("tcgetattr issue");
+		exit (EXIT_FAILURE);
+	}
+	newterm.c_lflag &= ~(ECHOCTL);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &newterm) < 0)
+	{
+		ft_write_error("tcsetattr issue");
+		exit (EXIT_FAILURE);
+    }	
 }

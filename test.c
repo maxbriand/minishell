@@ -6,7 +6,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdbool.h>
@@ -37,32 +36,41 @@ typedef struct s_minishell
 	int			open_dquote;
 }	t_minishell;
 
-#include "parsing.h"
-
-
 #endif
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+#include <termios.h>
+#include <string.h>
 
 
 
-static void ft_exit_failuree(const char *msg) 
-{
-    perror(msg);
-    // Perform any necessary cleanup
-    exit(EXIT_FAILURE);
-}
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
-void ft_print_fd_content(int fd) {
-    char buffer[1024];
-    ssize_t bytes_read;
 
-    while ((bytes_read = read(fd, buffer, sizeof(buffer) - 1)) > 0) {
-        buffer[bytes_read] = '\0'; // Null-terminate the buffer
-        dprintf(STDOUT_FILENO, "%s", buffer); // Print the buffer to stdout
+int main() {
+    // Set up the SIGQUIT signal handler to ignore the signal
+    struct sigaction sa;
+    sa.sa_handler = SIG_IGN;
+    sa.sa_flags = 0;
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGQUIT, &sa, NULL);
+
+    // Readline loop
+    char *input;
+    while ((input = readline("prompt> ")) != NULL) {
+        if (*input) {
+            add_history(input);
+        }
+        printf("You entered: %s\n", input);
+        free(input);
     }
 
-    if (bytes_read == -1) {
-        ft_exit_failuree("read");
-    }
+    return 0;
 }
-

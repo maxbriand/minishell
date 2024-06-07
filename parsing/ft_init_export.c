@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/05 09:06:01 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/05 19:25:03 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static char	**result_declare(char **result, char **res_ncmplt, int count)
 char	**ft_init_export(char **env)
 {
 	int		count;
-	char	**result;
+//	char	**result;
 	char	**res_not_complete;
 	int		j;
 	int		i;
@@ -120,12 +120,12 @@ char	**ft_init_export(char **env)
 			count++;
 		i++;
 	}
-	result = malloc(sizeof(char *) * (count + 1));
-	if (!result)
-		exit (1);//mayday error ?
-	result[count] = NULL;
+	// result = malloc(sizeof(char *) * (count + 1));
+	// if (!result)
+	// 	exit (1);//mayday error ?
+	// result[count] = NULL;
 	res_not_complete = sort_export(count, env);
-	result = result_declare(result, res_not_complete, count);
-	free_array(res_not_complete);
-	return (result);
+	//result = result_declare(result, res_not_complete, count);
+	//free_array(res_not_complete);
+	return (res_not_complete);
 }

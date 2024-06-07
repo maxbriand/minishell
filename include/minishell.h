@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/04 20:51:27 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/07 02:10:04 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <signal.h>
+# include <termios.h>
 
 typedef struct s_commands
 {
@@ -51,17 +53,26 @@ typedef struct s_commands
 // +1 for the boolean ONLY is the other one is 0 / false
 typedef struct s_minishell
 {
-	t_commands	*p_cmd;
-	int			pipe_nbr;
-	char		**env;
-	char		**export;
-	bool		env_malloc;
-	char		**path_env;
-	int			open_quote;
-	int			open_dquote;
-	int			**pipefds;
-	int			exit_code;
+	t_commands		*p_cmd;
+	int				pipe_nbr;
+	char			**env;
+	char			**export;
+	bool			env_malloc;
+	char			**path_env;
+	int				open_quote;
+	int				open_dquote;
+	int				**pipefds;
+	int				exit_code;
+	// struct termios	oldterm; 
 }	t_minishell;
+
+
+
+# ifndef GLOBAL
+#  define GLOBAL
+extern int g_sig;
+# endif
+
 
 # include "parsing.h"
 
@@ -93,10 +104,17 @@ void	ft_exit(t_minishell *mish, t_commands *p_cmd);
 void	ft_echo(t_minishell *mish, t_commands *p_cmd);
 void	ft_env(t_minishell *mish, t_commands *p_cmd);
 void	ft_export(t_minishell *mish, t_commands *p_cmd);
+void	ft_export_export(t_minishell *data, char *var);
+void	ft_export_env(t_minishell *data, char *var);
 char	*ft_pwd(t_minishell *mish, t_commands *p_cmd, int i);
 void	ft_unset(t_minishell *mish, t_commands *p_cmd);
 
 // Builtins utils
 char	*ft_get_env_var(char **env, char *var);
+int		ft_lfor_var(char **env, char *var);
+
+// Signals
+void	ft_signals(t_minishell *data);
+void 	ft_set_newterm(t_minishell *data);
 
 #endif

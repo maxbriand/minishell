@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+int g_sig = 0;
+
 static void	ft_free_tests(t_commands *p_cmd, char *cmd)
 {
 	free(p_cmd->next->cmd);
@@ -137,16 +139,16 @@ static void	ft_printf_parsing(t_minishell *data, t_commands *p_cmd)
 	// ft_printf("This is the env variable pt: %p and fst element %s\n", data->env, *data->env);
 }
 
-t_minishell	*ft_init_mish(t_minishell *mish, t_commands *p_cmd, char **env)
+t_minishell	*ft_init_mish(t_minishell *data, t_commands *p_cmd, char **env)
 {
-	mish = malloc(sizeof(t_minishell));
-	mish->exit_code = 0;
-	mish->p_cmd = p_cmd;
-	mish->env = env;
-	mish->open_dquote = 0;
-	mish->open_quote = 0;
-	mish->export = NULL;
-	return (mish);
+	data = malloc(sizeof(t_minishell));
+	data->exit_code = 0;
+	data->p_cmd = p_cmd;
+	data->env = env;
+	data->open_dquote = 0;
+	data->open_quote = 0;
+	data->export = NULL;
+	return (data);
 }
 
 /*
@@ -159,19 +161,29 @@ int	main(int ac, char **av, char **env)
 	int			errcode;
 	t_commands	*p_cmd;
 	t_minishell	*data;
-
+	
 	data = ft_init_mish(data, p_cmd, env);
+	ft_set_newterm(data);
+	ft_signals(data);
 	//data->p_cmd = ft_init_p_cmd_tests(data->p_cmd);
 	errcode = 0;
 	while (1)
 	{
 		cmd = readline("mish: ");
+		if (g_sig == 2)
+			data->exit_code = 130;
+		g_sig = 0;
 		if (!cmd)
 			break;
 		if (*cmd)
 			add_history(cmd);
 		ft_parsing(cmd, data);
-		//ft_printf("the cmd is %s\n", data->p_cmd->cmd);
+		if (strcmp(cmd, "env") == 0)
+
+		// HAVE TO DELETE that
+			ft_env(data, data->p_cmd);
+
+
 		// ft_printf_parsing(data, data->p_cmd);
 		ft_exe(data, data->p_cmd);
 		free(cmd);
