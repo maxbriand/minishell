@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/07 02:10:04 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:17:00 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,12 @@ typedef struct s_minishell
 	int				open_dquote;
 	int				**pipefds;
 	int				exit_code;
-	// struct termios	oldterm; 
 }	t_minishell;
-
-
 
 # ifndef GLOBAL
 #  define GLOBAL
 extern int g_sig;
 # endif
-
 
 # include "parsing.h"
 
@@ -114,7 +110,7 @@ char	*ft_get_env_var(char **env, char *var);
 int		ft_lfor_var(char **env, char *var);
 
 // Signals
-void	ft_signals(t_minishell *data);
+void	ft_signals(int d);
 void 	ft_set_newterm(t_minishell *data);
 
 #endif

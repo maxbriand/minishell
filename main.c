@@ -125,10 +125,9 @@ static void	ft_printf_parsing(t_minishell *data, t_commands *p_cmd)
 		ft_printf("\n");
 		ft_printf("Builtins: %d\n", p_cmd->b_builtins);
 		ft_printf("\n\033[1;32mError:\033[0m\n");
-		if (!p_cmd->msg_error)
-			ft_printf("Msg error: %s\n", p_cmd->msg_error);
-		else
-			ft_printf("Msg error: %s\n", p_cmd->msg_error);
+		// if (!p_cmd->msg_error)
+		// 	ft_printf("Msg error: %s\n", p_cmd->msg_error);
+		ft_printf("Msg error: %s\n", p_cmd->msg_error);
 		ft_printf("Code error: %d\n", p_cmd->exit_code);
 		ft_printf("Is Infile Error: %d\n", p_cmd->err_is_infile);
 		ft_printf("Is Outfile Error: %d\n", p_cmd->err_is_outfile);
@@ -139,12 +138,12 @@ static void	ft_printf_parsing(t_minishell *data, t_commands *p_cmd)
 	// ft_printf("This is the env variable pt: %p and fst element %s\n", data->env, *data->env);
 }
 
-t_minishell	*ft_init_mish(t_minishell *data, t_commands *p_cmd, char **env)
+t_minishell	*ft_init_mish(t_minishell *data, char **env)
 {
 	data = malloc(sizeof(t_minishell));
 	data->exit_code = 0;
-	data->p_cmd = p_cmd;
 	data->env = env;
+	data->p_cmd = NULL;
 	data->open_dquote = 0;
 	data->open_quote = 0;
 	data->export = NULL;
@@ -159,35 +158,35 @@ int	main(int ac, char **av, char **env)
 {
 	char 		*cmd;
 	int			errcode;
-	t_commands	*p_cmd;
+	// t_commands	*p_cmd;
 	t_minishell	*data;
 
-	data = ft_init_mish(data, p_cmd, env);
-	//ft_set_newterm(data);
-	ft_signals(data);
+	data = ft_init_mish(data, env);
 	//data->p_cmd = ft_init_p_cmd_tests(data->p_cmd);
 	errcode = 0;
 	while (1)
 	{
+		ft_signals(0);
 		cmd = readline("mish: ");
 		if (g_sig == 2)
 			data->exit_code = 130;
+		if (g_sig == 3)
+			data->exit_code = 131;
 		g_sig = 0;
 		if (!cmd)
 			break;
 		if (*cmd)
 			add_history(cmd);
 		ft_parsing(cmd, data);
+		// // HAVE TO DELETE that
 		if (strcmp(cmd, "env") == 0)
-
-		// HAVE TO DELETE that
 			ft_env(data, data->p_cmd);
-
-
 		// ft_printf_parsing(data, data->p_cmd);
+		ft_signals(1);
 		ft_exe(data, data->p_cmd);
 		free(cmd);
 		// free_p_cmd(data->p_cmd);
 	}
+	ft_printf("exit\n");
 	return (data->exit_code);
 }

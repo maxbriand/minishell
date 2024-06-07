@@ -54,23 +54,9 @@ typedef struct s_minishell
 #include <readline/history.h>
 
 
-int main() {
-    // Set up the SIGQUIT signal handler to ignore the signal
-    struct sigaction sa;
-    sa.sa_handler = SIG_IGN;
-    sa.sa_flags = 0;
-    sigemptyset(&sa.sa_mask);
-    sigaction(SIGQUIT, &sa, NULL);
-
-    // Readline loop
-    char *input;
-    while ((input = readline("prompt> ")) != NULL) {
-        if (*input) {
-            add_history(input);
-        }
-        printf("You entered: %s\n", input);
-        free(input);
-    }
-
+int main() 
+{
+	int i = strcmp(NULL, "hello");
+	printf("%d\n", i);
     return 0;
 }

@@ -15,7 +15,6 @@ SRC =	main.c \
 		exe/ft_close_pipes.c \
 		exe/ft_builtins_exe.c \
 		exe/ft_signals.c \
-		exe/ft_set_newterm.c \
 		\
 		builtins/ft_cd.c \
 		builtins/ft_echo.c \

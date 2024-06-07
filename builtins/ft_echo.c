@@ -1,8 +1,14 @@
 #include "minishell.h"
 
-void	ft_echo(t_minishell *mish, t_commands *p_cmd)
+void	ft_echo(t_minishell *data, t_commands *c_cmd)
 {
-	ft_arrprintf(p_cmd->arg);
-	ft_printf("\n");
-	// update exit code
+	if (c_cmd->option == NULL)
+	{
+		ft_arrprintf(c_cmd->arg);
+		ft_printf("\n");
+	}
+	else if (ft_strcmp(c_cmd->option, "-n") == 0)
+	{
+		ft_arrprintf(c_cmd->arg);
+	}
 }

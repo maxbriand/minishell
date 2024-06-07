@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_define_pcmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 15:31:32 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 20:30:26 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	define_infile_error(t_commands *p_cmd)
 		if (p_cmd->msg_error == NULL)
 		{
 			p_cmd->err_is_infile = true;
-			p_cmd->msg_error = ft_better_strdup_free("minishell: %s: No such file or directory\n", p_cmd->infile);
+			p_cmd->msg_error = ft_better_strdup_free("minishell: %s: No such file or directory", p_cmd->infile);
 			p_cmd->exit_code = 1;
 		}
 		else

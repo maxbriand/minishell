@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/05 16:53:30 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:54:27 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	ft_exe(t_minishell *data, t_commands *p_cmd)
 	int		c;
 	pid_t	pid;
 
-	// do I need to keep this line to handle empty cmd?
+	if (!p_cmd)
+		return;
 	if (!p_cmd->cmd)
 	{
 		data->exit_code = p_cmd->exit_code;		
@@ -61,6 +62,7 @@ void	ft_exe(t_minishell *data, t_commands *p_cmd)
 			return ;
 		}
 		ft_builtins_exe(data, p_cmd);
+		data->exit_code = 0;
 		return ;
 	}
 	data->pipefds = ft_create_pipes(data->pipe_nbr, data);
