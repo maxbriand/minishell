@@ -6,29 +6,34 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:22 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 19:56:49 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 21:59:50 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_option(char *arg, t_commands *p_cmd)
+bool	is_option(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	int	i;
 
 	if (arg[0] == '-')
 	{
 		i = 1;
-		if (ft_isdigit(arg[i]))
+		if (p->last_was_echo == true && (ft_strcmp(arg, "-n") != 0))
 		{
-			while (ft_isdigit(arg[i]))
-				i++;
-			if (arg[i] == '\0')
-			{
-				p_cmd->arg = ft_addback(p_cmd->arg, arg);
-				return (true);
-			}
+			p_cmd->arg = ft_addback(p_cmd->arg, arg);
+			return (true);
 		}
+		// if (ft_isdigit(arg[i]))
+		// {
+		// 	while (ft_isdigit(arg[i]))
+		// 		i++;
+		// 	if (arg[i] == '\0')
+		// 	{
+		// 		p_cmd->arg = ft_addback(p_cmd->arg, arg);
+		// 		return (true);
+		// 	}
+		// }
 		if (p_cmd->option)
 		{
 			p_cmd->option = ft_strjoin(p_cmd->option, arg + 1);
@@ -65,6 +70,8 @@ bool	arg_is_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 			p->last_was_env = true;
 		if (strcmp(arg, "exit") == 0)
 			p->next_is_arg = true;
+		if (strcmp(arg, "echo") == 0)
+			p->last_was_echo = true;
 		return (true);
 	}
 	return (true);

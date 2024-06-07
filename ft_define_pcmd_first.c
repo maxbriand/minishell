@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:43 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 23:14:20 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 21:53:10 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p)
 		i = 1;
 		if (expand[i])
 		{
-			while (is_option(expand[i], p_cmd) == true)
+			while (is_option(expand[i], p_cmd, p) == true)
 				i++;
 			while (expand[i])
 			{

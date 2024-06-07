@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 19:57:24 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 21:51:18 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_pars	*new_node(char *input_no_pipe)
 	if (ft_strlen(input_no_pipe) == 0 || is_only_space(input_no_pipe) == 1)
 	{
 		node->exit_code = 2;
-		node->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'\n");
+		node->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'");
 		node->spl_cmd = NULL;
 		node->is_arg = NULL;
 		node->is_expand = NULL;
@@ -48,6 +48,7 @@ static t_pars	*new_node(char *input_no_pipe)
 	}
 	node->file_err[0] = false;
 	node->file_err[1] = false;
+	node->last_was_echo = false;
 	node->next_is_hd_stop = false;
 	node->next_is_infile = false;
 	node->next_is_outfile = false;

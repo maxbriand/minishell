@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/05 10:37:42 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 21:45:14 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int	pipe_unexpected(char *input, t_pars *p)
 		{
 			if (input[i] == '|' && input[i + 1] == '|' && !on_quote[0] && !on_quote[1])
 			{
-				p->error_msg = ft_strdup("minishell: syntax error near unexpected token `||'\n");
+				p->error_msg = ft_strdup("minishell: syntax error near unexpected token `||'");
 				p->exit_code = 2;
 				return (1);
 			}
 			if (input[i] == '|' && i == 0)
 			{
-				p->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'\n");
+				p->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'");
 				p->exit_code = 2;
 				return (1);
 			}
@@ -88,7 +88,7 @@ void	ft_is_expand(char *arg, int i, t_commands *p_cmd)
 	expand = ft_split(arg + i, ' ');
 	if (ft_strlen_array(expand) > 1  && p_cmd->msg_error == NULL)
 	{
-		p_cmd->msg_error = ft_better_strdup("minishell: %s: ambiguous redirect\n", arg + i);
+		p_cmd->msg_error = ft_better_strdup("minishell: %s: ambiguous redirect", arg + i);
 		p_cmd->exit_code = 1;
 		p_cmd->err_is_infile = 1;
 	}
@@ -97,6 +97,6 @@ void	ft_is_expand(char *arg, int i, t_commands *p_cmd)
 
 void	set_error_op(t_commands *p_cmd)
 {
-	p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator\n");
+	p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator");
 	p_cmd->exit_code = 2;
 }
