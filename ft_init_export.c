@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 14:22:26 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:27:50 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ char	**ft_init_export(t_minishell *mini)
 
 	i = 0;
 	count = 0;
-	mini->env_malloc = ft_strdup_array(mini->env);
 	while (mini->env[i])
 	{
 		if (ft_strchr(mini->env[i], '='))

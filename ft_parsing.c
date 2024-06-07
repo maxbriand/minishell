@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 14:21:18 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:28:49 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 	int			i;
 	int			fdout;
 
+	mini->env = ft_strdup_array(mini->env);
 	if (!mini->export)
 		mini->export = ft_init_export(mini);
 	i = 0;
