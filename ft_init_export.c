@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 13:38:18 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:22:26 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static char	**result_declare(char **result, char **res_ncmplt, int count)
 	return (result);
 }
 
-char	**ft_init_export(char **env, t_minishell *mini)
+char	**ft_init_export(t_minishell *mini)
 {
 	int		count;
 	char	**result;
@@ -114,10 +114,10 @@ char	**ft_init_export(char **env, t_minishell *mini)
 
 	i = 0;
 	count = 0;
-	mini->env = ft_strdup_array(env);
-	while (env[i])
+	mini->env_malloc = ft_strdup_array(mini->env);
+	while (mini->env[i])
 	{
-		if (ft_strchr(env[i], '='))
+		if (ft_strchr(mini->env[i], '='))
 			count++;
 		i++;
 	}
@@ -125,7 +125,7 @@ char	**ft_init_export(char **env, t_minishell *mini)
 	if (!result)
 		exit (1);//mayday error ?
 	result[count] = NULL;
-	res_not_complete = sort_export(count, env);
+	res_not_complete = sort_export(count, mini->env);
 	result = result_declare(result, res_not_complete, count);
 	free_array(res_not_complete);
 	return (result);
