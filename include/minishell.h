@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/08 17:33:29 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/09 00:05:46 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int		ft_write_error(char *msg);
 
 // Exe
 void	ft_exe(t_minishell *data, t_commands *p_cmd);
+void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c);
 char	*ft_check_path(t_minishell *data, t_commands *current_cmd);
 int		ft_sc(char **str);
 void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd);
