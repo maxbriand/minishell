@@ -56,7 +56,7 @@ typedef struct s_minishell
 
 int main() 
 {
-	int i = strcmp(NULL, "hello");
+	int i = 5;
 	printf("%d\n", i);
     return 0;
 }

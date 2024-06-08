@@ -12,6 +12,8 @@ char	*ft_pwd(t_minishell *data, t_commands *p_cmd, int i)
 	while(err_buf == NULL)
 	{
 		buf = malloc(sizeof(char) * size);
+		if (!buf)
+			ft_exitf("malloc issue", 1, NULL, data);
 		err_buf = getcwd(buf, size);
 		if (err_buf == NULL)
 			free(buf);

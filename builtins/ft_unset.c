@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:43:10 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/06 15:59:41 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/08 17:54:55 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	ft_unset_env(char **env, int n, t_minishell *data)
 
 	size_env = ft_arrlen(env);
 	new_env = malloc(sizeof(char *) * size_env);
+	if (!new_env)
+		ft_exitf("malloc issue", 1, NULL, data);
 	ft_arrncpy(new_env, env, n);
 	ft_arrcpy(new_env + n, env + (n + 1));
 	new_env[size_env] = NULL;

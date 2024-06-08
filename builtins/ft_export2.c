@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:57:09 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/06 20:14:59 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/08 17:53:28 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // ft_modify_export
 
 // FT_STRDUP ADDING DQUOTES
-char	*ft_strdup_dquotes(char *s)
+char	*ft_strdup_dquotes(char *s, t_minishell *data)
 {
 	int 	len;
 	char	*new_s;
@@ -25,8 +25,8 @@ char	*ft_strdup_dquotes(char *s)
 		return (ft_strdup(s));
 	len = ft_strlen(s) + 2 + 1;
 	new_s = malloc(sizeof(char) * len);
-	// if (new_s == NULL)
-	// 	return ()
+	if (!new_s)
+		ft_exitf("malloc issue", 1, NULL, data);
 	i = 0;
 	while (*s)
 	{
@@ -49,7 +49,7 @@ static void	ft_modify_line(t_minishell *data, char *var, int n)
 	if (strchr(var, '=') == 0)
 		return ;
 	free(data->export[n]);
-	data->export[n] = ft_strdup_dquotes(var);
+	data->export[n] = ft_strdup_dquotes(var, data);
 }
 
 // ADD A LINE VAR IN EXPORT
@@ -60,10 +60,10 @@ static void	ft_add_line(t_minishell *data, char *var)
 
 	lnew_export = ft_arrlen(data->export) + 1 + 1;
 	new_export = malloc(sizeof(char *) * lnew_export);
-	// if (new_export == NULL)
-	// 	ft_exit_failure();
+	if (!new_export)
+		ft_exitf("malloc issue", 1, NULL, data);
 	ft_arrcpy(new_export, data->export);
-	new_export[lnew_export - 2] = ft_strdup_dquotes(var); 
+	new_export[lnew_export - 2] = ft_strdup_dquotes(var, data); 
 	new_export[lnew_export - 1] = NULL;
 	ft_arrfree(data->export);
 	data->export = new_export;

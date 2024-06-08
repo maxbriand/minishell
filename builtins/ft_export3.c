@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:58:13 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/06 20:30:09 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/08 18:04:02 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	ft_add_line(t_minishell *data, char *var)
 
 	lnew_env = ft_arrlen(data->env) + 1 + 1;
 	new_env = malloc(sizeof(char *) * lnew_env);
-	// if (new_env == NULL)
-	// 	ft_exit_failure();
+	if (!new_env)
+		ft_exitf("malloc issue", 1, NULL, data);
 	ft_arrcpy(new_env, data->env);
 	new_env[lnew_env - 2] = ft_strdup(var); 
 	new_env[lnew_env - 1] = NULL;

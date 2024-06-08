@@ -14,15 +14,15 @@ static char	**ft_get_env_paths(t_minishell *data)
 		i++;
 	}
 	if (!data->env[i])
-		ft_exit_failure("Command file not found", NULL, data);
+		ft_exitf("Command file not found", -1, NULL, data);
 	env_paths = ft_split(data->env[i] + 5, ':');
 	if (!env_paths)
-		ft_exit_failure("Malloc issue during path searching", NULL, data);
+		ft_exitf("Malloc issue during path searching", -1, NULL, data);
 	save_env_paths = env_paths;
 	env_paths = ft_arrcat(env_paths, "/");
 	ft_arrfree(save_env_paths);
 	if (!env_paths)
-		ft_exit_failure("Malloc issue during path searching", NULL, data);
+		ft_exitf("Malloc issue during path searching", -1, NULL, data);
 	return (env_paths);
 }
 
@@ -36,11 +36,11 @@ static char	**ft_get_path_list(t_minishell *data, t_commands *current_cmd)
 	path_list = ft_arrcat(path_list, current_cmd->cmd);
 	ft_arrfree(save_path_list);
 	if (path_list == NULL)
-		ft_exit_failure ("Malloc issue during path creation", NULL, data);
+		ft_exitf ("Malloc issue during path creation", -1, NULL, data);
 	return (path_list);
 }
 
-static char	*ft_is_already_path(char *cmd)
+static char	*ft_is_already_path(char *cmd, t_minishell *data, t_commands *c_cmd)
 {
 //	char	*al_path;
 
@@ -50,7 +50,11 @@ static char	*ft_is_already_path(char *cmd)
 	// if (al_path != cmd)
 	// 	free(al_path);
 	if (access(cmd, R_OK) == 0)
+	{
+		if (access(cmd, X_OK) == -1)
+			ft_exitf(" Permission denied", 126, c_cmd, data);
 		return (cmd);
+	}
 	return (NULL);
 }
 
@@ -61,7 +65,7 @@ char	*ft_check_path(t_minishell *data, t_commands *c_cmd)
 	char	*store;
 	char	*al_path;
 
-	al_path = ft_is_already_path(c_cmd->cmd);
+	al_path = ft_is_already_path(c_cmd->cmd, data, c_cmd);
 	if (al_path != NULL)
 		return (al_path);
 	paths = ft_get_path_list(data, c_cmd);
@@ -70,16 +74,17 @@ char	*ft_check_path(t_minishell *data, t_commands *c_cmd)
 	{
 		if (access(*paths, R_OK) == 0)
 		{
+			if (access(*paths, X_OK) == -1)
+				ft_exitf(" Permission denied", 126, c_cmd, data);
 			store = ft_strdup(*paths);
 			ft_arrfree(save_paths);
 			if (store == NULL)
-				ft_exit_failure("strdup malloc issue", NULL, data);
+				ft_exitf("strdup malloc issue", 1, NULL, data);
 			return (store);
 		}
 		paths++;
 	}
 	ft_arrfree(save_paths);
-	c_cmd->exit_code = 127;
-	ft_exit_failure(" No such file or directory", c_cmd, data);
+	ft_exitf(" command not found", 127, c_cmd, data);
 	return (NULL);
 }
