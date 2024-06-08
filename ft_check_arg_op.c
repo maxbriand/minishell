@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:51:41 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 19:21:25 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/08 16:50:23 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void	append_op_out(char *arg, bool is_expand, t_commands *p_cmd, t_pars *
 			if (!p_cmd->outfile)
 				exit (1); //mayday error ?
 		}
+		else
 			set_error_op(p_cmd);
 	}
 	else

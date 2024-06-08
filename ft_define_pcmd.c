@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 21:53:22 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/08 16:24:37 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	define_outfile_error(t_commands *p_cmd)
 {
 	if (p_cmd->msg_error == NULL)
 	{
-		if (access(p_cmd->outfile, F_OK) == 1)
-			p_cmd->msg_error = ft_better_strdup_free("minishell: %s: Permission denied", p_cmd->outfile);
-		else
+		if (access(p_cmd->outfile, F_OK) != 0)
 			p_cmd->msg_error = ft_better_strdup_free("minishell: %s: No such file or directory", p_cmd->outfile);
+		else
+			p_cmd->msg_error = ft_better_strdup_free("minishell: %s: Permission denied", p_cmd->outfile);
 		p_cmd->err_is_outfile = true;
 		p_cmd->exit_code = 1;
 	}
