@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:58:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 00:14:00 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/09 00:29:30 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ static int	ft_no_command(t_minishell *data, t_commands *p_cmd)
 
 static void	ft_only_exit(t_minishell *data, t_commands *p_cmd)
 {
-	if (strcmp(p_cmd->cmd, "exit") == 0 && p_cmd->arg == NULL \
-			&& p_cmd->option == NULL)
-		exit (data->exit_code);
+	if (p_cmd->cmd)
+	{
+		if (ft_strcmp(p_cmd->cmd, "exit") == 0 && p_cmd->arg == NULL \
+				&& p_cmd->option == NULL)
+			exit (data->exit_code);
+	}
 	data->exit_code = p_cmd->exit_code;
 }
 
