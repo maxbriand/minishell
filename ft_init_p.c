@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/08 19:43:01 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/08 23:31:30 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_pars	*new_node(char *input_no_pipe)
 	if (!node)
 		exit (1);//mayday error
 
-	if (ft_strlen(input_no_pipe) == 0 || is_only_space(input_no_pipe) == 1)
+	if (input_no_pipe == NULL || ft_strlen(input_no_pipe) == 0 || is_only_space(input_no_pipe) == 1)
 	{
 		node->exit_code = 2;
 		node->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'");

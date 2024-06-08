@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/08 19:57:39 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/08 22:56:29 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,21 @@ int	pipe_unexpected(char *input, t_pars *p)
 	on_quote[1] = false;
 	i = 0;
 	buf = p;
+	printf("%s = input\n", input);
 	while (input[i])
 	{
 		ft_define_on_quote(input, i, on_quote);
 		if (input[i] == '|' && !on_quote[0] && !on_quote[1])
 		{
 			buf = buf->next;
+			if (!buf)
+				break ;
 			j = i + 1;
 			while (input[j] == ' ')
 				j++;
 			if ((input[j] == '|' || input[j] == '\0') && (!buf->error_msg))
 			{
-				buf->error_msg = ft_strdup("minishell: syntax error near unexpected token `||'");
+				buf->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'");
 				buf->exit_code = 2;
 				return (1);
 			}

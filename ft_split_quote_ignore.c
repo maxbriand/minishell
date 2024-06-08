@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/04 00:04:46 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/08 23:19:30 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static int	count_cut(char *str, char c, bool *on_quote)
 
 	i = 0;
 	nb_cut = 0;
+	if (str[i] == c)
+		nb_cut++;
 	while (str[i] == c)
 		i++;
 	while (str[i])
@@ -69,6 +71,8 @@ static char	*split_here(char *str, int *i, int *last_split, char c)
 	char	*result;
 	int		j;
 
+	if (*i - *last_split == 0)
+		return (NULL);
 	result = malloc(sizeof(char) * (*i - *last_split + 1));
 	if (!result)
 		exit (1);//mayday eerror
@@ -95,6 +99,12 @@ static void	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 
 	y = 0;
 	i = 0;
+	last_split = 0;
+	if (str[i] == c)
+	{
+		result[0] = split_here(str, &i, &last_split, c);
+		y++;
+	}
 	while (str[i] == c)
 		i++;
 	last_split = i;
