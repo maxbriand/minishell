@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 00:05:46 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/09 03:00:12 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_commands
 	struct s_commands	*next;
 	int					*pipefd0;
 	int					*pipefd1;
+	int					old_fd1;
+	int					old_fd0;
 	bool				bf_cmd;
 	bool				err_is_infile;
 	bool				err_is_outfile;
@@ -88,12 +90,23 @@ int		ft_write_error(char *msg);
 
 // Exe
 void	ft_exe(t_minishell *data, t_commands *p_cmd);
-void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c);
 char	*ft_check_path(t_minishell *data, t_commands *current_cmd);
 int		ft_sc(char **str);
 void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd);
 void	ft_output_redir(t_minishell *data, t_commands *p_cmd, int *pipefd);
 void	ft_builtins_exe(t_minishell *data, t_commands *c_cmd);
+
+// Before exe
+int		ft_before_cmd_exe(t_minishell *data, t_commands *p_cmd);
+void	ft_if_only_exit(t_minishell *data, t_commands *p_cmd);
+int		ft_if_no_command(t_minishell *data, t_commands *p_cmd);
+int		ft_if_exitcode_2(t_minishell *data, t_commands *p_cmd);
+
+// Exe - 1 builtin
+int		ft_exe_1_builtin(t_minishell *data, t_commands *p_cmd);
+
+// Exe - in fork
+void	ft_exe_in_fork(t_minishell *data, t_commands *p_cmd);
 
 // Exe - Pipes management
 int		**ft_create_pipes(int pipenbr, t_minishell *data);

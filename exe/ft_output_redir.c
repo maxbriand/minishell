@@ -6,28 +6,26 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:41:19 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/08 17:51:18 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/09 02:43:55 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_output_redir(t_minishell *data, t_commands *p_cmd, int *pipefd)
+void	ft_output_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
 {
 	int	fd;
 
-	if (p_cmd->outfile && p_cmd->append_outfile == 1)
+	if (c_cmd->outfile && c_cmd->append_outfile == 1)
 	{
-		fd = open(p_cmd->outfile, O_WRONLY | O_APPEND);
+		fd = open(c_cmd->outfile, O_WRONLY | O_APPEND);
 		if (dup2(fd, 1) == -1)
 			ft_exitf("dup2 issue", 1, NULL, data);
-		// write(2, "append of ", 10 );
-		// write(2, "\n", 1);
 		close(fd);
 	}
-	else if (p_cmd->outfile)
+	else if (c_cmd->outfile)
 	{
-		fd = open(p_cmd->outfile, O_WRONLY | O_TRUNC);
+		fd = open(c_cmd->outfile, O_WRONLY | O_TRUNC);
 		if (dup2(fd, 1) == -1)
 			ft_exitf("dup2 issue", 1, NULL, data);
 		close(fd);

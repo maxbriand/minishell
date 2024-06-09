@@ -4,8 +4,10 @@ CC = cc
 LIBFT = libft/libft.a
 
 SRC =	main.c \
+		exe/ft_before_exe.c \
+		exe/ft_exe_1builtin.c \
+		exe/ft_exe_in_fork.c \
 		exe/ft_exe.c \
-		exe/ft_child_exe.c \
 		exe/ft_exit_failure.c \
 		exe/ft_check_path.c \
 		exe/ft_utils.c \
