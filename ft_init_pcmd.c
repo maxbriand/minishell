@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:03 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/08 20:01:05 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/09 03:04:48 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_commands	*node_create_pcmd(void)
 	node->next = NULL;
 	node->pipefd0 = NULL;
 	node->pipefd1 = NULL;
+	node->old_fd0 = 0;
+	node->old_fd1 = 0;
 	node->err_is_infile = false;
 	node->err_is_outfile = false;
 	node->exit_code = 0;

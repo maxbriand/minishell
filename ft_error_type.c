@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/09 00:12:39 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/09 03:07:51 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ void	ft_is_expand(char *arg, int i, t_commands *p_cmd)
 
 void	set_error_op(t_commands *p_cmd)
 {
-	p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator");
-	p_cmd->exit_code = 2;
+	if (p_cmd->msg_error == NULL)
+	{
+		p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator");
+		p_cmd->exit_code = 2;
+	}
 }

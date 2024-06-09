@@ -29,8 +29,10 @@ typedef struct s_commands
 	char	**arg;
 	char	**arg_cmd; // cmd + option + arg
 	struct s_commands	*next;
-	int		*pipefd0;
 	int		*pipefd1;
+	int		*pipefd0;
+	int		old_fd1;
+	int		old_fd0;
 	bool	err_is_infile;
 	bool	err_is_outfile;
 	bool	bf_cmd;
