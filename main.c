@@ -75,6 +75,8 @@ t_minishell	*ft_init_mish(t_minishell *data, char **env)
 	data->p_cmd = NULL;
 	data->open_dquote = 0;
 	data->open_quote = 0;
+	data->exit_code = 0;
+	data->wait_code = 0;
 	data->export = NULL;
 	return (data);
 }
@@ -99,7 +101,6 @@ int	main(int ac, char **av, char **env)
 		if (*cmd)
 			add_history(cmd);
 		ft_parsing(cmd, data);
-		// ft_printf_parsing(data, data->p_cmd);
 		ft_signals(1);
 		ft_exe(data, data->p_cmd);
 		free(cmd);

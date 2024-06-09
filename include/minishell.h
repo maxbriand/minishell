@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 18:18:59 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 00:03:43 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_minishell
 	int				open_dquote;
 	int				**pipefds;
 	int				exit_code;
+	int				wait_code;
 }	t_minishell;
 
 # ifndef GLOBAL

@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:57:08 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 19:07:36 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 00:12:33 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_exe_in_fork(t_minishell *data, t_commands *p_cmd)
 {
 	int		c;
 	pid_t	pid;
+	pid_t	current_pid;
 
 	data->pipefds = ft_create_pipes(data->pipe_nbr, data);
 	c = 0;
@@ -59,6 +60,12 @@ void	ft_exe_in_fork(t_minishell *data, t_commands *p_cmd)
 		c++;
 	}
 	ft_close_pipes(data, data->pipefds);
-	while (wait(&(data->exit_code)) != -1);
-	data->exit_code = WEXITSTATUS(data->exit_code);
+	while (1)
+	{
+		current_pid = wait(&(data->wait_code));
+		if (current_pid == -1)
+			break;
+		if (current_pid == pid)
+			data->exit_code = WEXITSTATUS(data->wait_code);
+	}
 }
