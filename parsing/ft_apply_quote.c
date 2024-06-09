@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/05 10:48:32 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 00:29:45 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,112 +30,65 @@ char	*just_name_env(char *arg, int start, bool *on_quote)
 	return (result);
 }
 
-static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
+static void create_result(bool *on_quote, char **result, char *arg, int *j)
+{
+	on_quote[3] = false;
+	if (on_quote[2] == true)
+		*result = ft_charaddback(result, arg[*j]);
+	(*j)++;
+}
+
+static int	inside_if(char *arg,  bool *on_quote, char **result, t_minishell *mini)
 {
 	char	*var_env;
-	bool	on_quote[2];
+	int		j;
+
+	on_quote[3] = true;
+	j = 0;
+	if (arg[j] == '$' && arg[j + 1] == '?')
+	{
+		*result = ft_strjoin_free(*result, ft_itoa(mini->exit_code));
+		j += 2;
+	}
+	else
+	{
+		var_env = catch_env(mini->env, just_name_env(arg, j, on_quote));
+		*result = ft_strjoin_free(*result, var_env);
+		j++;
+		while (arg[j] && (ft_isalnum(arg[j]) || arg[j] == '_')) //mayday need really only isalnum ????
+			j++;
+	}
+	return (j);
+}
+
+static char	*apply_var_env(char *arg, int i, t_minishell *mini, t_pars *p)
+{
+	bool	on_quote[4];
 	char	*result;
-	bool	can_copy;
 	int		j;
 
 	on_quote[0] = false;
 	on_quote[1] = false;
+	on_quote[3] = p->is_expand[i];
 	result = NULL;
 	j = 0;
-	while (arg[i][j])
+	while (arg[j])
 	{
-		if (ft_define_on_quote(arg[i], j, on_quote) == true)
-			can_copy = false;
+		if (ft_define_on_quote(arg, j, on_quote) == true)
+			on_quote[2] = false;
 		else
-			can_copy = true;
-		//printf("%d = onquote\n", on_quote[0]);
-		//printf("%d = ddonquote\n", on_quote[1]);
-		//printf("%c = c\n", arg[i][j]);
-		if (arg[i][j] == '$' && (ft_isalnum(arg[i][j + 1]) || arg[i][j + 1] == '?' || ((arg[i][j + 1] == '\"' || arg[i][j + 1] == '\'') && (!on_quote[0] && !on_quote[1]))) && !on_quote[0] && p->next_is_hd_stop == false)
+			on_quote[2] = true;
+		if (arg[j] == '$' && (ft_isalnum(arg[j + 1]) || arg[j + 1] == '?' || ((arg[j + 1] == '\"' || arg[j + 1] == '\'') && (!on_quote[0] && !on_quote[1]))) && !on_quote[0] && p->next_is_hd_stop == false)
 		{
-			//printf("JESUISDEDANS\n");
-			p->is_expand[i] = true;
-			if (arg[i][j] == '$' && arg[i][j + 1] == '?')
-			{
-				result = ft_strjoin_free(result, ft_itoa(mini->exit_code));
-				j += 2;
-			}
-			else
-			{
-				var_env = catch_env(mini->env, just_name_env(arg[i], j, on_quote));
-				result = ft_strjoin_free(result, var_env);
-				j++;
-				while (arg[i][j] && (ft_isalnum(arg[i][j]) || arg[i][j] == '_')) //mayday need really only isalnum ????
-					j++;
-			}
+			p->is_expand[i] = true; // maydayyy expoand in quote
+			j += inside_if(&arg[j], on_quote, &result, mini);
 		}
 		else
-		{
-			p->is_expand[i] = false;
-			if (can_copy == true)
-				result = ft_charaddback(&result, arg[i][j]);
-			j++;
-		}
+			create_result(on_quote, &result, arg, &j);
 	}
+	free(arg);
 	return (result);
 }
-
-//trying to norm but i didnt win this fight...
-// static bool	is_dollar(char *arg, char **result, t_minishell *mini, char *name_env)
-// {
-// 	char	*var_env;
-
-// 	if (arg[0] == '$' && arg[1] == '?')
-// 	{
-// 		*result = ft_strjoin_free(*result, ft_itoa(mini->exit_code));
-// 		return (true);
-// 	}
-// 	else
-// 	{
-// 		var_env = catch_env(mini->env, name_env);
-// 		*result = ft_strjoin_free(*result, var_env);
-// 	}
-// 	return (false);
-// }
-
-// static char	*apply_var_env(char **arg, int i, t_minishell *mini, t_pars *p)
-// {
-// 	bool	on_quote[2];
-// 	char	*result;
-// 	bool	can_copy;
-// 	int		j;
-// 	char	*name_env;
-
-// 	on_quote[0] = false;
-// 	on_quote[1] = false;
-// 	result = NULL;
-// 	j = 0;
-// 	while (arg[i][j])
-// 	{
-// 		if (ft_define_on_quote(arg[i], j, on_quote) == true)
-// 			can_copy = false;
-// 		else
-// 			can_copy = true;
-// 		if (arg[i][j] == '$' && !on_quote[0] && p->next_is_hd_stop == false)
-// 		{
-// 			p->is_expand[i] = true;
-// 			name_env = just_name_env(*arg, j, on_quote);
-// 			if (is_dollar(&arg[i][j], &result, mini, name_env) == true) //
-// 				j++;
-// 			j++;
-// 			while (*arg[j] && (ft_isalnum(*arg[j]) || *arg[j] == '_'))
-// 				j++;
-// 		}
-// 		else
-// 		{
-// 			p->is_expand[i] = false;
-// 			if (can_copy == true)
-// 				result = ft_charaddback(&result, arg[i][j]);
-// 			j++;
-// 		}
-// 	}
-// 	return (result);
-// }
 
 //pas backslash mais dollar
 void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
@@ -145,7 +98,7 @@ void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
 
 	buf = NULL;
 	j = 0;
-	str[i] = apply_var_env(str, i, mini, p);//je dois faire par rapoirt auchar
+	str[i] = apply_var_env(str[i], 0, mini, p);//je dois faire par rapoirt auchar
 	if (str[i] == NULL)
 	{
 		str[i] = malloc(sizeof(char) * 1);
@@ -165,3 +118,115 @@ void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
 		free(buf);
 	}
 }
+
+//char	*just_name_env(char *arg, int start, bool *on_quote)
+// {
+// 	int	end;
+// 	char *result;
+
+// 	if (arg[start] == '$')
+// 		start++;
+// 	end = start;
+// 	while (arg[end])
+// 	{
+// 		if ((!ft_isalpha(arg[end]) && arg[end] != '_') || (arg[end] != '\'' && on_quote[0]) || (arg[end] == '\"' && on_quote[1]))
+// 			break ;
+// 		end++;
+// 	}
+// 	result = ft_substr(arg, start, end - start);
+// 	return (result);
+// }
+
+// static char	*create_result(bool *on_quote, char **result, char *arg, bool *is_expand)
+// {
+// 	*is_expand = false;
+// 	if (on_quote[2] == true)
+// 		*result = ft_charaddback(result, *arg);
+// 	(*arg)++;
+// 	return (arg);
+// }
+
+// static int	inside_if(char *arg,  bool *on_quote, char **result, t_minishell *mini)
+// {
+// 	char	*var_env;
+// 	int		j;
+
+// 	on_quote[3] = true;
+// 	j = 0;
+// 	if (arg[j] == '$' && arg[j + 1] == '?')
+// 	{
+// 		*result = ft_strjoin_free(*result, ft_itoa(mini->exit_code));
+// 		j += 2;
+// 	}
+// 	else
+// 	{
+// 		var_env = catch_env(mini->env, just_name_env(arg, j, on_quote));
+// 		*result = ft_strjoin_free(*result, var_env);
+// 		j++;
+// 		while (arg[j] && (ft_isalnum(arg[j]) || arg[j] == '_')) //mayday need really only isalnum ????
+// 			j++;
+// 	}
+// 	return (j);
+// }
+
+// static char	*apply_var_env(char *arg, int i, t_minishell *mini, t_pars *p)
+// {
+// 	bool	on_quote[3];
+// 	char	*result;
+// 	int		j;
+// 	bool	is_expand;
+
+// 	on_quote[0] = false;
+// 	on_quote[1] = false;
+// 	result = NULL;
+// 	is_expand = false;
+// 	j = 0;
+// 	while (arg[j])
+// 	{
+// 		if (ft_define_on_quote(arg, j, on_quote) == true)
+// 			on_quote[2] = false;
+// 		else
+// 			on_quote[2] = true;
+// 		if (arg[j] == '$' && (ft_isalnum(arg[j + 1]) || arg[j + 1] == '?' || ((arg[j + 1] == '\"' || arg[j + 1] == '\'') && (!on_quote[0] && !on_quote[1]))) && !on_quote[0] && p->next_is_hd_stop == false)
+// 		{
+// 			is_expand = true;
+// 			j = inside_if(&arg[j], on_quote, &result, mini);
+// 		}
+// 		else
+// 			j += create_result(on_quote, &result, &arg[j], &is_expand) - (arg + j);
+// 			//j += create_result(on_quote, &result, &arg[j], &is_expand) - *arg + j;
+// 	}
+// 	p->is_expand[i] = is_expand;
+// 	//free(arg);
+// 	return (result);
+// }
+
+// //pas backslash mais dollar
+// void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
+// {
+// 	int		j;
+// 	char	*buf;
+
+// 	buf = NULL;
+// 	j = 0;
+// 	str[i] = apply_var_env(str[i], 0, mini, p);//je dois faire par rapoirt auchar
+// 	if (str[i] == NULL)
+// 	{
+// 		str[i] = malloc(sizeof(char) * 1);
+// 		if (!str[i])
+// 			exit (1); //mayday error
+// 		str[i][0] = '\0';
+// 	}
+// 	else
+// 	{
+// 		while (str[i][j]) // are we shure that str(i(j existe ?
+// 		{
+// 			buf = ft_charaddback(&buf, str[i][j]);
+// 			j++;
+// 		}
+// 		free(str[i]);
+// 		str[i] = ft_strdup(buf);
+// 		free(buf);
+// 	}
+// }
+
