@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/08 17:01:57 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/09 17:58:11 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,6 @@ void	ft_parsing(char *input, t_minishell *mini)
 	mini->env = ft_strdup_array(mini->env);
 	if (!mini->export)
 		mini->export = ft_init_export(mini);
-	i = 0;
-	//while (mini->export[i])
-	//{
-	//	printf("%s\n", mini->export[i]);
-	//	i++;
-	//}
-	//printf("\n\n");
-	//i = 0;
-	//while (mini->env[i])
-	//{
-	//	printf("%s\n", mini->env[i]);
-	//	i++;
-	//}
-	//i = 0;
-
-
 	if (ft_strlen(input) == 0)
 		return ;
 	if (is_error_quote(input) == true)
@@ -118,6 +102,13 @@ void	ft_parsing(char *input, t_minishell *mini)
 				cmd_arg_join(buf);
 			if (p->next_is_infile || p->next_is_outfile || p->next_is_hd_stop)
 				error_next_file(buf);
+			// if (acces(buf->cmd, F_OK) && access(buf->cmd, X_OK)
+			// 	&& !buf->b_builtins && !buf->msg_error)
+			// {
+			// 	buf->msg_error = ft_better_strdup("minishell: %s: is a directory", buf->cmd);
+			// 	buf->exit_code = 127
+
+			// }
 		}
 		p = p->next;
 		buf = buf->next;
