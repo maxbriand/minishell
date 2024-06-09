@@ -18,7 +18,7 @@ static void	ft_write_heredoc(int fd, char *hd_stop, t_minishell *data)
 	write(fd, "\n\0", 2);
 }
 
-static int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
+int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
 {
 	int	i;
 	int	fd;
@@ -55,18 +55,18 @@ void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
 			close(fd);
 		fd = open(c_cmd->infile, O_RDONLY);
 		if (fd == -1)
-			ft_exitf("adup2 issue", 1, NULL, data);
+			ft_exitf("dup2 issue", 1, NULL, data);
 	}
 	else if (!c_cmd->hd_stop)
 	{
 		close(fd);
 		unlink("heredoc");
 		if (dup2(pipefd[0], 0) == -1)
-			ft_exitf("bdup2 issue", 1, NULL, data);
+			ft_exitf("dup2 issue", 1, NULL, data);
 		return ;
 	}
 	if (dup2(fd, 0) == -1)
-		ft_exitf("edup2 issue", 1, NULL, data);
+		ft_exitf("dup2 issue", 1, NULL, data);
 	close(fd);
 	unlink("heredoc");
 }

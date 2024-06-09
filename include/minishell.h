@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 03:00:12 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/09 16:42:56 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	ft_exe(t_minishell *data, t_commands *p_cmd);
 char	*ft_check_path(t_minishell *data, t_commands *current_cmd);
 int		ft_sc(char **str);
 void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd);
+int		ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data);
 void	ft_output_redir(t_minishell *data, t_commands *p_cmd, int *pipefd);
 void	ft_builtins_exe(t_minishell *data, t_commands *c_cmd);
 

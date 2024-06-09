@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:52:05 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 03:08:23 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/09 16:49:10 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,29 @@ static void	ft_1b_output_redir(t_minishell *data, t_commands *c_cmd)
 	}
 }
 
-// static void	ft_1b_input_redir(t_minishell *data, t_commands *p_cmd)
-// {
-
+static void	ft_1b_input_redir(t_minishell *data, t_commands *c_cmd)
+{
+	int		fd;
+	bool	here_open;
+	int		old_fd0;
 	
-// }
+	c_cmd->old_fd0 = dup(0);
+	here_open = ft_iterate_heredocs(c_cmd, data);
+	fd = open("heredoc", O_RDONLY);
+	if (c_cmd->infile)
+	{
+		if (here_open != 0)
+			close(fd);
+		fd = open(c_cmd->infile, O_RDONLY);
+		if (fd == -1)
+			ft_exitf("dup2 issue", 1, NULL, data);
+	}
+	if (dup2(fd, 0) == -1)
+		ft_exitf("dup2 issue", 1, NULL, data);
+	close(fd);
+	unlink("heredoc");
+	
+}
 
 static int	ft_if_already_error(t_minishell *data, t_commands *p_cmd)
 {
@@ -59,9 +77,13 @@ static void	ft_reset_fd(t_minishell *data, t_commands *c_cmd)
 		dup2(c_cmd->old_fd1, 1);
 		close(c_cmd->old_fd1);
 	}
-	// add for infile
+	if (c_cmd->infile || c_cmd->hd_stop)
+	{
+		close(0);
+		dup2(c_cmd->old_fd0, 0);
+		close(c_cmd->old_fd0);
+	}
 }
-
 
 int	ft_exe_1_builtin(t_minishell *data, t_commands *p_cmd)
 {
@@ -70,8 +92,8 @@ int	ft_exe_1_builtin(t_minishell *data, t_commands *p_cmd)
 	{
 		if (ft_if_already_error(data, p_cmd) == 1)
 			return (1);
-		// if (p_cmd->infile || p_cmd->hd_stop)
-		// 	ft_1b_input_redir(data, p_cmd);
+		if (p_cmd->infile || p_cmd->hd_stop)
+			ft_1b_input_redir(data, p_cmd);
 		if (p_cmd->outfile)
 			ft_1b_output_redir(data, p_cmd);
 		ft_builtins_exe(data, p_cmd);

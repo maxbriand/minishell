@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins_exe.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:57:07 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/07 22:34:42 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/09 17:01:18 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	ft_builtins_exe(t_minishell *data, t_commands *c_cmd)
 		ft_export(data, c_cmd);
 	else if (strcmp(c_cmd->cmd, "pwd") == 0)
 		ft_pwd(data, c_cmd, 0);
-	//else if (strcmp(c_cmd->cmd, "unset") == 0)
-	//	ft_unset(data, c_cmd);
+	else if (strcmp(c_cmd->cmd, "unset") == 0)
+		ft_unset(data, c_cmd);
 }
