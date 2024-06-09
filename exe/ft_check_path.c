@@ -42,17 +42,21 @@ static char	**ft_get_path_list(t_minishell *data, t_commands *current_cmd)
 
 static char	*ft_is_already_path(char *cmd, t_minishell *data, t_commands *c_cmd)
 {
-//	char	*al_path;
-
-//	al_path = ft_strcut(cmd, ' ');
-	// if (access(al_path, R_OK) == 0)
-	// 	return (al_path);
-	// if (al_path != cmd)
-	// 	free(al_path);
-	if (access(cmd, R_OK) == 0)
+	if (!cmd)
+		return (NULL);
+	if (strcmp(cmd, ".") == 0)
+		ft_exitf(" filename argument required . filename [arguments]", \
+			2, c_cmd, data);
+	if (strncmp(cmd, "/root", 5) == 0)
+		ft_exitf(" Permission denied", 126, c_cmd, data);			
+	if (strcmp(cmd, "..") == 0)
+		ft_exitf(" command not found", 127, c_cmd, data);
+	if (access(cmd, F_OK) == 0)
 	{
 		if (access(cmd, X_OK) == -1)
 			ft_exitf(" Permission denied", 126, c_cmd, data);
+		if (ft_is_a_directory(cmd) && (cmd[0] == '/' || cmd[0] == '.'))
+			ft_exitf(" Is a directory", 126, c_cmd, data);
 		return (cmd);
 	}
 	return (NULL);

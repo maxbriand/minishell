@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 16:42:56 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/09 18:18:59 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <termios.h>
+# include <dirent.h>
 
 typedef struct s_commands
 {
@@ -83,6 +84,7 @@ void	ft_print_fd_content(int fd);
 
 // Utils
 int		ft_pipe_counter(t_commands *p_cmd);
+int		ft_is_a_directory(char *cmd);
 
 // Error
 void	ft_exitf(char *msg, int ec, t_commands *c_cmd, t_minishell *data);

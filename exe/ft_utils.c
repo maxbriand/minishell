@@ -6,11 +6,24 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:36:56 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/23 17:00:02 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/09 18:18:20 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_is_a_directory(char *cmd)
+{
+	DIR	*dir;
+
+	dir = opendir(cmd);
+	if (dir)
+	{
+		closedir(dir);
+		return (1);
+	}
+	return (0);
+}
 
 int	ft_pipe_counter(t_commands *p_cmd)
 {
