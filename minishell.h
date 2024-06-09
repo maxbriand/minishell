@@ -51,6 +51,7 @@ typedef struct s_minishell
 	int			open_dquote;
 	int			**pipefds;
 	int			exit_code;
+	int			wait_code;
 }	t_minishell;
 
 #include "parsing.h"
