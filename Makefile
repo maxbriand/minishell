@@ -41,6 +41,9 @@ $(NAME): $(LIBFT)
 $(LIBFT):
 	@make --no-print-directory -C libft
 
+rev: fclean all
+	valgrind --tool=memcheck --track-origins=yes --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes -s --suppressions=valgrind.supp ./minishell
+
 clean:
 	@make --no-print-directory clean -C libft
 

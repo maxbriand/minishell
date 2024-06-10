@@ -71,6 +71,7 @@ void	free_array(char **tab);
 void	free_p(t_pars *p);
 void	free_p_cmd(t_commands *p_cmd);
 void	ultimate_free_exit(t_minishell *mini, t_pars *p, void *str, void **array);
+void	free_mini(t_minishell *mini);
 
 char	**ft_split_quote_ignore(char *str, char c);
 char	**ft_split_separator(char *str);

@@ -46,7 +46,6 @@ typedef struct s_minishell
 	int			pipe_nbr;
 	char		**export;
 	char		**env;
-	char		**path_env;
 	int			open_quote;
 	int			open_dquote;
 	int			**pipefds;

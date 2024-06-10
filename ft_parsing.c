@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 18:55:18 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 20:24:17 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ static int	ft_process(t_minishell *mini, t_commands *buf, t_pars *p, int *i)
 		fdout = open(buf->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fdout <= 0)
 			define_outfile_error(buf);
-		else
-			close(fdout);
+		close(fdout);
 	}
 	(*i)++;
 	return (0);
@@ -74,7 +73,6 @@ void	ft_parsing(char *input, t_minishell *mini)
 	t_pars		*p_buf;
 	t_commands	*buf;
 
-
 	mini->env = ft_strdup_array(mini->env);
 	if (!mini->export)
 		mini->export = ft_init_export(mini);
@@ -87,7 +85,6 @@ void	ft_parsing(char *input, t_minishell *mini)
 		return ;
 	if (init_pcmd(mini, p) == 1)
 		ultimate_free_exit(mini, p, NULL, NULL);
-
 	p_buf = p;
 	buf = mini->p_cmd;
 	while (buf)
