@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:43 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 21:53:10 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 15:38:42 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p)
 		if (arg_is_cmd(first_arg, p_cmd, p) == true)
 		return ;
 	}
-	if (is_operator(first_arg, p->is_expand[0], p_cmd, p) == true)
+	if (ft_is_operator(first_arg, p_cmd, p) == true)
 		return ;
 	if (p->is_expand[0] == true)
 	{

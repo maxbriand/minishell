@@ -39,7 +39,6 @@ void	error_and_exit(char *error);
 bool	error_p(int nb, char *cmd);
 void	ft_better_putstr_fd(char *str, char *arg, int error);
 void	set_error_op(t_commands *p_cmd);
-void	ft_is_expand(char *arg, int i, t_commands *p_cmd);
 void	error_next_file(t_commands *p_cmd);
 
 
@@ -49,7 +48,7 @@ void	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p);
 
 //check arg
 bool	is_error_quote(char *str);
-bool	is_operator(char *arg, bool is_expand, t_commands *cmd, t_pars *p);
+bool	ft_is_operator(char *arg, t_commands *cmd, t_pars *p);
 bool	is_option(char *arg, t_commands *cmd, t_pars *p);
 bool	arg_is_cmd(char *arg, t_commands *cmd, t_pars *p);
 void	cmd_arg_join(t_commands *cmd);

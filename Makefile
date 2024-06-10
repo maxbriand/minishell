@@ -1,6 +1,6 @@
 NAME = minishell
 CC = cc
-FLAGS = -g
+FLAGS = -g -Wall -Werror -Wextra
 LIBFT = libft/libft.a
 
 SRC =	ft_error_p.c\
@@ -28,6 +28,7 @@ SRC =	ft_error_p.c\
 		ft_better_strdup.c\
 		ft_define_shure_arg.c\
 		ft_init_export.c\
+		ft_file_error.c\
 		main.c
 
 

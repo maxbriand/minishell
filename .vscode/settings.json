@@ -2,6 +2,7 @@
 	"files.associations": {
 		"random": "c",
 		"algorithm": "c",
-		"functional": "c"
+		"functional": "c",
+		"minishell.h": "c"
 	}
 }

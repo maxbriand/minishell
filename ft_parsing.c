@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 00:29:06 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 00:54:36 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 				define_first_pcmd(p->spl_cmd[0], buf, p);
 			else if (p->is_arg[0] == true)
 				buf->cmd = ft_strdup("");
-			if (buf->outfile && buf->err_is_infile == false)
+			if (buf->outfile && buf->err_is_infile == false && buf->msg_error == NULL)
 			{
 				fdout = open(buf->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				if (fdout <= 0)
@@ -96,7 +96,7 @@ void	ft_parsing(char *input, t_minishell *mini)
 					define_p_cmd(p->spl_cmd[i], i, buf, p);
 				else if (p->is_arg[i] == true)
 					buf->cmd = ft_strdup("");
-				if (buf->outfile && buf->err_is_infile == false)
+				if (buf->outfile && buf->err_is_infile == false && buf->msg_error == NULL)
 				{
 					fdout = open(buf->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 					if (fdout <= 0)

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/09 00:03:50 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 15:40:21 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static void	define_sort(char **env, int count, char **result)
 
 static char	**sort_export(int count, char **env)
 {
-	int		current;
-	int		buf;
 	char	**result;
 
 	result = malloc(sizeof(char *) * (count + 1));
@@ -76,7 +74,7 @@ static char	**sort_export(int count, char **env)
 }
 
 //need to change name to quote add
-static char	**result_declare(char **result, char **res_ncmplt, int count)
+static char	**result_declare(char **result, char **res_ncmplt)
 {
 	int		i;
 	int		j;
@@ -109,7 +107,6 @@ char	**ft_init_export(t_minishell *mini)
 	int		count;
 	char	**result;
 	char	**res_not_complete;
-	int		j;
 	int		i;
 
 	i = 0;
@@ -125,7 +122,7 @@ char	**ft_init_export(t_minishell *mini)
 		exit (1);//mayday error ?
 	result[count] = NULL;
 	res_not_complete = sort_export(count, mini->env);
-	result = result_declare(result, res_not_complete, count);
+	result = result_declare(result, res_not_complete);
 	free_array(res_not_complete);
 	return (result);
 }
