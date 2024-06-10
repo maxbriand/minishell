@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/04 00:02:57 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:35:31 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	free_p(t_pars *p)
 	while(p)
 	{
 		p_buf = p;
-		if (p->spl_cmd)
-			free_array(p->spl_cmd);
-		if (p->is_arg)
-			free(p->is_arg);
-		if (p->is_expand)
-			free(p->is_expand);
+		if (p_buf->spl_cmd)
+			free_array(p_buf->spl_cmd);
+		if (p_buf->is_arg)
+			free(p_buf->is_arg);
+		if (p_buf->is_expand)
+			free(p_buf->is_expand);
 		p = p->next;
 		free(p_buf);
 	}

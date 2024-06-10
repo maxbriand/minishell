@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 16:33:58 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:50:58 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ static void	ft_all_verif_process(t_minishell *mini, t_commands *buf, t_pars *p)
 	int			i;
 
 	if (p->spl_cmd == NULL)
-	{
-		free_p(p);
 		return ;
-	}
 	if (buf != mini->p_cmd)
 		buf->in_pipe = true;
 	if (p->spl_cmd[0])

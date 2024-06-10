@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 17:24:01 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:43:24 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static char	*apply_var_env(char *arg, int i, t_minishell *mini, t_pars *p)
 		else
 			create_result(on_quote, &result, arg, &j);
 	}
-	free(arg);
 	return (result);
 }
 
