@@ -29,12 +29,12 @@ typedef struct s_parsing
 // parsing
 void	ft_parsing(char *input, t_minishell *mini);
 t_pars	*define_p(char *input);
-void	init_pcmd(t_minishell *mini, t_pars *node);
+int		init_pcmd(t_minishell *mini, t_pars *node);
 void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p);
 bool	*define_shure_arg(char **splt_cmd);
 
 //error
-int	pipe_unexpected(char *input, t_pars *p);
+int		pipe_unexpected(char *input, t_pars *p);
 void	error_and_exit(char *error);
 bool	error_p(int nb, char *cmd);
 void	ft_better_putstr_fd(char *str, char *arg, int error);
@@ -44,7 +44,7 @@ void	error_next_file(t_commands *p_cmd);
 
 //define t_command
 void	define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p);
-void	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p);
+int		define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p);
 
 //check arg
 bool	is_error_quote(char *str);
@@ -70,9 +70,11 @@ char	**ft_strdup_array(char **array);
 void	free_array(char **tab);
 void	free_p(t_pars *p);
 void	free_p_cmd(t_commands *p_cmd);
+void	ultimate_free_exit(t_minishell *mini, t_pars *p, void *str, void **array);
 
 char	**ft_split_quote_ignore(char *str, char c);
 char	**ft_split_separator(char *str);
+bool	is_sep(char c, char *sep);
 char	**ft_init_export(t_minishell *mini);
 int		is_only_space(char *str);
 char	*catch_env(char **envp, char *str);

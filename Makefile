@@ -56,6 +56,8 @@ SRC =	main.c \
 		parsing/ft_check_arg_op.c \
 		parsing/ft_init_export.c \
 		parsing/ft_remove_element.c \
+		parsing/ft_split_separator_utils.c \
+
 
 all: $(NAME)
 

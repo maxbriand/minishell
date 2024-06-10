@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 15:40:21 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:00:42 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	**sort_export(int count, char **env)
 
 	result = malloc(sizeof(char *) * (count + 1));
 	if (!result)
-		exit (1);//mayday error ?
+		return (NULL);
 	result[count] = NULL;
 	define_sort(env, count, result);
 	return(result);
@@ -89,14 +89,20 @@ static char	**result_declare(char **result, char **res_ncmplt)
 		while (res_ncmplt[i][j])
 		{
 			result[i] = ft_charaddback(&result[i], res_ncmplt[i][j]);
+			if (!result[i])
+				return (NULL);
 			if (res_ncmplt[i][j] == '=' && is_quote == false)
 			{
 				result[i] = ft_charaddback(&result[i], '\"');
+				if (!result[i])
+					return (NULL);
 				is_quote = true;
 			}
 			j++;
 		}
 		result[i] = ft_charaddback(&result[i], '\"');
+		if (!result[i])
+			return (NULL);
 		i++;
 	}
 	return (result);
@@ -119,9 +125,11 @@ char	**ft_init_export(t_minishell *mini)
 	}
 	result = malloc(sizeof(char *) * (count + 1));
 	if (!result)
-		exit (1);//mayday error ?
+		exit (1);
 	result[count] = NULL;
 	res_not_complete = sort_export(count, mini->env);
+	if (!res_not_complete)
+		ultimate_free_exit(mini, NULL, NULL, (void **)result);
 	result = result_declare(result, res_not_complete);
 	free_array(res_not_complete);
 	return (result);

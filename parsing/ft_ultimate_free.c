@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/04 00:02:57 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:27:05 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_array(char **tab)
 		i++;
 	}
 	free(tab);
+	tab = NULL;
 }
 
 void	free_p(t_pars *p)
@@ -32,17 +33,18 @@ void	free_p(t_pars *p)
 	while(p)
 	{
 		p_buf = p;
-		if (p->spl_cmd)
-			free_array(p->spl_cmd);
-		if (p->is_arg)
-			free(p->is_arg);
-		if (p->is_expand)
-			free(p->is_expand);
+		if (p_buf->spl_cmd)
+			free_array(p_buf->spl_cmd);
+		if (p_buf->is_arg)
+			free(p_buf->is_arg);
+		if (p_buf->is_expand)
+			free(p_buf->is_expand);
 		p = p->next;
 		free(p_buf);
 	}
 	if (p)
 		free(p);
+	p = NULL;
 }
 
 void	free_p_cmd(t_commands *p_cmd)
@@ -71,4 +73,25 @@ void	free_p_cmd(t_commands *p_cmd)
 			free(buf->msg_error);
 		free(buf);
 	}
+	p_cmd = NULL;
+}
+
+void	ultimate_free_exit(t_minishell *mini, t_pars *p, void *str, void **array)
+{
+	if (p)
+		free_p(p);
+	if (str)
+		free(str);
+	if (mini)
+	{
+		if (mini->env)
+			free_array(mini->env);
+		if (mini->export)
+			free_array(mini->export);
+		if (mini->p_cmd)
+			free_p_cmd(mini->p_cmd);
+	}
+	if (array)
+		free_array((char **)array);
+	exit (1);
 }

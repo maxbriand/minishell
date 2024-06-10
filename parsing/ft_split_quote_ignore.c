@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/08 23:19:30 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:11:19 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static char	*split_here(char *str, int *i, int *last_split, char c)
 		return (NULL);
 	result = malloc(sizeof(char) * (*i - *last_split + 1));
 	if (!result)
-		exit (1);//mayday eerror
+		return (NULL);
 	j = 0;
 	while (*last_split < *i)
 	{
@@ -91,7 +91,7 @@ static char	*split_here(char *str, int *i, int *last_split, char c)
 }
 
 //need to initialize the two booleen on false or valgrind error
-static void	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
+static int	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 {
 	int		y;
 	int		i;
@@ -103,6 +103,8 @@ static void	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 	if (str[i] == c)
 	{
 		result[0] = split_here(str, &i, &last_split, c);
+		if (!result[0])
+			return (0);
 		y++;
 	}
 	while (str[i] == c)
@@ -113,6 +115,8 @@ static void	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 		if (on_quote[0] == false && on_quote[1] == false && str[i] == c)
 		{
 			result[y] = split_here(str, &i, &last_split, c);
+			if (!result[0])
+				return (1);
 			y++;
 		}
 		else
@@ -122,6 +126,9 @@ static void	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 		}
 	}
 	result[y] = split_here(str, &i, &last_split, c);
+	if (!result[0])
+			return (1);
+	return (0);
 }
 
 //a split but when char priority is found, seach for the next char priority
@@ -137,11 +144,10 @@ char	**ft_split_quote_ignore(char *str, char c)
 	nb_cut = count_cut(str, c, on_quote);
 	result = ft_calloc(nb_cut + 1, sizeof(char *));
 	if (!result)
-		exit(1); //mayday error !
+		return (NULL); //mayday error !
 	on_quote[0] = false;
 	on_quote[1] = false;
-	ft_split_parsing(str, on_quote, result, c);
-	//if (result[0] == NULL)
-	//	return (NULL); why did i put this protection ?? useful ??
+	if (ft_split_parsing(str, on_quote, result, c) == 1)
+		return (NULL);
 	return (result);
 }
