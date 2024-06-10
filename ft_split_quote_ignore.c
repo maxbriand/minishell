@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 18:46:56 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:11:19 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static int	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
 	{
 		result[0] = split_here(str, &i, &last_split, c);
 		if (!result[0])
-			return (1);
+			return (0);
 		y++;
 	}
 	while (str[i] == c)
