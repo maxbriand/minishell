@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/08 23:31:30 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 16:01:02 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static t_pars	*new_node(char *input_no_pipe)
 		node->spl_cmd = NULL;
 		node->is_arg = NULL;
 		node->is_expand = NULL;
-
 	}
 	else
 	{
@@ -37,6 +36,8 @@ static t_pars	*new_node(char *input_no_pipe)
 		{
 			node->is_arg = define_shure_arg(node->spl_cmd);
 			node->is_expand = malloc(sizeof(bool) * ft_strlen_array(node->spl_cmd));
+			if (!node->is_expand)
+				exit (1);//mayday error
 		}
 		else
 		{

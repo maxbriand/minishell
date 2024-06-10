@@ -6,28 +6,34 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/08 23:14:51 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:04:26 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	is_sep(char c, char *sep)
+static void	ft_check_if(int *nb_cut, int *i, char *sep, char *str)
 {
-	int	i;
-
-	i = 0;
-	while (sep[i])
+	if (((str[*i] == '<') || (str[*i] == '>'))
+		&& is_sep(str[*i - 1], sep) == false)
 	{
-		if (sep[i] == c)
-			return (true);
-		i++;
+		(*nb_cut)++;
+		while (str[*i] == '<' || str[*i] == '>')
+			(*i)++;
 	}
-	return (false);
+	else if (is_sep(str[*i], sep))
+	{
+		(*nb_cut)++;
+		while (is_sep(str[*i], sep))
+			(*i)++;
+	}
+	else
+	{
+		while (str[*i] == '<' || str[*i] == '>')
+		(*i)++;
+	}
 }
-//je doos gerer les <> sepqremenbt poiur les sepqrqrteur
-//if celui davant n'est pas un sep et que i est plus grqnd aue 1 ou 0jsp,
-//alors on cute sur les <>
+
 static int	count_cut(char *str, bool *on_quote, char *sep)
 {
 	int		i;
@@ -41,50 +47,15 @@ static int	count_cut(char *str, bool *on_quote, char *sep)
 	{
 		if (i > 0 && on_quote[0] == false && on_quote[1] == false
 			&& (is_sep(str[i], sep) == true || str[i] == '<' || str[i] == '>'))
-		{
-			if (((str[i] == '<') || (str[i] == '>')) && is_sep(str[i - 1], sep) == false)
-			{
-				nb_cut++;
-				while (str[i] == '<' || str[i] == '>')
-					i++;
-			}
-			else
-			{
-				if (str[i] == '<' || str[i] == '>')
-				{
-					while (str[i] == '<' || str[i] == '>')
-						i++;
-				}
-				else
-				{
-					if (is_sep(str[i], sep))
-					{
-						nb_cut++;
-						while (is_sep(str[i], sep))
-							i++;
-					}
-					else
-						i++;
-				}
-			}
-		}
+			ft_check_if(&nb_cut, &i, sep, str);
 		else
 		{
 			ft_define_on_quote(str, i, on_quote);
-			//if (str[i] == '<' || str[i] == '>')
-			//{
-			//	while (str[i] == '<' || str[i] == '>')
-			//		i++;
-			//}
-			//else
 			i++;
 		}
-		//printf("%d = i\n", i);
-		//printf("%d = count\n", nb_cut);
 	}
 	if (is_sep(str[i - 1], sep) == false)
 		nb_cut++;
-	//printf("%d = count FINAL\n", nb_cut);
 	return (nb_cut);
 }
 
@@ -144,13 +115,12 @@ static void	ft_split_parsing(char *str, char *sep, char **result)
 	last_split = i;
 	while (str[i])
 	{
-		if (i > 0 && on_quote[0] == false && on_quote[1] == false && (is_sep(str[i], sep)
-		|| ((str[i] == '<' || str[i] == '>') && (str[i - 1] != '<' && str[i - 1] != '>' && is_sep(str[i - 1], sep) == 0))))
+		if (i > 0 && on_quote[0] == false && on_quote[1] == false
+			&& (is_sep(str[i], sep) || ((str[i] == '<' || str[i] == '>')
+					&& (str[i - 1] != '<' && str[i - 1] != '>'
+						&& is_sep(str[i - 1], sep) == 0))))
 		{
-
 			result[y] = split_here(str, &i, &last_split, on_quote);
-			//if (str[i] == '\0')
-			//	return ; // JAQI CHANGE CA
 			y++;
 		}
 		else
@@ -158,15 +128,11 @@ static void	ft_split_parsing(char *str, char *sep, char **result)
 			ft_define_on_quote(str, i, on_quote);
 			i++;
 		}
-		//printf("\n%d = onquote\n", on_quote[0]);
-		//printf("%d = ondquote\n", on_quote[1]);
 	}
 	if (is_sep(str[i - 1], sep) == false)
 		result[y] = split_here(str, &i, &last_split, on_quote);
 }
 
-//a split but when char priority is found, seach for the next char priority
-//and then split, and continue with char c.
 char	**ft_split_separator(char *str)
 {
 	int		nb_cut;
@@ -179,7 +145,6 @@ char	**ft_split_separator(char *str)
 	on_quote[0] = false;
 	on_quote[1] = false;
 	nb_cut = count_cut(str, on_quote, sep);
-	//printf("%d = count\n", nb_cut);
 	result = ft_calloc(nb_cut + 1, sizeof(char *));
 	if (!result)
 		exit(1); //mayday error !

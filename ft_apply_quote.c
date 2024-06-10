@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 00:29:45 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:24:01 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	inside_if(char *arg,  bool *on_quote, char **result, t_minishell *min
 	char	*var_env;
 	int		j;
 
-	on_quote[3] = true;
 	j = 0;
 	if (arg[j] == '$' && arg[j + 1] == '?')
 	{
@@ -63,15 +62,15 @@ static int	inside_if(char *arg,  bool *on_quote, char **result, t_minishell *min
 
 static char	*apply_var_env(char *arg, int i, t_minishell *mini, t_pars *p)
 {
-	bool	on_quote[4];
+	bool	on_quote[3];
 	char	*result;
 	int		j;
 
 	on_quote[0] = false;
 	on_quote[1] = false;
-	on_quote[3] = p->is_expand[i];
 	result = NULL;
 	j = 0;
+	p->is_expand[i] = false;
 	while (arg[j])
 	{
 		if (ft_define_on_quote(arg, j, on_quote) == true)

@@ -29,6 +29,7 @@ SRC =	ft_error_p.c\
 		ft_define_shure_arg.c\
 		ft_init_export.c\
 		ft_file_error.c\
+		ft_split_separator_utils.c\
 		main.c
 
 

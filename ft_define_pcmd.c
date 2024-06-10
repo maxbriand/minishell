@@ -6,18 +6,31 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 15:39:18 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 15:50:47 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	ft_is_expand(char **expand, int i, t_commands *p_cmd, t_pars *p)
+{
+	if (expand[i])
+	{
+		while (is_option(expand[i], p_cmd, p) == true)
+			i++;
+		while (expand[i])
+		{
+			p_cmd->arg = ft_addback(p_cmd->arg, expand[i]);
+			i++;
+		}
+	}
+}
 
-static void	ft_define_pcmd_arg_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
+static void	ft_define_arg_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 {
 	char	**expand;
 
-	if(p->next_can_be_arg)
+	if (p->next_can_be_arg)
 	{
 		p_cmd->arg = ft_addback(p_cmd->arg, arg);
 		return ;
@@ -27,16 +40,7 @@ static void	ft_define_pcmd_arg_cmd(char *arg, int i, t_commands *p_cmd, t_pars *
 		expand = ft_split(arg, ' ');
 		arg_is_cmd(expand[0], p_cmd, p);
 		i = 1;
-		if (expand[i])
-		{
-			while (is_option(expand[i], p_cmd, p) == true)
-				i++;
-			while (expand[i])
-			{
-				p_cmd->arg = ft_addback(p_cmd->arg, expand[i]);
-				i++;
-			}
-		}
+		ft_is_expand(expand, i, p_cmd, p);
 		free_array(expand);
 		return ;
 	}
@@ -54,16 +58,15 @@ static void	ft_define_next(char *arg, int i, t_commands *p_cmd, t_pars *p)
 		if (p->is_expand[i])
 		{
 			expand = ft_split(arg, ' ');
-			if (ft_strlen_array(expand) > 1  && p_cmd->msg_error == NULL)
+			if (ft_strlen_array(expand) > 1 && p_cmd->msg_error == NULL)
 			{
-				p_cmd->msg_error = ft_better_strdup("minishell: %s: ambiguous redirect", arg);
+				p_cmd->msg_error = ft_better_strdup
+					("minishell: %s: ambiguous redirect", arg);
 				p_cmd->exit_code = 1;
 				return ;
 			}
 			free_array(expand);
 		}
-		//if (p_cmd->infile)
-			//free(p_cmd->infile);
 		p_cmd->infile = ft_strdup(arg);
 		if (!p_cmd->infile)
 			exit (1); //mayday error ?
@@ -71,7 +74,7 @@ static void	ft_define_next(char *arg, int i, t_commands *p_cmd, t_pars *p)
 		p->next_is_infile = false;
 		return ;
 	}
-	ft_define_pcmd_arg_cmd(arg, i, p_cmd, p);
+	ft_define_arg_cmd(arg, i, p_cmd, p);
 }
 
 static void	ft_define_other(char *arg, int i, t_commands *p_cmd, t_pars *p)

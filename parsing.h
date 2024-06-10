@@ -34,7 +34,7 @@ void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p);
 bool	*define_shure_arg(char **splt_cmd);
 
 //error
-int	pipe_unexpected(char *input, t_pars *p);
+int		pipe_unexpected(char *input, t_pars *p);
 void	error_and_exit(char *error);
 bool	error_p(int nb, char *cmd);
 void	ft_better_putstr_fd(char *str, char *arg, int error);
@@ -73,6 +73,7 @@ void	free_p_cmd(t_commands *p_cmd);
 
 char	**ft_split_quote_ignore(char *str, char c);
 char	**ft_split_separator(char *str);
+bool	is_sep(char c, char *sep);
 char	**ft_init_export(t_minishell *mini);
 int		is_only_space(char *str);
 char	*catch_env(char **envp, char *str);
