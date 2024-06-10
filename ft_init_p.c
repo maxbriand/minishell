@@ -6,25 +6,28 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 22:14:32 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/11 01:37:06 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//create a new node for my struct t_pars. every node is a command separed by pipe
+//create a new node for my struct t_pars. every node is a cmd separed by pipe
 static t_pars	*new_node(char *input_no_pipe)
 {
 	t_pars	*node;
 
 	node = malloc(sizeof(t_pars));
 	if (!node)
-		exit (1);//mayday error
+		return (NULL);
 
-	if (input_no_pipe == NULL || ft_strlen(input_no_pipe) == 0 || is_only_space(input_no_pipe) == 1)
+	if (input_no_pipe == NULL || ft_strlen(input_no_pipe) == 0
+		|| is_only_space(input_no_pipe) == 1)
 	{
 		node->exit_code = 2;
 		node->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'");
+		if (!node->error_msg)
+			return (NULL);
 		node->spl_cmd = NULL;
 		node->is_arg = NULL;
 		node->is_expand = NULL;
@@ -32,12 +35,17 @@ static t_pars	*new_node(char *input_no_pipe)
 	else
 	{
 		node->spl_cmd = ft_split_separator(input_no_pipe);
+		if (!node->spl_cmd)
+			return (NULL);
 		if (node->spl_cmd[0])
 		{
 			node->is_arg = define_shure_arg(node->spl_cmd);
 			node->is_expand = malloc(sizeof(bool) * ft_strlen_array(node->spl_cmd));
 			if (!node->is_expand)
-				exit (1);//mayday error
+			{
+				free(node->spl_cmd);
+				return (NULL);
+			}
 		}
 		else
 		{
