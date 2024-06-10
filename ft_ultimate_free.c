@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 21:42:50 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/11 00:06:32 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void	free_p(t_pars *p)
 		if (p_buf->error_msg)
 			free(p_buf->error_msg);
 		p = p->next;
+		p_buf->spl_cmd = NULL;
+		p_buf->is_arg = NULL;
+		p_buf->is_expand = NULL;
+		p_buf->error_msg = NULL;
 		free(p_buf);
 	}
 }

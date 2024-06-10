@@ -6,24 +6,12 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 23:18:43 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 23:58:16 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //to add to the libft later
 #include "minishell.h"
-
-
-static char	*strdup_protect(char *new_element)
-{
-	char *new_array;
-
-	new_array = ft_strdup(new_element);
-	if (!new_array)
-		exit (1); //error to write?
-	return (new_array);
-}
-
 
 //add 1 element to a array. Free the old array, so it's not needed to free it after
 char	**ft_addback(char **old_array, char *new_element)
@@ -45,12 +33,12 @@ char	**ft_addback(char **old_array, char *new_element)
 		i = 0;
 		while (old_array[i])
 		{
-			new_array[i] = strdup_protect(old_array[i]);
+			new_array[i] = ft_strdup(old_array[i]);
 			i++;
 		}
 		free_array(old_array);
 	}
-	new_array[i] = strdup_protect(new_element);
+	new_array[i] = ft_strdup(new_element);
 	new_array[i + 1] = NULL;
 	return (new_array);
 }
@@ -75,12 +63,12 @@ char	**ft_addback_free(char **old_array, char *new_element)
 		i = 0;
 		while (old_array[i])
 		{
-			new_array[i] = strdup_protect(old_array[i]);
+			new_array[i] = ft_strdup(old_array[i]);
 			i++;
 		}
 		free_array(old_array);
 	}
-	new_array[i] = strdup_protect(new_element);
+	new_array[i] = ft_strdup(new_element);
 	new_array[i + 1] = NULL;
 	free(new_element);
 	return (new_array);
