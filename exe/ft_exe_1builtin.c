@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:52:05 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 18:11:55 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:08:59 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ static void	ft_1b_output_redir(t_minishell *data, t_commands *c_cmd)
 	int	fd;
 
 	c_cmd->old_fd1 = dup(1);
+	if (c_cmd->old_fd1 == -1)
+		ft_exitf("dup2 issue", 1, NULL, data);
 	if (c_cmd->outfile && c_cmd->append_outfile == 1)
 	{
 		fd = open(c_cmd->outfile, O_WRONLY | O_APPEND);
+		if (fd == -1)
+			ft_exitf("open issue", 1, NULL, data);
 		if (dup2(fd, 1) == -1)
 			ft_exitf("dup2 issue", 1, NULL, data);
 		close(fd);
@@ -39,6 +43,8 @@ static void	ft_1b_input_redir(t_minishell *data, t_commands *c_cmd)
 	bool	here_open;
 
 	c_cmd->old_fd0 = dup(0);
+	if (c_cmd->old_fd0 == -1)
+		ft_exitf("dup2 issue", 1, NULL, data);
 	here_open = ft_iterate_heredocs(c_cmd, data);
 	fd = open("heredoc", O_RDONLY);
 	if (c_cmd->infile)
@@ -46,6 +52,8 @@ static void	ft_1b_input_redir(t_minishell *data, t_commands *c_cmd)
 		if (here_open != 0)
 			close(fd);
 		fd = open(c_cmd->infile, O_RDONLY);
+		if (fd == -1)
+			ft_exitf("open issue", 1, NULL, data);
 		if (fd == -1)
 			ft_exitf("dup2 issue", 1, NULL, data);
 	}

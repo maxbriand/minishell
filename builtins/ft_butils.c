@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:49:24 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 17:36:09 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 18:58:57 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_lfor_var(char **arr, char *var)
 	i = 0;
 	while (arr[i])
 	{
-		if (strncmp(arr[i], var, lvar) == 0)
+		if (ft_strncmp(arr[i], var, lvar) == 0)
 		{
 			if (arr[i][lvar] == '=' || arr[i][lvar] == '\0')
 				return (i);

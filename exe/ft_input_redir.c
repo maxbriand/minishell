@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:03:04 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 18:04:29 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:17:17 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static void	ft_write_heredoc(int fd, char *hd_stop, t_minishell *data)
 		input = readline("> ");
 		if (!input)
 			ft_exitf("readline issue", 1, NULL, data);
-		if (strcmp(input, hd_stop) == 0)
+		if (ft_strcmp(input, hd_stop) == 0)
 			break ;
-		write(fd, input, strlen(input));
+		write(fd, input, ft_strlen(input));
 		free(input);
 	}
 	write(fd, "\n\0", 2);
@@ -68,7 +68,7 @@ void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
 			close(fd);
 		fd = open(c_cmd->infile, O_RDONLY);
 		if (fd == -1)
-			ft_exitf("dup2 issue", 1, NULL, data);
+			ft_exitf("open issue", 1, NULL, data);
 	}
 	else if (!c_cmd->hd_stop)
 	{

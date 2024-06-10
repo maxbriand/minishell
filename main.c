@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:15:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 18:19:08 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 18:41:37 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	main(int ac, char **av, char **env)
 
 	(void) ac;
 	(void) av;
+	data = NULL;
 	data = ft_init_mish(env);
 	while (1)
 	{

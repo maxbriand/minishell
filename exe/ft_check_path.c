@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:01:10 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 18:02:21 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:16:04 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ static char	*ft_is_already_path(char *cmd, t_minishell *data, t_commands *c_cmd)
 {
 	if (!cmd)
 		return (NULL);
-	if (strcmp(cmd, ".") == 0)
+	if (ft_strcmp(cmd, ".") == 0)
 		ft_exitf(" filename argument required . filename [arguments]", \
 			2, c_cmd, data);
-	if (strncmp(cmd, "/root", 5) == 0)
+	if (ft_strncmp(cmd, "/root", 5) == 0)
 		ft_exitf(" Permission denied", 126, c_cmd, data);	
-	if (strcmp(cmd, "..") == 0)
+	if (ft_strcmp(cmd, "..") == 0)
 		ft_exitf(" command not found", 127, c_cmd, data);
 	if (access(cmd, F_OK) == 0)
 	{

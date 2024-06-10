@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:41:19 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 02:43:55 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:09:23 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_output_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
 	if (c_cmd->outfile && c_cmd->append_outfile == 1)
 	{
 		fd = open(c_cmd->outfile, O_WRONLY | O_APPEND);
+		if (fd == -1)
+			ft_exitf("open issue", 1, NULL, data);
 		if (dup2(fd, 1) == -1)
 			ft_exitf("dup2 issue", 1, NULL, data);
 		close(fd);
@@ -26,6 +28,8 @@ void	ft_output_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
 	else if (c_cmd->outfile)
 	{
 		fd = open(c_cmd->outfile, O_WRONLY | O_TRUNC);
+		if (fd == -1)
+			ft_exitf("open issue", 1, NULL, data);
 		if (dup2(fd, 1) == -1)
 			ft_exitf("dup2 issue", 1, NULL, data);
 		close(fd);
