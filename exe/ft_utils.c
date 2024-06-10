@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:36:56 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 18:18:20 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 18:00:57 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	ft_is_a_directory(char *cmd)
 
 int	ft_pipe_counter(t_commands *p_cmd)
 {
-	int c; 
-	
+	int	c;
+
 	c = 0;
 	while (p_cmd->next != NULL)
 	{

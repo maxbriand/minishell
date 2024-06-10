@@ -31,6 +31,7 @@ SRC =	main.c \
 		builtins/ft_butils.c \
 		\
 		parsing/ft_apply_quote.c \
+		parsing/ft_file_error.c \
 		parsing/ft_catch_env.c \
 		parsing/ft_check_arg.c \
 		parsing/ft_cmd_arg_join.c \

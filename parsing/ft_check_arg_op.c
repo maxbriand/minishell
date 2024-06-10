@@ -6,18 +6,16 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:51:41 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/08 16:50:23 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 15:38:13 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	op_infile(char *arg, bool is_expand, t_commands *p_cmd, t_pars *p)
+static void	op_infile(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	if (ft_strlen(arg) > 1)
 	{
-		if (is_expand)
-			ft_is_expand(arg, 1, p_cmd);
 		if (arg[1] != '<' && p_cmd->err_is_infile == false)
 		{
 			p_cmd->outfile = ft_strdup(arg + 1);
@@ -31,14 +29,12 @@ static void	op_infile(char *arg, bool is_expand, t_commands *p_cmd, t_pars *p)
 		p->next_is_outfile = true;
 }
 
-static bool	is_operator_not_append(char *arg, bool is_expand, t_commands *p_cmd, t_pars *p)
+static bool	is_operator_not_append(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	if (ft_strncmp(arg, "<", 1) == 0)
 	{
 		if (ft_strlen(arg) > 1)
 		{
-			if (is_expand)
-				ft_is_expand(arg, 1, p_cmd);
 			if (arg[1] != '>')
 			{
 				p_cmd->infile = ft_strdup(arg + 1);
@@ -53,18 +49,16 @@ static bool	is_operator_not_append(char *arg, bool is_expand, t_commands *p_cmd,
 	}
 	else if (ft_strncmp(arg, ">", 1) == 0)
 	{
-		op_infile(arg, is_expand, p_cmd, p);
+		op_infile(arg, p_cmd, p);
 		return (true);
 	}
 	return (false);
 }
 
-static void	append_op_out(char *arg, bool is_expand, t_commands *p_cmd, t_pars *p)
+static void	append_op_out(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	if (ft_strlen(arg) > 2)
 	{
-		if (is_expand)
-			ft_is_expand(arg, 2, p_cmd);
 		if (arg[2] != '<' && arg[2] != '>' && p_cmd->err_is_infile == false)
 		{
 			p_cmd->append_outfile = true;
@@ -82,14 +76,12 @@ static void	append_op_out(char *arg, bool is_expand, t_commands *p_cmd, t_pars *
 	}
 }
 
-bool	is_operator(char *arg, bool is_expand, t_commands *p_cmd, t_pars *p)
+bool	ft_is_operator(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	if (ft_strncmp(arg, "<<", 2) == 0)
 	{
 		if (ft_strlen(arg) > 2)
 		{
-			if (is_expand)
-				ft_is_expand(arg, 2, p_cmd);
 			if (arg[2] != '<' && arg[2] != '>')
 				p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg + 2);
 			else
@@ -101,9 +93,9 @@ bool	is_operator(char *arg, bool is_expand, t_commands *p_cmd, t_pars *p)
 	}
 	else if (ft_strncmp(arg, ">>", 2) == 0)
 	{
-		append_op_out(arg, is_expand, p_cmd, p);
+		append_op_out(arg, p_cmd, p);
 		return (true);
 	}
-	return (is_operator_not_append(arg, is_expand, p_cmd, p));
+	return (is_operator_not_append(arg, p_cmd, p));
 //Seul les bg ultime lirons ce message
 }

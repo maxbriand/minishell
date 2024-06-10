@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:43:10 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 17:44:06 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:37:58 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_unset_export(char **env, int n, t_minishell *data)
 	ft_arrcpy(new_env + n, env + (n + 1));
 	new_env[size_env - 1] = NULL;
 	ft_arrfree(data->export);
-	data->export = new_env; 
+	data->export = new_env;
 }
 
 // have to free the old env if it's a malloc env
@@ -42,7 +42,7 @@ void	ft_unset_env(char **env, int n, t_minishell *data)
 	ft_arrcpy(new_env + n, env + (n + 1));
 	new_env[size_env - 1] = NULL;
 	ft_arrfree(data->env);
-	data->env = new_env; 
+	data->env = new_env;
 }
 
 static int	ft_check_unset_error(t_minishell *data, t_commands *c_cmd)
@@ -53,7 +53,7 @@ static int	ft_check_unset_error(t_minishell *data, t_commands *c_cmd)
 	{
 		data->exit_code = 2;
 		ft_write_error("unset: invalid option");
-		return (1);	
+		return (1);
 	}
 	if (!c_cmd->arg)
 		return (1);
@@ -64,7 +64,7 @@ void	ft_unset(t_minishell *data, t_commands *c_cmd)
 {
 	int	i;
 	int	n;
-	
+
 	if (ft_check_unset_error(data, c_cmd) == 1)
 		return ;
 	i = 0;
@@ -78,7 +78,7 @@ void	ft_unset(t_minishell *data, t_commands *c_cmd)
 		}
 		n = ft_lfor_var(data->export, c_cmd->arg[i]);
 		if (n != -1)
-			ft_unset_export(data->export, n, data);			
+			ft_unset_export(data->export, n, data);
 		n = ft_lfor_var(data->env, c_cmd->arg[i]);
 		if (n != -1)
 			ft_unset_env(data->env, n, data);

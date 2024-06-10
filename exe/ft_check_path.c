@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check_path.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 18:01:10 by mbriand           #+#    #+#             */
+/*   Updated: 2024/06/10 18:02:21 by mbriand          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	**ft_get_env_paths(t_minishell *data)
@@ -5,7 +17,7 @@ static char	**ft_get_env_paths(t_minishell *data)
 	char	**env_paths;
 	char	**save_env_paths;
 	int		i;
-	
+
 	i = 0;
 	while (data->env[i])
 	{
@@ -48,7 +60,7 @@ static char	*ft_is_already_path(char *cmd, t_minishell *data, t_commands *c_cmd)
 		ft_exitf(" filename argument required . filename [arguments]", \
 			2, c_cmd, data);
 	if (strncmp(cmd, "/root", 5) == 0)
-		ft_exitf(" Permission denied", 126, c_cmd, data);			
+		ft_exitf(" Permission denied", 126, c_cmd, data);	
 	if (strcmp(cmd, "..") == 0)
 		ft_exitf(" command not found", 127, c_cmd, data);
 	if (access(cmd, F_OK) == 0)

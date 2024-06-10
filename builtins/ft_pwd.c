@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 17:52:20 by mbriand           #+#    #+#             */
+/*   Updated: 2024/06/10 17:52:28 by mbriand          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*ft_pwd(t_minishell *data, int i)
@@ -9,7 +21,7 @@ char	*ft_pwd(t_minishell *data, int i)
 	buf = NULL;
 	err_buf = NULL;
 	size = 0;
-	while(err_buf == NULL)
+	while (err_buf == NULL)
 	{
 		buf = malloc(sizeof(char) * size);
 		if (!buf)

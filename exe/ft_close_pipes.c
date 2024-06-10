@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 23:09:18 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/22 20:12:03 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:04:51 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	ft_close_pipes(t_minishell *data, int **pipefds)
 		free(pipefds[i]);
 		i++;
 	}
-	free (pipefds);
+	free (data->pipefds);
+	data->pipefds = NULL;
 }

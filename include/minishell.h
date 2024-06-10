@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 15:31:08 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 18:17:50 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_commands
 	char				**arg;
 	char				**arg_cmd; // cmd + option + arg
 	bool				b_builtins;
-	struct s_commands	*next;
 	int					*pipefd0;
 	int					*pipefd1;
 	int					old_fd1;
@@ -57,6 +56,7 @@ typedef struct s_commands
 	bool				err_is_outfile;
 	int					exit_code;
 	char				*msg_error;
+	struct s_commands	*next;
 }	t_commands;
 
 typedef struct s_minishell
@@ -66,7 +66,6 @@ typedef struct s_minishell
 	char			**env;
 	char			**export;
 	bool			env_malloc;
-	char			**path_env;
 	int				open_quote;
 	int				open_dquote;
 	int				**pipefds;
@@ -81,7 +80,7 @@ extern int	g_sig;
 
 # include "parsing.h"
 
-void	ft_print_fd_content(int fd);
+//void	ft_print_fd_content(int fd);
 
 // Utils
 int		ft_pipe_counter(t_commands *p_cmd);
@@ -90,11 +89,13 @@ int		ft_is_a_directory(char *cmd);
 // Error
 void	ft_exitf(char *msg, int ec, t_commands *c_cmd, t_minishell *data);
 int		ft_write_error(char *msg);
+void	ft_free_data(t_minishell *data);
+void	ft_free_data_exit(t_minishell *data);
 
 // Exe
 void	ft_exe(t_minishell *data, t_commands *p_cmd);
 char	*ft_check_path(t_minishell *data, t_commands *current_cmd);
-int		ft_sc(char **str);
+//int		ft_sc(char **str);
 void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd);
 int		ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data);
 void	ft_output_redir(t_minishell *data, t_commands *p_cmd, int *pipefd);
@@ -134,6 +135,6 @@ int		ft_lfor_var(char **env, char *var);
 
 // Signals
 void	ft_signals(int d);
-void	ft_set_newterm(t_minishell *data);
+//void	ft_set_newterm(t_minishell *data);
 
 #endif

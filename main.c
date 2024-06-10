@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 18:15:54 by mbriand           #+#    #+#             */
+/*   Updated: 2024/06/10 18:19:08 by mbriand          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int g_sig = 0;
+int	g_sig = 0;
 
 /*static void	ft_printf_parsing(t_commands *p_cmd)
 {
@@ -68,27 +80,28 @@ int g_sig = 0;
 t_minishell	*ft_init_mish(char **env)
 {
 	t_minishell	*data;
-	
+
 	data = malloc(sizeof(t_minishell));
 	if (!data)
-		ft_exitf("malloc issue", 1, NULL, data);
-	data->env = env;
+		ft_exitf("malloc issue", 1, NULL, NULL);
 	data->p_cmd = NULL;
+	data->export = NULL;
+	data->env = env;
 	data->open_dquote = 0;
 	data->open_quote = 0;
 	data->exit_code = 0;
 	data->wait_code = 0;
-	data->export = NULL;
 	return (data);
 }
 
 int	main(int ac, char **av, char **env)
 {
-	char 		*cmd;
+	char		*cmd;
+	int			store_ec;
 	t_minishell	*data;
 
-	(void) av;
 	(void) ac;
+	(void) av;
 	data = ft_init_mish(env);
 	while (1)
 	{
@@ -100,7 +113,7 @@ int	main(int ac, char **av, char **env)
 			data->exit_code = 131;
 		g_sig = 0;
 		if (!cmd)
-			break;
+			break ;
 		if (*cmd)
 			add_history(cmd);
 		ft_parsing(cmd, data);
@@ -108,8 +121,10 @@ int	main(int ac, char **av, char **env)
 		// ft_printf_parsing(data->p_cmd);
 		ft_exe(data, data->p_cmd);
 		free(cmd);
-		// free_p_cmd(data->p_cmd);
+		ft_free_data(data);
 	}
 	ft_printf("exit\n");
-	return (data->exit_code);
+	store_ec = data->exit_code;
+	ft_free_data_exit(data);
+	return (store_ec);
 }

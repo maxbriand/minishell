@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:52:05 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 15:14:31 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 18:11:55 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_1b_input_redir(t_minishell *data, t_commands *c_cmd)
 {
 	int		fd;
 	bool	here_open;
-	
+
 	c_cmd->old_fd0 = dup(0);
 	here_open = ft_iterate_heredocs(c_cmd, data);
 	fd = open("heredoc", O_RDONLY);
@@ -53,7 +53,6 @@ static void	ft_1b_input_redir(t_minishell *data, t_commands *c_cmd)
 		ft_exitf("dup2 issue", 1, NULL, data);
 	close(fd);
 	unlink("heredoc");
-	
 }
 
 static int	ft_if_already_error(t_minishell *data, t_commands *p_cmd)

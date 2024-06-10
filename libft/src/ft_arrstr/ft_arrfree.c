@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_str_array.c                                :+:      :+:    :+:   */
+/*   ft_arrfree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:22:52 by mbriand           #+#    #+#             */
-/*   Updated: 2024/05/23 17:02:45 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 16:25:43 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_arrfree(char **str_array)
 {
 	char	**save_str_array;
 
-	if (str_array == 0)
+	if (!str_array)
 		return ;
 	save_str_array = str_array;
 	while (*str_array)

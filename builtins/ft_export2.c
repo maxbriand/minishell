@@ -6,18 +6,16 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:57:09 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/08 17:53:28 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:37:11 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// ft_modify_export
-
 // FT_STRDUP ADDING DQUOTES
 char	*ft_strdup_dquotes(char *s, t_minishell *data)
 {
-	int 	len;
+	int		len;
 	char	*new_s;
 	int		i;
 
@@ -34,8 +32,8 @@ char	*ft_strdup_dquotes(char *s, t_minishell *data)
 		if (*s == '=')
 		{
 			i++;
-			new_s[i] = '"'; 
-		}	
+			new_s[i] = '"';
+		}
 		i++;
 		s++;
 	}
@@ -63,7 +61,7 @@ static void	ft_add_line(t_minishell *data, char *var)
 	if (!new_export)
 		ft_exitf("malloc issue", 1, NULL, data);
 	ft_arrcpy(new_export, data->export);
-	new_export[lnew_export - 2] = ft_strdup_dquotes(var, data); 
+	new_export[lnew_export - 2] = ft_strdup_dquotes(var, data);
 	new_export[lnew_export - 1] = NULL;
 	ft_arrfree(data->export);
 	data->export = new_export;
@@ -73,7 +71,7 @@ static void	ft_add_line(t_minishell *data, char *var)
 void	ft_export_export(t_minishell *data, char *var)
 {
 	int	n;
-	
+
 	n = ft_lfor_var(data->export, var);
 	if (n == -1)
 		ft_add_line(data, var);

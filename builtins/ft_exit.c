@@ -1,17 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/10 17:38:46 by mbriand           #+#    #+#             */
+/*   Updated: 2024/06/10 17:58:18 by mbriand          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static int	ft_check_long(const char *s)
+static char	*ft_string_ite(char *s)
 {
-	long		nbr;
-	const char	*sign;
-	int			digit;	
-
-	nbr = 0;
-	sign = s;
 	while (ft_isspace(*s) == 1)
 		s++;
 	if (*s == '-' || *s == '+')
 		s++;
+	return (s);
+}
+
+static int	ft_check_long(char *s)
+{
+	long	nbr;
+	char	*sign;
+	int		digit;	
+
+	nbr = 0;
+	sign = s;
+	s = ft_string_ite(s);
 	while (*s)
 	{
 		digit = *s - '0';
@@ -34,7 +52,7 @@ static int	ft_strcheck(char *str)
 {
 	int		i;
 	char	*exit_code;
-	
+
 	exit_code = str;
 	while (ft_isspace(*str) == 1)
 		str++;
@@ -76,7 +94,8 @@ void	ft_exit(t_minishell *data, t_commands *c_cmd)
 {
 	long	exit_code;
 
-	ft_write_error("exit");
+	if (data->pipe_nbr == 0)
+		ft_write_error("exit");
 	if (!c_cmd->arg)
 		exit(data->exit_code);
 	if (ft_exit_parsing(data, c_cmd) != 0)

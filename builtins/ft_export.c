@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:59:21 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/06 20:28:05 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:38:13 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_export_parsing(char	*arg)
 static void	ft_ite_arg(t_minishell *data, t_commands *c_cmd)
 {
 	int	i;
-	
+
 	i = 0;
 	while (c_cmd->arg[i])
 	{
@@ -49,7 +49,7 @@ static void	ft_ite_arg(t_minishell *data, t_commands *c_cmd)
 void	ft_export(t_minishell *data, t_commands *c_cmd)
 {
 	int	i;
-	
+
 	if (!data->export)
 		return ;
 	i = 0;
