@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:49:24 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/06 16:40:17 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 15:27:27 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_get_env_var(char **env, char *var)
 	while (*env)
 	{
 		len = (int) (ft_strchr(*env, '=') - *env);
-		if (ft_strncmp(*env, var, len) == 0 && ft_strlen(var) == len)
+		if (ft_strncmp(*env, var, len) == 0 && (int) ft_strlen(var) == len)
 			return (ft_strchr(*env, '=') + 1);
 		env++;
 	}

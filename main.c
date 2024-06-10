@@ -2,9 +2,8 @@
 
 int g_sig = 0;
 
-static void	ft_printf_parsing(t_minishell *data, t_commands *p_cmd)
+/*static void	ft_printf_parsing(t_commands *p_cmd)
 {
-	int i;
 	ft_printf("\n\033[1;33mPARSING RESULT:\033[0m");
 	while (p_cmd)
 	{
@@ -64,10 +63,12 @@ static void	ft_printf_parsing(t_minishell *data, t_commands *p_cmd)
 		p_cmd = p_cmd->next;
 	}
 	ft_printf("\n\033[1;32mOutput result: \033[0m\n");
-}
+}*/
 
-t_minishell	*ft_init_mish(t_minishell *data, char **env)
+t_minishell	*ft_init_mish(char **env)
 {
+	t_minishell	*data;
+	
 	data = malloc(sizeof(t_minishell));
 	if (!data)
 		ft_exitf("malloc issue", 1, NULL, data);
@@ -86,7 +87,9 @@ int	main(int ac, char **av, char **env)
 	char 		*cmd;
 	t_minishell	*data;
 
-	data = ft_init_mish(data, env);
+	(void) av;
+	(void) ac;
+	data = ft_init_mish(env);
 	while (1)
 	{
 		ft_signals(0);
@@ -102,6 +105,7 @@ int	main(int ac, char **av, char **env)
 			add_history(cmd);
 		ft_parsing(cmd, data);
 		ft_signals(1);
+		// ft_printf_parsing(data->p_cmd);
 		ft_exe(data, data->p_cmd);
 		free(cmd);
 		// free_p_cmd(data->p_cmd);

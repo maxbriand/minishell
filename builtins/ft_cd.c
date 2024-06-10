@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	ft_cd_home(t_minishell *data, t_commands *c_cmd)
+static void	ft_cd_home(t_minishell *data)
 {
 	if (chdir(ft_get_env_var(data->env, "HOME")) == -1)
 		ft_write_error("chdir issue");
@@ -10,7 +10,7 @@ static void	ft_cd_home(t_minishell *data, t_commands *c_cmd)
 void	ft_cd(t_minishell *data, t_commands *c_cmd)
 {	
 	if (c_cmd->option == NULL && c_cmd->arg == NULL)
-		ft_cd_home(data, c_cmd);
+		ft_cd_home(data);
 	if (c_cmd->option == NULL && c_cmd->arg != NULL)
 	{
 		if (ft_arrlen(c_cmd->arg) > 1)

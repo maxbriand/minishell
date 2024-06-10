@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	ft_exe_env(t_minishell *data, t_commands *c_cmd)
+static void	ft_exe_env(t_minishell *data)
 {
 	int	i;
 
@@ -35,5 +35,5 @@ void	ft_env(t_minishell *data, t_commands *c_cmd)
 {
 	if (ft_check_env_error(data, c_cmd) == 1)
 		return ;
-	ft_exe_env(data, c_cmd);
+	ft_exe_env(data);
 }

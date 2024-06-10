@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_echo(t_minishell *data, t_commands *c_cmd)
+void	ft_echo(t_commands *c_cmd)
 {
 	if (c_cmd->option == NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:31:21 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 03:28:43 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 15:25:12 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_if_exitcode_2(t_minishell *data, t_commands *p_cmd)
 	return (0);
 }
 
-int	ft_if_no_command(t_minishell *data, t_commands *p_cmd)
+int	ft_if_no_command(t_commands *p_cmd)
 {
 	if (!p_cmd->cmd)
 	{
@@ -54,7 +54,7 @@ int	ft_before_cmd_exe(t_minishell *data, t_commands *p_cmd)
 		return (1);
 	ft_if_only_exit(data, p_cmd);
 	data->exit_code = p_cmd->exit_code;
-	if (ft_if_no_command(data, p_cmd) || ft_if_exitcode_2(data, p_cmd))
+	if (ft_if_no_command(p_cmd) || ft_if_exitcode_2(data, p_cmd))
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 00:03:43 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 15:31:08 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	ft_builtins_exe(t_minishell *data, t_commands *c_cmd);
 // Before exe
 int		ft_before_cmd_exe(t_minishell *data, t_commands *p_cmd);
 void	ft_if_only_exit(t_minishell *data, t_commands *p_cmd);
-int		ft_if_no_command(t_minishell *data, t_commands *p_cmd);
+int		ft_if_no_command(t_commands *p_cmd);
 int		ft_if_exitcode_2(t_minishell *data, t_commands *p_cmd);
 
 // Exe - 1 builtin
@@ -118,15 +118,15 @@ void	ft_set_pfd(t_minishell *data, t_commands *c_cmd, int **pipefds, int c);
 void	ft_close_pipes(t_minishell *data, int **pipefds);
 
 // Builtins
-void	ft_cd(t_minishell *mish, t_commands *p_cmd);
-void	ft_exit(t_minishell *mish, t_commands *p_cmd);
-void	ft_echo(t_minishell *mish, t_commands *p_cmd);
-void	ft_env(t_minishell *mish, t_commands *p_cmd);
-void	ft_export(t_minishell *mish, t_commands *p_cmd);
+void	ft_cd(t_minishell *data, t_commands *p_cmd);
+void	ft_exit(t_minishell *data, t_commands *p_cmd);
+void	ft_echo(t_commands *p_cmd);
+void	ft_env(t_minishell *data, t_commands *p_cmd);
+void	ft_export(t_minishell *data, t_commands *p_cmd);
 void	ft_export_export(t_minishell *data, char *var);
 void	ft_export_env(t_minishell *data, char *var);
-char	*ft_pwd(t_minishell *mish, t_commands *p_cmd, int i);
-void	ft_unset(t_minishell *mish, t_commands *p_cmd);
+char	*ft_pwd(t_minishell *data, int i);
+void	ft_unset(t_minishell *data, t_commands *p_cmd);
 
 // Builtins utils
 char	*ft_get_env_var(char **env, char *var);

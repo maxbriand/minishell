@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:52:05 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/09 21:43:32 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/10 15:14:31 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	ft_1b_output_redir(t_minishell *data, t_commands *c_cmd)
 {
 	int	fd;
-	int	old_fd1;
 
 	c_cmd->old_fd1 = dup(1);
 	if (c_cmd->outfile && c_cmd->append_outfile == 1)
@@ -38,7 +37,6 @@ static void	ft_1b_input_redir(t_minishell *data, t_commands *c_cmd)
 {
 	int		fd;
 	bool	here_open;
-	int		old_fd0;
 	
 	c_cmd->old_fd0 = dup(0);
 	here_open = ft_iterate_heredocs(c_cmd, data);
@@ -74,13 +72,15 @@ static void	ft_reset_fd(t_minishell *data, t_commands *c_cmd)
 	if (c_cmd->outfile)
 	{
 		close(1);
-		dup2(c_cmd->old_fd1, 1);
+		if (dup2(c_cmd->old_fd1, 1) == -1)
+			ft_exitf("dup2 issue", 1, c_cmd, data);
 		close(c_cmd->old_fd1);
 	}
 	if (c_cmd->infile || c_cmd->hd_stop)
 	{
 		close(0);
-		dup2(c_cmd->old_fd0, 0);
+		if (dup2(c_cmd->old_fd0, 0) == -1)
+			ft_exitf("dup2 issue", 1, c_cmd, data);
 		close(c_cmd->old_fd0);
 	}
 }

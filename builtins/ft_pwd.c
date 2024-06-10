@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-char	*ft_pwd(t_minishell *data, t_commands *p_cmd, int i)
+char	*ft_pwd(t_minishell *data, int i)
 {
 	char	*buf;
 	char	*err_buf;
