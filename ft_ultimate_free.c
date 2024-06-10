@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/11 00:06:32 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/11 01:14:05 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	free_p_cmd(t_commands *p_cmd)
 		buf = p_cmd;
 		p_cmd = p_cmd->next;
 		if (buf->arg)
-			free(buf->arg);
+			free_array(buf->arg);
 		if (buf->arg_cmd)
 			free_array(buf->arg_cmd);
 		if (buf->cmd)

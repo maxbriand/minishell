@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 17:43:24 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/11 01:11:00 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	inside_if(char *arg,  bool *on_quote, char **result, t_minishell *min
 		var_env = catch_env(mini->env, just_name_env(arg, j, on_quote));
 		*result = ft_strjoin_free(*result, var_env);
 		j++;
-		while (arg[j] && (ft_isalnum(arg[j]) || arg[j] == '_')) //mayday need really only isalnum ????
+		while (arg[j] && (ft_isalnum(arg[j]) || arg[j] == '_'))
 			j++;
 	}
 	return (j);
@@ -85,6 +85,7 @@ static char	*apply_var_env(char *arg, int i, t_minishell *mini, t_pars *p)
 		else
 			create_result(on_quote, &result, arg, &j);
 	}
+	free(arg);
 	return (result);
 }
 
@@ -96,7 +97,7 @@ void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
 
 	buf = NULL;
 	j = 0;
-	str[i] = apply_var_env(str[i], 0, mini, p);//je dois faire par rapoirt auchar
+	str[i] = apply_var_env(str[i], 0, mini, p);
 	if (str[i] == NULL)
 	{
 		str[i] = malloc(sizeof(char) * 1);
