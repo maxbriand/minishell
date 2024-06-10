@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:22 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 15:35:00 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 23:43:41 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	is_option(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	if (arg[0] == '-')
 	{
-		if (p->last_was_echo == true && (ft_strcmp(arg, "-n") != 0))
+		if (p->last_was_echo == true && (ft_strncmp(arg, "-n", 2) != 0))
 		{
 			p_cmd->arg = ft_addback(p_cmd->arg, arg);
 			return (true);

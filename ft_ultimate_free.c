@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 20:21:22 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 21:42:50 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,8 @@ void	free_mini(t_minishell *mini)
 			free_array(mini->export);
 		if (mini->p_cmd)
 			free_p_cmd(mini->p_cmd);
+		mini->p_cmd = NULL;
+		mini->export = NULL;
+		mini->env = NULL;
 	}
 }

@@ -6,58 +6,58 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 17:04:26 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 23:37:54 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_check_if(int *nb_cut, int *i, char *sep, char *str)
-{
-	if (((str[*i] == '<') || (str[*i] == '>'))
-		&& is_sep(str[*i - 1], sep) == false)
-	{
-		(*nb_cut)++;
-		while (str[*i] == '<' || str[*i] == '>')
-			(*i)++;
-	}
-	else if (is_sep(str[*i], sep))
-	{
-		(*nb_cut)++;
-		while (is_sep(str[*i], sep))
-			(*i)++;
-	}
-	else
-	{
-		while (str[*i] == '<' || str[*i] == '>')
-		(*i)++;
-	}
-}
+// static void	ft_check_if(int *nb_cut, int *i, char *sep, char *str)
+// {
+// 	if (((str[*i] == '<') || (str[*i] == '>'))
+// 		&& is_sep(str[*i - 1], sep) == false)
+// 	{
+// 		(*nb_cut)++;
+// 		while (str[*i] == '<' || str[*i] == '>')
+// 			(*i)++;
+// 	}
+// 	else if (is_sep(str[*i], sep))
+// 	{
+// 		(*nb_cut)++;
+// 		while (is_sep(str[*i], sep))
+// 			(*i)++;
+// 	}
+// 	else
+// 	{
+// 		while (str[*i] == '<' || str[*i] == '>')
+// 		(*i)++;
+// 	}
+// }
 
-static int	count_cut(char *str, bool *on_quote, char *sep)
-{
-	int		i;
-	int		nb_cut;
+// static int	count_cut(char *str, bool *on_quote, char *sep)
+// {
+// 	int		i;
+// 	int		nb_cut;
 
-	i = 0;
-	nb_cut = 0;
-	while (is_sep(str[i], sep) == true)
-		i++;
-	while (str[i])
-	{
-		if (i > 0 && on_quote[0] == false && on_quote[1] == false
-			&& (is_sep(str[i], sep) == true || str[i] == '<' || str[i] == '>'))
-			ft_check_if(&nb_cut, &i, sep, str);
-		else
-		{
-			ft_define_on_quote(str, i, on_quote);
-			i++;
-		}
-	}
-	if (is_sep(str[i - 1], sep) == false)
-		nb_cut++;
-	return (nb_cut);
-}
+// 	i = 0;
+// 	nb_cut = 0;
+// 	while (is_sep(str[i], sep) == true)
+// 		i++;
+// 	while (str[i])
+// 	{
+// 		if (i > 0 && on_quote[0] == false && on_quote[1] == false
+// 			&& (is_sep(str[i], sep) == true || str[i] == '<' || str[i] == '>'))
+// 			ft_check_if(&nb_cut, &i, sep, str);
+// 		else
+// 		{
+// 			ft_define_on_quote(str, i, on_quote);
+// 			i++;
+// 		}
+// 	}
+// 	if (is_sep(str[i - 1], sep) == false)
+// 		nb_cut++;
+// 	return (nb_cut);
+// }
 
 static char	*split_here(char *str, int *i, int *last_split, bool *on_quote)
 {
@@ -99,17 +99,14 @@ static char	*split_here(char *str, int *i, int *last_split, bool *on_quote)
 }
 
 //need to initialize the two booleen on false or valgrind error
-static void	ft_split_parsing(char *str, char *sep, char **result)
+static char	**ft_split_parsing(char *str, char *sep, char **result, bool *on_quote)
 {
-	int		y;
 	int		i;
 	int		last_split;
-	bool	on_quote[2];
+	char	*splt;
 
-	y = 0;
 	i = 0;
-	on_quote[0] = false;
-	on_quote[1] = false;
+	result = NULL;
 	while (is_sep(str[i], sep))
 		i++;
 	last_split = i;
@@ -120,8 +117,8 @@ static void	ft_split_parsing(char *str, char *sep, char **result)
 					&& (str[i - 1] != '<' && str[i - 1] != '>'
 						&& is_sep(str[i - 1], sep) == 0))))
 		{
-			result[y] = split_here(str, &i, &last_split, on_quote);
-			y++;
+			splt = split_here(str, &i, &last_split, on_quote);
+			result = ft_addback_free(result, splt);
 		}
 		else
 		{
@@ -130,12 +127,15 @@ static void	ft_split_parsing(char *str, char *sep, char **result)
 		}
 	}
 	if (is_sep(str[i - 1], sep) == false)
-		result[y] = split_here(str, &i, &last_split, on_quote);
+	{
+		splt = split_here(str, &i, &last_split, on_quote);
+		result = ft_addback_free(result, splt);
+	}
+	return (result);
 }
 
 char	**ft_split_separator(char *str)
 {
-	int		nb_cut;
 	char	**result;
 	char	*sep;
 	bool	on_quote[2];
@@ -144,11 +144,8 @@ char	**ft_split_separator(char *str)
 	sep = ft_charaddback(&sep, '\t');
 	on_quote[0] = false;
 	on_quote[1] = false;
-	nb_cut = count_cut(str, on_quote, sep);
-	result = ft_calloc(nb_cut + 1, sizeof(char *));
-	if (!result)
-		exit(1); //mayday error !
-	ft_split_parsing(str, sep, result);
+	//nb_cut = count_cut(str, on_quote, sep);
+	result = ft_split_parsing(str, sep, NULL, on_quote);
 	free(sep);
 	return (result);
 }

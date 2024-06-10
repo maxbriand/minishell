@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 18:35:37 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 23:18:43 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,37 @@ char	**ft_addback(char **old_array, char *new_element)
 	}
 	new_array[i] = strdup_protect(new_element);
 	new_array[i + 1] = NULL;
+	return (new_array);
+}
+
+//same has addback, but free new_element
+char	**ft_addback_free(char **old_array, char *new_element)
+{
+	char	**new_array;
+	int		i;
+
+	i = 0;
+	if (old_array)
+	{
+		while (old_array[i])
+			i++;
+	}
+	new_array = malloc(sizeof(char *) * (i + 2));
+	if (!new_array)
+		exit (1); //error to write?
+	if (old_array)
+	{
+		i = 0;
+		while (old_array[i])
+		{
+			new_array[i] = strdup_protect(old_array[i]);
+			i++;
+		}
+		free_array(old_array);
+	}
+	new_array[i] = strdup_protect(new_element);
+	new_array[i + 1] = NULL;
+	free(new_element);
 	return (new_array);
 }
 

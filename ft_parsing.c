@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 20:24:17 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 21:20:42 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ static int	ft_all_verif_process(t_minishell *mini, t_commands *buf, t_pars *p)
 }
 
 //main's of the parsing. if return null, no command need to be done
-void	ft_parsing(char *input, t_minishell *mini)
+void	ft_parsing(char *input, t_minishell *mini, char **env)
 {
 	t_pars		*p;
 	t_pars		*p_buf;
 	t_commands	*buf;
 
-	mini->env = ft_strdup_array(mini->env);
+	mini->env = ft_strdup_array(env);
 	if (!mini->export)
 		mini->export = ft_init_export(mini);
 	if (!mini->export)

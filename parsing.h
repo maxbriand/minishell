@@ -27,7 +27,7 @@ typedef struct s_parsing
 }	t_pars;
 
 // parsing
-void	ft_parsing(char *input, t_minishell *mini);
+void	ft_parsing(char *input, t_minishell *mini, char **env);
 t_pars	*define_p(char *input);
 int		init_pcmd(t_minishell *mini, t_pars *node);
 void	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p);
@@ -61,6 +61,7 @@ void	define_infile_error(t_commands *p_cmd);
 //need to be added to libft ?
 int		*ft_addback_int(int *old_array, int	new_element);
 char	**ft_addback(char **old_array, char *new_element);
+char	**ft_addback_free(char **old_array, char *new_element);
 char	*ft_charaddback(char **old_array, char new_element);
 char	*ft_better_strdup(char *s, char *arg);
 char	*ft_better_strdup_free(char *s, char *arg);
