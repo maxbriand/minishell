@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/05 04:04:12 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 18:35:37 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,10 @@ char	*ft_charaddback(char **old_array, char new_element)
 	}
 	if (new_element == '\0' && !*old_array)
 		new_array = malloc(sizeof(char));
-	new_array = malloc(sizeof(char) * (i + 2));
+	else
+		new_array = malloc(sizeof(char) * (i + 2));
 	if (!new_array)
-		exit (1); //error to write?
+		return (NULL); //error to write?
 	if ((*old_array))
 	{
 		i = 0;

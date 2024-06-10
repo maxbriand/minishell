@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 15:50:47 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:03:13 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static void	ft_is_expand(char **expand, int i, t_commands *p_cmd, t_pars *p)
 	}
 }
 
-static void	ft_define_arg_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
+static int	ft_define_arg_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 {
 	char	**expand;
 
 	if (p->next_can_be_arg)
 	{
 		p_cmd->arg = ft_addback(p_cmd->arg, arg);
-		return ;
+		return (0);
 	}
 	if (p->is_expand[i] == true && p_cmd->cmd == NULL)
 	{
@@ -42,13 +42,14 @@ static void	ft_define_arg_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 		i = 1;
 		ft_is_expand(expand, i, p_cmd, p);
 		free_array(expand);
-		return ;
+		return (0);
 	}
 	if (p_cmd->cmd == NULL)
 		arg_is_cmd(arg, p_cmd, p);
+	return (0);
 }
 
-static void	ft_define_next(char *arg, int i, t_commands *p_cmd, t_pars *p)
+static int	ft_define_next(char *arg, int i, t_commands *p_cmd, t_pars *p)
 {
 	char	**expand;
 
@@ -63,29 +64,29 @@ static void	ft_define_next(char *arg, int i, t_commands *p_cmd, t_pars *p)
 				p_cmd->msg_error = ft_better_strdup
 					("minishell: %s: ambiguous redirect", arg);
 				p_cmd->exit_code = 1;
-				return ;
 			}
 			free_array(expand);
 		}
 		p_cmd->infile = ft_strdup(arg);
 		if (!p_cmd->infile)
-			exit (1); //mayday error ?
+			return (1);
 		define_infile_error(p_cmd);
 		p->next_is_infile = false;
-		return ;
 	}
-	ft_define_arg_cmd(arg, i, p_cmd, p);
+	else if (ft_define_arg_cmd(arg, i, p_cmd, p) == 1)
+		return (1);
+	return (0);
 }
 
-static void	ft_define_other(char *arg, int i, t_commands *p_cmd, t_pars *p)
+static int	ft_define_other(char *arg, int i, t_commands *p_cmd, t_pars *p)
 {
 	if (ft_is_operator(arg, p_cmd, p) == true)
-		return ;
+		return (0);
 	if (p->next_is_hd_stop)
 	{
 		p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg);
 		p->next_is_hd_stop = false;
-		return ;
+		return (0);
 	}
 	if (p->next_is_outfile)
 	{
@@ -93,35 +94,39 @@ static void	ft_define_other(char *arg, int i, t_commands *p_cmd, t_pars *p)
 			free(p_cmd->outfile);
 		p_cmd->outfile = ft_strdup(arg);
 		if (!p_cmd->outfile)
-			exit (1); //mayday error ?
+			return (1);
 		p->next_is_outfile = false;
-		return ;
+		return (0);
 	}
-	ft_define_next(arg, i, p_cmd, p);
+	if (ft_define_next(arg, i, p_cmd, p) == 1)
+		return (1);
+	return (0);
 }
 
-void	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
+int	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 {
 	if (arg[0] == '\0')
-		return ;
+		return (0);
 	if (p->next_is_arg)
 	{
 		if (!ft_is_operator(arg, p_cmd, p))
 			p_cmd->arg = ft_addback(p_cmd->arg, arg);
 		p->next_is_arg = false;
-		return ;
+		return (0);
 	}
 	if (p->is_arg[i] == true)
 	{
 		if (p_cmd->cmd == NULL)
 		{
 			arg_is_cmd(arg, p_cmd, p);
-			return ;
+			return (0);
 		}
 		p_cmd->arg = ft_addback(p_cmd->arg, arg);
-		return ;
+		return (0);
 	}
 	if (p->next_can_be_opt && is_option(arg, p_cmd, p) == true)
-		return ;
-	ft_define_other(arg, i, p_cmd, p);
+		return (0);
+	if (ft_define_other(arg, i, p_cmd, p) == 1)
+		return (1);
+	return (0);
 }

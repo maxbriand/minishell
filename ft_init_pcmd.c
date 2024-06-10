@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:03 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/09 03:04:48 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 18:59:18 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_commands	*node_create_pcmd(void)
 	t_commands	*node;
 
 	node = malloc(sizeof(t_commands));
+	if (!node)
+		return (NULL);
 	node->b_builtins = false;
 	node->append_outfile = NULL;
 	node->hd_stop = NULL;
@@ -39,7 +41,7 @@ t_commands	*node_create_pcmd(void)
 	node->bf_cmd = true;
 	return (node);
 }
-void	init_pcmd(t_minishell *mini, t_pars *p)
+int	init_pcmd(t_minishell *mini, t_pars *p)
 {
 	t_pars		*buf_p;
 	t_commands	*buf_cmd;
@@ -47,10 +49,16 @@ void	init_pcmd(t_minishell *mini, t_pars *p)
 
 	buf_p = p;
 	buf_cmd = node_create_pcmd();
+	if (!buf_cmd)
+		return (1);
 	if (buf_p->exit_code)
 	{
 		if (p->error_msg)
+		{
 			buf_cmd->msg_error = ft_strdup(p->error_msg);
+			if (!buf_cmd->msg_error)
+				return (1);
+		}
 		buf_cmd->exit_code = p->exit_code;
 	}
 	mini->p_cmd = buf_cmd;
@@ -58,14 +66,21 @@ void	init_pcmd(t_minishell *mini, t_pars *p)
 	while (buf_p)
 	{
 		next_node = node_create_pcmd();
+		if (!buf_cmd)
+			return (1);
 		if (buf_p->exit_code)
 		{
 			if (buf_p->error_msg)
+			{
 				next_node->msg_error = ft_strdup(buf_p->error_msg);
+				if (!next_node->msg_error)
+					return (1);
+			}
 			next_node->exit_code = buf_p->exit_code;
 		}
 		buf_cmd->next = next_node;
 		buf_cmd = buf_cmd->next;
 		buf_p = buf_p->next;
 	}
+	return (0);
 }

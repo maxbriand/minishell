@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 17:35:31 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/10 18:57:33 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_array(char **tab)
 		i++;
 	}
 	free(tab);
+	tab = NULL;
 }
 
 void	free_p(t_pars *p)
@@ -43,6 +44,7 @@ void	free_p(t_pars *p)
 	}
 	if (p)
 		free(p);
+	p = NULL;
 }
 
 void	free_p_cmd(t_commands *p_cmd)
@@ -71,4 +73,27 @@ void	free_p_cmd(t_commands *p_cmd)
 			free(buf->msg_error);
 		free(buf);
 	}
+	p_cmd = NULL;
+}
+
+void	ultimate_free_exit(t_minishell *mini, t_pars *p, void *str, void **array)
+{
+	if (p)
+		free_p(p);
+	if (str)
+		free(str);
+	if (mini)
+	{
+		if (mini->env)
+			free_array(mini->env);
+		if (mini->export)
+			free_array(mini->export);
+		if (mini->p_cmd)
+			free_p_cmd(mini->p_cmd);
+		if (mini->path_env)
+			free_array(mini->path_env);
+	}
+	if (array)
+		free_array((char **)array);
+	exit (1);
 }
