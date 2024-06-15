@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/11 01:11:00 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/15 16:42:22 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*just_name_env(char *arg, int start, bool *on_quote)
 
 static void create_result(bool *on_quote, char **result, char *arg, int *j)
 {
-	on_quote[3] = false;
 	if (on_quote[2] == true)
 		*result = ft_charaddback(result, arg[*j]);
 	(*j)++;
