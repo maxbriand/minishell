@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:16 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 20:11:39 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/15 18:26:31 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	*ft_better_strdup_free(char *s, char *arg)
 		}
 		i++;
 	}
+	free(arg);
 	return (NULL);
 }
 

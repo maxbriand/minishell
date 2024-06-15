@@ -6,33 +6,11 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/15 16:17:07 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/15 17:58:29 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static bool	ft_is_s1_before(char *str1, char *str2)
-{
-	char	*alpha;
-	int		s1;
-	int		s2;
-	int		i;
-
-	alpha = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";
-	i = 0;
-	while (str1[i] && str2[i])
-	{
-		s1 = ft_strchr(alpha, str1[i]) - alpha;
-		s2 = ft_strchr(alpha, str2[i]) - alpha;
-		if (s1 < s2)
-			return (true);
-		else if (s2 < s1)
-			return (false);
-		i++;
-	}
-	return (s1 < s2);
-}
 
 static void	define_sort(char **env, int count, char **result)
 {
@@ -142,7 +120,7 @@ char	**ft_init_export(t_minishell *mini)
 	}
 	res_not_complete = sort_export(count, mini->env);
 	if (!res_not_complete)
-		ultimate_free_exit(mini, NULL, NULL, NULL);
+		ultimate_free_exit(mini, NULL, NULL);
 	result = result_declare(res_not_complete);
 	free_array(res_not_complete);
 	return (result);

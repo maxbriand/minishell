@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/14 17:17:20 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/15 17:58:16 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	free_p_cmd(t_commands *p_cmd)
 	p_cmd = NULL;
 }
 
-void	ultimate_free_exit(t_minishell *mini, t_pars *p, void *str, void **array)
+void	ultimate_free_exit(t_minishell *mini, t_pars *p, void *str)
 {
 	if (p)
 		free_p(p);
@@ -90,8 +90,6 @@ void	ultimate_free_exit(t_minishell *mini, t_pars *p, void *str, void **array)
 		free(str);
 	if (mini)
 		free_mini(mini);
-	if (array)
-		free_array((char **)array);
 	exit (1);
 }
 
