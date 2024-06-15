@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 21:12:51 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/15 16:17:07 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static bool	ft_is_s1_before(char *str1, char *str2)
 		if (s1 < s2)
 			return (true);
 		else if (s2 < s1)
-			return false;
+			return (false);
 		i++;
 	}
-	return (s1 < s2);// NORM ????
+	return (s1 < s2);
 }
 
 static void	define_sort(char **env, int count, char **result)
@@ -50,7 +50,8 @@ static void	define_sort(char **env, int count, char **result)
 		i = 0;
 		while (env_buf[i])
 		{
-			if (buf != i && ft_is_s1_before(env_buf[i], env_buf[buf]) == true && ft_strchr(env_buf[i], '='))
+			if (buf != i && ft_is_s1_before(env_buf[i], env_buf[buf]) == true
+				&& ft_strchr(env_buf[i], '='))
 				buf = i;
 			i++;
 		}
@@ -70,7 +71,28 @@ static char	**sort_export(int count, char **env)
 		return (NULL);
 	result[count] = NULL;
 	define_sort(env, count, result);
-	return(result);
+	return (result);
+}
+
+static void	create_str(char **str, char **res_ncmplt, int *j, bool *is_quote)
+{
+	*str = ft_charaddback(str, (*res_ncmplt)[*j]);
+	if (!*str)
+	{
+		free_array(res_ncmplt);
+		return ;
+	}
+	if ((*res_ncmplt)[*j] == '=' && *is_quote == false)
+	{
+		*str = ft_charaddback(str, '\"');
+		if (!*str)
+		{
+			free_array(res_ncmplt);
+			return ;
+		}
+		*is_quote = true;
+	}
+	(*j)++;
 }
 
 //need to change name to quote add
@@ -90,19 +112,9 @@ static char	**result_declare(char **res_ncmplt)
 		is_quote = false;
 		str = NULL;
 		while (res_ncmplt[i][j])
-		{
-			str = ft_charaddback(&str, res_ncmplt[i][j]);
-			if (!str)
-				return (NULL);
-			if (res_ncmplt[i][j] == '=' && is_quote == false)
-			{
-				str = ft_charaddback(&str, '\"');
-				if (!str)
-					return (NULL);
-				is_quote = true;
-			}
-			j++;
-		}
+			create_str(&str, &res_ncmplt[i], &j, &is_quote);
+		if (!res_ncmplt[i])
+			return (NULL);
 		str = ft_charaddback(&str, '\"');
 		if (!str)
 			return (NULL);

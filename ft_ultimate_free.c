@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/11 01:14:05 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/14 17:17:20 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ void	free_array(char **tab)
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	if (tab)
 	{
-		free(tab[i]);
-		i++;
+		while (tab[i])
+		{
+			free(tab[i]);
+			i++;
+		}
+		free(tab);
 	}
-	free(tab);
 	tab = NULL;
 }
 
