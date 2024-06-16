@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:37 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/07 21:44:37 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/16 18:35:38 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ bool	is_error_quote(char *str)
 	}
 	if (nb_quote[0] % 2 == 1 || nb_quote[1] % 2 == 1)
 	{
-		printf("minishell: Error syntax: Quote not closed");//mayday exit error ?
+		ft_printf("minishell: Error syntax: Quote not closed");//mayday exit error ?
 		return (true);
 	}
 	return (false);

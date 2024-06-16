@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/15 19:11:09 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/16 17:51:36 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_parsing(char *input, t_minishell *mini, char **env)
 	buf = mini->p_cmd;
 	while (buf)
 	{
-		if (ft_all_verif_process(mini, buf, p) == 1)
+		if (ft_all_verif_process(mini, buf, p) == 1 || p->malloc_error)
 			ultimate_free_exit(mini, p_buf, NULL);
 		p = p->next;
 		buf = buf->next;

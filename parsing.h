@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/15 19:04:03 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/16 18:45:30 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_parsing
 	char				*error_msg;
 	int					exit_code;
 	bool				file_err[2];
+	bool				malloc_error;
 	struct s_parsing	*next;
 }	t_pars;
 
@@ -78,7 +79,7 @@ size_t	ft_better_strlen(const char *s);
 void	free_array(char **tab);
 void	free_p(t_pars *p);
 void	free_p_cmd(t_commands *p_cmd);
-void	ultimate_free_exit(t_minishell *mini, t_pars *p, void *str);
+void	ultimate_free_exit(t_minishell *mini, t_pars *p, void **str);
 void	free_mini(t_minishell *mini);
 
 char	**ft_split_quote_ignore(char *str, char c);

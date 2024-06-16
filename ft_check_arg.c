@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:22 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 23:43:41 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/16 18:35:27 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ bool	arg_is_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 	p_cmd->cmd = ft_strdup(arg);
 	if (!p_cmd->cmd)
 		exit (1);//Error message ?
-	if (strcmp(arg, "echo") == 0 || strcmp(arg, "cd") == 0
-		|| strcmp(arg, "pwd") == 0 || strcmp(arg, "export") == 0
-		|| strcmp(arg, "unset") == 0 || strcmp(arg, "env") == 0
-		|| strcmp(arg, "exit") == 0)
+	if (ft_strcmp(arg, "echo") == 0 || ft_strcmp(arg, "cd") == 0
+		|| ft_strcmp(arg, "pwd") == 0 || ft_strcmp(arg, "export") == 0
+		|| ft_strcmp(arg, "unset") == 0 || ft_strcmp(arg, "env") == 0
+		|| ft_strcmp(arg, "exit") == 0)
 	{
 		p_cmd->b_builtins = true;
-		if (strcmp(arg, "env") == 0)
+		if (ft_strcmp(arg, "env") == 0)
 			p->last_was_env = true;
-		if (strcmp(arg, "exit") == 0)
+		if (ft_strcmp(arg, "exit") == 0)
 			p->next_is_arg = true;
-		if (strcmp(arg, "echo") == 0)
+		if (ft_strcmp(arg, "echo") == 0)
 			p->last_was_echo = true;
 		return (true);
 	}

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:51:41 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 15:38:13 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/16 17:52:02 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	op_infile(char *arg, t_commands *p_cmd, t_pars *p)
 		{
 			p_cmd->outfile = ft_strdup(arg + 1);
 			if (!p_cmd->outfile)
-				exit(1);//mayday error ?
+				p->malloc_error = true;
 		}
 		else
 			set_error_op(p_cmd);
@@ -64,7 +64,7 @@ static void	append_op_out(char *arg, t_commands *p_cmd, t_pars *p)
 			p_cmd->append_outfile = true;
 			p_cmd->outfile = ft_strdup(arg + 2);
 			if (!p_cmd->outfile)
-				exit (1); //mayday error ?
+				p->malloc_error = true;
 		}
 		else
 			set_error_op(p_cmd);
@@ -97,5 +97,4 @@ bool	ft_is_operator(char *arg, t_commands *p_cmd, t_pars *p)
 		return (true);
 	}
 	return (is_operator_not_append(arg, p_cmd, p));
-//Seul les bg ultime lirons ce message
 }

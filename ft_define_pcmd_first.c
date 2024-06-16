@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:43 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 15:38:42 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/16 17:45:18 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 // }
 
 //define if the first arg is a command, a redirection etc
-void	define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p)
+void	define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p, t_minishell *mini)
 {
 	char	**expand;
 	int		i;

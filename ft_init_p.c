@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/11 01:37:06 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/16 17:44:56 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static t_pars	*new_node(char *input_no_pipe)
 	node->next_is_arg = false;
 	node->last_was_env = false;
 	node->next = NULL;
+	node->malloc_error = false;
 	return (node);
 }
 
