@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:03 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 20:02:06 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 20:09:19 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ static int	ft_iter_create_node(
 	}
 	return (0);
 }
-
-
 
 int	init_pcmd(t_minishell *mini, t_pars *p)
 {

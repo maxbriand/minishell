@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:36 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/15 19:03:41 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 20:17:40 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ bool	ft_is_s1_before(char *str1, char *str2)
 size_t	ft_better_strlen(const char *s)
 {
 	int	i;
+
 	if (!s)
 		return (0);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:37 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 18:46:48 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 20:15:55 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void	count_quote(bool *on_quote, char *str, int i, int nb_quote[2])
 
 bool	is_error_quote(char *str)
 {
-	int	i;
-	int	nb_quote[2];
+	int		i;
+	int		nb_quote[2];
 	bool	on_quote[2];
 
 	on_quote[0] = false;
@@ -58,7 +58,7 @@ bool	is_error_quote(char *str)
 	}
 	if (nb_quote[0] % 2 == 1 || nb_quote[1] % 2 == 1)
 	{
-		ft_printf("minishell: Error syntax: Quote not closed");//mayday exit error ?
+		ft_printf("minishell: Error syntax: Quote not closed");
 		return (true);
 	}
 	return (false);
