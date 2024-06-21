@@ -3,8 +3,7 @@ CC = cc
 FLAGS = -g -Wall -Werror -Wextra
 LIBFT = libft/libft.a
 
-SRC =	ft_error_p.c\
-		ft_ultimate_free.c\
+SRC =	ft_ultimate_free.c\
 		ft_error_type.c\
 		ft_realloc.c\
 		ft_split_quote_ignore.c\
@@ -29,6 +28,7 @@ SRC =	ft_error_p.c\
 		ft_init_export.c\
 		ft_file_error.c\
 		ft_split_separator_utils.c\
+		ft_split_quote_utils.c \
 		main.c
 
 

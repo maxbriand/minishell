@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 17:02:42 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 17:08:22 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 static int	ft_check_error(char *input, bool *on_quote, int i, t_pars *buf)
 {
-	if (input[i] == '|' && input[i + 1] == '|' && !on_quote[0] && !on_quote[1] && (!buf->error_msg))
+	if (input[i] == '|' && input[i + 1] == '|'
+		&& !on_quote[0] && !on_quote[1] && (!buf->error_msg))
 	{
-		buf->error_msg = ft_strdup("minishell: syntax error near unexpected token `||'");
+		buf->error_msg = ft_strdup(
+				"minishell: syntax error near unexpected token `||'");
 		buf->exit_code = 2;
 		return (1);
 	}
 	if (input[i] == '|' && i == 0 && (!buf->error_msg))
 	{
-		buf->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'");
+		buf->error_msg = ft_strdup(
+				"minishell: syntax error near unexpected token `|'");
 		buf->exit_code = 2;
 		return (1);
 	}
@@ -38,7 +41,8 @@ static int	ft_is_pipe(char *input, int i, t_pars *buf)
 		(j)++;
 	if ((input[j] == '|' || input[j] == '\0') && (!buf->error_msg))
 	{
-		buf->error_msg = ft_strdup("minishell: syntax error near unexpected token `|'");
+		buf->error_msg = ft_strdup(
+				"minishell: syntax error near unexpected token `|'");
 		buf->exit_code = 2;
 		return (1);
 	}
@@ -79,7 +83,8 @@ void	error_next_file(t_commands *p_cmd)
 	if (p_cmd->exit_code == 0)
 	{
 		p_cmd->exit_code = 2;
-		p_cmd->msg_error = ft_strdup("syntax error near unexpected token `newline'");
+		p_cmd->msg_error = ft_strdup(
+				"syntax error near unexpected token `newline'");
 	}
 }
 
@@ -87,7 +92,8 @@ void	set_error_op(t_commands *p_cmd)
 {
 	if (p_cmd->msg_error == NULL)
 	{
-		p_cmd->msg_error = ft_strdup("minishell: syntax error near unexpected operator");
+		p_cmd->msg_error = ft_strdup(
+				"minishell: syntax error near unexpected operator");
 		p_cmd->exit_code = 2;
 	}
 }

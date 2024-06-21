@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:37 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/16 18:35:38 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 18:46:48 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,29 @@
 static void	count_quote(bool *on_quote, char *str, int i, int nb_quote[2])
 {
 	if (!on_quote[0] && str[i] == '\'')
-		{
-			if (str[i] == '\'' && (!on_quote[0] && !on_quote[1]))
-				nb_quote[0]++;
-			ft_define_on_quote(str, i, on_quote);
-		}
-		else if (on_quote[0] && str[i] == '\'')
-		{
-			ft_define_on_quote(str, i, on_quote);
-			if (str[i] == '\'' && (!on_quote[0] && !on_quote[1]))
-				nb_quote[0]++;
-		}
-		else if (!on_quote[1] && str[i] == '\"')
-		{
-			if (str[i] == '\"' && (!on_quote[0] && !on_quote[1]))
-				nb_quote[1]++;
-			ft_define_on_quote(str, i, on_quote);
-		}
-		else if (on_quote[1] && str[i] == '\"')
-		{
-			ft_define_on_quote(str, i, on_quote);
-			if (str[i] == '\"' && (!on_quote[0] && !on_quote[1]))
-				nb_quote[1]++;
-		}
+	{
+		if (str[i] == '\'' && (!on_quote[0] && !on_quote[1]))
+			nb_quote[0]++;
+		ft_define_on_quote(str, i, on_quote);
+	}
+	else if (on_quote[0] && str[i] == '\'')
+	{
+		ft_define_on_quote(str, i, on_quote);
+		if (str[i] == '\'' && (!on_quote[0] && !on_quote[1]))
+			nb_quote[0]++;
+	}
+	else if (!on_quote[1] && str[i] == '\"')
+	{
+		if (str[i] == '\"' && (!on_quote[0] && !on_quote[1]))
+			nb_quote[1]++;
+		ft_define_on_quote(str, i, on_quote);
+	}
+	else if (on_quote[1] && str[i] == '\"')
+	{
+		ft_define_on_quote(str, i, on_quote);
+		if (str[i] == '\"' && (!on_quote[0] && !on_quote[1]))
+			nb_quote[1]++;
+	}
 }
 
 bool	is_error_quote(char *str)

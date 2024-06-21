@@ -6,36 +6,11 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 20:52:57 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 19:58:23 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	ft_define_on_quote(char *str, int i, bool *on_quote)
-{
-	if (str[i] == '\'' && on_quote[0] == false && on_quote[1] == false)
-	{
-		on_quote[0] = true;
-		return (true);
-	}
-	else if (str[i] == '\'' && on_quote[0] == true && on_quote[1] == false)
-	{
-		on_quote[0] = false;
-		return (true);
-	}
-	if (str[i] == '\"' && on_quote[0] == false && on_quote[1] == false)
-	{
-		on_quote[1] = true;
-		return (true);
-	}
-	else if (str[i] == '\"' && on_quote[0] == false && on_quote[1] == true)
-	{
-		on_quote[1] = false;
-		return (true);
-	}
-	return (false);
-}
 
 static int	count_cut(char *str, char c, bool *on_quote)
 {
@@ -90,44 +65,52 @@ static char	*split_here(char *str, int *i, int *last_split, char c)
 	return (result);
 }
 
+static char	*ft_should_split(bool *on_quote, int *i, char *str, int *last_split)
+{
+	char	*result;
+
+	result = NULL;
+	if (on_quote[0] == false && on_quote[1] == false && str[*i] == '|')
+	{
+		result = split_here(str, i, last_split, '|');
+		if (!result)
+			return (NULL);
+	}
+	else
+	{
+		ft_define_on_quote(str, *i, on_quote);
+		(*i)++;
+	}
+	return (result);
+}
+
 //need to initialize the two booleen on false or valgrind error
-static int	ft_split_parsing(char *str, bool *on_quote, char **result, char c)
+static int	ft_split_parsing(char *str, bool *on_quote, char **result, int i)
 {
 	int		y;
-	int		i;
 	int		last_split;
 
 	y = 0;
-	i = 0;
 	last_split = 0;
-	if (str[i] == c)
+	if (str[i] == '|')
 	{
-		result[0] = split_here(str, &i, &last_split, c);
+		result[0] = split_here(str, &i, &last_split, '|');
 		if (!result[0])
 			return (0);
 		y++;
 	}
-	while (str[i] == c)
+	while (str[i] == '|')
 		i++;
 	last_split = i;
 	while (str[i])
 	{
-		if (on_quote[0] == false && on_quote[1] == false && str[i] == c)
-		{
-			result[y] = split_here(str, &i, &last_split, c);
-			if (!result[0])
-				return (1);
+		result[y] = ft_should_split(on_quote, &i, str, &last_split);
+		if (result[y])
 			y++;
-		}
-		else
-		{
-			ft_define_on_quote(str, i, on_quote);
-			i++;
-		}
 	}
-	result[y] = split_here(str, &i, &last_split, c);
+	result[y] = split_here(str, &i, &last_split, '|');
 	if (!result[0])
-			return (1);
+		return (1);
 	return (0);
 }
 
@@ -144,10 +127,10 @@ char	**ft_split_quote_ignore(char *str, char c)
 	nb_cut = count_cut(str, c, on_quote);
 	result = ft_calloc(nb_cut + 1, sizeof(char *));
 	if (!result)
-		return (NULL); //mayday error !
+		return (NULL);
 	on_quote[0] = false;
 	on_quote[1] = false;
-	if (ft_split_parsing(str, on_quote, result, c) == 1)
+	if (ft_split_parsing(str, on_quote, result, 0) == 1)
 		return (NULL);
 	return (result);
 }
