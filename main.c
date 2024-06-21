@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 16:37:45 by gmersch           #+#    #+#             */
+/*   Updated: 2024/06/21 17:03:08 by gmersch          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 //printf("%s = msg_err\n", buf->msg_error);
@@ -84,7 +96,6 @@ int main (int ac, char **av, char **env)
 	char	*input;
 	t_minishell	*mini;
 
-	//I absolutly need to have path->env define in mini before going to my parsing
 	//Same for mini->env
 	mini = malloc(sizeof(t_minishell));
 	mini->p_cmd = NULL;

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:22 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/16 18:35:27 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 16:41:05 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ bool	is_option(char *arg, t_commands *p_cmd, t_pars *p)
 		{
 			p_cmd->option = ft_strjoin(p_cmd->option, arg + 1);
 			if (!p_cmd->option)
-				exit (1);//mayday return error ?
+				p->malloc_error = true;
 		}
 		else
 		{
 			p_cmd->option = ft_strdup(arg);
 			if (!p_cmd->option)
-				exit (1); //mayday return error ?
+				p->malloc_error = true;
 		}
 		return (true);
 	}
@@ -46,7 +46,7 @@ bool	arg_is_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 		p_cmd->bf_cmd = false;
 	p_cmd->cmd = ft_strdup(arg);
 	if (!p_cmd->cmd)
-		exit (1);//Error message ?
+		p->malloc_error = true;
 	if (ft_strcmp(arg, "echo") == 0 || ft_strcmp(arg, "cd") == 0
 		|| ft_strcmp(arg, "pwd") == 0 || ft_strcmp(arg, "export") == 0
 		|| ft_strcmp(arg, "unset") == 0 || ft_strcmp(arg, "env") == 0

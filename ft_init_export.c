@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/15 17:58:29 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 16:49:40 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ static void	define_sort(char **env, int count, char **result)
 	char	**env_buf;
 
 	current = 0;
-	i = 0;
 	env_buf = ft_strdup_array(env);
+	if (!env_buf || !env)
+		return ;
 	while (current < count)
 	{
 		buf = 0;
@@ -49,6 +50,8 @@ static char	**sort_export(int count, char **env)
 		return (NULL);
 	result[count] = NULL;
 	define_sort(env, count, result);
+	if (!env)
+		return (NULL);
 	return (result);
 }
 

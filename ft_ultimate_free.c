@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/19 17:21:51 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 16:50:49 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	free_p(t_pars *p)
 {
 	t_pars	*p_buf;
 
-	while(p)
+	while (p)
 	{
 		p_buf = p;
 		if (p_buf->spl_cmd)

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 16:32:08 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 16:52:19 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ bool	*define_shure_arg(char **splt_cmd);
 
 //error
 int		pipe_unexpected(char *input, t_pars *p);
-void	error_and_exit(char *error);
 bool	error_p(int nb, char *cmd);
-void	ft_better_putstr_fd(char *str, char *arg, int error);
 void	set_error_op(t_commands *p_cmd);
 void	error_next_file(t_commands *p_cmd);
 
