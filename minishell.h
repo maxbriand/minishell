@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 16:01:52 by gmersch           #+#    #+#             */
+/*   Updated: 2024/06/21 16:03:47 by gmersch          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -17,27 +29,27 @@
 
 typedef struct s_commands
 {
-	bool	b_builtins;
-	bool	append_outfile; // 0 - 1 for >> or >
-	char	**hd_stop;
-	bool	in_pipe;
-	char	*infile;// standard input // append everytime
-	char	*outfile;// standard output // need to define the last outfile and
+	bool				b_builtins;
+	bool				append_outfile; // 0 - 1 for >> or >
+	char				**hd_stop;
+	bool				in_pipe;
+	char				*infile;// standard input // append everytime
+	char				*outfile;
 	//I open all the outfile and close instant after being create
-	char	*cmd;
-	char	*option;
-	char	**arg;
-	char	**arg_cmd; // cmd + option + arg
+	char				*cmd;
+	char				*option;
+	char				**arg;
+	char				**arg_cmd; // cmd + option + arg
 	struct s_commands	*next;
-	int		*pipefd1;
-	int		*pipefd0;
-	int		old_fd1;
-	int		old_fd0;
-	bool	err_is_infile;
-	bool	err_is_outfile;
-	bool	bf_cmd;
-	int		exit_code;
-	char	*msg_error;
+	int					*pipefd1;
+	int					*pipefd0;
+	int					old_fd1;
+	int					old_fd0;
+	bool				err_is_infile;
+	bool				err_is_outfile;
+	bool				bf_cmd;
+	int					exit_code;
+	char				*msg_error;
 }	t_commands;
 
 typedef struct s_minishell
@@ -53,7 +65,6 @@ typedef struct s_minishell
 	int			wait_code;
 }	t_minishell;
 
-#include "parsing.h"
-
+# include "parsing.h"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 15:22:51 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 16:01:33 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ static t_pars	*new_node(char *input_no_pipe)
 	}
 	else if (if_no_error(input_no_pipe, n) != 0)
 		return (NULL);
-
 	define_new_node(n);
 	return (n);
 }
 
-static int	iter_new_node(char *input, char **input_no_pipe, t_pars *buf, t_pars *head)
+static int	iter_new_node(
+	char *input, char **input_no_pipe, t_pars *buf, t_pars *head)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 14:49:07 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 16:32:08 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	free_mini(t_minishell *mini);
 char	**ft_split_quote_ignore(char *str, char c);
 char	**ft_split_separator(char *str);
 bool	is_sep(char c, char *sep);
+void	ft_define_int(int *i, int *last_split, char *str, char *sep);
 char	**ft_init_export(t_minishell *mini);
 int		is_only_space(char *str);
 char	*catch_env(char **envp, char *str);
