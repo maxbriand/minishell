@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/16 19:04:39 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 14:06:04 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@ char	*just_name_env(char *arg, int start, bool *on_quote)
 
 static void	create_result(bool *on_quote, char **result, char *arg, int *j)
 {
-	if (*j == -1)
-	{
-		free(*result);
-		*result = NULL;
-		return ;
-	}
 	if (on_quote[2] == true)
 		*result = ft_charaddback(result, arg[*j]);
 	(*j)++;
@@ -58,8 +52,6 @@ static int	in_if(char *arg, bool *on_quote, char **result, t_minishell *mini)
 	else
 	{
 		var_env = catch_env(mini->env, just_name_env(arg, j, on_quote));
-		if (!var_env)
-			return (-1);
 		*result = ft_strjoin_free(*result, var_env);
 		j++;
 		while (arg[j] && (ft_isalnum(arg[j]) || arg[j] == '_'))
@@ -104,8 +96,8 @@ int	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
 
 	j = 0;
 	buf = apply_var_env(str[i], 0, mini, p);
-	if (!buf)
-		ultimate_free_exit(mini, p, (void **)str);
+	//if (!buf)
+		//ultimate_free_exit(mini, p, str);
 	free(str[i]);
 	str[i] = buf;
 	buf = NULL;
