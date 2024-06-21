@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/19 17:22:25 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 14:49:07 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_parsing
 	bool				next_is_arg;
 	char				*error_msg;
 	int					exit_code;
-	bool				file_err[2];
 	bool				malloc_error;
 	struct s_parsing	*next;
 }	t_pars;

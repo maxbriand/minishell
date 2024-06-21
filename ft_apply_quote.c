@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 14:06:04 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 14:20:07 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ int	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
 
 	j = 0;
 	buf = apply_var_env(str[i], 0, mini, p);
-	//if (!buf)
-		//ultimate_free_exit(mini, p, str);
 	free(str[i]);
 	str[i] = buf;
 	buf = NULL;
