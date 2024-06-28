@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 18:17:50 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/29 00:18:41 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	ft_builtins_exe(t_minishell *data, t_commands *c_cmd);
 // Before exe
 int		ft_before_cmd_exe(t_minishell *data, t_commands *p_cmd);
 void	ft_if_only_exit(t_minishell *data, t_commands *p_cmd);
-int		ft_if_no_command(t_commands *p_cmd);
+int		ft_if_no_command(t_minishell *data, t_commands *p_cmd);
 int		ft_if_exitcode_2(t_minishell *data, t_commands *p_cmd);
 
 // Exe - 1 builtin
