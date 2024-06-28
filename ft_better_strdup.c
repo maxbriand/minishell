@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:16 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 15:56:03 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:12:09 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**ft_strdup_array(char **array)
 		result[i] = ft_strdup(array[i]);
 		if (!result[i])
 		{
-			free_array(result);
+			ft_free_array(result);
 			result = NULL;
 			return (NULL);
 		}

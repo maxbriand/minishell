@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:32:32 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 16:32:33 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:05:05 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_sep(char c, char *sep)
+bool	ft_is_sep(char c, char *sep)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ bool	is_sep(char c, char *sep)
 
 void	ft_define_int(int *i, int *last_split, char *str, char *sep)
 {
-	while (is_sep(str[*i], sep))
+	while (ft_is_sep(str[*i], sep))
 		(*i)++;
 	*last_split = *i;
 }

@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:19 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 14:20:51 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 16:58:03 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*catch_env(char **envp, char *str)
+char	*ft_catch_env(char **envp, char *str)
 {
 	int		y;
 	char	*path;

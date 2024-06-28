@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 17:08:22 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:00:52 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ft_is_pipe(char *input, int i, t_pars *buf)
 }
 
 //check if there is consecutive pipe
-int	pipe_unexpected(char *input, t_pars *p)
+int	ft_pipe_unexpected(char *input, t_pars *p)
 {
 	int		i;
 	bool	on_quote[2];
@@ -78,7 +78,7 @@ int	pipe_unexpected(char *input, t_pars *p)
 	return (0);
 }
 
-void	error_next_file(t_commands *p_cmd)
+void	ft_error_next_file(t_commands *p_cmd)
 {
 	if (p_cmd->exit_code == 0)
 	{
@@ -88,7 +88,7 @@ void	error_next_file(t_commands *p_cmd)
 	}
 }
 
-void	set_error_op(t_commands *p_cmd)
+void	ft_set_error_op(t_commands *p_cmd)
 {
 	if (p_cmd->msg_error == NULL)
 	{

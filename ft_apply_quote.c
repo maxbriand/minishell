@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 14:20:07 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 16:57:44 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*just_name_env(char *arg, int start, bool *on_quote)
+char	*ft_just_name_env(char *arg, int start, bool *on_quote)
 {
 	int		end;
 	char	*result;
@@ -31,14 +31,14 @@ char	*just_name_env(char *arg, int start, bool *on_quote)
 	return (result);
 }
 
-static void	create_result(bool *on_quote, char **result, char *arg, int *j)
+static void	ft_create_result(bool *on_quote, char **result, char *arg, int *j)
 {
 	if (on_quote[2] == true)
 		*result = ft_charaddback(result, arg[*j]);
 	(*j)++;
 }
 
-static int	in_if(char *arg, bool *on_quote, char **result, t_minishell *mini)
+static int	ft_in_if(char *arg, bool *on_quote, char **result, t_minishell *mini)
 {
 	char	*var_env;
 	int		j;
@@ -51,7 +51,7 @@ static int	in_if(char *arg, bool *on_quote, char **result, t_minishell *mini)
 	}
 	else
 	{
-		var_env = catch_env(mini->env, just_name_env(arg, j, on_quote));
+		var_env = ft_catch_env(mini->env, ft_just_name_env(arg, j, on_quote));
 		*result = ft_strjoin_free(*result, var_env);
 		j++;
 		while (arg[j] && (ft_isalnum(arg[j]) || arg[j] == '_'))
@@ -60,7 +60,7 @@ static int	in_if(char *arg, bool *on_quote, char **result, t_minishell *mini)
 	return (j);
 }
 
-static char	*apply_var_env(char *arg, int i, t_minishell *mini, t_pars *p)
+static char	*ft_apply_var_env(char *arg, int i, t_minishell *mini, t_pars *p)
 {
 	bool	on_quote[3];
 	char	*result;
@@ -81,21 +81,21 @@ static char	*apply_var_env(char *arg, int i, t_minishell *mini, t_pars *p)
 					&& !on_quote[1])) && !on_quote[0] && !p->next_is_hd_stop)
 		{
 			p->is_expand[i] = true;
-			j += in_if(&arg[j], on_quote, &result, mini);
+			j += ft_in_if(&arg[j], on_quote, &result, mini);
 		}
 		else
-			create_result(on_quote, &result, arg, &j);
+			ft_create_result(on_quote, &result, arg, &j);
 	}
 	return (result);
 }
 
-int	remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
+int	ft_remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p)
 {
 	int		j;
 	char	*buf;
 
 	j = 0;
-	buf = apply_var_env(str[i], 0, mini, p);
+	buf = ft_apply_var_env(str[i], 0, mini, p);
 	free(str[i]);
 	str[i] = buf;
 	buf = NULL;

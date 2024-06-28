@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:49 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 20:18:05 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:00:32 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	*define_shure_arg(char **splt_cmd)
+bool	*ft_define_shure_arg(char **splt_cmd)
 {
 	int		i;
 	bool	op_before;

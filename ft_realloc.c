@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 16:53:47 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:04:12 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**ft_addback(char **old_array, char *new_element)
 				return (NULL);
 			i++;
 		}
-		free_array(old_array);
+		ft_free_array(old_array);
 	}
 	new_array[i] = ft_strdup(new_element);
 	if (!new_array[i])
@@ -63,7 +63,7 @@ char	**ft_addback_free(char **old_array, char *new_element)
 				return (NULL);
 			i++;
 		}
-		free_array(old_array);
+		ft_free_array(old_array);
 	}
 	new_array[i] = ft_strdup(new_element);
 	if (!new_array[i])

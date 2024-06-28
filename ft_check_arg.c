@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:22 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 16:41:05 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 16:58:49 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_option(char *arg, t_commands *p_cmd, t_pars *p)
+bool	ft_is_option(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	if (arg[0] == '-')
 	{
@@ -38,7 +38,7 @@ bool	is_option(char *arg, t_commands *p_cmd, t_pars *p)
 	return (false);
 }
 
-bool	arg_is_cmd(char *arg, t_commands *p_cmd, t_pars *p)
+bool	ft_arg_is_cmd(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	p->next_can_be_opt = true;
 	p->next_can_be_arg = true;

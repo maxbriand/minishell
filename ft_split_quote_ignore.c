@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/21 19:58:23 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:04:52 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	count_cut(char *str, char c, bool *on_quote)
+static int	ft_count_cut(char *str, char c, bool *on_quote)
 {
 	int		i;
 	int		nb_cut;
@@ -41,7 +41,7 @@ static int	count_cut(char *str, char c, bool *on_quote)
 	return (nb_cut);
 }
 
-static char	*split_here(char *str, int *i, int *last_split, char c)
+static char	*ft_split_here(char *str, int *i, int *last_split, char c)
 {
 	char	*result;
 	int		j;
@@ -72,7 +72,7 @@ static char	*ft_should_split(bool *on_quote, int *i, char *str, int *last_split)
 	result = NULL;
 	if (on_quote[0] == false && on_quote[1] == false && str[*i] == '|')
 	{
-		result = split_here(str, i, last_split, '|');
+		result = ft_split_here(str, i, last_split, '|');
 		if (!result)
 			return (NULL);
 	}
@@ -94,7 +94,7 @@ static int	ft_split_parsing(char *str, bool *on_quote, char **result, int i)
 	last_split = 0;
 	if (str[i] == '|')
 	{
-		result[0] = split_here(str, &i, &last_split, '|');
+		result[0] = ft_split_here(str, &i, &last_split, '|');
 		if (!result[0])
 			return (0);
 		y++;
@@ -108,7 +108,7 @@ static int	ft_split_parsing(char *str, bool *on_quote, char **result, int i)
 		if (result[y])
 			y++;
 	}
-	result[y] = split_here(str, &i, &last_split, '|');
+	result[y] = ft_split_here(str, &i, &last_split, '|');
 	if (!result[0])
 		return (1);
 	return (0);
@@ -124,7 +124,7 @@ char	**ft_split_quote_ignore(char *str, char c)
 
 	on_quote[0] = false;
 	on_quote[1] = false;
-	nb_cut = count_cut(str, c, on_quote);
+	nb_cut = ft_count_cut(str, c, on_quote);
 	result = ft_calloc(nb_cut + 1, sizeof(char *));
 	if (!result)
 		return (NULL);

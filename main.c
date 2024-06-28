@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:37:45 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 20:09:01 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:13:09 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int main (int ac, char **av, char **env)
 	mini->exit_code = 0;
 	mini->export = NULL;
 	mini->env = NULL;
-	//mini->path_env = catch_path(env);
+	//mini->path_env = ft_catch_path(env);
 
 	(void)ac;
 	(void)av;
@@ -121,9 +121,9 @@ int main (int ac, char **av, char **env)
 		ft_parsing(input, mini, env);
 		if (mini)
 			ft_printf_parsing(mini->p_cmd);
-		free_mini(mini);
+		ft_free_mini(mini);
 	}
 	free(mini);
 	return (0);
-}
-*/
+}*/
+

@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 16:50:49 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:10:12 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_array(char **tab)
+void	ft_free_array(char **tab)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ void	free_array(char **tab)
 	tab = NULL;
 }
 
-void	free_p(t_pars *p)
+void	ft_free_p(t_pars *p)
 {
 	t_pars	*p_buf;
 
@@ -37,7 +37,7 @@ void	free_p(t_pars *p)
 	{
 		p_buf = p;
 		if (p_buf->spl_cmd)
-			free_array(p_buf->spl_cmd);
+			ft_free_array(p_buf->spl_cmd);
 		if (p_buf->is_arg)
 			free(p_buf->is_arg);
 		if (p_buf->is_expand)
@@ -53,7 +53,7 @@ void	free_p(t_pars *p)
 	}
 }
 
-void	free_p_cmd(t_commands *p_cmd)
+void	ft_free_p_cmd(t_commands *p_cmd)
 {
 	t_commands	*buf;
 
@@ -62,13 +62,13 @@ void	free_p_cmd(t_commands *p_cmd)
 		buf = p_cmd;
 		p_cmd = p_cmd->next;
 		if (buf->arg)
-			free_array(buf->arg);
+			ft_free_array(buf->arg);
 		if (buf->arg_cmd)
-			free_array(buf->arg_cmd);
+			ft_free_array(buf->arg_cmd);
 		if (buf->cmd)
 			free(buf->cmd);
 		if (buf->hd_stop)
-			free_array(buf->hd_stop);
+			ft_free_array(buf->hd_stop);
 		if (buf->infile)
 			free(buf->infile);
 		if (buf->option)
@@ -82,27 +82,27 @@ void	free_p_cmd(t_commands *p_cmd)
 	p_cmd = NULL;
 }
 
-void	ultimate_free_exit(t_minishell *mini, t_pars *p, char **str)
+void	ft_ultimate_free_exit(t_minishell *mini, t_pars *p, char **str)
 {
 	if (p)
-		free_p(p);
+		ft_free_p(p);
 	if (str)
-		free_array(str);
+		ft_free_array(str);
 	if (mini)
-		free_mini(mini);
+		ft_free_mini(mini);
 	exit (1);
 }
 
-void	free_mini(t_minishell *mini)
+void	ft_free_mini(t_minishell *mini)
 {
 	if (mini)
 	{
 		if (mini->env)
-			free_array(mini->env);
+			ft_free_array(mini->env);
 		if (mini->export)
-			free_array(mini->export);
+			ft_free_array(mini->export);
 		if (mini->p_cmd)
-			free_p_cmd(mini->p_cmd);
+			ft_free_p_cmd(mini->p_cmd);
 		mini->p_cmd = NULL;
 		mini->export = NULL;
 		mini->env = NULL;

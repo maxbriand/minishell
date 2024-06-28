@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:41 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 17:39:42 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 16:59:19 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cmd_arg_join(t_commands *cmd)
+void	ft_cmd_arg_join(t_commands *cmd)
 {
 	int	i;
 

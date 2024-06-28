@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:36:53 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 16:36:54 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:01:04 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	define_outfile_error(t_commands *p_cmd)
+void	ft_define_outfile_error(t_commands *p_cmd)
 {
 	if (p_cmd->msg_error == NULL)
 	{
@@ -30,7 +30,7 @@ void	define_outfile_error(t_commands *p_cmd)
 	p_cmd->outfile = NULL;
 }
 
-void	define_infile_error(t_commands *p_cmd)
+void	ft_define_infile_error(t_commands *p_cmd)
 {
 	if (access(p_cmd->infile, F_OK) == 0)
 	{

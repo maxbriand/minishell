@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:36 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 20:17:40 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 16:56:42 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_only_space(char *str)
+int	ft_is_only_space(char *str)
 {
 	int	i;
 

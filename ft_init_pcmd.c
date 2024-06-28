@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:03 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 20:09:19 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:03:14 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	ft_define_node(t_commands *node)
 	node->bf_cmd = true;
 }
 
-static t_commands	*node_create_pcmd(void)
+static t_commands	*ft_node_create_pcmd(void)
 {
 	t_commands	*node;
 
@@ -52,7 +52,7 @@ static int	ft_iter_create_node(
 {
 	while (buf_p)
 	{
-		next_node = node_create_pcmd();
+		next_node = ft_node_create_pcmd();
 		if (!buf_cmd)
 			return (1);
 		if (buf_p->exit_code)
@@ -72,7 +72,7 @@ static int	ft_iter_create_node(
 	return (0);
 }
 
-int	init_pcmd(t_minishell *mini, t_pars *p)
+int	ft_init_pcmd(t_minishell *mini, t_pars *p)
 {
 	t_pars		*buf_p;
 	t_commands	*buf_cmd;
@@ -80,7 +80,7 @@ int	init_pcmd(t_minishell *mini, t_pars *p)
 
 	next_node = NULL;
 	buf_p = p;
-	buf_cmd = node_create_pcmd();
+	buf_cmd = ft_node_create_pcmd();
 	if (!buf_cmd)
 		return (1);
 	if (buf_p->exit_code)
