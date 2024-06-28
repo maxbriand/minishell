@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:10:12 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:58:41 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_free_p(t_pars *p)
 	}
 }
 
-void	ft_free_p_cmd(t_commands *p_cmd)
+static void	ft_free_pcmd(t_commands *p_cmd)
 {
 	t_commands	*buf;
 
@@ -102,7 +102,7 @@ void	ft_free_mini(t_minishell *mini)
 		if (mini->export)
 			ft_free_array(mini->export);
 		if (mini->p_cmd)
-			ft_free_p_cmd(mini->p_cmd);
+			ft_free_pcmd(mini->p_cmd);
 		mini->p_cmd = NULL;
 		mini->export = NULL;
 		mini->env = NULL;
