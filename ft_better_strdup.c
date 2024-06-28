@@ -6,12 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:16 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 16:50:27 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 15:56:03 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//use %s somewere inside the char *s like printf to add something in the string
 char	*ft_better_strdup(char *s, char *arg)
 {
 	char	*sdup;
@@ -33,6 +34,7 @@ char	*ft_better_strdup(char *s, char *arg)
 	return (NULL);
 }
 
+//free the arg send as a parameter
 char	*ft_better_strdup_free(char *s, char *arg)
 {
 	char	*sdup;

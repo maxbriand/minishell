@@ -6,11 +6,10 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/15 19:04:15 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 16:53:47 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//to add to the libft later
 #include "minishell.h"
 
 //add 1 element to a array. Free old array, so not needed to free it after
@@ -70,36 +69,6 @@ char	**ft_addback_free(char **old_array, char *new_element)
 	if (!new_array[i])
 		return (NULL);
 	free(new_element);
-	return (new_array);
-}
-
-//not use ??
-int	*ft_addback_int(int *old_array, int new_element)
-{
-	int	*new_array;
-	int	i;
-
-	i = 0;
-	if (old_array)
-	{
-		while (old_array[i] != -1)
-			i++;
-	}
-	new_array = malloc(sizeof(int) * (i + 2));
-	if (!new_array)
-		return (NULL);
-	if (old_array)
-	{
-		i = 0;
-		while (old_array[i] != -1)
-		{
-			new_array[i] = old_array[i];
-			i++;
-		}
-		free(old_array);
-	}
-	new_array[i] = new_element;
-	new_array[i + 1] = -1;
 	return (new_array);
 }
 

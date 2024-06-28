@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/21 20:16:16 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 16:53:39 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	define_outfile_error(t_commands *p_cmd);
 void	define_infile_error(t_commands *p_cmd);
 
 //fuction usefull
-int		*ft_addback_int(int *old_array, int new_element);
 char	**ft_addback(char **old_array, char *new_element);
 char	**ft_addback_free(char **old_array, char *new_element);
 char	*ft_charaddback(char **old_array, char new_element);
