@@ -6,18 +6,33 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:22 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:48:46 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 18:59:47 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static bool	ft_opt_echo(char *arg)
+{
+	int	i;
+
+	i = 1;
+	while (arg[i])
+	{
+		if (arg[i] != 'e' && arg[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 bool	ft_is_option(char *arg, t_commands *p_cmd, t_pars *p)
 {
 	if (arg[0] == '-')
 	{
 		if (p->last_was_echo == true && (p_cmd->arg
-				|| (ft_strncmp(arg, "-e", 2) && ft_strncmp(arg, "-n", 2))))
+				|| ((!ft_strncmp(arg, "-e", 2) && !ft_strncmp(arg, "-n", 2))
+					|| ft_opt_echo(arg) == false)))
 		{
 			p_cmd->arg = ft_addback(p_cmd->arg, arg);
 			return (true);

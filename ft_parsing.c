@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:10:55 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 18:33:21 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_process(t_commands *buf, t_pars *p, int *i)
 		else if (ft_define_p_cmd(p->spl_cmd[*i], *i, buf, p) == 1)
 			return (1);
 	}
-	else if (p->is_arg[*i] == true)
+	else if (p->is_arg[*i] == true && !buf->cmd)
 	{
 		buf->cmd = ft_strdup("");
 		if (!buf->cmd)
