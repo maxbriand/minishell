@@ -6,11 +6,24 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:34:20 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 17:34:21 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/28 23:07:35 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// static int	ft_is_n_option(char *option)
+// {
+// 	int	i;
+	
+// 	if (*option == '-')
+// 		option++;
+// 	i = 0;
+// 	while (option[i])
+// 	{
+		
+// 	}
+// }
 
 void	ft_echo(t_commands *c_cmd)
 {
