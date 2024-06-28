@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:37:45 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:13:09 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:32:37 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 		// printf("%d = err_is_outfile\n", buf->err_is_outfile);
 		// printf("%d = code_err\n", buf->code_error);
 
-/*static void	ft_printf_parsing(t_commands *p_cmd)
+static void	ft_printf_parsing(t_commands *p_cmd)
 {
 	if (p_cmd)
 	{
@@ -125,5 +125,5 @@ int main (int ac, char **av, char **env)
 	}
 	free(mini);
 	return (0);
-}*/
+}
 

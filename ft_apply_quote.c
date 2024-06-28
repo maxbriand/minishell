@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 16:57:44 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:48:24 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	ft_create_result(bool *on_quote, char **result, char *arg, int *j)
 	(*j)++;
 }
 
-static int	ft_in_if(char *arg, bool *on_quote, char **result, t_minishell *mini)
+static int	ft_in_if(
+	char *arg, bool *on_quote, char **result, t_minishell *mini)
 {
 	char	*var_env;
 	int		j;
