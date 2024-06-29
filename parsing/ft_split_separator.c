@@ -6,83 +6,23 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 17:04:26 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:05:44 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_check_if(int *nb_cut, int *i, char *sep, char *str)
+static int	ft_splt_exec(int *last_split, int *i, char *str, bool *on_quote)
 {
-	if (((str[*i] == '<') || (str[*i] == '>'))
-		&& is_sep(str[*i - 1], sep) == false)
-	{
-		(*nb_cut)++;
-		while (str[*i] == '<' || str[*i] == '>')
-			(*i)++;
-	}
-	else if (is_sep(str[*i], sep))
-	{
-		(*nb_cut)++;
-		while (is_sep(str[*i], sep))
-			(*i)++;
-	}
-	else
-	{
-		while (str[*i] == '<' || str[*i] == '>')
-		(*i)++;
-	}
-}
-
-static int	count_cut(char *str, bool *on_quote, char *sep)
-{
-	int		i;
-	int		nb_cut;
-
-	i = 0;
-	nb_cut = 0;
-	while (is_sep(str[i], sep) == true)
-		i++;
-	while (str[i])
-	{
-		if (i > 0 && on_quote[0] == false && on_quote[1] == false
-			&& (is_sep(str[i], sep) == true || str[i] == '<' || str[i] == '>'))
-			ft_check_if(&nb_cut, &i, sep, str);
-		else
-		{
-			ft_define_on_quote(str, i, on_quote);
-			i++;
-		}
-	}
-	if (is_sep(str[i - 1], sep) == false)
-		nb_cut++;
-	return (nb_cut);
-}
-
-static char	*split_here(char *str, int *i, int *last_split, bool *on_quote)
-{
-	char	*result;
-	int		j;
-	int		len;
 	char	*sep;
 
-	len = *i - *last_split;
-	result = malloc(sizeof(char) * (len + 1));
-	if (!result)
-		exit (1);//mayday error
 	sep = ft_strdup(" ");
+	if (!sep)
+		return (1);
 	sep = ft_charaddback(&sep, '\t');
-	j = 0;
-	while (*last_split < *i)
+	if (ft_is_sep(str[*i], sep))
 	{
-		result[j] = str[*last_split];
-		j++;
-		*last_split = *last_split + 1;
-	}
-	result[j] = '\0';
-	if (is_sep(str[*i], sep))
-	{
-		while (is_sep(str[*i], sep))
+		while (ft_is_sep(str[*i], sep))
 		{
 			ft_define_on_quote(str, *i, on_quote);
 			(*i)++;
@@ -95,47 +35,80 @@ static char	*split_here(char *str, int *i, int *last_split, bool *on_quote)
 		*i = *i + 1;
 	}
 	free(sep);
+	return (0);
+}
+
+static char	*ft_split_here(char *str, int *i, int *last_split, bool *on_quote)
+{
+	char	*result;
+	int		j;
+	int		len;
+
+	len = *i - *last_split;
+	result = malloc(sizeof(char) * (len + 1));
+	if (!result)
+		return (NULL);
+	j = 0;
+	while (*last_split < *i)
+	{
+		result[j] = str[*last_split];
+		j++;
+		*last_split = *last_split + 1;
+	}
+	result[j] = '\0';
+	if (ft_splt_exec(last_split, i, str, on_quote))
+		return (NULL);
 	return (result);
 }
 
-//need to initialize the two booleen on false or valgrind error
-static void	ft_split_parsing(char *str, char *sep, char **result)
+static int	ft_find_split(int *i, bool *on_quote, char *sep, char *str)
 {
-	int		y;
+	if (*i > 0 && on_quote[0] == false && on_quote[1] == false
+		&& (ft_is_sep(str[*i], sep) || ((str[*i] == '<' || str[*i] == '>')
+				&& (str[*i - 1] != '<' && str[*i - 1] != '>'
+					&& ft_is_sep(str[*i - 1], sep) == 0))))
+		return (1);
+	else
+	{
+		ft_define_on_quote(str, *i, on_quote);
+		(*i)++;
+	}
+	return (0);
+}
+
+//need to initialize the two booleen on false or valgrind error
+static char	**ft_split_parsing(
+	char *str, char *sep, char **result, bool *on_quote)
+{
 	int		i;
 	int		last_split;
-	bool	on_quote[2];
+	char	*splt;
 
-	y = 0;
 	i = 0;
-	on_quote[0] = false;
-	on_quote[1] = false;
-	while (is_sep(str[i], sep))
-		i++;
-	last_split = i;
+	result = NULL;
+	ft_define_int(&i, &last_split, str, sep);
 	while (str[i])
 	{
-		if (i > 0 && on_quote[0] == false && on_quote[1] == false
-			&& (is_sep(str[i], sep) || ((str[i] == '<' || str[i] == '>')
-					&& (str[i - 1] != '<' && str[i - 1] != '>'
-						&& is_sep(str[i - 1], sep) == 0))))
+		if (ft_find_split(&i, on_quote, sep, str))
 		{
-			result[y] = split_here(str, &i, &last_split, on_quote);
-			y++;
-		}
-		else
-		{
-			ft_define_on_quote(str, i, on_quote);
-			i++;
+			splt = ft_split_here(str, &i, &last_split, on_quote);
+			if (!splt)
+				return (NULL);
+			result = ft_addback_free(result, splt);
 		}
 	}
-	if (is_sep(str[i - 1], sep) == false)
-		result[y] = split_here(str, &i, &last_split, on_quote);
+	if (ft_is_sep(str[i - 1], sep) == false)
+	{
+		splt = ft_split_here(str, &i, &last_split, on_quote);
+		if (!splt)
+			return (NULL);
+		result = ft_addback_free(result, splt);
+	}
+	return (result);
 }
 
 char	**ft_split_separator(char *str)
 {
-	int		nb_cut;
 	char	**result;
 	char	*sep;
 	bool	on_quote[2];
@@ -144,11 +117,7 @@ char	**ft_split_separator(char *str)
 	sep = ft_charaddback(&sep, '\t');
 	on_quote[0] = false;
 	on_quote[1] = false;
-	nb_cut = count_cut(str, on_quote, sep);
-	result = ft_calloc(nb_cut + 1, sizeof(char *));
-	if (!result)
-		exit(1); //mayday error !
-	ft_split_parsing(str, sep, result);
+	result = ft_split_parsing(str, sep, NULL, on_quote);
 	free(sep);
 	return (result);
 }

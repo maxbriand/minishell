@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 19:03:13 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:11:47 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_is_expand(char **expand, int i, t_commands *p_cmd, t_pars *p)
 {
 	if (expand[i])
 	{
-		while (is_option(expand[i], p_cmd, p) == true)
+		while (ft_is_option(expand[i], p_cmd, p) == true)
 			i++;
 		while (expand[i])
 		{
@@ -38,14 +38,14 @@ static int	ft_define_arg_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 	if (p->is_expand[i] == true && p_cmd->cmd == NULL)
 	{
 		expand = ft_split(arg, ' ');
-		arg_is_cmd(expand[0], p_cmd, p);
+		ft_arg_is_cmd(expand[0], p_cmd, p);
 		i = 1;
 		ft_is_expand(expand, i, p_cmd, p);
-		free_array(expand);
+		ft_free_array(expand);
 		return (0);
 	}
 	if (p_cmd->cmd == NULL)
-		arg_is_cmd(arg, p_cmd, p);
+		ft_arg_is_cmd(arg, p_cmd, p);
 	return (0);
 }
 
@@ -65,12 +65,12 @@ static int	ft_define_next(char *arg, int i, t_commands *p_cmd, t_pars *p)
 					("minishell: %s: ambiguous redirect", arg);
 				p_cmd->exit_code = 1;
 			}
-			free_array(expand);
+			ft_free_array(expand);
 		}
 		p_cmd->infile = ft_strdup(arg);
 		if (!p_cmd->infile)
 			return (1);
-		define_infile_error(p_cmd);
+		ft_define_infile_error(p_cmd);
 		p->next_is_infile = false;
 	}
 	else if (ft_define_arg_cmd(arg, i, p_cmd, p) == 1)
@@ -103,7 +103,7 @@ static int	ft_define_other(char *arg, int i, t_commands *p_cmd, t_pars *p)
 	return (0);
 }
 
-int	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
+int	ft_define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 {
 	if (arg[0] == '\0')
 		return (0);
@@ -118,13 +118,13 @@ int	define_p_cmd(char *arg, int i, t_commands *p_cmd, t_pars *p)
 	{
 		if (p_cmd->cmd == NULL)
 		{
-			arg_is_cmd(arg, p_cmd, p);
+			ft_arg_is_cmd(arg, p_cmd, p);
 			return (0);
 		}
 		p_cmd->arg = ft_addback(p_cmd->arg, arg);
 		return (0);
 	}
-	if (p->next_can_be_opt && is_option(arg, p_cmd, p) == true)
+	if (p->next_can_be_opt && ft_is_option(arg, p_cmd, p) == true)
 		return (0);
 	if (ft_define_other(arg, i, p_cmd, p) == 1)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:28 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/03 17:40:29 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/21 17:15:55 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*result;
-	int	i;
+	int		i;
+
 	result = NULL;
 	if (s1)
 	{
@@ -33,5 +34,5 @@ char	*ft_strjoin_free(char *s1, char *s2)
 		}
 		free(s2);
 	}
-	return(result);
+	return (result);
 }

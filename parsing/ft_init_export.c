@@ -6,35 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 19:00:42 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:02:07 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	ft_is_s1_before(char *str1, char *str2)
-{
-	char	*alpha;
-	int		s1;
-	int		s2;
-	int		i;
-
-	alpha = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";
-	i = 0;
-	while (str1[i] && str2[i])
-	{
-		s1 = ft_strchr(alpha, str1[i]) - alpha;
-		s2 = ft_strchr(alpha, str2[i]) - alpha;
-		if (s1 < s2)
-			return (true);
-		else if (s2 < s1)
-			return false;
-		i++;
-	}
-	return (s1 < s2);// NORM ????
-}
-
-static void	define_sort(char **env, int count, char **result)
+static void	ft_define_sort(char **env, int count, char **result)
 {
 	int		buf;
 	int		i;
@@ -42,15 +20,17 @@ static void	define_sort(char **env, int count, char **result)
 	char	**env_buf;
 
 	current = 0;
-	i = 0;
 	env_buf = ft_strdup_array(env);
+	if (!env_buf || !env)
+		return ;
 	while (current < count)
 	{
 		buf = 0;
 		i = 0;
 		while (env_buf[i])
 		{
-			if (buf != i && ft_is_s1_before(env_buf[i], env_buf[buf]) == true && ft_strchr(env_buf[i], '='))
+			if (buf != i && ft_is_s1_before(env_buf[i], env_buf[buf]) == true
+				&& ft_strchr(env_buf[i], '='))
 				buf = i;
 			i++;
 		}
@@ -58,10 +38,10 @@ static void	define_sort(char **env, int count, char **result)
 		ft_remove_element(env_buf, buf);
 		current++;
 	}
-	free_array(env_buf);
+	ft_free_array(env_buf);
 }
 
-static char	**sort_export(int count, char **env)
+static char	**ft_sort_export(int count, char **env)
 {
 	char	**result;
 
@@ -69,40 +49,57 @@ static char	**sort_export(int count, char **env)
 	if (!result)
 		return (NULL);
 	result[count] = NULL;
-	define_sort(env, count, result);
-	return(result);
+	ft_define_sort(env, count, result);
+	if (!env)
+		return (NULL);
+	return (result);
 }
 
-//need to change name to quote add
-static char	**result_declare(char **result, char **res_ncmplt)
+static void	ft_create_str(char **str, char **res_ncmplt, int *j, bool *is_quote)
+{
+	*str = ft_charaddback(str, (*res_ncmplt)[*j]);
+	if (!*str)
+	{
+		ft_free_array(res_ncmplt);
+		return ;
+	}
+	if ((*res_ncmplt)[*j] == '=' && *is_quote == false)
+	{
+		*str = ft_charaddback(str, '\"');
+		if (!*str)
+		{
+			ft_free_array(res_ncmplt);
+			return ;
+		}
+		*is_quote = true;
+	}
+	(*j)++;
+}
+
+static char	**ft_result_declare(char **res_ncmplt)
 {
 	int		i;
 	int		j;
 	bool	is_quote;
+	char	**result;
+	char	*str;
 
 	i = 0;
+	result = NULL;
 	while (res_ncmplt[i])
 	{
 		j = 0;
-		//result[i] = ft_strdup("declare -x ");
 		is_quote = false;
+		str = NULL;
 		while (res_ncmplt[i][j])
-		{
-			result[i] = ft_charaddback(&result[i], res_ncmplt[i][j]);
-			if (!result[i])
-				return (NULL);
-			if (res_ncmplt[i][j] == '=' && is_quote == false)
-			{
-				result[i] = ft_charaddback(&result[i], '\"');
-				if (!result[i])
-					return (NULL);
-				is_quote = true;
-			}
-			j++;
-		}
-		result[i] = ft_charaddback(&result[i], '\"');
-		if (!result[i])
+			ft_create_str(&str, &res_ncmplt[i], &j, &is_quote);
+		if (!res_ncmplt[i])
 			return (NULL);
+		str = ft_charaddback(&str, '\"');
+		if (!str)
+			return (NULL);
+		result = ft_addback(result, str);
+		free(str);
 		i++;
 	}
 	return (result);
@@ -123,14 +120,10 @@ char	**ft_init_export(t_minishell *mini)
 			count++;
 		i++;
 	}
-	result = malloc(sizeof(char *) * (count + 1));
-	if (!result)
-		exit (1);
-	result[count] = NULL;
-	res_not_complete = sort_export(count, mini->env);
+	res_not_complete = ft_sort_export(count, mini->env);
 	if (!res_not_complete)
-		ultimate_free_exit(mini, NULL, NULL, (void **)result);
-	result = result_declare(result, res_not_complete);
-	free_array(res_not_complete);
+		ft_ultimate_free_exit(mini, NULL, NULL);
+	result = ft_result_declare(res_not_complete);
+	ft_free_array(res_not_complete);
 	return (result);
 }

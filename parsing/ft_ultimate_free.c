@@ -6,48 +6,54 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 19:27:05 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:58:41 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_array(char **tab)
+void	ft_free_array(char **tab)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	if (tab)
 	{
-		free(tab[i]);
-		i++;
+		while (tab[i])
+		{
+			free(tab[i]);
+			i++;
+		}
+		free(tab);
 	}
-	free(tab);
 	tab = NULL;
 }
 
-void	free_p(t_pars *p)
+void	ft_free_p(t_pars *p)
 {
 	t_pars	*p_buf;
 
-	while(p)
+	while (p)
 	{
 		p_buf = p;
 		if (p_buf->spl_cmd)
-			free_array(p_buf->spl_cmd);
+			ft_free_array(p_buf->spl_cmd);
 		if (p_buf->is_arg)
 			free(p_buf->is_arg);
 		if (p_buf->is_expand)
 			free(p_buf->is_expand);
+		if (p_buf->error_msg)
+			free(p_buf->error_msg);
 		p = p->next;
+		p_buf->spl_cmd = NULL;
+		p_buf->is_arg = NULL;
+		p_buf->is_expand = NULL;
+		p_buf->error_msg = NULL;
 		free(p_buf);
 	}
-	if (p)
-		free(p);
-	p = NULL;
 }
 
-void	free_p_cmd(t_commands *p_cmd)
+static void	ft_free_pcmd(t_commands *p_cmd)
 {
 	t_commands	*buf;
 
@@ -56,13 +62,13 @@ void	free_p_cmd(t_commands *p_cmd)
 		buf = p_cmd;
 		p_cmd = p_cmd->next;
 		if (buf->arg)
-			free(buf->arg);
+			ft_free_array(buf->arg);
 		if (buf->arg_cmd)
-			free_array(buf->arg_cmd);
+			ft_free_array(buf->arg_cmd);
 		if (buf->cmd)
 			free(buf->cmd);
 		if (buf->hd_stop)
-			free_array(buf->hd_stop);
+			ft_free_array(buf->hd_stop);
 		if (buf->infile)
 			free(buf->infile);
 		if (buf->option)
@@ -76,22 +82,29 @@ void	free_p_cmd(t_commands *p_cmd)
 	p_cmd = NULL;
 }
 
-void	ultimate_free_exit(t_minishell *mini, t_pars *p, void *str, void **array)
+void	ft_ultimate_free_exit(t_minishell *mini, t_pars *p, char **str)
 {
 	if (p)
-		free_p(p);
+		ft_free_p(p);
 	if (str)
-		free(str);
+		ft_free_array(str);
+	if (mini)
+		ft_free_mini(mini);
+	exit (1);
+}
+
+void	ft_free_mini(t_minishell *mini)
+{
 	if (mini)
 	{
 		if (mini->env)
-			free_array(mini->env);
+			ft_free_array(mini->env);
 		if (mini->export)
-			free_array(mini->export);
+			ft_free_array(mini->export);
 		if (mini->p_cmd)
-			free_p_cmd(mini->p_cmd);
+			ft_free_pcmd(mini->p_cmd);
+		mini->p_cmd = NULL;
+		mini->export = NULL;
+		mini->env = NULL;
 	}
-	if (array)
-		free_array((char **)array);
-	exit (1);
 }

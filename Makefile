@@ -39,12 +39,11 @@ SRC =	main.c \
 		parsing/ft_init_p.c \
 		parsing/ft_define_pcmd_first.c \
 		parsing/ft_define_pcmd.c \
-		parsing/ft_error_p.c \
+		parsing/ft_split_quote_utils.c \
 		parsing/ft_error_type.c \
 		parsing/ft_realloc.c \
 		parsing/ft_split_quote_ignore.c \
 		parsing/ft_utils.c \
-		parsing/ft_verif_access.c \
 		parsing/ft_parsing.c \
 		parsing/ft_ultimate_free.c \
 		parsing/ft_split_separator.c \

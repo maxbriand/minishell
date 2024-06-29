@@ -6,19 +6,14 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:03 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/10 18:59:18 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/28 17:03:14 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_commands	*node_create_pcmd(void)
+static void	ft_define_node(t_commands *node)
 {
-	t_commands	*node;
-
-	node = malloc(sizeof(t_commands));
-	if (!node)
-		return (NULL);
 	node->b_builtins = false;
 	node->append_outfile = NULL;
 	node->hd_stop = NULL;
@@ -39,33 +34,25 @@ t_commands	*node_create_pcmd(void)
 	node->exit_code = 0;
 	node->msg_error = NULL;
 	node->bf_cmd = true;
+}
+
+static t_commands	*ft_node_create_pcmd(void)
+{
+	t_commands	*node;
+
+	node = malloc(sizeof(t_commands));
+	if (!node)
+		return (NULL);
+	ft_define_node(node);
 	return (node);
 }
-int	init_pcmd(t_minishell *mini, t_pars *p)
-{
-	t_pars		*buf_p;
-	t_commands	*buf_cmd;
-	t_commands	*next_node;
 
-	buf_p = p;
-	buf_cmd = node_create_pcmd();
-	if (!buf_cmd)
-		return (1);
-	if (buf_p->exit_code)
-	{
-		if (p->error_msg)
-		{
-			buf_cmd->msg_error = ft_strdup(p->error_msg);
-			if (!buf_cmd->msg_error)
-				return (1);
-		}
-		buf_cmd->exit_code = p->exit_code;
-	}
-	mini->p_cmd = buf_cmd;
-	buf_p = buf_p->next;
+static int	ft_iter_create_node(
+	t_commands *next_node, t_commands *buf_cmd, t_pars *buf_p)
+{
 	while (buf_p)
 	{
-		next_node = node_create_pcmd();
+		next_node = ft_node_create_pcmd();
 		if (!buf_cmd)
 			return (1);
 		if (buf_p->exit_code)
@@ -82,5 +69,33 @@ int	init_pcmd(t_minishell *mini, t_pars *p)
 		buf_cmd = buf_cmd->next;
 		buf_p = buf_p->next;
 	}
+	return (0);
+}
+
+int	ft_init_pcmd(t_minishell *mini, t_pars *p)
+{
+	t_pars		*buf_p;
+	t_commands	*buf_cmd;
+	t_commands	*next_node;
+
+	next_node = NULL;
+	buf_p = p;
+	buf_cmd = ft_node_create_pcmd();
+	if (!buf_cmd)
+		return (1);
+	if (buf_p->exit_code)
+	{
+		if (p->error_msg)
+		{
+			buf_cmd->msg_error = ft_strdup(p->error_msg);
+			if (!buf_cmd->msg_error)
+				return (1);
+		}
+		buf_cmd->exit_code = p->exit_code;
+	}
+	mini->p_cmd = buf_cmd;
+	buf_p = buf_p->next;
+	if (ft_iter_create_node(next_node, buf_cmd, buf_p))
+		return (1);
 	return (0);
 }

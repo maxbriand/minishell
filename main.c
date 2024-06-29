@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:15:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/28 23:08:25 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:56:32 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	g_sig = 0;
 	ft_printf("\n\033[1;32mOutput result: \033[0m\n");
 }*/
 
-t_minishell	*ft_init_mish(char **env)
+t_minishell	*ft_init_mish(void)
 {
 	t_minishell	*data;
 
@@ -86,7 +86,7 @@ t_minishell	*ft_init_mish(char **env)
 		ft_exitf("malloc issue", 1, NULL, NULL);
 	data->p_cmd = NULL;
 	data->export = NULL;
-	data->env = env;
+	data->env = NULL;
 	data->open_dquote = 0;
 	data->open_quote = 0;
 	data->exit_code = 0;
@@ -103,11 +103,11 @@ int	main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;
 	data = NULL;
-	data = ft_init_mish(env);
+	data = ft_init_mish();
 	while (1)
 	{
 		ft_signals(0);
-		cmd = readline("\033[1;33mmish: \033[0m");
+		cmd = readline("mish: ");
 		if (g_sig == 2)
 			data->exit_code = 130;
 		if (g_sig == 3)
@@ -117,7 +117,7 @@ int	main(int ac, char **av, char **env)
 			break ;
 		if (*cmd)
 			add_history(cmd);
-		ft_parsing(cmd, data);
+		ft_parsing(cmd, data, env);
 		ft_signals(1);
 		// ft_printf_parsing(data->p_cmd);
 		ft_exe(data, data->p_cmd);
