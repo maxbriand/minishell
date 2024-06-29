@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 18:33:21 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/29 16:15:44 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	ft_all_verif_process(t_minishell *mini, t_commands *buf, t_pars *p)
 		if (buf->arg_cmd == NULL && buf->cmd)
 			ft_cmd_arg_join(buf);
 		if (p->next_is_infile || p->next_is_outfile || p->next_is_hd_stop)
-			ft_error_next_file(buf);
+			ft_error_next_file(buf, p);
 	}
 	return (0);
 }

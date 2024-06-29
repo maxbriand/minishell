@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:48:24 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/29 16:16:26 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,17 @@ char	*ft_just_name_env(char *arg, int start, bool *on_quote)
 	return (result);
 }
 
-static void	ft_create_result(bool *on_quote, char **result, char *arg, int *j)
+static bool	ft_create_result(bool *on_quote, char **result, char *arg, int *j)
 {
+	bool	res;
+
+	res = false;
 	if (on_quote[2] == true)
 		*result = ft_charaddback(result, arg[*j]);
+	else
+		res = true;
 	(*j)++;
+	return (res);
 }
 
 static int	ft_in_if(
@@ -85,7 +91,7 @@ static char	*ft_apply_var_env(char *arg, int i, t_minishell *mini, t_pars *p)
 			j += ft_in_if(&arg[j], on_quote, &result, mini);
 		}
 		else
-			ft_create_result(on_quote, &result, arg, &j);
+			p->was_quote = ft_create_result(on_quote, &result, arg, &j);
 	}
 	return (result);
 }

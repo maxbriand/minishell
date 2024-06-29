@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:58:50 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/29 16:15:51 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_parsing
 	char				*error_msg;
 	int					exit_code;
 	bool				malloc_error;
+	bool				was_quote;
 	struct s_parsing	*next;
 }	t_pars;
 
@@ -45,7 +46,7 @@ bool	*ft_define_shure_arg(char **splt_cmd);
 int		ft_pipe_unexpected(char *input, t_pars *p);
 bool	ft_error_p(int nb, char *cmd);
 void	ft_set_error_op(t_commands *p_cmd);
-void	ft_error_next_file(t_commands *p_cmd);
+void	ft_error_next_file(t_commands *p_cmd, t_pars *p);
 
 //define t_command
 void	ft_define_first_pcmd(char *first_arg, t_commands *p_cmd, t_pars *p);

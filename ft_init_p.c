@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:02:52 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/29 16:12:00 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	ft_define_new_node(t_pars *n)
 	n->last_was_env = false;
 	n->next = NULL;
 	n->malloc_error = false;
+	n->was_quote = false;
 }
 
 static int	ft_if_no_error(char *input_no_pipe, t_pars	*n)
