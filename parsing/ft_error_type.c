@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:00:52 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/29 16:17:23 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,19 @@ int	ft_pipe_unexpected(char *input, t_pars *p)
 	return (0);
 }
 
-void	ft_error_next_file(t_commands *p_cmd)
+void	ft_error_next_file(t_commands *p_cmd, t_pars *p)
 {
-	if (p_cmd->exit_code == 0)
+	if (p_cmd->exit_code == 0 && p->was_quote == false)
 	{
 		p_cmd->exit_code = 2;
 		p_cmd->msg_error = ft_strdup(
 				"syntax error near unexpected token `newline'");
+	}
+	else if (p_cmd->exit_code == 0 && p->was_quote)
+	{
+		p_cmd->exit_code = 1;
+		p_cmd->msg_error = ft_strdup(
+				"No such file or directory");
 	}
 }
 

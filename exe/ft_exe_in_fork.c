@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exe_in_fork.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:57:08 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 18:14:34 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:12:42 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	ft_close_pipes(data, pipefds);
 	if (c_cmd->b_builtins == 0)
 	{
-		execve(path, c_cmd->arg_cmd, data->env);
+		if (ft_strncmp(c_cmd->cmd, "minishell", ft_strlen(c_cmd->cmd)))
+			execve(path, c_cmd->arg_cmd, data->env);
 		ft_exitf(" command not found\n", 127, c_cmd, data);
 	}
 	else
