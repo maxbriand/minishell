@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/30 19:45:18 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/30 20:54:59 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	ft_init_mini(char **env, t_minishell *mini)
 	i = 0;
 	while (ft_strncmp(mini->env[i], "SHLVL", 5))
 		i++;
-	shlvl = ft_atoi(*mini->env + 6) + 1;
+	shlvl = ft_atoi(*(mini->env + 6)) + 1;
 	free(mini->env[i]);
 	mini->env[i] = ft_strjoin("SHLVL=", ft_itoa(shlvl));
 	if (!mini->export)
@@ -107,7 +107,9 @@ void	ft_parsing(char *input, t_minishell *mini, char **env)
 	buf = mini->p_cmd;
 	while (buf)
 	{
-		if (ft_all_verif_process(mini, buf, p) == 1 || p->malloc_error)
+		if (ft_strlen_array(mini->p_cmd->hd_stop) > 16)
+			ft_printf("Minishell: maximum here-document count exceeded");
+		if (ft_all_verif_process(mini, buf, p) == 1 || p->malloc_error || ft_strlen_array(mini->p_cmd->hd_stop) > 16)
 			ft_ultimate_free_exit(mini, p_buf, NULL);
 		p = p->next;
 		buf = buf->next;
