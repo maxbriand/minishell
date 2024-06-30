@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:51:41 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 16:58:38 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/30 22:11:11 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ bool	ft_is_operator(char *arg, t_commands *p_cmd, t_pars *p)
 		if (ft_strlen(arg) > 2)
 		{
 			if (arg[2] != '<' && arg[2] != '>')
-				p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg + 2);
+			{
+				if (p_cmd->exit_code != 2)
+					p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg + 2);
+				return (true);
+			}
 			else
 				ft_set_error_op(p_cmd);
 		}

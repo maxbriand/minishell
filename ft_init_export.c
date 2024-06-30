@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:02:07 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/30 22:56:11 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char	**ft_init_export(t_minishell *mini)
 	}
 	res_not_complete = ft_sort_export(count, mini->env);
 	if (!res_not_complete)
-		ft_ultimate_free_exit(mini, NULL, NULL);
+		ft_ultimate_free_exit(mini, NULL, NULL, NULL);
 	result = ft_result_declare(res_not_complete);
 	ft_free_array(res_not_complete);
 	return (result);

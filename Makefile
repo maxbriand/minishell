@@ -29,6 +29,7 @@ SRC =	ft_ultimate_free.c\
 		ft_file_error.c\
 		ft_split_separator_utils.c\
 		ft_split_quote_utils.c \
+		ft_hd_set.c \
 		main.c
 
 
