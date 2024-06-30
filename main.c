@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:15:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/29 14:56:32 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/30 19:05:12 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		ft_signals(0);
-		cmd = readline("mish: ");
+		cmd = readline("\033[1;33mmish: \033[0m");
 		if (g_sig == 2)
 			data->exit_code = 130;
 		if (g_sig == 3)
