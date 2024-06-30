@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/29 00:18:41 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/06/30 21:31:28 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_commands
 	// last infile -> only if this infile it's the last input redirection
 	// / after heredoc
 	char				**hd_stop;
+	char				*heredoc;
 	//pipe before the command or not (0 or 1)
 	bool				in_pipe;
 	// last outfile -> last fd
