@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/30 22:56:25 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/01 14:25:53 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,11 @@ void	ft_parsing(char *input, t_minishell *mini, char **env)
 	buf = mini->p_cmd;
 	while (buf)
 	{
-
 		if (ft_all_verif_process(mini, buf, p) == 1 || p->malloc_error)
 			ft_ultimate_free_exit(mini, p_buf, NULL, NULL);
 		if (mini->count_hd > 16 && mini->p_cmd->exit_code != 2)
-			ft_ultimate_free_exit(mini, p_buf, NULL, "Minishell: maximum here-document count exceeded");
+			ft_ultimate_free_exit(mini, p_buf, NULL,
+				"Minishell: maximum here-document count exceeded");
 		p = p->next;
 		buf = buf->next;
 	}

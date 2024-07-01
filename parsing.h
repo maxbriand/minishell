@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/30 22:56:00 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/01 14:26:45 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ size_t	ft_better_strlen(const char *s);
 //ultimate_free
 void	ft_free_array(char **tab);
 void	ft_free_p(t_pars *p);
-void	ft_ultimate_free_exit(t_minishell *mini, t_pars *p, char **str, char *msg);
+void	ft_ultimate_free_exit(
+			t_minishell *mini, t_pars *p, char **str, char *msg);
 void	ft_free_mini(t_minishell *mini);
 
 char	**ft_split_quote_ignore(char *str, char c);
