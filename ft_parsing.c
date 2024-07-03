@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/01 14:25:53 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:25:55 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	ft_all_verif_process(t_minishell *mini, t_commands *buf, t_pars *p)
 		if (p->next_is_infile || p->next_is_outfile || p->next_is_hd_stop)
 			ft_error_next_file(buf, p);
 	}
-	return (ft_hd_set(mini, buf));
+	return (ft_hd_set(mini, buf, mini->p_cmd));
 }
 
 static void	ft_init_mini(char **env, t_minishell *mini)
@@ -86,7 +86,6 @@ static void	ft_init_mini(char **env, t_minishell *mini)
 		mini->export = ft_init_export(mini);
 	if (!mini->export)
 		ft_ultimate_free_exit(mini, NULL, NULL, NULL);
-	mini->heredoc = NULL;
 	mini->count_hd = 0;
 }
 

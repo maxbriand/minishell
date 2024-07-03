@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:03 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/30 22:23:45 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:36:35 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	ft_define_node(t_commands *node)
 	node->exit_code = 0;
 	node->msg_error = NULL;
 	node->bf_cmd = true;
+	node->heredoc = NULL;
 }
 
 static t_commands	*ft_node_create_pcmd(void)

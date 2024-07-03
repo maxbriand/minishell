@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:01:52 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/30 22:33:24 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:17:47 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_commands
 	bool				b_builtins;
 	bool				append_outfile; // 0 - 1 for >> or >
 	char				**hd_stop;
+	char				*heredoc;
 	bool				in_pipe;
 	char				*infile;// standard input // append everytime
 	char				*outfile;
@@ -58,7 +59,6 @@ typedef struct s_minishell
 	int			pipe_nbr;
 	char		**export;
 	char		**env;
-	char		**heredoc;
 	int			open_quote;
 	int			open_dquote;
 	int			**pipefds;

@@ -30,6 +30,7 @@ SRC =	ft_ultimate_free.c\
 		ft_split_separator_utils.c\
 		ft_split_quote_utils.c \
 		ft_hd_set.c \
+		ft_free_array.c \
 		main.c
 
 

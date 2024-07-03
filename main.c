@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:37:45 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/30 22:43:58 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:44:37 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ static void	ft_printf_parsing(t_commands *p_cmd)
 					y++;
 				}
 			}
+			printf("\n\n HEREDOC\n");
+			if (p_cmd->heredoc)
+				printf("%s\n", p_cmd->heredoc);
+			else
+				printf("(NULL)\n");
 			printf("In pipe: %d\n", p_cmd->in_pipe);
 			printf("\n\033[1;32mOutput redirection:\033[0m");
 			if (p_cmd->outfile == NULL)
@@ -120,16 +125,7 @@ int main (int ac, char **av, char **env)
 		if (mini)
 		{
 			ft_printf_parsing(mini->p_cmd);
-			if (mini->heredoc)
-			{
-				int i = 0;
-				while (mini->heredoc[i])
-				{
-					printf("\n\n HEREDOC\n");
-					printf("%s\n", mini->heredoc[i]);
-					i++;
-				}
-			}
+
 		}
 
 		ft_free_mini(mini);

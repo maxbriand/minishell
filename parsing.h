@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/01 14:26:45 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:22:36 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_pars	*ft_define_p(char *input);
 int		ft_init_pcmd(t_minishell *mini, t_pars *node);
 int		ft_remove_quote_bslash(char **str, int i, t_minishell *mini, t_pars *p);
 bool	*ft_define_shure_arg(char **splt_cmd);
-int		ft_hd_set(t_minishell *mini, t_commands *buf);
+int		ft_hd_set(t_minishell *mini, t_commands *buf, t_commands *p_cmd);
 
 //error
 int		ft_pipe_unexpected(char *input, t_pars *p);

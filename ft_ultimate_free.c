@@ -6,28 +6,11 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/30 22:57:38 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:49:08 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_free_array(char **tab)
-{
-	int	i;
-
-	i = 0;
-	if (tab)
-	{
-		while (tab[i])
-		{
-			free(tab[i]);
-			i++;
-		}
-		free(tab);
-	}
-	tab = NULL;
-}
 
 void	ft_free_p(t_pars *p)
 {
@@ -53,6 +36,14 @@ void	ft_free_p(t_pars *p)
 	}
 }
 
+static void	other_free(t_commands *buf)
+{
+	if (buf->msg_error)
+		free(buf->msg_error);
+	if (buf->heredoc)
+		free(buf->heredoc);
+}
+
 static void	ft_free_pcmd(t_commands *p_cmd)
 {
 	t_commands	*buf;
@@ -75,8 +66,7 @@ static void	ft_free_pcmd(t_commands *p_cmd)
 			free(buf->option);
 		if (buf->outfile)
 			free(buf->outfile);
-		if (buf->msg_error)
-			free(buf->msg_error);
+		other_free(buf);
 		free(buf);
 	}
 	p_cmd = NULL;
@@ -106,8 +96,6 @@ void	ft_free_mini(t_minishell *mini)
 			ft_free_array(mini->export);
 		if (mini->p_cmd)
 			ft_free_pcmd(mini->p_cmd);
-		if (mini->heredoc)
-			ft_free_array(mini->heredoc);
 		mini->p_cmd = NULL;
 		mini->export = NULL;
 		mini->env = NULL;
