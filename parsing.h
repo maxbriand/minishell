@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/03 15:22:36 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 16:33:46 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	ft_define_int(int *i, int *last_split, char *str, char *sep);
 char	**ft_init_export(t_minishell *mini);
 int		ft_is_only_space(char *str);
 char	*ft_catch_env(char **envp, char *str);
+char	*ft_strjoin_free_s1(char *s1, char *s2);
+char	*ft_strjoin_free_s2(char *s1, char *s2);
 char	*ft_strjoin_free(char *s1, char *s2);
 int		ft_strlen_array(char **array);
 void	ft_remove_element(char **array, int id_rm);

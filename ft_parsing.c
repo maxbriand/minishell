@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/03 15:25:55 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 16:28:37 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	ft_init_mini(char **env, t_minishell *mini)
 		i++;
 	shlvl = ft_atoi(*(mini->env + 6)) + 1;
 	free(mini->env[i]);
-	mini->env[i] = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+	mini->env[i] = ft_strjoin_free_s2("SHLVL=", ft_itoa(shlvl));
 	if (!mini->export)
 		mini->export = ft_init_export(mini);
 	if (!mini->export)

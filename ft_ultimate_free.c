@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/03 15:49:08 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 16:26:32 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ void	ft_free_mini(t_minishell *mini)
 {
 	if (mini)
 	{
-		if (mini->env)
-			ft_free_array(mini->env);
+		ft_free_array(mini->env);
 		if (mini->export)
 			ft_free_array(mini->export);
 		if (mini->p_cmd)
