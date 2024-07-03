@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:15:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/30 19:05:12 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 02:34:52 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	main(int ac, char **av, char **env)
 		if (*cmd)
 			add_history(cmd);
 		ft_parsing(cmd, data, env);
+		ft_create_heredocs(data, data->p_cmd);
 		ft_signals(1);
 		// ft_printf_parsing(data->p_cmd);
 		ft_exe(data, data->p_cmd);

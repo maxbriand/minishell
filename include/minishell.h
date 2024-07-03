@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/30 21:31:28 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/03 02:57:37 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	ft_free_data(t_minishell *data);
 void	ft_free_data_exit(t_minishell *data);
 
 // Exe
+void	ft_create_heredocs(t_minishell *data, t_commands *p_cmd);
 void	ft_exe(t_minishell *data, t_commands *p_cmd);
 char	*ft_check_path(t_minishell *data, t_commands *current_cmd);
 //int		ft_sc(char **str);

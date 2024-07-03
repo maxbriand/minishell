@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:31:21 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/29 00:17:54 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/03 03:00:51 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	ft_if_no_command(t_minishell *data, t_commands *p_cmd)
 	if (!p_cmd->cmd)
 	{
 		if (p_cmd->hd_stop)
-		{
-			ft_iterate_heredocs(p_cmd, data);
-			unlink("heredoc");
-		}
+			unlink(p_cmd->heredoc);
 		if (p_cmd->msg_error)
 			ft_write_error(p_cmd->msg_error);
 		return (1);

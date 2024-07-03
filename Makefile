@@ -4,6 +4,7 @@ CC = cc
 LIBFT = libft/libft.a
 
 SRC =	main.c \
+		exe/ft_create_heredocs.c \
 		exe/ft_before_exe.c \
 		exe/ft_exe_1builtin.c \
 		exe/ft_exe_in_fork.c \

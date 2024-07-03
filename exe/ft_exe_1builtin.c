@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:52:05 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 19:08:59 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/03 02:56:36 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,14 @@ static void	ft_1b_output_redir(t_minishell *data, t_commands *c_cmd)
 static void	ft_1b_input_redir(t_minishell *data, t_commands *c_cmd)
 {
 	int		fd;
-	bool	here_open;
 
 	c_cmd->old_fd0 = dup(0);
 	if (c_cmd->old_fd0 == -1)
 		ft_exitf("dup2 issue", 1, NULL, data);
-	here_open = ft_iterate_heredocs(c_cmd, data);
-	fd = open("heredoc", O_RDONLY);
+	fd = open(c_cmd->heredoc, O_RDONLY);
 	if (c_cmd->infile)
 	{
-		if (here_open != 0)
+		if (c_cmd->heredoc)
 			close(fd);
 		fd = open(c_cmd->infile, O_RDONLY);
 		if (fd == -1)
@@ -60,7 +58,7 @@ static void	ft_1b_input_redir(t_minishell *data, t_commands *c_cmd)
 	if (dup2(fd, 0) == -1)
 		ft_exitf("dup2 issue", 1, NULL, data);
 	close(fd);
-	unlink("heredoc");
+	unlink(c_cmd->heredoc);
 }
 
 static int	ft_if_already_error(t_minishell *data, t_commands *p_cmd)
