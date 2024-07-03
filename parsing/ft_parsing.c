@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/03 15:25:55 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 18:37:16 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_parsing(char *input, t_minishell *mini, char **env)
 			ft_ultimate_free_exit(mini, p_buf, NULL, NULL);
 		if (mini->count_hd > 16 && mini->p_cmd->exit_code != 2)
 			ft_ultimate_free_exit(mini, p_buf, NULL,
-				"Minishell: maximum here-document count exceeded");
+				"Minishell: maximum here-document count exceeded\n");
 		p = p->next;
 		buf = buf->next;
 	}
