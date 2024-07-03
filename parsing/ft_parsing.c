@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/30 20:54:59 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:25:55 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	ft_all_verif_process(t_minishell *mini, t_commands *buf, t_pars *p)
 		if (p->next_is_infile || p->next_is_outfile || p->next_is_hd_stop)
 			ft_error_next_file(buf, p);
 	}
-	return (0);
+	return (ft_hd_set(mini, buf, mini->p_cmd));
 }
 
 static void	ft_init_mini(char **env, t_minishell *mini)
@@ -85,7 +85,8 @@ static void	ft_init_mini(char **env, t_minishell *mini)
 	if (!mini->export)
 		mini->export = ft_init_export(mini);
 	if (!mini->export)
-		ft_ultimate_free_exit(mini, NULL, NULL);
+		ft_ultimate_free_exit(mini, NULL, NULL, NULL);
+	mini->count_hd = 0;
 }
 
 //main's of the parsing. if return null, no command need to be done
@@ -102,15 +103,16 @@ void	ft_parsing(char *input, t_minishell *mini, char **env)
 	if (!p)
 		return ;
 	if (ft_init_pcmd(mini, p) == 1)
-		ft_ultimate_free_exit(mini, p, NULL);
+		ft_ultimate_free_exit(mini, p, NULL, NULL);
 	p_buf = p;
 	buf = mini->p_cmd;
 	while (buf)
 	{
-		if (ft_strlen_array(mini->p_cmd->hd_stop) > 16)
-			ft_printf("Minishell: maximum here-document count exceeded");
-		if (ft_all_verif_process(mini, buf, p) == 1 || p->malloc_error || ft_strlen_array(mini->p_cmd->hd_stop) > 16)
-			ft_ultimate_free_exit(mini, p_buf, NULL);
+		if (ft_all_verif_process(mini, buf, p) == 1 || p->malloc_error)
+			ft_ultimate_free_exit(mini, p_buf, NULL, NULL);
+		if (mini->count_hd > 16 && mini->p_cmd->exit_code != 2)
+			ft_ultimate_free_exit(mini, p_buf, NULL,
+				"Minishell: maximum here-document count exceeded");
 		p = p->next;
 		buf = buf->next;
 	}

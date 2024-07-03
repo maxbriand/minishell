@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:15:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/03 02:34:52 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:56:11 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_minishell	*ft_init_mish(void)
 	data->open_quote = 0;
 	data->exit_code = 0;
 	data->wait_code = 0;
+	data->count_hd = 0;
 	return (data);
 }
 

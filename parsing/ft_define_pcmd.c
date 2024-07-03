@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:11:47 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/06/30 22:08:33 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ static int	ft_define_other(char *arg, int i, t_commands *p_cmd, t_pars *p)
 		return (0);
 	if (p->next_is_hd_stop)
 	{
-		p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg);
 		p->next_is_hd_stop = false;
+		if (p_cmd->exit_code == 2)
+			return (0);
+		p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg);
 		return (0);
 	}
 	if (p->next_is_outfile)
