@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:15:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/03 15:56:11 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/04 01:19:20 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		ft_signals(0);
-		cmd = readline("\033[1;33mmish: \033[0m");
+		cmd = readline("minishell: ");
 		if (g_sig == 2)
 			data->exit_code = 130;
 		if (g_sig == 3)
@@ -121,7 +121,7 @@ int	main(int ac, char **av, char **env)
 		ft_parsing(cmd, data, env);
 		ft_create_heredocs(data, data->p_cmd);
 		ft_signals(1);
-		// ft_printf_parsing(data->p_cmd);
+		//ft_printf_parsing(data->p_cmd);
 		ft_exe(data, data->p_cmd);
 		free(cmd);
 		ft_free_data(data);

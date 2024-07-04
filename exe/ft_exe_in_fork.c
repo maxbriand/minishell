@@ -6,21 +6,26 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:57:08 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/03 18:26:44 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/04 01:43:18 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
+static void	ft_if_only_hd(t_commands *c_cmd)
 {
-	char	*path;
-
 	if (!c_cmd->cmd)
 	{
 		unlink(c_cmd->heredoc);
 		exit(EXIT_SUCCESS);
-	}	
+	}
+}
+
+void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
+{
+	char	*path;
+
+	ft_if_only_hd(c_cmd);
 	if (c_cmd->exit_code != 0)
 		ft_exitf(c_cmd->msg_error, c_cmd->exit_code, c_cmd, data);
 	ft_set_pfd(data, c_cmd, pipefds, c);

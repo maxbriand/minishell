@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_create_heredocs.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/04 01:13:34 by mbriand           #+#    #+#             */
+/*   Updated: 2024/07/04 01:36:02 by mbriand          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 // have I to add +1 for the null terminated?
-static void	ft_write_heredoc(int fd, char *hd_stop, t_minishell *data)
+static void	ft_write_heredoc(int fd, char *hd_stop)
 {
 	char	*input;
 
@@ -9,7 +21,11 @@ static void	ft_write_heredoc(int fd, char *hd_stop, t_minishell *data)
 	{
 		input = readline("> ");
 		if (!input)
-			ft_exitf("readline issue", 1, NULL, data);
+		{
+			ft_printf("warning: here-document is delimited by \
+end-of-file (wanted `%s')\n", hd_stop);
+			break ;
+		}
 		if (ft_strcmp(input, hd_stop) == 0)
 			break ;
 		write(fd, input, ft_strlen(input));
@@ -35,7 +51,7 @@ int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 		if (fd == -1)
 			ft_exitf("open issue", 1, NULL, data);
-		ft_write_heredoc(fd, c_cmd->hd_stop[i], data);
+		ft_write_heredoc(fd, c_cmd->hd_stop[i]);
 		i++;
 	}
 	close(fd);
@@ -44,6 +60,8 @@ int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
 
 void	ft_create_heredocs(t_minishell *data, t_commands *p_cmd)
 {
+	if (!p_cmd)
+		return ;
 	while (p_cmd)
 	{
 		ft_iterate_heredocs(p_cmd, data);

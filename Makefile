@@ -1,6 +1,6 @@
 NAME = minishell
 CC = cc
-#FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra
 LIBFT = libft/libft.a
 
 SRC =	main.c \
@@ -10,6 +10,7 @@ SRC =	main.c \
 		exe/ft_exe_in_fork.c \
 		exe/ft_exe.c \
 		exe/ft_exit_failure.c \
+		exe/ft_exit_failure2.c \
 		exe/ft_check_path.c \
 		exe/ft_utils.c \
 		exe/ft_input_redir.c \
@@ -59,7 +60,6 @@ SRC =	main.c \
 		parsing/ft_split_separator_utils.c \
 		parsing/ft_free_array.c \
 		parsing/ft_hd_set.c \
-
 
 all: $(NAME)
 

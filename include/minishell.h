@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/03 15:56:36 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/04 01:47:11 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_minishell
 
 # ifndef GLOBAL
 #  define GLOBAL
+
 extern int	g_sig;
 # endif
 
@@ -93,6 +94,8 @@ void	ft_exitf(char *msg, int ec, t_commands *c_cmd, t_minishell *data);
 int		ft_write_error(char *msg);
 void	ft_free_data(t_minishell *data);
 void	ft_free_data_exit(t_minishell *data);
+void	ft_free_p_cmd(t_commands *p_cmd);
+void	ft_free_str(char *str);
 
 // Exe
 void	ft_create_heredocs(t_minishell *data, t_commands *p_cmd);
@@ -107,7 +110,7 @@ void	ft_builtins_exe(t_minishell *data, t_commands *c_cmd);
 // Before exe
 int		ft_before_cmd_exe(t_minishell *data, t_commands *p_cmd);
 void	ft_if_only_exit(t_minishell *data, t_commands *p_cmd);
-int		ft_if_no_command(t_minishell *data, t_commands *p_cmd);
+int		ft_if_no_command(t_commands *p_cmd);
 int		ft_if_exitcode_2(t_minishell *data, t_commands *p_cmd);
 
 // Exe - 1 builtin
