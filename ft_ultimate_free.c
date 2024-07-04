@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/03 16:26:32 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/04 06:06:16 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	other_free(t_commands *buf)
 		free(buf->heredoc);
 }
 
-static void	ft_free_pcmd(t_commands *p_cmd)
+void	ft_free_pcmd(t_commands *p_cmd)
 {
 	t_commands	*buf;
 
@@ -72,17 +72,19 @@ static void	ft_free_pcmd(t_commands *p_cmd)
 	p_cmd = NULL;
 }
 
-void	ft_ultimate_free_exit(
-	t_minishell *mini, t_pars *p, char **str, char *msg)
+void	ft_ultimate_free_exit(t_utils *utils, char **str, char *msg)
 {
 	if (msg)
 		ft_printf(msg);
-	if (p)
-		ft_free_p(p);
+	else
+		ft_printf("malloc issue\n");
 	if (str)
 		ft_free_array(str);
-	if (mini)
-		ft_free_mini(mini);
+	if (utils->p)
+		ft_free_p(utils->p);
+	if (utils->mini)
+		ft_free_mini(utils->mini);
+	ft_free_utils(utils);
 	exit (1);
 }
 

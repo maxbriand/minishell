@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hd_set.c                                        :+:      :+:    :+:   */
+/*   ft_init_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 22:57:29 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 05:10:34 by gmersch          ###   ########.fr       */
+/*   Created: 2024/07/03 16:57:33 by gmersch           #+#    #+#             */
+/*   Updated: 2024/07/04 05:19:08 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_hd_set(t_minishell *mini, t_commands *buf, t_commands *p_cmd, t_utils *utils)
+t_utils	*ft_init_utils(void)
 {
-	int			i;
-	t_commands	*head;
+	t_utils	*utils;
 
-	if (buf->hd_stop)
-	{
-		i = 0;
-		head = p_cmd;
-		while (head)
-		{
-			if (head->hd_stop)
-				i++;
-			head = head->next;
-		}
-		buf->heredoc = ft_strjoin_free_s2("heredoc", ft_itoa(i), utils);
-		i = ft_strlen_array(buf->hd_stop);
-		mini->count_hd = mini->count_hd + i;
-	}
+	utils = malloc(sizeof(t_utils));
+	utils->mini = NULL;
+	utils->p = NULL;
+	utils->ap_j = 0;
+	utils->buf_pcmd = NULL;
+	utils->buf_p = NULL;
+	utils->exp_str = NULL;
+	utils->res_splt_q = NULL;
+	utils->last_split = 0;
+	utils->res_splt_s = NULL;
+	utils->last_split_sep = 0;
+	utils->sep = NULL;
+	return (utils);
 }

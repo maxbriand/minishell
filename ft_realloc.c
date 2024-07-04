@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:04:12 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/04 03:54:15 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ char	**ft_addback_free(char **old_array, char *new_element)
 }
 
 //add a char to a string, need to send a adress of the string to old array
-char	*ft_charaddback(char **old_array, char new_element)
+//FREE AND EXIT
+char	*ft_charaddback(
+		char **old_array, char new_element, t_utils *utils)
 {
 	char	*new_array;
 	int		i;
@@ -85,7 +87,11 @@ char	*ft_charaddback(char **old_array, char new_element)
 	else
 		new_array = malloc(sizeof(char) * (len + 2));
 	if (!new_array)
+	{
+		if (utils)
+			ft_ultimate_free_exit(utils, NULL, NULL);
 		return (NULL);
+	}
 	i = 0;
 	if ((*old_array))
 	{

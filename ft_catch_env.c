@@ -6,19 +6,21 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:19 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 16:58:03 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 18:27:40 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_catch_env(char **envp, char *str)
+char	*ft_catch_env(char **envp, char *str, t_utils *utils)
 {
 	int		y;
 	char	*path;
 
 	y = 0;
 	path = NULL;
+	if (!str)
+		ft_ultimate_free_exit(utils, NULL, NULL);
 	while (envp[y] != NULL)
 	{
 		if (ft_strncmp(envp[y], str, ft_strlen(str)) == 0
@@ -26,7 +28,7 @@ char	*ft_catch_env(char **envp, char *str)
 		{
 			path = ft_strdup(&envp[y][ft_strlen(str) + 1]);
 			if (!path)
-				return (NULL);
+				ft_ultimate_free_exit(utils, NULL, NULL);
 			free(str);
 			return (path);
 		}

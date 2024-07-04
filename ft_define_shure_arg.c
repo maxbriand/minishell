@@ -6,19 +6,21 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:49 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 17:00:32 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/03 20:26:40 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	*ft_define_shure_arg(char **splt_cmd)
+bool	*ft_define_shure_arg(char **splt_cmd, t_utils *utils)
 {
 	int		i;
 	bool	op_before;
 	bool	*is_arg;
 
 	is_arg = malloc(sizeof(bool) * ft_strlen_array(splt_cmd));
+	if (!is_arg)
+		ft_ultimate_free_exit(utils, NULL, NULL);
 	op_before = false;
 	i = 0;
 	while (splt_cmd[i])
