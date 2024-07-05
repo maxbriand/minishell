@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 14:50:09 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 16:54:59 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	ft_define_next(char *arg, int i, t_utils *utils, t_pars *p)
 	utils->buf_pcmd->infile = ft_strdup(arg);
 	if (!utils->buf_pcmd->infile)
 		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
-	ft_define_infile_error(utils->buf_pcmd, utils);
+	ft_define_infile_error(utils->buf_pcmd, utils, p);
 	p->next_is_infile = false;
 }
 
@@ -92,6 +92,8 @@ static void	ft_define_other(char *arg, int i, t_utils *utils, t_pars *p)
 		return ;
 	if (p->next_is_hd_stop)
 	{
+		if (ft_strncmp(arg, "<", 1) || ft_strncmp(arg, ">", 1))
+			ft_set_error_op(utils->buf_pcmd, utils);
 		p->next_is_hd_stop = false;
 		if (utils->buf_pcmd->exit_code == 2)
 			return ;
@@ -100,16 +102,7 @@ static void	ft_define_other(char *arg, int i, t_utils *utils, t_pars *p)
 			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		return ;
 	}
-	if (p->next_is_outfile)
-	{
-		if (utils->buf_pcmd->outfile)
-			free(utils->buf_pcmd->outfile);
-		utils->buf_pcmd->outfile = ft_strdup(arg);
-		if (!utils->buf_pcmd->outfile)
-			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
-		p->next_is_outfile = false;
-		return ;
-	}
+	ft_define_outfile(utils, arg, p);
 	ft_define_next(arg, i, utils, p);
 }
 

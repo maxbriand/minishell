@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:44:45 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 16:39:57 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ bool	ft_arg_is_cmd(char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils);
 void	ft_cmd_arg_join(t_commands *cmd, t_utils *utils);
 bool	ft_define_on_quote(char *str, int i, bool *on_quote);
 void	ft_define_outfile_error(t_commands *p_cmd, t_utils *utils);
-void	ft_define_infile_error(t_commands *p_cmd, t_utils *utils);
+void	ft_define_infile_error(t_commands *p_cmd, t_utils *utils, t_pars *p);
+void	ft_define_outfile(t_utils *utils, char *arg, t_pars *p);
 
 //fuction usefull
 char	**ft_addback(char **old_array, char *new_element);

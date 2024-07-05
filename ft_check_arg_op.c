@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:51:41 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:55:25 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 15:20:10 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool	ft_is_operator_not_append(
 				p_cmd->infile = ft_strdup(arg + 1);
 				if (!p_cmd->infile)
 					ft_ultimate_free_exit(utils, NULL, NULL, NULL);
-				ft_define_infile_error(p_cmd, utils);
+				ft_define_infile_error(p_cmd, utils, p);
 			}
 			else
 				ft_set_error_op(p_cmd, utils);
