@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 14:09:49 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 14:50:09 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,21 @@ static void	ft_is_expand(char **expand, int i, t_utils *utils, t_pars *p)
 			i++;
 		}
 	}
+	ft_free_array(expand);
 }
 
-static void	ft_define_arg_cmd(char *arg, int i, t_utils *utils, t_pars *p)
+static int	ft_define_arg_cmd(char *arg, int i, t_utils *utils, t_pars *p)
 {
 	char	**expand;
 
+	if (p->next_is_infile || p->last_was_env)
+		return (1);
 	if (p->next_can_be_arg)
 	{
 		utils->buf_pcmd->arg = ft_addback(utils->buf_pcmd->arg, arg);
 		if (!utils->buf_pcmd->arg)
 			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
-		return ;
+		return (0);
 	}
 	if (p->is_expand[i] == true && utils->buf_pcmd->cmd == NULL)
 	{
@@ -47,20 +50,19 @@ static void	ft_define_arg_cmd(char *arg, int i, t_utils *utils, t_pars *p)
 		ft_arg_is_cmd(expand[0], utils->buf_pcmd, p, utils);
 		i = 1;
 		ft_is_expand(expand, i, utils, p);
-		ft_free_array(expand);
-		return ;
+		return (0);
 	}
 	if (utils->buf_pcmd->cmd == NULL)
 		ft_arg_is_cmd(arg, utils->buf_pcmd, p, utils);
-	return ;
+	return (0);
 }
 
 static void	ft_define_next(char *arg, int i, t_utils *utils, t_pars *p)
 {
 	char	**expand;
 
-	if (!p->next_is_infile && !p->last_was_env)
-		ft_define_arg_cmd(arg, i, utils, p);
+	if (ft_define_arg_cmd(arg, i, utils, p) == 0)
+		return ;
 	p->last_was_env = false;
 	if (p->is_expand[i])
 	{
