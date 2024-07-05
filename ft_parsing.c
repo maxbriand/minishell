@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 01:47:09 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 05:40:03 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,19 @@ static void	ft_init_mini(char **env, t_minishell *mini, t_utils *utils)
 	mini->env[i] = ft_strjoin_free_s2("SHLVL=", ft_itoa(shlvl), utils);
 	if (!mini->export)
 		mini->export = ft_init_export(mini, utils);
+	// //test
+	// if (!mini->export)
+	// 	printf("\nExport error\n\n");
+	// else
+	// {
+	// 	int j = 0;
+	// 	while (mini->export[j])
+	// 	{
+	// 		printf("%s\n", mini->export[j]);
+	// 		j++;
+	// 	}
+	// }
+	// //end test
 	mini->count_hd = 0;
 }
 

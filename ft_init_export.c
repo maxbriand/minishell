@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 06:04:53 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 05:37:42 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_define_sort(
 				buf = i;
 			i++;
 		}
-		result[current] = ft_better_strdup(env_b[buf], env_b[buf], utils);
+		result[current] = ft_strdup(env_b[buf]);
 		ft_remove_element(env_b, buf);
 		current++;
 	}
@@ -98,6 +98,7 @@ static char	**ft_result_declare(char **res_ncmplt, t_utils *utils)
 			return (NULL);
 		utils->exp_str = ft_charaddback(&utils->exp_str, '\"', utils);
 		result = ft_addback_free(result, utils->exp_str);
+		utils->exp_str = NULL;
 		if (!result)
 			ft_ultimate_free_exit(utils, NULL, NULL);
 		i++;
