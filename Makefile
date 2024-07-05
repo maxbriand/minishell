@@ -61,24 +61,29 @@ SRC =	main.c \
 		parsing/ft_free_array.c \
 		parsing/ft_hd_set.c \
 
+OBJ = $(patsubst %.c, %.o, $(SRC))
+
 all: $(NAME)
 
-$(NAME): $(LIBFT)
-	@$(CC) $(FLAGS) $(SRC) -g -Iinclude -Ilibft/include -Llibft -lft -lreadline -lhistory -lncurses -o $(NAME)
+$(NAME): $(LIBFT) $(OBJ)
+	@$(CC) $(FLAGS) $(OBJ) -Llibft -lft -lreadline -lhistory -lncurses -o $(NAME)
+
+%.o: %.c
+	@$(CC) $(FLAGS) -c $< -o $@ -Iinclude -Ilibft/include 
 
 $(LIBFT):
 	@make --no-print-directory -C libft
 
 clean:
 	@make --no-print-directory clean -C libft
+	@rm -f */*.o
+	@rm -f *.o
 
 fclean: clean
 	@make --no-print-directory fclean -C libft
 	@rm -f $(NAME)
 
 re: fclean all
-	clear
-	./minishell
 
 rev: fclean all
 	valgrind --tool=memcheck --track-origins=yes --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes -s --suppressions=valgrind.supp ./minishell
