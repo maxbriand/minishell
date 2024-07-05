@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 04:25:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 06:18:46 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 02:15:52 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	ft_free_utils(t_utils *utils)
 		free(utils->exp_str);
 	if (utils->res_splt_q)
 		ft_free_array(utils->res_splt_q);
+	utils->res_splt_q = NULL;
 	if (utils->res_splt_s)
 		ft_free_array(utils->res_splt_s);
+	utils->res_splt_s = NULL;
 	if (utils->sep)
 		free(utils->sep);
 	free (utils);

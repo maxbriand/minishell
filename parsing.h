@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 05:18:46 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 01:26:09 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	ft_ultimate_free_exit(
 void	ft_free_mini(t_minishell *mini);
 void	ft_free_utils(t_utils *utils);
 void	ft_free_pcmd(t_commands *p_cmd);
+void	ft_redefine_utils(t_utils *utils);
 
 char	**ft_split_quote_ignore(char *str, char c, t_utils *utils);
 char	**ft_split_separator(char *str, t_utils *utils);

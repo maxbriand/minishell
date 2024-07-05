@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 03:54:15 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 02:17:52 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,20 @@ char	**ft_addback(char **old_array, char *new_element)
 		{
 			new_array[i] = ft_strdup(old_array[i]);
 			if (!new_array[i])
+			{
+				ft_free_array(new_array);
 				return (NULL);
+			}
 			i++;
 		}
 		ft_free_array(old_array);
 	}
 	new_array[i] = ft_strdup(new_element);
 	if (!new_array[i])
+	{
+		ft_free_array(new_array);
 		return (NULL);
+	}
 	new_array[i + 1] = NULL;
 	return (new_array);
 }
@@ -60,14 +66,20 @@ char	**ft_addback_free(char **old_array, char *new_element)
 		{
 			new_array[i] = ft_strdup(old_array[i]);
 			if (!new_array[i])
+			{
+				ft_free_array(new_array);
 				return (NULL);
+			}
 			i++;
 		}
 		ft_free_array(old_array);
 	}
 	new_array[i] = ft_strdup(new_element);
 	if (!new_array[i])
+	{
+		ft_free_array(new_array);
 		return (NULL);
+	}
 	free(new_element);
 	return (new_array);
 }
@@ -103,7 +115,6 @@ char	*ft_charaddback(
 		free(*old_array);
 	}
 	new_array[i] = new_element;
-	if (new_element != '\0')
-		new_array[i + 1] = '\0';
+	new_array[i + 1] = '\0';
 	return (new_array);
 }

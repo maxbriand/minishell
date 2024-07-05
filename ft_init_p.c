@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 06:27:39 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 02:16:48 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ static int	ft_iter_new_node(
 	}
 	ft_pipe_unexpected(input, head, utils);
 	ft_free_array(input_no_pipe);
+	input_no_pipe = NULL;
 	return (0);
 }
 

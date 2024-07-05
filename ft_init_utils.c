@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:57:33 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 05:19:08 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 01:25:54 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,23 @@ t_utils	*ft_init_utils(void)
 	utils->last_split_sep = 0;
 	utils->sep = NULL;
 	return (utils);
+}
+
+void	ft_redefine_utils(t_utils *utils)
+{
+	utils->ap_j = 0;
+	if (utils->exp_str)
+		free(utils->exp_str);
+	utils->exp_str = NULL;
+	if (utils->res_splt_q)
+		ft_free_array(utils->res_splt_q);
+	utils->res_splt_q = NULL;
+	utils->last_split = 0;
+	if (utils->res_splt_s)
+		ft_free_array(utils->res_splt_s);
+	utils->res_splt_s = NULL;
+	utils->last_split_sep = 0;
+	if (utils->sep)
+		free(utils->sep);
+	utils->sep = NULL;
 }

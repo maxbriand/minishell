@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/04 06:35:44 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 02:14:15 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,13 @@ static char	**ft_split_parsing(
 	{
 		splt = ft_split_here(str, &i, on_quote, utils);
 		utils->res_splt_s = ft_addback_free(utils->res_splt_s, splt);
+		//ici ??? au dessuis
 		if (!utils->res_splt_s)
 			ft_ultimate_free_exit(utils, NULL, NULL);
 	}
 	res = ft_strdup_array(utils->res_splt_s, utils);
+	ft_free_array(utils->res_splt_s);
+	utils->res_splt_s = NULL;
 	return (res);
 }
 

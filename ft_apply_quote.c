@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 06:12:35 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 02:03:40 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_remove_quote_bslash(int i, t_utils *utils, t_pars *p)
 	char	*buf;
 
 	j = 0;
-	buf = ft_apply_var_env(p->spl_cmd[i], 0, utils, p);
+	buf = ft_apply_var_env(p->spl_cmd[i], i, utils, p);
 	free(p->spl_cmd[i]);
 	p->spl_cmd[i] = buf;
 	buf = NULL;

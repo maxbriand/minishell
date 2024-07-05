@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 06:06:16 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 02:20:13 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_free_p(t_pars *p)
 		p_buf = p;
 		if (p_buf->spl_cmd)
 			ft_free_array(p_buf->spl_cmd);
+		p_buf->spl_cmd = NULL;
 		if (p_buf->is_arg)
 			free(p_buf->is_arg);
 		if (p_buf->is_expand)
@@ -54,12 +55,15 @@ void	ft_free_pcmd(t_commands *p_cmd)
 		p_cmd = p_cmd->next;
 		if (buf->arg)
 			ft_free_array(buf->arg);
+		buf->arg = NULL;
 		if (buf->arg_cmd)
 			ft_free_array(buf->arg_cmd);
+		buf->arg_cmd = NULL;
 		if (buf->cmd)
 			free(buf->cmd);
 		if (buf->hd_stop)
 			ft_free_array(buf->hd_stop);
+		buf->hd_stop = NULL;
 		if (buf->infile)
 			free(buf->infile);
 		if (buf->option)
@@ -92,9 +96,12 @@ void	ft_free_mini(t_minishell *mini)
 {
 	if (mini)
 	{
-		ft_free_array(mini->env);
+		if (mini->env)
+			ft_free_array(mini->env);
+		mini->env = NULL;
 		if (mini->export)
 			ft_free_array(mini->export);
+		mini->export = NULL;
 		if (mini->p_cmd)
 			ft_free_pcmd(mini->p_cmd);
 		mini->p_cmd = NULL;
