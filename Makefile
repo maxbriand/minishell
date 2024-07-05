@@ -69,7 +69,7 @@ $(NAME): $(LIBFT) $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) -Llibft -lft -lreadline -lhistory -lncurses -o $(NAME)
 
 %.o: %.c
-	@$(CC) $(FLAGS) -c $< -o $@ -Iinclude -Ilibft/include 
+	@$(CC) $(FLAGS) -g -c $< -o $@ -Iinclude -Ilibft/include 
 
 $(LIBFT):
 	@make --no-print-directory -C libft

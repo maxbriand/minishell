@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:40 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/04 01:30:16 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/05 18:52:52 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ void	ft_exitf(char *msg, int ec, t_commands *c_cmd, t_minishell *data)
 	ft_write_error(msg);
 	if (!data)
 		exit (1);
-	ft_free_data(data);
 	if (c_cmd)
 	{
 		if (c_cmd->exit_code != 0)
 			data->exit_code = c_cmd->exit_code;
 	}
+	ft_free_data(data);
 	if (ec != -1)
 		data->exit_code = ec;
 	if (data->exit_code == 0)
