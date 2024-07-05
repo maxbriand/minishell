@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 01:58:34 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 04:44:05 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ static void	ft_define_next(char *arg, int i, t_utils *utils, t_pars *p)
 		ft_define_infile_error(utils->buf_pcmd, utils);
 		p->next_is_infile = false;
 	}
-	ft_define_arg_cmd(arg, i, utils, p);
+	else
+		ft_define_arg_cmd(arg, i, utils, p);
 }
 
 static void	ft_define_other(char *arg, int i, t_utils *utils, t_pars *p)
