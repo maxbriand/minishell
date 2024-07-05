@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 16:54:59 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 18:42:50 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	ft_define_other(char *arg, int i, t_utils *utils, t_pars *p)
 		return ;
 	if (p->next_is_hd_stop)
 	{
-		if (ft_strncmp(arg, "<", 1) || ft_strncmp(arg, ">", 1))
+		if (!ft_strncmp(arg, "<", 1) || !ft_strncmp(arg, ">", 1))
 			ft_set_error_op(utils->buf_pcmd, utils);
 		p->next_is_hd_stop = false;
 		if (utils->buf_pcmd->exit_code == 2)

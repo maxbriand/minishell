@@ -6,15 +6,24 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:51:41 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 15:20:10 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 19:10:00 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	is_error(char *arg, t_utils *utils, t_pars *p)
+{
+	if ((!ft_strncmp(arg, "<", 1)
+			|| !ft_strncmp(arg, ">", 1))
+		&& (p->next_is_outfile || p->next_is_infile))
+		ft_set_error_op(utils->buf_pcmd, utils);
+}
+
 static void	ft_op_infile(
 	char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils)
 {
+	is_error(arg, utils, p);
 	if (ft_strlen(arg) > 1)
 	{
 		if (arg[1] != '<' && p_cmd->err_is_infile == false)
@@ -33,6 +42,7 @@ static void	ft_op_infile(
 static bool	ft_is_operator_not_append(
 		char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils)
 {
+	is_error(arg, utils, p);
 	if (ft_strncmp(arg, "<", 1) == 0)
 	{
 		if (ft_strlen(arg) > 1)
@@ -62,6 +72,7 @@ static bool	ft_is_operator_not_append(
 static bool	ft_append_op_out(
 	char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils)
 {
+	is_error(arg, utils, p);
 	if (ft_strlen(arg) > 2)
 	{
 		if (arg[2] != '<' && arg[2] != '>' && p_cmd->err_is_infile == false)
@@ -85,6 +96,7 @@ static bool	ft_append_op_out(
 bool	ft_is_operator(
 		char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils)
 {
+	is_error(arg, utils, p);
 	if (ft_strncmp(arg, "<<", 2) == 0)
 	{
 		if (ft_strlen(arg) > 2)

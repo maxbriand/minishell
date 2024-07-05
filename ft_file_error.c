@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:36:53 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 18:33:58 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 18:43:08 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	ft_define_outfile_error(t_commands *p_cmd, t_utils *utils)
 
 void	ft_define_infile_error(t_commands *p_cmd, t_utils *u, t_pars *p)
 {
-	if ((ft_strncmp(u->buf_pcmd->infile, "<", 1)
-			|| ft_strncmp(u->buf_pcmd->infile, ">", 1)) && p->next_is_infile)
+	if ((!ft_strncmp(u->buf_pcmd->infile, "<", 1)
+			|| !ft_strncmp(u->buf_pcmd->infile, ">", 1)) && p->next_is_infile)
 		ft_set_error_op(p_cmd, u);
 	if (access(p_cmd->infile, F_OK) == 0)
 	{
