@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 02:16:48 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 03:02:37 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ static t_pars	*ft_new_node(char *input_no_pipe, t_utils *utils)
 		n->is_arg = NULL;
 		n->is_expand = NULL;
 	}
-	ft_if_no_error(input_no_pipe, n, utils);
+	else
+		ft_if_no_error(input_no_pipe, n, utils);
 	ft_define_new_node(n);
 	return (n);
 }
@@ -107,6 +108,8 @@ t_pars	*ft_define_p(char *input, t_utils *utils)
 	if (ft_is_only_space(input) == 0)
 	{
 		input_no_pipe = ft_split_quote_ignore(input, '|', utils);
+		if (!input_no_pipe)
+			return (NULL);
 		head = ft_new_node(input_no_pipe[0], utils);
 		utils->p = head;
 		if (!head)

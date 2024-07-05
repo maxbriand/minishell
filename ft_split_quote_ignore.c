@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/04 06:30:17 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 02:50:18 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*ft_should_split(bool *on_quote, int *i, char *str, t_utils *utils)
 }
 
 //need to initialize the two booleen on false or valgrind error
-static void	ft_split_parsing(
+static int	ft_split_parsing(
 			char *str, bool *on_quote, t_utils *utils)
 {
 	int		y;
@@ -70,7 +70,7 @@ static void	ft_split_parsing(
 	{
 		utils->res_splt_q[0] = ft_split_here(str, &i, utils);
 		if (!utils->res_splt_q[0])
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			return (0); //maybe 0, and not 1
 		y++;
 	}
 	while (str[i] == '|')
@@ -84,7 +84,8 @@ static void	ft_split_parsing(
 	}
 	utils->res_splt_q[y] = ft_split_here(str, &i, utils);
 	if (!utils->res_splt_q[y])
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		return (1); //maybe 0, and not 1
+	return (0);
 }
 
 static int	ft_count_cut(char *str, char c, bool *on_quote)
@@ -133,7 +134,8 @@ char	**ft_split_quote_ignore(char *str, char c, t_utils *utils)
 		ft_ultimate_free_exit(utils, NULL, NULL);
 	on_quote[0] = false;
 	on_quote[1] = false;
-	ft_split_parsing(str, on_quote, utils);
+	if (ft_split_parsing(str, on_quote, utils) == 1)
+		return (NULL);
 	res = ft_strdup_array(utils->res_splt_q, utils);
 	ft_free_array(utils->res_splt_q);
 	utils->res_splt_q = NULL;
