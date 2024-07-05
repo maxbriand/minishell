@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/04 01:47:11 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/05 22:39:32 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,59 +29,14 @@
 # include <signal.h>
 # include <termios.h>
 # include <dirent.h>
-
-typedef struct s_commands
-{
-	char				*infile;
-	// last infile -> only if this infile it's the last input redirection
-	// / after heredoc
-	char				**hd_stop;
-	char				*heredoc;
-	//pipe before the command or not (0 or 1)
-	bool				in_pipe;
-	// last outfile -> last fd
-	char				*outfile;
-	// only need to know if the last outfile is an append
-	bool				append_outfile;
-	char				*cmd;
-	char				*option;
-	char				**arg;
-	char				**arg_cmd; // cmd + option + arg
-	bool				b_builtins;
-	int					*pipefd0;
-	int					*pipefd1;
-	int					old_fd1;
-	int					old_fd0;
-	bool				bf_cmd;
-	bool				err_is_infile;
-	bool				err_is_outfile;
-	int					exit_code;
-	char				*msg_error;
-	struct s_commands	*next;
-}	t_commands;
-
-typedef struct s_minishell
-{
-	t_commands		*p_cmd;
-	int				pipe_nbr;
-	char			**env;
-	char			**export;
-	bool			env_malloc;
-	int				open_quote;
-	int				open_dquote;
-	int				**pipefds;
-	int				exit_code;
-	int				wait_code;
-	int				count_hd;
-}	t_minishell;
+# include "structs.h"
+# include "parsing.h"
 
 # ifndef GLOBAL
 #  define GLOBAL
 
 extern int	g_sig;
 # endif
-
-# include "parsing.h"
 
 //void	ft_print_fd_content(int fd);
 

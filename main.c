@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:15:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/04 01:19:20 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/05 22:32:46 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,37 @@ t_minishell	*ft_init_mish(void)
 	data->exit_code = 0;
 	data->wait_code = 0;
 	data->count_hd = 0;
+	data->pipefds = NULL;
 	return (data);
 }
 
-int	main(int ac, char **av, char **env)
+static t_minishell	*ft_begin(int ac, char **av)
 {
-	char		*cmd;
-	int			store_ec;
 	t_minishell	*data;
 
 	(void) ac;
 	(void) av;
 	data = NULL;
 	data = ft_init_mish();
+	return (data);
+}
+
+static int	ft_end_of_code(t_minishell *data)
+{
+	int	store_ec;
+
+	ft_printf("exit\n");
+	store_ec = data->exit_code;
+	ft_free_data_exit(data);
+	return (store_ec);
+}
+
+int	main(int ac, char **av, char **env)
+{
+	char		*cmd;
+	t_minishell	*data;
+
+	data = ft_begin(ac, av);
 	while (1)
 	{
 		ft_signals(0);
@@ -126,8 +144,5 @@ int	main(int ac, char **av, char **env)
 		free(cmd);
 		ft_free_data(data);
 	}
-	ft_printf("exit\n");
-	store_ec = data->exit_code;
-	ft_free_data_exit(data);
-	return (store_ec);
+	return (ft_end_of_code(data));
 }

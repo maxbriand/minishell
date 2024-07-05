@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 21:49:59 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 22:36:42 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,6 @@
 # define PARSING_H
 
 # include "minishell.h"
-
-typedef struct s_parsing
-{
-	char				**spl_cmd;
-	bool				*is_arg;
-	bool				*is_expand;
-	bool				next_is_hd_stop;
-	bool				next_is_infile;
-	bool				next_is_outfile;
-	bool				next_can_be_opt;
-	bool				next_can_be_arg;
-	bool				last_was_echo;
-	bool				last_was_env;
-	bool				next_is_arg;
-	char				*error_msg;
-	int					exit_code;
-	bool				was_quote;
-	struct s_parsing	*next;
-}	t_pars;
-
-typedef struct s_utils
-{
-	t_pars		*p;
-	t_minishell	*mini;
-	int			ap_j;
-	t_commands	*buf_pcmd;
-	t_pars		*buf_p;
-	char		*exp_str;
-	char		**res_splt_q;
-	int			last_split;
-	char		**res_splt_s;
-	int			last_split_sep;
-	char		*sep;
-	int			env_free;
-	char		*s2;
-
-}	t_utils;
 
 // parsing
 void	ft_parsing(char *input, t_minishell *mini, char **env);

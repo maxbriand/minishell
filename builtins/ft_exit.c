@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:38:46 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 21:35:17 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 22:18:39 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,4 @@ void	ft_exit(t_minishell *data, t_commands *c_cmd)
 	exit_code = ft_atol(*(c_cmd->arg));
 	data->exit_code = exit_code;
 	ft_exitf(NULL, exit_code, NULL, data);
-	//exit(exit_code);
 }
