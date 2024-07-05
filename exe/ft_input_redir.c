@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_input_redir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:03:04 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 18:03:53 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/05 21:00:22 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd)
 			ft_exitf("dup2 issue", 1, NULL, data);
 		return ;
 	}
-	else if (c_cmd->heredoc)
+	else
 		fd = open(c_cmd->heredoc, O_RDONLY);		
 	if (dup2(fd, 0) == -1)
 		ft_exitf("dup2 issue", 1, NULL, data);

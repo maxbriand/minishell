@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:03 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/03 15:36:35 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:55:52 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,30 @@ static void	ft_define_node(t_commands *node)
 	node->heredoc = NULL;
 }
 
-static t_commands	*ft_node_create_pcmd(void)
+static t_commands	*ft_node_create_pcmd(t_utils *utils)
 {
 	t_commands	*node;
 
 	node = malloc(sizeof(t_commands));
 	if (!node)
-		return (NULL);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	ft_define_node(node);
 	return (node);
 }
 
-static int	ft_iter_create_node(
-	t_commands *next_node, t_commands *buf_cmd, t_pars *buf_p)
+static void	ft_iter_create_node(
+	t_commands *next_node, t_commands *buf_cmd, t_pars *buf_p, t_utils *utils)
 {
 	while (buf_p)
 	{
-		next_node = ft_node_create_pcmd();
-		if (!buf_cmd)
-			return (1);
+		next_node = ft_node_create_pcmd(utils);
 		if (buf_p->exit_code)
 		{
 			if (buf_p->error_msg)
 			{
 				next_node->msg_error = ft_strdup(buf_p->error_msg);
 				if (!next_node->msg_error)
-					return (1);
+					ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 			}
 			next_node->exit_code = buf_p->exit_code;
 		}
@@ -70,10 +68,9 @@ static int	ft_iter_create_node(
 		buf_cmd = buf_cmd->next;
 		buf_p = buf_p->next;
 	}
-	return (0);
 }
 
-int	ft_init_pcmd(t_minishell *mini, t_pars *p)
+void	ft_init_pcmd(t_minishell *mini, t_pars *p, t_utils *utils)
 {
 	t_pars		*buf_p;
 	t_commands	*buf_cmd;
@@ -81,22 +78,18 @@ int	ft_init_pcmd(t_minishell *mini, t_pars *p)
 
 	next_node = NULL;
 	buf_p = p;
-	buf_cmd = ft_node_create_pcmd();
-	if (!buf_cmd)
-		return (1);
+	buf_cmd = ft_node_create_pcmd(utils);
 	if (buf_p->exit_code)
 	{
 		if (p->error_msg)
 		{
 			buf_cmd->msg_error = ft_strdup(p->error_msg);
 			if (!buf_cmd->msg_error)
-				return (1);
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		}
 		buf_cmd->exit_code = p->exit_code;
 	}
 	mini->p_cmd = buf_cmd;
 	buf_p = buf_p->next;
-	if (ft_iter_create_node(next_node, buf_cmd, buf_p))
-		return (1);
-	return (0);
+	ft_iter_create_node(next_node, buf_cmd, buf_p, utils);
 }

@@ -3,89 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/03 18:37:16 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/05 21:50:13 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_process(t_commands *buf, t_pars *p, int *i)
+static void	ft_check_nb_hd(t_utils *utils, t_minishell *mini)
+{
+	if (mini->count_hd > 16 && mini->p_cmd->exit_code != 2)
+	{
+		if (mini->p_cmd->msg_error)
+			free(mini->p_cmd->msg_error);
+		mini->p_cmd->msg_error = ft_strdup(
+				"minishell: maximum here-document count exceeded\n");
+		if (!mini->p_cmd->msg_error)
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
+	}
+}
+
+static void	ft_process(t_utils *utils, t_pars *p, int *i)
 {
 	int	fdout;
 
+	ft_redefine_utils(utils);
 	if (p->spl_cmd && p->spl_cmd[*i] && p->spl_cmd[*i][0] != '\0')
 	{
 		if (*i == 0)
-			ft_define_first_pcmd(p->spl_cmd[0], buf, p);
-		else if (ft_define_p_cmd(p->spl_cmd[*i], *i, buf, p) == 1)
-			return (1);
+			ft_define_first_pcmd(p->spl_cmd[0], utils->buf_pcmd, p, utils);
+		else if (p->spl_cmd[*i][0] != '\0')
+			ft_define_p_cmd(p->spl_cmd[*i], *i, utils, p);
 	}
-	else if (p->is_arg[*i] == true && !buf->cmd)
+	else if (p->is_arg[*i] == true && !utils->buf_pcmd->cmd)
 	{
-		buf->cmd = ft_strdup("");
-		if (!buf->cmd)
-			return (1);
+		utils->buf_pcmd->cmd = ft_strdup("");
+		if (!utils->buf_pcmd->cmd)
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	}
-	if (buf->outfile && buf->msg_error == NULL)
+	if (utils->buf_pcmd->outfile && utils->buf_pcmd->msg_error == NULL)
 	{
-		fdout = open(buf->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		fdout = open(
+				utils->buf_pcmd->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fdout <= 0)
-			ft_define_outfile_error(buf);
+			ft_define_outfile_error(utils->buf_pcmd, utils);
 		close(fdout);
 	}
 	(*i)++;
-	return (0);
 }
 
-static int	ft_all_verif_process(t_minishell *mini, t_commands *buf, t_pars *p)
+static void	ft_all_verif_process(t_minishell *mini, t_pars *p, t_utils *utils)
 {
 	int	i;
 
 	if (p->spl_cmd == NULL)
-		return (0);
-	if (buf != mini->p_cmd)
-		buf->in_pipe = true;
+		return ;
+	if (utils->buf_pcmd != mini->p_cmd)
+		utils->buf_pcmd->in_pipe = true;
 	if (p->spl_cmd[0])
 	{
 		i = 0;
-		if (ft_remove_quote_bslash(p->spl_cmd, i, mini, p) == 1)
-			return (1);
-		ft_process(buf, p, &i);
+		if (ft_remove_quote_bslash(i, utils, p) == 1)
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
+		ft_process(utils, p, &i);
 		while (p->spl_cmd[i])
 		{
-			if (ft_remove_quote_bslash(p->spl_cmd, i, mini, p) == 1)
-				return (1);
-			if (ft_process(buf, p, &i) == 1)
-				return (1);
+			if (ft_remove_quote_bslash(i, utils, p) == 1)
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
+			ft_process(utils, p, &i);
 		}
-		if (buf->arg_cmd == NULL && buf->cmd)
-			ft_cmd_arg_join(buf);
+		if (utils->buf_pcmd->arg_cmd == NULL && utils->buf_pcmd->cmd)
+			ft_cmd_arg_join(utils->buf_pcmd, utils);
 		if (p->next_is_infile || p->next_is_outfile || p->next_is_hd_stop)
-			ft_error_next_file(buf, p);
+			ft_error_next_file(utils->buf_pcmd, p, utils);
 	}
-	return (ft_hd_set(mini, buf, mini->p_cmd));
+	ft_hd_set(mini, utils->buf_pcmd, mini->p_cmd, utils);
 }
 
-static void	ft_init_mini(char **env, t_minishell *mini)
+// init export + env
+static void	ft_init_mini(char **env, t_minishell *mini, t_utils *utils)
 {
 	int	i;
 	int	shlvl;
 
+	utils->mini = mini;
 	if (!mini->env)
-		mini->env = ft_strdup_array(env);
+		mini->env = ft_strdup_array(env, utils);
+	if (!mini->env)
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	i = 0;
 	while (ft_strncmp(mini->env[i], "SHLVL", 5))
 		i++;
 	shlvl = ft_atoi(*(mini->env + 6)) + 1;
 	free(mini->env[i]);
-	mini->env[i] = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+	utils->env_free = i;
+	mini->env[i] = ft_strjoin_free_s2("SHLVL=", ft_itoa(shlvl), utils);
+	utils->env_free = 0;
 	if (!mini->export)
-		mini->export = ft_init_export(mini);
-	if (!mini->export)
-		ft_ultimate_free_exit(mini, NULL, NULL, NULL);
+		mini->export = ft_init_export(mini, utils);
 	mini->count_hd = 0;
 }
 
@@ -94,27 +111,27 @@ void	ft_parsing(char *input, t_minishell *mini, char **env)
 {
 	t_pars		*p;
 	t_pars		*p_buf;
-	t_commands	*buf;
+	t_utils		*utils;
 
-	ft_init_mini(env, mini);
+	utils = ft_init_utils();
+	ft_init_mini(env, mini, utils);
 	if (ft_strlen(input) == 0 || ft_is_error_quote(input) == true)
 		return ;
-	p = ft_define_p(input);
+	p = ft_define_p(input, utils);
 	if (!p)
 		return ;
-	if (ft_init_pcmd(mini, p) == 1)
-		ft_ultimate_free_exit(mini, p, NULL, NULL);
+	utils->p = p;
+	ft_init_pcmd(mini, p, utils);
+	utils->mini = mini;
 	p_buf = p;
-	buf = mini->p_cmd;
-	while (buf)
+	utils->buf_pcmd = mini->p_cmd;
+	while (utils->buf_pcmd)
 	{
-		if (ft_all_verif_process(mini, buf, p) == 1 || p->malloc_error)
-			ft_ultimate_free_exit(mini, p_buf, NULL, NULL);
-		if (mini->count_hd > 16 && mini->p_cmd->exit_code != 2)
-			ft_ultimate_free_exit(mini, p_buf, NULL,
-				"Minishell: maximum here-document count exceeded\n");
+		ft_all_verif_process(mini, p, utils);
+		ft_check_nb_hd(utils, mini);
 		p = p->next;
-		buf = buf->next;
+		utils->buf_pcmd = utils->buf_pcmd->next;
 	}
 	ft_free_p(p_buf);
+	ft_free_utils(&utils);
 }

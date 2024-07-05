@@ -6,42 +6,43 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/30 22:56:11 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:51:18 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_define_sort(char **env, int count, char **result)
+static void	ft_define_sort(
+		char **env, int count, char **result, t_utils *utils)
 {
 	int		buf;
 	int		i;
 	int		current;
-	char	**env_buf;
+	char	**env_b;
 
 	current = 0;
-	env_buf = ft_strdup_array(env);
-	if (!env_buf || !env)
+	env_b = ft_strdup_array(env, utils);
+	if (!env_b || !env)
 		return ;
 	while (current < count)
 	{
 		buf = 0;
 		i = 0;
-		while (env_buf[i])
+		while (env_b[i])
 		{
-			if (buf != i && ft_is_s1_before(env_buf[i], env_buf[buf]) == true
-				&& ft_strchr(env_buf[i], '='))
+			if (buf != i && ft_is_s1_before(env_b[i], env_b[buf]) == true
+				&& ft_strchr(env_b[i], '='))
 				buf = i;
 			i++;
 		}
-		result[current] = ft_strdup(env_buf[buf]);
-		ft_remove_element(env_buf, buf);
+		result[current] = ft_strdup(env_b[buf]);
+		ft_remove_element(env_b, buf);
 		current++;
 	}
-	ft_free_array(env_buf);
+	ft_free_array(env_b);
 }
 
-static char	**ft_sort_export(int count, char **env)
+static char	**ft_sort_export(int count, char **env, t_utils *utils)
 {
 	char	**result;
 
@@ -49,40 +50,40 @@ static char	**ft_sort_export(int count, char **env)
 	if (!result)
 		return (NULL);
 	result[count] = NULL;
-	ft_define_sort(env, count, result);
+	ft_define_sort(env, count, result, utils);
 	if (!env)
 		return (NULL);
 	return (result);
 }
 
-static void	ft_create_str(char **str, char **res_ncmplt, int *j, bool *is_quote)
+static void	ft_create_str(
+	t_utils *utils, char **res_ncmplt, int *j, bool *is_quote)
 {
-	*str = ft_charaddback(str, (*res_ncmplt)[*j]);
-	if (!*str)
+	utils->exp_str = ft_charaddback(&utils->exp_str, (*res_ncmplt)[*j], NULL);
+	if (!utils->exp_str)
 	{
 		ft_free_array(res_ncmplt);
-		return ;
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	}
 	if ((*res_ncmplt)[*j] == '=' && *is_quote == false)
 	{
-		*str = ft_charaddback(str, '\"');
-		if (!*str)
+		utils->exp_str = ft_charaddback(&utils->exp_str, '\"', NULL);
+		if (!utils->exp_str)
 		{
 			ft_free_array(res_ncmplt);
-			return ;
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		}
 		*is_quote = true;
 	}
 	(*j)++;
 }
 
-static char	**ft_result_declare(char **res_ncmplt)
+static char	**ft_result_declare(char **res_ncmplt, t_utils *utils)
 {
 	int		i;
 	int		j;
 	bool	is_quote;
 	char	**result;
-	char	*str;
 
 	i = 0;
 	result = NULL;
@@ -90,22 +91,22 @@ static char	**ft_result_declare(char **res_ncmplt)
 	{
 		j = 0;
 		is_quote = false;
-		str = NULL;
+		utils->exp_str = NULL;
 		while (res_ncmplt[i][j])
-			ft_create_str(&str, &res_ncmplt[i], &j, &is_quote);
+			ft_create_str(utils, &res_ncmplt[i], &j, &is_quote);
 		if (!res_ncmplt[i])
 			return (NULL);
-		str = ft_charaddback(&str, '\"');
-		if (!str)
-			return (NULL);
-		result = ft_addback(result, str);
-		free(str);
+		utils->exp_str = ft_charaddback(&utils->exp_str, '\"', utils);
+		result = ft_addback_free(result, utils->exp_str);
+		utils->exp_str = NULL;
+		if (!result)
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		i++;
 	}
 	return (result);
 }
 
-char	**ft_init_export(t_minishell *mini)
+char	**ft_init_export(t_minishell *mini, t_utils *utils)
 {
 	int		count;
 	char	**result;
@@ -120,10 +121,10 @@ char	**ft_init_export(t_minishell *mini)
 			count++;
 		i++;
 	}
-	res_not_complete = ft_sort_export(count, mini->env);
+	res_not_complete = ft_sort_export(count, mini->env, utils);
 	if (!res_not_complete)
-		ft_ultimate_free_exit(mini, NULL, NULL, NULL);
-	result = ft_result_declare(res_not_complete);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
+	result = ft_result_declare(res_not_complete, utils);
 	ft_free_array(res_not_complete);
 	return (result);
 }

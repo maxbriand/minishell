@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_failure.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:40 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 18:52:52 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/05 21:42:20 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	ft_exitf(char *msg, int ec, t_commands *c_cmd, t_minishell *data)
 {
 	int	store_ec;
 
-	ft_write_error(msg);
+	if (msg)
+		ft_write_error(msg);
 	if (!data)
 		exit (1);
 	if (c_cmd)

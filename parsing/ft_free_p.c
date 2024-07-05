@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hd_set.c                                        :+:      :+:    :+:   */
+/*   ft_free_p.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 22:57:29 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:30:36 by gmersch          ###   ########.fr       */
+/*   Created: 2024/07/05 13:45:10 by gmersch           #+#    #+#             */
+/*   Updated: 2024/07/05 13:46:57 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_hd_set(
-	t_minishell *mini, t_commands *buf, t_commands *p_cmd, t_utils *utils)
+void	ft_free_p(t_pars *p)
 {
-	int			i;
-	t_commands	*head;
+	t_pars	*p_buf;
 
-	if (buf->hd_stop)
+	while (p)
 	{
-		i = 0;
-		head = p_cmd;
-		while (head)
-		{
-			if (head->hd_stop)
-				i++;
-			head = head->next;
-		}
-		buf->heredoc = ft_strjoin_free_s2("heredoc", ft_itoa(i), utils);
-		i = ft_strlen_array(buf->hd_stop);
-		mini->count_hd = mini->count_hd + i;
+		p_buf = p;
+		if (p_buf->spl_cmd)
+			ft_free_array(p_buf->spl_cmd);
+		p_buf->spl_cmd = NULL;
+		if (p_buf->is_arg)
+			free(p_buf->is_arg);
+		if (p_buf->is_expand)
+			free(p_buf->is_expand);
+		if (p_buf->error_msg)
+			free(p_buf->error_msg);
+		p = p->next;
+		p_buf->spl_cmd = NULL;
+		p_buf->is_arg = NULL;
+		p_buf->is_expand = NULL;
+		p_buf->error_msg = NULL;
+		free(p_buf);
 	}
 }
