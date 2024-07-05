@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 09:05:08 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 10:04:19 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*ft_split_here(char **str, int **ij, bool *on_quote, t_utils *utils)
 	len = *ij[0] - utils->last_split_sep;
 	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
-		ft_ultimate_free_exit(utils, str, (char*)utils->buf_p, NULL);
+		ft_ultimate_free_exit(utils, str, (char *)utils->buf_p, NULL);
 	j = 0;
 	while (utils->last_split_sep < *ij[0])
 	{
@@ -72,37 +72,30 @@ static char	**ft_split_parsing(
 	char **str, int j, bool *on_quote, t_utils *utils)
 {
 	int		i;
-	char	*splt;
-	char	**res;
 	int		*ij[2];
 
 	ij[0] = &i;
 	ij[1] = &j;
 	i = 0;
-	utils->res_splt_s = NULL;
 	ft_define_int(&i, &utils->last_split_sep, str[j], utils->sep);
 	while (str[j][i])
 	{
 		if (ft_find_split(&i, on_quote, utils->sep, str[j]))
 		{
-			splt = ft_split_here(str, ij, on_quote, utils);
-			utils->res_splt_s = ft_addback_free(utils->res_splt_s, splt);
+			utils->res_splt_s = ft_addback_free(utils->res_splt_s,
+					ft_split_here(str, ij, on_quote, utils));
 			if (!utils->res_splt_s)
-				ft_ultimate_free_exit(utils, str, (char*)utils->buf_p, NULL);
+				ft_ultimate_free_exit(utils, str, (char *)utils->buf_p, NULL);
 		}
 	}
 	if (ft_is_sep(str[j][i - 1], utils->sep) == false)
 	{
-		splt = ft_split_here(str, ij, on_quote, utils);
-		utils->res_splt_s = ft_addback_free(utils->res_splt_s, splt);
-		//ici ??? au dessuis
+		utils->res_splt_s = ft_addback_free(utils->res_splt_s,
+				ft_split_here(str, ij, on_quote, utils));
 		if (!utils->res_splt_s)
-			ft_ultimate_free_exit(utils, str, (char*)utils->buf_p, NULL);
+			ft_ultimate_free_exit(utils, str, (char *)utils->buf_p, NULL);
 	}
-	res = ft_strdup_array(utils->res_splt_s, utils);
-	ft_free_array(utils->res_splt_s);
-	utils->res_splt_s = NULL;
-	return (res);
+	return (ft_strdup_array(utils->res_splt_s, utils));
 }
 
 char	**ft_split_separator(char **str, int i, t_utils *utils)
@@ -112,10 +105,13 @@ char	**ft_split_separator(char **str, int i, t_utils *utils)
 
 	utils->sep = ft_strjoin(" ", "\t");
 	if (!utils->sep)
-		ft_ultimate_free_exit(utils, str, (char*)utils->buf_p, NULL);
+		ft_ultimate_free_exit(utils, str, (char *)utils->buf_p, NULL);
 	on_quote[0] = false;
 	on_quote[1] = false;
+	utils->res_splt_s = NULL;
 	result = ft_split_parsing(str, i, on_quote, utils);
+	ft_free_array(utils->res_splt_s);
+	utils->res_splt_s = NULL;
 	free(utils->sep);
 	utils->sep = NULL;
 	return (result);

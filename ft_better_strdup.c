@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:16 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 06:12:38 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 09:29:58 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*ft_better_strdup_free(char *s, char *arg, t_utils *utils)
 		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	return (sdup);
 }
+
 //EXIT FREE UTILS no leaks if mall error
 char	**ft_strdup_array(char **array, t_utils *utils)
 {

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 08:18:23 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 09:25:36 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	ft_define_new_node(t_pars *n)
 	n->was_quote = false;
 }
 
-static void	ft_if_no_error(char **input_no_pipe, int i, t_pars *n, t_utils *utils)
+static void	ft_if_no_error(
+	char **input_no_pipe, int i, t_pars *n, t_utils *utils)
 {
 	utils->buf_p = n;
 	n->spl_cmd = ft_split_separator(input_no_pipe, i, utils);
@@ -68,7 +69,7 @@ static t_pars	*ft_new_node(char **input_no_pipe, int i, t_utils *utils)
 		n->error_msg = ft_strdup(
 				"minishell: syntax error near unexpected token `|'");
 		if (!n->error_msg)
-			ft_ultimate_free_exit(utils, input_no_pipe, (char*)n, NULL);
+			ft_ultimate_free_exit(utils, input_no_pipe, (char *)n, NULL);
 		n->spl_cmd = NULL;
 		n->is_arg = NULL;
 		n->is_expand = NULL;

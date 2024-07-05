@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 07:54:10 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 10:03:58 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	ft_split_parsing(
 	{
 		utils->res_splt_q[0] = ft_split_here(str, &i, utils);
 		if (!utils->res_splt_q[0])
-			return (0); //maybe 0, and not 1
+			return (0);
 		y++;
 	}
 	while (str[i] == '|')
@@ -84,7 +84,7 @@ static int	ft_split_parsing(
 	}
 	utils->res_splt_q[y] = ft_split_here(str, &i, utils);
 	if (!utils->res_splt_q[0])
-		return (1); //maybe 0, and not 1
+		return (1);
 	return (0);
 }
 

@@ -6,13 +6,14 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:57:29 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 05:10:34 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 09:30:36 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_hd_set(t_minishell *mini, t_commands *buf, t_commands *p_cmd, t_utils *utils)
+void	ft_hd_set(
+	t_minishell *mini, t_commands *buf, t_commands *p_cmd, t_utils *utils)
 {
 	int			i;
 	t_commands	*head;

@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_utils.c                                    :+:      :+:    :+:   */
+/*   ft_free_p.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/04 04:25:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:28:28 by gmersch          ###   ########.fr       */
+/*   Created: 2024/07/05 13:45:10 by gmersch           #+#    #+#             */
+/*   Updated: 2024/07/05 13:46:57 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free_utils(t_utils *utils)
+void	ft_free_p(t_pars *p)
 {
-	if (utils->exp_str)
-		free(utils->exp_str);
-	if (utils->res_splt_q)
-		ft_free_array(utils->res_splt_q);
-	utils->res_splt_q = NULL;
-	if (utils->res_splt_s)
-		ft_free_array(utils->res_splt_s);
-	utils->res_splt_s = NULL;
-	if (utils->sep)
-		free(utils->sep);
-	if (utils->s2)
-		free(utils->s2);
-	utils->s2 = NULL;
-	free (utils);
+	t_pars	*p_buf;
+
+	while (p)
+	{
+		p_buf = p;
+		if (p_buf->spl_cmd)
+			ft_free_array(p_buf->spl_cmd);
+		p_buf->spl_cmd = NULL;
+		if (p_buf->is_arg)
+			free(p_buf->is_arg);
+		if (p_buf->is_expand)
+			free(p_buf->is_expand);
+		if (p_buf->error_msg)
+			free(p_buf->error_msg);
+		p = p->next;
+		p_buf->spl_cmd = NULL;
+		p_buf->is_arg = NULL;
+		p_buf->is_expand = NULL;
+		p_buf->error_msg = NULL;
+		free(p_buf);
+	}
 }

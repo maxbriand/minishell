@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 06:15:19 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 09:31:22 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	ft_error_next_file(t_commands *p_cmd, t_pars *p, t_utils *utils)
 	{
 		p_cmd->exit_code = 1;
 		p_cmd->msg_error = ft_strdup(
-			"No such file or directory");
+				"No such file or directory");
 		if (!p_cmd->msg_error)
 			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	}

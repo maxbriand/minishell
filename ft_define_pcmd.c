@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 06:14:03 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 14:09:49 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,34 +59,33 @@ static void	ft_define_next(char *arg, int i, t_utils *utils, t_pars *p)
 {
 	char	**expand;
 
-	if (p->next_is_infile || p->last_was_env)
-	{
-		p->last_was_env = false;
-		if (p->is_expand[i])
-		{
-			expand = ft_split(arg, ' ');
-			if (!expand)
-				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
-			if (ft_strlen_array(expand) > 1 && !utils->buf_pcmd->msg_error)
-			{
-				utils->buf_pcmd->msg_error = ft_better_strdup
-					("minishell: %s: ambiguous redirect", arg, utils);
-				utils->buf_pcmd->exit_code = 1;
-			}
-			ft_free_array(expand);
-		}
-		utils->buf_pcmd->infile = ft_strdup(arg);
-		if (!utils->buf_pcmd->infile)
-			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
-		ft_define_infile_error(utils->buf_pcmd, utils);
-		p->next_is_infile = false;
-	}
-	else
+	if (!p->next_is_infile && !p->last_was_env)
 		ft_define_arg_cmd(arg, i, utils, p);
+	p->last_was_env = false;
+	if (p->is_expand[i])
+	{
+		expand = ft_split(arg, ' ');
+		if (!expand)
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
+		if (ft_strlen_array(expand) > 1 && !utils->buf_pcmd->msg_error)
+		{
+			utils->buf_pcmd->msg_error = ft_better_strdup
+				("minishell: %s: ambiguous redirect", arg, utils);
+			utils->buf_pcmd->exit_code = 1;
+		}
+		ft_free_array(expand);
+	}
+	utils->buf_pcmd->infile = ft_strdup(arg);
+	if (!utils->buf_pcmd->infile)
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
+	ft_define_infile_error(utils->buf_pcmd, utils);
+	p->next_is_infile = false;
 }
 
 static void	ft_define_other(char *arg, int i, t_utils *utils, t_pars *p)
 {
+	if (p->next_can_be_opt && ft_is_option(arg, utils->buf_pcmd, p, utils))
+		return ;
 	if (ft_is_operator(arg, utils->buf_pcmd, p, utils) == true)
 		return ;
 	if (p->next_is_hd_stop)
@@ -114,8 +113,6 @@ static void	ft_define_other(char *arg, int i, t_utils *utils, t_pars *p)
 
 void	ft_define_p_cmd(char *arg, int i, t_utils *utils, t_pars *p)
 {
-	if (arg[0] == '\0')
-		return ;
 	if (p->next_is_arg)
 	{
 		if (!ft_is_operator(arg, utils->buf_pcmd, p, utils))
@@ -139,8 +136,5 @@ void	ft_define_p_cmd(char *arg, int i, t_utils *utils, t_pars *p)
 			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		return ;
 	}
-	if (p->next_can_be_opt
-		&& ft_is_option(arg, utils->buf_pcmd, p, utils) == true)
-		return ;
 	ft_define_other(arg, i, utils, p);
 }

@@ -33,6 +33,7 @@ SRC =	ft_ultimate_free.c\
 		ft_free_array.c \
 		ft_free_utils.c \
 		ft_init_utils.c \
+		ft_free_p.c \
 		main.c
 
 

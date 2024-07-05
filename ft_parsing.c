@@ -6,11 +6,24 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 07:42:12 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 14:09:27 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_check_nb_hd(t_utils *utils, t_minishell *mini)
+{
+	if (mini->count_hd > 16 && mini->p_cmd->exit_code != 2)
+	{
+		if (mini->p_cmd->msg_error)
+			free(mini->p_cmd->msg_error);
+		mini->p_cmd->msg_error = ft_strdup(
+				"minishell: maximum here-document count exceeded\n");
+		if (!mini->p_cmd->msg_error)
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
+	}
+}
 
 static void	ft_process(t_utils *utils, t_pars *p, int *i)
 {
@@ -21,7 +34,7 @@ static void	ft_process(t_utils *utils, t_pars *p, int *i)
 	{
 		if (*i == 0)
 			ft_define_first_pcmd(p->spl_cmd[0], utils->buf_pcmd, p, utils);
-		else
+		else if (p->spl_cmd[*i][0] != '\0')
 			ft_define_p_cmd(p->spl_cmd[*i], *i, utils, p);
 	}
 	else if (p->is_arg[*i] == true && !utils->buf_pcmd->cmd)
@@ -54,22 +67,6 @@ static void	ft_all_verif_process(t_minishell *mini, t_pars *p, t_utils *utils)
 		i = 0;
 		if (ft_remove_quote_bslash(i, utils, p) == 1)
 			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
-		
-		// int y = 0;
-		// t_pars		*p_buf = p;
-		// while (p_buf)
-		// {
-		// 	int i = 0;
-		// 	printf("\nMaillon %d\n", y);
-		// 	while (p_buf->spl_cmd[i])
-		// 	{
-		// 		printf("  %s\n", p_buf->spl_cmd[i]);
-		// 		i++;
-		// 	}
-		// 	p_buf = p_buf->next;
-		// 	y++;
-		// }
-	
 		ft_process(utils, p, &i);
 		while (p->spl_cmd[i])
 		{
@@ -105,19 +102,6 @@ static void	ft_init_mini(char **env, t_minishell *mini, t_utils *utils)
 	utils->env_free = 0;
 	if (!mini->export)
 		mini->export = ft_init_export(mini, utils);
-	// //test
-	// if (!mini->export)
-	// 	printf("\nExport error\n\n");
-	// else
-	// {
-	// 	int j = 0;
-	// 	while (mini->export[j])
-	// 	{
-	// 		printf("%s\n", mini->export[j]);
-	// 		j++;
-	// 	}
-	// }
-	// //end test
 	mini->count_hd = 0;
 }
 
@@ -139,20 +123,11 @@ void	ft_parsing(char *input, t_minishell *mini, char **env)
 	ft_init_pcmd(mini, p, utils);
 	utils->mini = mini;
 	p_buf = p;
-	//
 	utils->buf_pcmd = mini->p_cmd;
 	while (utils->buf_pcmd)
 	{
 		ft_all_verif_process(mini, p, utils);
-		if (mini->count_hd > 16 && mini->p_cmd->exit_code != 2)
-		{
-			if (mini->p_cmd->msg_error)
-				free(mini->p_cmd->msg_error);
-			mini->p_cmd->msg_error = ft_strdup(
-					"minishell: maximum here-document count exceeded\n");
-			if (!mini->p_cmd->msg_error)
-				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
-		}
+		ft_check_nb_hd(utils, mini);
 		p = p->next;
 		utils->buf_pcmd = utils->buf_pcmd->next;
 	}

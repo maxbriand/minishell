@@ -6,13 +6,14 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:51:41 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 06:12:59 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 09:55:25 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_op_infile(char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils)
+static void	ft_op_infile(
+	char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils)
 {
 	if (ft_strlen(arg) > 1)
 	{
@@ -58,7 +59,7 @@ static bool	ft_is_operator_not_append(
 	return (false);
 }
 
-static void	ft_append_op_out(
+static bool	ft_append_op_out(
 	char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils)
 {
 	if (ft_strlen(arg) > 2)
@@ -78,6 +79,7 @@ static void	ft_append_op_out(
 		p->next_is_outfile = true;
 		p_cmd->append_outfile = true;
 	}
+	return (true);
 }
 
 bool	ft_is_operator(
@@ -105,9 +107,6 @@ bool	ft_is_operator(
 		return (true);
 	}
 	else if (ft_strncmp(arg, ">>", 2) == 0)
-	{
-		ft_append_op_out(arg, p_cmd, p, utils);
-		return (true);
-	}
+		return (ft_append_op_out(arg, p_cmd, p, utils));
 	return (ft_is_operator_not_append(arg, p_cmd, p, utils));
 }

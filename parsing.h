@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 08:18:11 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 09:44:45 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,12 @@ void	ft_parsing(char *input, t_minishell *mini, char **env);
 t_pars	*ft_define_p(char *input, t_utils *utils);
 void	ft_init_pcmd(t_minishell *mini, t_pars *p, t_utils *utils);
 int		ft_remove_quote_bslash(int i, t_utils *utils, t_pars *p);
-bool	*ft_define_shure_arg(char **splt_cmd, t_utils *utils, char **input_no_pipe, t_pars *n);
+bool	*ft_define_shure_arg(
+			char **splt_cmd, t_utils *utils, char **input_no_pipe, t_pars *n);
 void	ft_hd_set(
-		t_minishell *mini, t_commands *buf, t_commands *p_cmd, t_utils *utils);
-t_utils	*ft_init_utils();
+			t_minishell *mini, t_commands *buf,
+			t_commands *p_cmd, t_utils *utils);
+t_utils	*ft_init_utils(void);
 
 //error
 int		ft_pipe_unexpected(char *input, t_pars *p, t_utils *utils);
@@ -70,7 +72,7 @@ void	ft_error_next_file(t_commands *p_cmd, t_pars *p, t_utils *utils);
 
 //define t_command
 void	ft_define_first_pcmd(
-		char *first_arg, t_commands *p_cmd, t_pars *p, t_utils *utils);
+			char *first_arg, t_commands *p_cmd, t_pars *p, t_utils *utils);
 void	ft_define_p_cmd(char *arg, int i, t_utils *utils, t_pars *p);
 
 //check arg
@@ -94,7 +96,7 @@ bool	ft_is_s1_before(char *str1, char *str2);
 size_t	ft_better_strlen(const char *s);
 
 //ultimate_free
-void	ft_free_array(char **tab);
+void	*ft_free_array(char **tab);
 void	ft_free_p(t_pars *p);
 void	ft_ultimate_free_exit(
 			t_utils *utils, char **array, char *str, char *msg);

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 07:52:51 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 09:53:33 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,14 @@ char	**ft_addback(char **old_array, char *new_element)
 		{
 			new_array[i] = ft_strdup(old_array[i]);
 			if (!new_array[i])
-			{
-				ft_free_array(new_array);
-				return (NULL);
-			}
+				return (ft_free_array(new_array));
 			i++;
 		}
 		ft_free_array(old_array);
 	}
 	new_array[i] = ft_strdup(new_element);
 	if (!new_array[i])
-	{
-		ft_free_array(new_array);
-		return (NULL);
-	}
+		return (ft_free_array(new_array));
 	new_array[i + 1] = NULL;
 	return (new_array);
 }
@@ -66,20 +60,14 @@ char	**ft_addback_free(char **old_array, char *new_element)
 		{
 			new_array[i] = ft_strdup(old_array[i]);
 			if (!new_array[i])
-			{
-				ft_free_array(new_array);
-				return (NULL);
-			}
+				return (ft_free_array(new_array));
 			i++;
 		}
 		ft_free_array(old_array);
 	}
 	new_array[i] = ft_strdup(new_element);
 	if (!new_array[i])
-	{
-		ft_free_array(new_array);
-		return (NULL);
-	}
+		return (ft_free_array(new_array));
 	free(new_element);
 	return (new_array);
 }
@@ -91,19 +79,15 @@ char	*ft_charaddback(
 {
 	char	*new_array;
 	int		i;
-	int		len;
 
-	len = ft_better_strlen(*old_array);
 	if (new_element == '\0' && !*old_array)
 		new_array = malloc(sizeof(char));
 	else
-		new_array = malloc(sizeof(char) * (len + 2));
-	if (!new_array)
-	{
-		if (utils)
-			ft_ultimate_free_exit(utils, NULL, *old_array, NULL);
+		new_array = malloc(sizeof(char) * (ft_better_strlen(*old_array) + 2));
+	if (!new_array && utils)
+		ft_ultimate_free_exit(utils, NULL, *old_array, NULL);
+	else if (!new_array)
 		return (NULL);
-	}
 	i = 0;
 	if ((*old_array))
 	{
