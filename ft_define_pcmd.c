@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:46 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 04:44:05 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:14:03 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_is_expand(char **expand, int i, t_utils *utils, t_pars *p)
 		{
 			utils->buf_pcmd->arg = ft_addback(utils->buf_pcmd->arg, expand[i]);
 			if (!utils->buf_pcmd->arg)
-				ft_ultimate_free_exit(utils, NULL, NULL);
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 			i++;
 		}
 	}
@@ -36,14 +36,14 @@ static void	ft_define_arg_cmd(char *arg, int i, t_utils *utils, t_pars *p)
 	{
 		utils->buf_pcmd->arg = ft_addback(utils->buf_pcmd->arg, arg);
 		if (!utils->buf_pcmd->arg)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		return ;
 	}
 	if (p->is_expand[i] == true && utils->buf_pcmd->cmd == NULL)
 	{
 		expand = ft_split(arg, ' ');
 		if (!expand)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		ft_arg_is_cmd(expand[0], utils->buf_pcmd, p, utils);
 		i = 1;
 		ft_is_expand(expand, i, utils, p);
@@ -66,7 +66,7 @@ static void	ft_define_next(char *arg, int i, t_utils *utils, t_pars *p)
 		{
 			expand = ft_split(arg, ' ');
 			if (!expand)
-				ft_ultimate_free_exit(utils, NULL, NULL);
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 			if (ft_strlen_array(expand) > 1 && !utils->buf_pcmd->msg_error)
 			{
 				utils->buf_pcmd->msg_error = ft_better_strdup
@@ -77,7 +77,7 @@ static void	ft_define_next(char *arg, int i, t_utils *utils, t_pars *p)
 		}
 		utils->buf_pcmd->infile = ft_strdup(arg);
 		if (!utils->buf_pcmd->infile)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		ft_define_infile_error(utils->buf_pcmd, utils);
 		p->next_is_infile = false;
 	}
@@ -96,7 +96,7 @@ static void	ft_define_other(char *arg, int i, t_utils *utils, t_pars *p)
 			return ;
 		utils->buf_pcmd->hd_stop = ft_addback(utils->buf_pcmd->hd_stop, arg);
 		if (!utils->buf_pcmd->hd_stop)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		return ;
 	}
 	if (p->next_is_outfile)
@@ -105,7 +105,7 @@ static void	ft_define_other(char *arg, int i, t_utils *utils, t_pars *p)
 			free(utils->buf_pcmd->outfile);
 		utils->buf_pcmd->outfile = ft_strdup(arg);
 		if (!utils->buf_pcmd->outfile)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		p->next_is_outfile = false;
 		return ;
 	}
@@ -122,7 +122,7 @@ void	ft_define_p_cmd(char *arg, int i, t_utils *utils, t_pars *p)
 		{
 			utils->buf_pcmd->arg = ft_addback(utils->buf_pcmd->arg, arg);
 			if (!utils->buf_pcmd->arg)
-				ft_ultimate_free_exit(utils, NULL, NULL);
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		}
 		p->next_is_arg = false;
 		return ;
@@ -136,7 +136,7 @@ void	ft_define_p_cmd(char *arg, int i, t_utils *utils, t_pars *p)
 		}
 		utils->buf_pcmd->arg = ft_addback(utils->buf_pcmd->arg, arg);
 		if (!utils->buf_pcmd->arg)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		return ;
 	}
 	if (p->next_can_be_opt

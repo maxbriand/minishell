@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:37:45 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/03 15:44:37 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 07:40:37 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int main (int ac, char **av, char **env)
 
 		}
 
-		ft_free_mini(mini);
+		ft_free_mini(mini, NULL);
 	}
 	free(mini);
 	return (0);

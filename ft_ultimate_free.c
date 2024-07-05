@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:34 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 02:20:13 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 07:41:23 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,56 @@ void	ft_free_pcmd(t_commands *p_cmd)
 	p_cmd = NULL;
 }
 
-void	ft_ultimate_free_exit(t_utils *utils, char **str, char *msg)
+void	ft_ultimate_free_exit(t_utils *utils, char **array, char *str, char *msg)
 {
 	if (msg)
 		ft_printf(msg);
 	else
 		ft_printf("malloc issue\n");
 	if (str)
-		ft_free_array(str);
-	if (utils->p)
-		ft_free_p(utils->p);
-	if (utils->mini)
-		ft_free_mini(utils->mini);
-	ft_free_utils(utils);
+		free(str);
+	str = NULL;
+	if (array)
+		ft_free_array(array);
+	array = NULL;
+	if (utils)
+	{
+		if (utils->p)
+			ft_free_p(utils->p);
+		if (utils->mini)
+			ft_free_mini(utils->mini, utils);
+		ft_free_utils(utils);
+	}
 	exit (1);
 }
 
-void	ft_free_mini(t_minishell *mini)
+void	ft_free_mini(t_minishell *mini, t_utils *utils)
 {
+	int	i;
+
+	i = 0;
 	if (mini)
 	{
 		if (mini->env)
-			ft_free_array(mini->env);
+		{
+			if (utils && utils->env_free)
+			{
+				while (i < utils->env_free)
+				{
+					free(mini->env[i]);
+					i++;
+				}
+				i++;
+				while (mini->env[i])
+				{
+					free(mini->env[i]);
+					i++;
+				}
+				free(mini->env);
+			}
+			else
+				ft_free_array(mini->env);
+		}
 		mini->env = NULL;
 		if (mini->export)
 			ft_free_array(mini->export);

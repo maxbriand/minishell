@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 02:17:52 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 07:52:51 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*ft_charaddback(
 	if (!new_array)
 	{
 		if (utils)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, *old_array, NULL);
 		return (NULL);
 	}
 	i = 0;

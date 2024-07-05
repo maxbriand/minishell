@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 04:27:44 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 07:54:10 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*ft_split_here(char *str, int *i, t_utils *utils)
 		return (NULL);
 	result = malloc(sizeof(char) * (*i - utils->last_split + 1));
 	if (!result)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	j = 0;
 	while (utils->last_split < *i)
 	{
@@ -131,7 +131,7 @@ char	**ft_split_quote_ignore(char *str, char c, t_utils *utils)
 	nb_cut = ft_count_cut(str, c, on_quote);
 	utils->res_splt_q = ft_calloc(nb_cut + 1, sizeof(char *));
 	if (!utils->res_splt_q)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	on_quote[0] = false;
 	on_quote[1] = false;
 	if (ft_split_parsing(str, on_quote, utils) == 1)

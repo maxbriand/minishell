@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:57:33 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 01:25:54 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 07:48:00 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_utils	*ft_init_utils(void)
 	t_utils	*utils;
 
 	utils = malloc(sizeof(t_utils));
+	if (!utils)
+		ft_ultimate_free_exit(NULL, NULL, NULL, NULL);
 	utils->mini = NULL;
 	utils->p = NULL;
 	utils->ap_j = 0;
@@ -28,6 +30,8 @@ t_utils	*ft_init_utils(void)
 	utils->res_splt_s = NULL;
 	utils->last_split_sep = 0;
 	utils->sep = NULL;
+	utils->env_free = 0;
+	utils->s2 = NULL;
 	return (utils);
 }
 
@@ -47,5 +51,7 @@ void	ft_redefine_utils(t_utils *utils)
 	utils->last_split_sep = 0;
 	if (utils->sep)
 		free(utils->sep);
+	utils->env_free = 0;
 	utils->sep = NULL;
+	utils->s2 = NULL;
 }

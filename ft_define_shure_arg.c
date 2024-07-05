@@ -6,13 +6,13 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:49 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/03 20:26:40 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:47:18 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	*ft_define_shure_arg(char **splt_cmd, t_utils *utils)
+bool	*ft_define_shure_arg(char **splt_cmd, t_utils *utils, char **input_no_pipe, t_pars *n)
 {
 	int		i;
 	bool	op_before;
@@ -20,7 +20,10 @@ bool	*ft_define_shure_arg(char **splt_cmd, t_utils *utils)
 
 	is_arg = malloc(sizeof(bool) * ft_strlen_array(splt_cmd));
 	if (!is_arg)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+	{
+		ft_free_array(input_no_pipe);
+		ft_ultimate_free_exit(utils, splt_cmd, (char *)n, NULL);
+	}
 	op_before = false;
 	i = 0;
 	while (splt_cmd[i])

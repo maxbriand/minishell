@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 05:37:42 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:51:18 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	ft_create_str(
 	if (!utils->exp_str)
 	{
 		ft_free_array(res_ncmplt);
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	}
 	if ((*res_ncmplt)[*j] == '=' && *is_quote == false)
 	{
@@ -71,7 +71,7 @@ static void	ft_create_str(
 		if (!utils->exp_str)
 		{
 			ft_free_array(res_ncmplt);
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		}
 		*is_quote = true;
 	}
@@ -100,7 +100,7 @@ static char	**ft_result_declare(char **res_ncmplt, t_utils *utils)
 		result = ft_addback_free(result, utils->exp_str);
 		utils->exp_str = NULL;
 		if (!result)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		i++;
 	}
 	return (result);
@@ -123,7 +123,7 @@ char	**ft_init_export(t_minishell *mini, t_utils *utils)
 	}
 	res_not_complete = ft_sort_export(count, mini->env, utils);
 	if (!res_not_complete)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	result = ft_result_declare(res_not_complete, utils);
 	ft_free_array(res_not_complete);
 	return (result);

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:09 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 02:03:40 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:12:19 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*ft_just_name_env(
 	}
 	result = ft_substr(arg, start, end - start);
 	if (!result)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	return (result);
 }
 

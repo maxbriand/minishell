@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 05:40:03 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 07:42:12 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_process(t_utils *utils, t_pars *p, int *i)
 	{
 		utils->buf_pcmd->cmd = ft_strdup("");
 		if (!utils->buf_pcmd->cmd)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	}
 	if (utils->buf_pcmd->outfile && utils->buf_pcmd->msg_error == NULL)
 	{
@@ -52,7 +52,8 @@ static void	ft_all_verif_process(t_minishell *mini, t_pars *p, t_utils *utils)
 	if (p->spl_cmd[0])
 	{
 		i = 0;
-		ft_remove_quote_bslash(i, utils, p);
+		if (ft_remove_quote_bslash(i, utils, p) == 1)
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		
 		// int y = 0;
 		// t_pars		*p_buf = p;
@@ -72,7 +73,8 @@ static void	ft_all_verif_process(t_minishell *mini, t_pars *p, t_utils *utils)
 		ft_process(utils, p, &i);
 		while (p->spl_cmd[i])
 		{
-			ft_remove_quote_bslash(i, utils, p);
+			if (ft_remove_quote_bslash(i, utils, p) == 1)
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 			ft_process(utils, p, &i);
 		}
 		if (utils->buf_pcmd->arg_cmd == NULL && utils->buf_pcmd->cmd)
@@ -88,16 +90,19 @@ static void	ft_init_mini(char **env, t_minishell *mini, t_utils *utils)
 	int	i;
 	int	shlvl;
 
+	utils->mini = mini;
 	if (!mini->env)
 		mini->env = ft_strdup_array(env, utils);
 	if (!mini->env)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	i = 0;
 	while (ft_strncmp(mini->env[i], "SHLVL", 5))
 		i++;
 	shlvl = ft_atoi(*(mini->env + 6)) + 1;
 	free(mini->env[i]);
+	utils->env_free = i;
 	mini->env[i] = ft_strjoin_free_s2("SHLVL=", ft_itoa(shlvl), utils);
+	utils->env_free = 0;
 	if (!mini->export)
 		mini->export = ft_init_export(mini, utils);
 	// //test
@@ -146,7 +151,7 @@ void	ft_parsing(char *input, t_minishell *mini, char **env)
 			mini->p_cmd->msg_error = ft_strdup(
 					"minishell: maximum here-document count exceeded\n");
 			if (!mini->p_cmd->msg_error)
-				ft_ultimate_free_exit(utils, NULL, NULL);
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		}
 		p = p->next;
 		utils->buf_pcmd = utils->buf_pcmd->next;

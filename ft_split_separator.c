@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 02:14:15 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 09:05:08 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,25 @@ static void	ft_splt_exec(int *i, char *str, bool *on_quote, t_utils *utils)
 	}
 }
 
-static char	*ft_split_here(char *str, int *i, bool *on_quote, t_utils *utils)
+static char	*ft_split_here(char **str, int **ij, bool *on_quote, t_utils *utils)
 {
 	char	*result;
 	int		j;
 	int		len;
 
-	len = *i - utils->last_split_sep;
+	len = *ij[0] - utils->last_split_sep;
 	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, str, (char*)utils->buf_p, NULL);
 	j = 0;
-	while (utils->last_split_sep < *i)
+	while (utils->last_split_sep < *ij[0])
 	{
-		result[j] = str[utils->last_split_sep];
+		result[j] = str[*ij[1]][utils->last_split_sep];
 		j++;
 		utils->last_split_sep += 1;
 	}
 	result[j] = '\0';
-	ft_splt_exec(i, str, on_quote, utils);
+	ft_splt_exec(&(*ij[0]), str[*ij[1]], on_quote, utils);
 	return (result);
 }
 
@@ -69,32 +69,35 @@ static int	ft_find_split(int *i, bool *on_quote, char *sep, char *str)
 
 //need to initialize the two booleen on false or valgrind error
 static char	**ft_split_parsing(
-	char *str, bool *on_quote, t_utils *utils)
+	char **str, int j, bool *on_quote, t_utils *utils)
 {
 	int		i;
 	char	*splt;
 	char	**res;
+	int		*ij[2];
 
+	ij[0] = &i;
+	ij[1] = &j;
 	i = 0;
 	utils->res_splt_s = NULL;
-	ft_define_int(&i, &utils->last_split_sep, str, utils->sep);
-	while (str[i])
+	ft_define_int(&i, &utils->last_split_sep, str[j], utils->sep);
+	while (str[j][i])
 	{
-		if (ft_find_split(&i, on_quote, utils->sep, str))
+		if (ft_find_split(&i, on_quote, utils->sep, str[j]))
 		{
-			splt = ft_split_here(str, &i, on_quote, utils);
+			splt = ft_split_here(str, ij, on_quote, utils);
 			utils->res_splt_s = ft_addback_free(utils->res_splt_s, splt);
 			if (!utils->res_splt_s)
-				ft_ultimate_free_exit(utils, NULL, NULL);
+				ft_ultimate_free_exit(utils, str, (char*)utils->buf_p, NULL);
 		}
 	}
-	if (ft_is_sep(str[i - 1], utils->sep) == false)
+	if (ft_is_sep(str[j][i - 1], utils->sep) == false)
 	{
-		splt = ft_split_here(str, &i, on_quote, utils);
+		splt = ft_split_here(str, ij, on_quote, utils);
 		utils->res_splt_s = ft_addback_free(utils->res_splt_s, splt);
 		//ici ??? au dessuis
 		if (!utils->res_splt_s)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, str, (char*)utils->buf_p, NULL);
 	}
 	res = ft_strdup_array(utils->res_splt_s, utils);
 	ft_free_array(utils->res_splt_s);
@@ -102,17 +105,17 @@ static char	**ft_split_parsing(
 	return (res);
 }
 
-char	**ft_split_separator(char *str, t_utils *utils)
+char	**ft_split_separator(char **str, int i, t_utils *utils)
 {
 	char	**result;
 	bool	on_quote[2];
 
 	utils->sep = ft_strjoin(" ", "\t");
 	if (!utils->sep)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, str, (char*)utils->buf_p, NULL);
 	on_quote[0] = false;
 	on_quote[1] = false;
-	result = ft_split_parsing(str, on_quote, utils);
+	result = ft_split_parsing(str, i, on_quote, utils);
 	free(utils->sep);
 	utils->sep = NULL;
 	return (result);

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:43 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 02:15:02 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:13:23 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_create_arg(char **expand, t_commands *p_cmd, t_pars *p, t_utils *
 		{
 			p_cmd->arg = ft_addback(p_cmd->arg, expand[i]);
 			if (!p_cmd->arg)
-				ft_ultimate_free_exit(utils, NULL, NULL);
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 			i++;
 		}
 	}
@@ -51,7 +51,7 @@ void	ft_define_first_pcmd(
 	{
 		expand = ft_split(first_arg, ' ');
 		if (!expand)
-			ft_ultimate_free_exit(utils, NULL, NULL);
+			ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		ft_create_arg(expand, p_cmd, p, utils);
 		ft_free_array(expand);
 		return ;

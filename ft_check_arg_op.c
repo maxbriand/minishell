@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:51:41 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/04 05:01:13 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:12:59 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_op_infile(char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils
 		{
 			p_cmd->outfile = ft_strdup(arg + 1);
 			if (!p_cmd->outfile)
-				ft_ultimate_free_exit(utils, NULL, NULL);
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		}
 		else
 			ft_set_error_op(p_cmd, utils);
@@ -40,7 +40,7 @@ static bool	ft_is_operator_not_append(
 			{
 				p_cmd->infile = ft_strdup(arg + 1);
 				if (!p_cmd->infile)
-					ft_ultimate_free_exit(utils, NULL, NULL);
+					ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 				ft_define_infile_error(p_cmd, utils);
 			}
 			else
@@ -68,7 +68,7 @@ static void	ft_append_op_out(
 			p_cmd->append_outfile = true;
 			p_cmd->outfile = ft_strdup(arg + 2);
 			if (!p_cmd->outfile)
-				ft_ultimate_free_exit(utils, NULL, NULL);
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		}
 		else
 			ft_set_error_op(p_cmd, utils);
@@ -93,7 +93,7 @@ bool	ft_is_operator(
 				{
 					p_cmd->hd_stop = ft_addback(p_cmd->hd_stop, arg + 2);
 					if (!p_cmd->hd_stop)
-						ft_ultimate_free_exit(utils, NULL, NULL);
+						ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 				}
 				return (true);
 			}

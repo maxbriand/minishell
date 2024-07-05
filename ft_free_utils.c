@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 04:25:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 02:15:52 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 07:47:33 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,8 @@ void	ft_free_utils(t_utils *utils)
 	utils->res_splt_s = NULL;
 	if (utils->sep)
 		free(utils->sep);
+	if (utils->s2)
+		free(utils->s2);
+	utils->s2 = NULL;
 	free (utils);
 }

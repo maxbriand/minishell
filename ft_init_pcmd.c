@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:03 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/03 23:51:23 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:55:52 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_commands	*ft_node_create_pcmd(t_utils *utils)
 
 	node = malloc(sizeof(t_commands));
 	if (!node)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	ft_define_node(node);
 	return (node);
 }
@@ -60,7 +60,7 @@ static void	ft_iter_create_node(
 			{
 				next_node->msg_error = ft_strdup(buf_p->error_msg);
 				if (!next_node->msg_error)
-					ft_ultimate_free_exit(utils, NULL, NULL);
+					ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 			}
 			next_node->exit_code = buf_p->exit_code;
 		}
@@ -85,7 +85,7 @@ void	ft_init_pcmd(t_minishell *mini, t_pars *p, t_utils *utils)
 		{
 			buf_cmd->msg_error = ft_strdup(p->error_msg);
 			if (!buf_cmd->msg_error)
-				ft_ultimate_free_exit(utils, NULL, NULL);
+				ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 		}
 		buf_cmd->exit_code = p->exit_code;
 	}

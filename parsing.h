@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 01:26:09 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 08:18:11 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_utils
 	char		**res_splt_s;
 	int			last_split_sep;
 	char		*sep;
+	int			env_free;
+	char		*s2;
 
 }	t_utils;
 
@@ -55,7 +57,7 @@ void	ft_parsing(char *input, t_minishell *mini, char **env);
 t_pars	*ft_define_p(char *input, t_utils *utils);
 void	ft_init_pcmd(t_minishell *mini, t_pars *p, t_utils *utils);
 int		ft_remove_quote_bslash(int i, t_utils *utils, t_pars *p);
-bool	*ft_define_shure_arg(char **splt_cmd, t_utils *utils);
+bool	*ft_define_shure_arg(char **splt_cmd, t_utils *utils, char **input_no_pipe, t_pars *n);
 void	ft_hd_set(
 		t_minishell *mini, t_commands *buf, t_commands *p_cmd, t_utils *utils);
 t_utils	*ft_init_utils();
@@ -95,14 +97,14 @@ size_t	ft_better_strlen(const char *s);
 void	ft_free_array(char **tab);
 void	ft_free_p(t_pars *p);
 void	ft_ultimate_free_exit(
-			t_utils *utils, char **str, char *msg);
-void	ft_free_mini(t_minishell *mini);
+			t_utils *utils, char **array, char *str, char *msg);
+void	ft_free_mini(t_minishell *mini, t_utils *utils);
 void	ft_free_utils(t_utils *utils);
 void	ft_free_pcmd(t_commands *p_cmd);
 void	ft_redefine_utils(t_utils *utils);
 
 char	**ft_split_quote_ignore(char *str, char c, t_utils *utils);
-char	**ft_split_separator(char *str, t_utils *utils);
+char	**ft_split_separator(char **str, int i, t_utils *utils);
 bool	ft_is_sep(char c, char *sep);
 void	ft_define_int(int *i, int *last_split, char *str, char *sep);
 char	**ft_init_export(t_minishell *mini, t_utils *utils);

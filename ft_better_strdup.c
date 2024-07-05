@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:16 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 05:35:02 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/05 06:12:38 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ char	*ft_better_strdup_free(char *s, char *arg, t_utils *utils)
 		free(arg);
 	}
 	if (!sdup)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	return (sdup);
 }
-//EXIT FREE UTILS
+//EXIT FREE UTILS no leaks if mall error
 char	**ft_strdup_array(char **array, t_utils *utils)
 {
 	char	**result;
@@ -73,12 +73,12 @@ char	**ft_strdup_array(char **array, t_utils *utils)
 	i = 0;
 	result = malloc(sizeof(char *) * (ft_strlen_array(array) + 1));
 	if (!result)
-		ft_ultimate_free_exit(utils, NULL, NULL);
+		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	while (array[i])
 	{
 		result[i] = ft_strdup(array[i]);
 		if (!result[i])
-			ft_ultimate_free_exit(utils, result, NULL);
+			ft_ultimate_free_exit(utils, result, NULL, NULL);
 		i++;
 	}
 	result[i] = NULL;
