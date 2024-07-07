@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 01:13:34 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/04 01:36:02 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:57:08 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	ft_write_heredoc(int fd, char *hd_stop)
 		input = readline("> ");
 		if (!input)
 		{
-			ft_printf("warning: here-document is delimited by \
-end-of-file (wanted `%s')\n", hd_stop);
+			ft_write_error("warning: here-document is delimited by \
+end-of-file");
 			break ;
 		}
 		if (ft_strcmp(input, hd_stop) == 0)
@@ -31,7 +31,6 @@ end-of-file (wanted `%s')\n", hd_stop);
 		write(fd, input, ft_strlen(input));
 		free(input);
 	}
-	write(fd, "\n\0", 2);
 }
 
 // check heredocs file permissions on line 47

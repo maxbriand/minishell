@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:15:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 22:32:46 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/07 21:24:52 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	g_sig = 0;
 	ft_printf("\n\033[1;32mOutput result: \033[0m\n");
 }*/
 
-t_minishell	*ft_init_mish(void)
+t_minishell	*ft_declare_data(void)
 {
 	t_minishell	*data;
 
@@ -103,7 +103,7 @@ static t_minishell	*ft_begin(int ac, char **av)
 	(void) ac;
 	(void) av;
 	data = NULL;
-	data = ft_init_mish();
+	data = ft_declare_data();
 	return (data);
 }
 
@@ -136,7 +136,7 @@ int	main(int ac, char **av, char **env)
 			break ;
 		if (*cmd)
 			add_history(cmd);
-		ft_parsing(cmd, data, env);
+		ft_parsing(data, cmd, env);
 		ft_create_heredocs(data, data->p_cmd);
 		ft_signals(1);
 		//ft_printf_parsing(data->p_cmd);

@@ -1,220 +1,37 @@
-==1015650== Memcheck, a memory error detector
-==1015650== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1015650== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1015650== Command: ../../minishell -c echo\ hello\ world
-==1015650== Parent PID: 1015042
-==1015650== 
-==1015650== Conditional jump or move depends on uninitialised value(s)
-==1015650==    at 0x10DDB0: ft_charaddback (ft_realloc.c:96)
-==1015650==    by 0x1100A5: result_declare (ft_init_export.c:93)
-==1015650==    by 0x11028D: ft_init_export (ft_init_export.c:128)
-==1015650==    by 0x10E495: ft_parsing (ft_parsing.c:25)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650==  Uninitialised value was created by a heap allocation
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11022E: ft_init_export (ft_init_export.c:123)
-==1015650==    by 0x10E495: ft_parsing (ft_parsing.c:25)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== Conditional jump or move depends on uninitialised value(s)
-==1015650==    at 0x10DE1D: ft_charaddback (ft_realloc.c:106)
-==1015650==    by 0x1100A5: result_declare (ft_init_export.c:93)
-==1015650==    by 0x11028D: ft_init_export (ft_init_export.c:128)
-==1015650==    by 0x10E495: ft_parsing (ft_parsing.c:25)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650==  Uninitialised value was created by a heap allocation
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11022E: ft_init_export (ft_init_export.c:123)
-==1015650==    by 0x10E495: ft_parsing (ft_parsing.c:25)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== Conditional jump or move depends on uninitialised value(s)
-==1015650==    at 0x10CFEC: define_first_pcmd (ft_define_pcmd_first.c:58)
-==1015650==    by 0x10E593: ft_parsing (ft_parsing.c:79)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650==  Uninitialised value was created by a heap allocation
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10CDBB: new_node (ft_init_p.c:39)
-==1015650==    by 0x10CEA1: define_p (ft_init_p.c:74)
-==1015650==    by 0x10E4D2: ft_parsing (ft_parsing.c:30)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 
-==1015650== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==1015650== Open file descriptor 3: /home/maxime/minishell/minishell_tester/src/logs/builtins/log-1
-==1015650==    <inherited from parent>
-==1015650== 
-==1015650== 
-==1015650== HEAP SUMMARY:
-==1015650==     in use at exit: 623,423 bytes in 8,024 blocks
-==1015650==   total heap usage: 16,915 allocs, 8,891 frees, 1,889,413 bytes allocated
-==1015650== 
-==1015650== 128 bytes in 1 blocks are indirectly lost in loss record 20 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10CAF7: node_create_pcmd (ft_init_pcmd.c:19)
-==1015650==    by 0x10CBF6: init_pcmd (ft_init_pcmd.c:49)
-==1015650==    by 0x10E4F4: ft_parsing (ft_parsing.c:33)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 294 bytes in 98 blocks are indirectly lost in loss record 24 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10F840: define_shure_arg (ft_define_shure_arg.c:23)
-==1015650==    by 0x10CD9A: new_node (ft_init_p.c:38)
-==1015650==    by 0x10CEA1: define_p (ft_init_p.c:74)
-==1015650==    by 0x10E4D2: ft_parsing (ft_parsing.c:30)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 294 bytes in 98 blocks are indirectly lost in loss record 25 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10CDBB: new_node (ft_init_p.c:39)
-==1015650==    by 0x10CEA1: define_p (ft_init_p.c:74)
-==1015650==    by 0x10E4D2: ft_parsing (ft_parsing.c:30)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 472 bytes in 1 blocks are indirectly lost in loss record 26 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10F49C: ft_strdup_array (ft_better_strdup.c:65)
-==1015650==    by 0x10E474: ft_parsing (ft_parsing.c:23)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 472 bytes in 1 blocks are indirectly lost in loss record 27 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11022E: ft_init_export (ft_init_export.c:123)
-==1015650==    by 0x10E495: ft_parsing (ft_parsing.c:25)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 490 bytes in 98 blocks are indirectly lost in loss record 28 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11146E: ft_strdup (ft_strdup.c:20)
-==1015650==    by 0x10C627: remove_quote_bslash (ft_apply_quote.c:117)
-==1015650==    by 0x10E565: ft_parsing (ft_parsing.c:76)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 490 bytes in 98 blocks are indirectly lost in loss record 29 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11146E: ft_strdup (ft_strdup.c:20)
-==1015650==    by 0x10C8BA: arg_is_cmd (ft_check_arg.c:60)
-==1015650==    by 0x10D0F4: define_first_pcmd (ft_define_pcmd_first.c:76)
-==1015650==    by 0x10E593: ft_parsing (ft_parsing.c:79)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 588 bytes in 98 blocks are indirectly lost in loss record 30 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11146E: ft_strdup (ft_strdup.c:20)
-==1015650==    by 0x10DB2F: strdup_protect (ft_realloc.c:21)
-==1015650==    by 0x10DC4D: ft_addback (ft_realloc.c:53)
-==1015650==    by 0x10D5B1: define_p_cmd (ft_define_pcmd.c:135)
-==1015650==    by 0x10E690: ft_parsing (ft_parsing.c:96)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 588 bytes in 98 blocks are indirectly lost in loss record 31 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11146E: ft_strdup (ft_strdup.c:20)
-==1015650==    by 0x10DB2F: strdup_protect (ft_realloc.c:21)
-==1015650==    by 0x10DBFD: ft_addback (ft_realloc.c:48)
-==1015650==    by 0x10D5B1: define_p_cmd (ft_define_pcmd.c:135)
-==1015650==    by 0x10E690: ft_parsing (ft_parsing.c:96)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 588 bytes in 98 blocks are indirectly lost in loss record 32 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11146E: ft_strdup (ft_strdup.c:20)
-==1015650==    by 0x10DB2F: strdup_protect (ft_realloc.c:21)
-==1015650==    by 0x10DC4D: ft_addback (ft_realloc.c:53)
-==1015650==    by 0x10CAB6: cmd_arg_join (ft_cmd_arg_join.c:27)
-==1015650==    by 0x10E772: ft_parsing (ft_parsing.c:110)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 1,078 bytes in 196 blocks are indirectly lost in loss record 45 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11146E: ft_strdup (ft_strdup.c:20)
-==1015650==    by 0x10DB2F: strdup_protect (ft_realloc.c:21)
-==1015650==    by 0x10DBFD: ft_addback (ft_realloc.c:48)
-==1015650==    by 0x10CAB6: cmd_arg_join (ft_cmd_arg_join.c:27)
-==1015650==    by 0x10E772: ft_parsing (ft_parsing.c:110)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 1,176 bytes in 196 blocks are indirectly lost in loss record 47 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11146E: ft_strdup (ft_strdup.c:20)
-==1015650==    by 0x10C627: remove_quote_bslash (ft_apply_quote.c:117)
-==1015650==    by 0x10E64A: ft_parsing (ft_parsing.c:93)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 1,666 bytes in 98 blocks are definitely lost in loss record 50 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11146E: ft_strdup (ft_strdup.c:20)
-==1015650==    by 0x109668: main (main.c:107)
-==1015650== 
-==1015650== 2,352 bytes in 98 blocks are indirectly lost in loss record 55 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10DBA3: ft_addback (ft_realloc.c:40)
-==1015650==    by 0x10D5B1: define_p_cmd (ft_define_pcmd.c:135)
-==1015650==    by 0x10E690: ft_parsing (ft_parsing.c:96)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 3,136 bytes in 98 blocks are indirectly lost in loss record 56 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x110E39: ft_calloc (ft_calloc.c:26)
-==1015650==    by 0x10F17B: ft_split_separator (ft_split_separator.c:183)
-==1015650==    by 0x10CD75: new_node (ft_init_p.c:35)
-==1015650==    by 0x10CEA1: define_p (ft_init_p.c:74)
-==1015650==    by 0x10E4D2: ft_parsing (ft_parsing.c:30)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 3,136 bytes in 98 blocks are indirectly lost in loss record 57 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10DBA3: ft_addback (ft_realloc.c:40)
-==1015650==    by 0x10CAB6: cmd_arg_join (ft_cmd_arg_join.c:27)
-==1015650==    by 0x10E772: ft_parsing (ft_parsing.c:110)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 3,437 bytes in 58 blocks are indirectly lost in loss record 58 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10DDFD: ft_charaddback (ft_realloc.c:103)
-==1015650==    by 0x11017C: result_declare (ft_init_export.c:101)
-==1015650==    by 0x11028D: ft_init_export (ft_init_export.c:128)
-==1015650==    by 0x10E495: ft_parsing (ft_parsing.c:25)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 7,992 (72 direct, 7,920 indirect) bytes in 1 blocks are definitely lost in loss record 71 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x109502: ft_init_mish (main.c:72)
-==1015650==    by 0x1095A5: main (main.c:92)
-==1015650== 
-==1015650== 10,878 (5,488 direct, 5,390 indirect) bytes in 98 blocks are definitely lost in loss record 82 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10CCE1: new_node (ft_init_p.c:20)
-==1015650==    by 0x10CEA1: define_p (ft_init_p.c:74)
-==1015650==    by 0x10E4D2: ft_parsing (ft_parsing.c:30)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 21,146 (12,416 direct, 8,730 indirect) bytes in 97 blocks are definitely lost in loss record 85 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10CAF7: node_create_pcmd (ft_init_pcmd.c:19)
-==1015650==    by 0x10CBF6: init_pcmd (ft_init_pcmd.c:49)
-==1015650==    by 0x10E4F4: ft_parsing (ft_parsing.c:33)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 325,458 bytes in 5,684 blocks are indirectly lost in loss record 87 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x11146E: ft_strdup (ft_strdup.c:20)
-==1015650==    by 0x10F4E6: ft_strdup_array (ft_better_strdup.c:70)
-==1015650==    by 0x10E474: ft_parsing (ft_parsing.c:23)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== 367,921 (45,784 direct, 322,137 indirect) bytes in 97 blocks are definitely lost in loss record 88 of 88
-==1015650==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1015650==    by 0x10F49C: ft_strdup_array (ft_better_strdup.c:65)
-==1015650==    by 0x10E474: ft_parsing (ft_parsing.c:23)
-==1015650==    by 0x10967A: main (main.c:107)
-==1015650== 
-==1015650== LEAK SUMMARY:
-==1015650==    definitely lost: 65,426 bytes in 391 blocks
-==1015650==    indirectly lost: 344,177 bytes in 7,117 blocks
-==1015650==      possibly lost: 0 bytes in 0 blocks
-==1015650==    still reachable: 0 bytes in 0 blocks
-==1015650==         suppressed: 213,820 bytes in 516 blocks
-==1015650== 
-==1015650== For lists of detected and suppressed errors, rerun with: -s
-==1015650== ERROR SUMMARY: 219 errors from 8 contexts (suppressed: 0 from 0)
+==240472== Memcheck, a memory error detector
+==240472== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==240472== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==240472== Command: ../../minishell -c echo\ hello\ world
+==240472== Parent PID: 240053
+==240472== 
+==240472== Syscall param pselect6(sig) points to unaddressable byte(s)
+==240472==    at 0x49DC744: pselect64_syscall (pselect.c:34)
+==240472==    by 0x49DC744: pselect (pselect.c:56)
+==240472==    by 0x48A1B4A: rl_getc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==240472==    by 0x48A1460: rl_read_key (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==240472==    by 0x48A4094: rl_insert (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==240472==    by 0x4884E97: _rl_dispatch_subseq (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==240472==    by 0x4885CC9: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==240472==    by 0x488ED14: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==240472==    by 0x1095A1: main (main.c:129)
+==240472==  Address 0x1002004af0 is 0 bytes inside a block of size 48 in arena "core"
+==240472== 
+==240472== 
+==240472== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==240472== Open file descriptor 3: /home/maxime/minishell/minishell_tester/src/logs/builtins/log-1
+==240472==    <inherited from parent>
+==240472== 
+==240472== 
+==240472== HEAP SUMMARY:
+==240472==     in use at exit: 208,285 bytes in 228 blocks
+==240472==   total heap usage: 5,894 allocs, 5,666 frees, 1,563,301 bytes allocated
+==240472== 
+==240472== LEAK SUMMARY:
+==240472==    definitely lost: 0 bytes in 0 blocks
+==240472==    indirectly lost: 0 bytes in 0 blocks
+==240472==      possibly lost: 0 bytes in 0 blocks
+==240472==    still reachable: 0 bytes in 0 blocks
+==240472==         suppressed: 208,285 bytes in 228 blocks
+==240472== 
+==240472== For lists of detected and suppressed errors, rerun with: -s
+==240472== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

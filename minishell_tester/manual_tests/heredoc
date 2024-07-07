@@ -40,18 +40,14 @@ $USER
 oi
 HERE
 
-export USER=cc && cat <<HERE 
 "$USER"
 oi
 HERE
 
-unset USER=cc && cat <<HERE 
 "$USER"
 oi
 HERE
 
-ls && << a cat
-ls && cat << a
 
 cat <minishell.h <<HERE <missing | ls
 HERE
@@ -66,4 +62,3 @@ ls | < ../Makefile cat << a << b << c > out > xd | cat -e
 
 << eof << a cat << b
 
-ls -qwer && (<< a || << b)

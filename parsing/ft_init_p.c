@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_p.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:25:36 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:32:12 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,23 +104,21 @@ static int	ft_iter_new_node(
 }
 
 //function for get a structure with segmented line of command
-t_pars	*ft_define_p(char *input, t_utils *utils)
+t_pars	*ft_define_p(t_utils *utils, char *input)
 {
-	char	**input_no_pipe;
+	char	**cut_input;
 	t_pars	*head;
 
-	if (ft_is_only_space(input) == 0)
-	{
-		input_no_pipe = ft_split_quote_ignore(input, '|', utils);
-		if (!input_no_pipe)
-			return (NULL);
-		head = ft_new_node(input_no_pipe, 0, utils);
-		utils->p = head;
-		if (!head)
-			ft_ultimate_free_exit(utils, input_no_pipe, NULL, NULL);
-		if (ft_iter_new_node(input, input_no_pipe, head, utils))
-			return (NULL);
-		return (head);
-	}
-	return (0);
+	if (ft_is_only_space(input))
+		return (0);
+	cut_input = ft_split_quote_ignore(input, '|', utils);
+	if (!cut_input)
+		return (NULL);
+	head = ft_new_node(cut_input, 0, utils);
+	utils->p = head;
+	if (!head)
+		ft_ultimate_free_exit(utils, cut_input, NULL, NULL);
+	if (ft_iter_new_node(input, cut_input, head, utils))
+		return (NULL);
+	return (head);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 21:50:13 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:27:38 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	ft_all_verif_process(t_minishell *mini, t_pars *p, t_utils *utils)
 {
 	int	i;
 
-	if (p->spl_cmd == NULL)
+	if (!p->spl_cmd)
 		return ;
 	if (utils->buf_pcmd != mini->p_cmd)
 		utils->buf_pcmd->in_pipe = true;
@@ -83,52 +83,37 @@ static void	ft_all_verif_process(t_minishell *mini, t_pars *p, t_utils *utils)
 }
 
 // init export + env
-static void	ft_init_mini(char **env, t_minishell *mini, t_utils *utils)
+static void	ft_init_data(t_minishell *data, t_utils *utils, char **env)
 {
-	int	i;
-	int	shlvl;
-
-	utils->mini = mini;
-	if (!mini->env)
-		mini->env = ft_strdup_array(env, utils);
-	if (!mini->env)
-		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
-	i = 0;
-	while (ft_strncmp(mini->env[i], "SHLVL", 5))
-		i++;
-	shlvl = ft_atoi(*(mini->env + 6)) + 1;
-	free(mini->env[i]);
-	utils->env_free = i;
-	mini->env[i] = ft_strjoin_free_s2("SHLVL=", ft_itoa(shlvl), utils);
-	utils->env_free = 0;
-	if (!mini->export)
-		mini->export = ft_init_export(mini, utils);
-	mini->count_hd = 0;
+	ft_init_env(data, utils, env);
+	ft_init_shlvl(data, utils);
+	ft_init_export(data, utils);
+	data->count_hd = 0;
 }
 
 //main's of the parsing. if return null, no command need to be done
-void	ft_parsing(char *input, t_minishell *mini, char **env)
+void	ft_parsing(t_minishell *data, char *input, char **env)
 {
 	t_pars		*p;
 	t_pars		*p_buf;
 	t_utils		*utils;
 
-	utils = ft_init_utils();
-	ft_init_mini(env, mini, utils);
+	utils = ft_declare_utils();
+	ft_init_data(data, utils, env);
 	if (ft_strlen(input) == 0 || ft_is_error_quote(input) == true)
 		return ;
-	p = ft_define_p(input, utils);
+	p = ft_define_p(utils, input);
 	if (!p)
 		return ;
 	utils->p = p;
-	ft_init_pcmd(mini, p, utils);
-	utils->mini = mini;
+	ft_init_pcmd(data, p, utils);
+	utils->mini = data;
 	p_buf = p;
-	utils->buf_pcmd = mini->p_cmd;
+	utils->buf_pcmd = data->p_cmd;
 	while (utils->buf_pcmd)
 	{
-		ft_all_verif_process(mini, p, utils);
-		ft_check_nb_hd(utils, mini);
+		ft_all_verif_process(data, p, utils);
+		ft_check_nb_hd(utils, data);
 		p = p->next;
 		utils->buf_pcmd = utils->buf_pcmd->next;
 	}

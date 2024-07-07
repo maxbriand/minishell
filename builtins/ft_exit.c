@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:38:46 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 22:18:39 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:19:08 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	ft_exit(t_minishell *data, t_commands *c_cmd)
 	if (ft_exit_parsing(data, c_cmd) != 0)
 		return ;
 	exit_code = ft_atol(*(c_cmd->arg));
-	data->exit_code = exit_code;
-	ft_exitf(NULL, exit_code, NULL, data);
+	ft_free_data(data);
+	ft_free_data_exit(data);
+	exit(exit_code);
 }

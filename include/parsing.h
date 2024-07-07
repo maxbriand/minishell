@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 22:36:42 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:23:36 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include "minishell.h"
 
 // parsing
-void	ft_parsing(char *input, t_minishell *mini, char **env);
-t_pars	*ft_define_p(char *input, t_utils *utils);
+void	ft_parsing(t_minishell *data, char *input, char **env);
+void	ft_init_env(t_minishell *data, t_utils *utils, char **env);
+void	ft_init_shlvl(t_minishell *data, t_utils *utils);
+t_pars	*ft_define_p(t_utils *utils, char *input);
 void	ft_init_pcmd(t_minishell *mini, t_pars *p, t_utils *utils);
 int		ft_remove_quote_bslash(int i, t_utils *utils, t_pars *p);
 bool	*ft_define_shure_arg(
@@ -25,7 +27,7 @@ bool	*ft_define_shure_arg(
 void	ft_hd_set(
 			t_minishell *mini, t_commands *buf,
 			t_commands *p_cmd, t_utils *utils);
-t_utils	*ft_init_utils(void);
+t_utils	*ft_declare_utils(void);
 
 //error
 int		ft_pipe_unexpected(char *input, t_pars *p, t_utils *utils);
@@ -72,7 +74,7 @@ char	**ft_split_quote_ignore(char *str, char c, t_utils *utils);
 char	**ft_split_separator(char **str, int i, t_utils *utils);
 bool	ft_is_sep(char c, char *sep);
 void	ft_define_int(int *i, int *last_split, char *str, char *sep);
-char	**ft_init_export(t_minishell *mini, t_utils *utils);
+void	ft_init_export(t_minishell *data, t_utils *utils);
 int		ft_is_only_space(char *str);
 char	*ft_catch_env(char **envp, char *str, t_utils *utils);
 char	*ft_strjoin_free_s1(char *s1, char *s2, t_utils *utils);

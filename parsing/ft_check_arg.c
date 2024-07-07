@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_arg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:22 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 10:09:03 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/07 21:28:33 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ bool	ft_is_option(char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils)
 {
 	if (arg[0] == '-')
 	{
-		if (p->last_was_echo == true && (p_cmd->arg
-				|| ((!ft_strncmp(arg, "-n", 2)) || ft_opt_echo(arg) == false)))
+		if (p->last_was_echo && (p_cmd->arg && \
+				((!ft_strncmp(arg, "-n", 2)) && !ft_opt_echo(arg))))
 		{
 			p_cmd->arg = ft_addback(p_cmd->arg, arg);
 			if (!p_cmd->arg)

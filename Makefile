@@ -32,6 +32,9 @@ SRC =	main.c \
 		builtins/ft_unset.c \
 		builtins/ft_butils.c \
 		\
+		parsing/ft_init_env.c \
+		parsing/ft_init_shlvl.c \
+		parsing/ft_init_export.c \
 		parsing/ft_apply_quote.c \
 		parsing/ft_file_error.c \
 		parsing/ft_catch_env.c \
@@ -55,12 +58,11 @@ SRC =	main.c \
 		parsing/ft_define_shure_arg.c \
 		parsing/ft_strlen_array.c \
 		parsing/ft_check_arg_op.c \
-		parsing/ft_init_export.c \
 		parsing/ft_remove_element.c \
 		parsing/ft_split_separator_utils.c \
 		parsing/ft_free_array.c \
 		parsing/ft_hd_set.c \
-		parsing/ft_init_utils.c \
+		parsing/ft_declare_utils.c \
 		parsing/ft_free_utils.c \
 		parsing/ft_free_p.c \
 		

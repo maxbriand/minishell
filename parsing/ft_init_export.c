@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 02:15:38 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 06:51:18 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:16:39 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,25 +106,28 @@ static char	**ft_result_declare(char **res_ncmplt, t_utils *utils)
 	return (result);
 }
 
-char	**ft_init_export(t_minishell *mini, t_utils *utils)
+void	ft_init_export(t_minishell *data, t_utils *utils)
 {
 	int		count;
 	char	**result;
 	char	**res_not_complete;
 	int		i;
 
+	if (data->export)
+		return ;
 	i = 0;
 	count = 0;
-	while (mini->env[i])
+	while (data->env[i])
 	{
-		if (ft_strchr(mini->env[i], '='))
+		if (ft_strchr(data->env[i], '='))
 			count++;
 		i++;
 	}
-	res_not_complete = ft_sort_export(count, mini->env, utils);
+	res_not_complete = ft_sort_export(count, data->env, utils);
 	if (!res_not_complete)
 		ft_ultimate_free_exit(utils, NULL, NULL, NULL);
 	result = ft_result_declare(res_not_complete, utils);
 	ft_free_array(res_not_complete);
-	return (result);
+	data->export = result;
+	return ;
 }

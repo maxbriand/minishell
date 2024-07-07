@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 22:38:36 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 22:41:37 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:21:55 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,17 @@ typedef struct s_utils
 {
 	t_pars		*p;
 	t_minishell	*mini;
-	int			ap_j;
 	t_commands	*buf_pcmd;
 	t_pars		*buf_p;
-	char		*exp_str;
 	char		**res_splt_q;
-	int			last_split;
 	char		**res_splt_s;
-	int			last_split_sep;
+	char		*exp_str;
 	char		*sep;
-	int			env_free;
 	char		*s2;
+	int			ap_j;
+	int			last_split;
+	int			last_split_sep;
+	int			env_free;
 
 }	t_utils;
 

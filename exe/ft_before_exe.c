@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_before_exe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:31:21 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 22:54:53 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:22:31 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,18 @@ int	ft_if_no_command(t_commands *p_cmd)
 
 void	ft_if_only_exit(t_minishell *data, t_commands *p_cmd)
 {
+	int	ec;
+
 	if (p_cmd->cmd)
 	{
 		if (ft_strcmp(p_cmd->cmd, "exit") == 0 && !p_cmd->arg \
 				&& !p_cmd->option && !p_cmd->next)
 		{
 			ft_write_error("exit");
-			ft_exitf(NULL, data->exit_code, NULL, data);
+			ec = data->exit_code;
+			ft_free_data(data);
+			ft_free_data_exit(data);
+			exit(ec);
 		}
 	}
 }

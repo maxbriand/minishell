@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:57:33 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:31:00 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/07 20:01:36 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_utils	*ft_init_utils(void)
+t_utils	*ft_declare_utils(void)
 {
 	t_utils	*utils;
 
