@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+static void	handle_ctrl_c_3(int sig)
+{
+	g_sig = sig;
+	ft_printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
 static void	handle_ctrl_c_2(int sig)
 {
 	g_sig = sig;
@@ -46,5 +55,10 @@ void	ft_signals(int d)
 	{
 		signal(SIGQUIT, handle_ctrl_backslash);
 		signal(SIGINT, handle_ctrl_c_2);
+	}
+	if (d == 2)
+	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, handle_ctrl_c_3);
 	}
 }

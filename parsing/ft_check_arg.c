@@ -30,8 +30,8 @@ bool	ft_is_option(char *arg, t_commands *p_cmd, t_pars *p, t_utils *utils)
 {
 	if (arg[0] == '-')
 	{
-		if (p->last_was_echo && (p_cmd->arg && \
-				((!ft_strncmp(arg, "-n", 2)) && !ft_opt_echo(arg))))
+		if (p->last_was_echo && (p_cmd->arg || \
+				((!ft_strncmp(arg, "-n", 2)) || !ft_opt_echo(arg))))
 		{
 			p_cmd->arg = ft_addback(p_cmd->arg, arg);
 			if (!p_cmd->arg)

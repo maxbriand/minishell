@@ -79,6 +79,8 @@ static int	ft_exit_parsing(t_minishell *data, t_commands *c_cmd)
 	{
 		ft_write_error(" numeric argument required");
 		data->exit_code = 2;
+		ft_free_data(data);
+		ft_free_data_exit(data);
 		exit(2);
 	}
 	if (ft_arrlen(c_cmd->arg) > 1)
