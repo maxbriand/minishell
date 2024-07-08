@@ -6,12 +6,11 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:57:29 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/08 21:25:38 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/08 22:14:56 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static bool	ft_check_error(t_minishell *mini)
 {
@@ -25,7 +24,7 @@ static bool	ft_check_error(t_minishell *mini)
 		if (buf->exit_code == 2)
 			error = true;
 		buf = buf->next;
-	}	
+	}
 	return (error);
 }
 

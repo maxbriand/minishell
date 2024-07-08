@@ -65,6 +65,7 @@ SRC =	main.c \
 		parsing/ft_declare_utils.c \
 		parsing/ft_free_utils.c \
 		parsing/ft_free_p.c \
+		parsing/ft_is_error.c \
 		
 OBJ = $(patsubst %.c, %.o, $(SRC))
 
