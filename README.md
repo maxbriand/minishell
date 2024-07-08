@@ -9,7 +9,6 @@ ctrl c heredoc
 echo "	" | cat -e -> leak
 "' quote not close -> leak
 env -i ./minishell / export -> segfault
-unset home -> cd -> leak
 PATH=$PATH:$PWD -> minishell dans autre directory fonctionne pas0
 heredoc \n aussi leak
 cat | cat | ls a verif parcec que bzr

@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:38:21 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 17:38:35 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/08 16:51:05 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 static void	ft_cd_home(t_minishell *data)
 {
+	if (!ft_get_env_var(data->env, "HOME"))
+	{
+		ft_write_error("minishell: cd: HOME not set");
+		data->exit_code = 1;
+		return ;
+	}
 	if (chdir(ft_get_env_var(data->env, "HOME")) == -1)
 		ft_write_error("chdir issue");
 }
