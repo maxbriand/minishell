@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_failure2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 01:30:03 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/04 01:30:21 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/08 22:42:30 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_free_p_cmd(t_commands *p_cmd)
 
 	while (p_cmd)
 	{
+		ft_free_str(p_cmd->heredoc);
 		ft_free_str(p_cmd->infile);
 		ft_free_str(p_cmd->outfile);
 		ft_free_str(p_cmd->cmd);

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 17:28:11 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/08 22:14:11 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/08 22:21:29 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_hd_set(
 			t_minishell *mini, t_commands *buf,
 			t_commands *p_cmd, t_utils *utils);
 t_utils	*ft_declare_utils(void);
-int		ft_is_error(t_utils *utils, char *input, t_pars *p);
+int		ft_is_error(t_utils *utils, char *input, t_pars **p);
 
 //error
 int		ft_pipe_unexpected(char *input, t_pars *p, t_utils *utils);

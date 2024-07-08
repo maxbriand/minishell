@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/08 22:15:06 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/08 22:18:35 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ void	ft_parsing(t_minishell *data, char *input, char **env)
 
 	utils = ft_declare_utils();
 	ft_init_data(data, utils, env);
-	ft_is_error(utils, input, &p);
+	if (ft_is_error(utils, input, &p))
+		return ;
 	ft_init_pcmd(data, p, utils);
 	utils->mini = data;
 	p_buf = p;
