@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_heredocs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 01:13:34 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/08 17:47:45 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/08 21:33:13 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
 	int	i;
 	int	fd;
 
+	fd = 0;
 	if (!c_cmd->hd_stop)
 		return (0);
 	i = 0;
-	while (c_cmd->hd_stop[i])
+	while (c_cmd->hd_stop[i] && c_cmd->heredoc)
 	{
 		if (i != 0)
 			close(fd);
@@ -54,7 +55,8 @@ int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
 		ft_write_heredoc(fd, c_cmd->hd_stop[i]);
 		i++;
 	}
-	close(fd);
+	if (fd)
+		close(fd);
 	return (1);
 }
 
