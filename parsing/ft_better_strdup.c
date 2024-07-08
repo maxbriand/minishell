@@ -6,14 +6,12 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:16 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:29:58 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:43:43 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//use %s somewere inside the char *s like printf to add something in the string
-//EXIT AND FREE utils
 char	*ft_better_strdup(char *s, char *arg, t_utils *utils)
 {
 	char	*sdup;
@@ -34,7 +32,6 @@ char	*ft_better_strdup(char *s, char *arg, t_utils *utils)
 	return (NULL);
 }
 
-//free the arg send as a parameter, EXIT AND FREE utils
 char	*ft_better_strdup_free(char *s, char *arg, t_utils *utils)
 {
 	char	*sdup;
@@ -63,7 +60,6 @@ char	*ft_better_strdup_free(char *s, char *arg, t_utils *utils)
 	return (sdup);
 }
 
-//EXIT FREE UTILS no leaks if mall error
 char	**ft_strdup_array(char **array, t_utils *utils)
 {
 	char	**result;

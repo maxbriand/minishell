@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 10:04:19 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:45:55 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static int	ft_find_split(int *i, bool *on_quote, char *sep, char *str)
 	return (0);
 }
 
-//need to initialize the two booleen on false or valgrind error
 static char	**ft_split_parsing(
 	char **str, int j, bool *on_quote, t_utils *utils)
 {

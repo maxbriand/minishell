@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:38:46 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/07 18:19:08 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:49:37 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static int	ft_strcheck(char *str)
 	return (0);
 }
 
-// stop if the first arg is non numeric
 static int	ft_exit_parsing(t_minishell *data, t_commands *c_cmd)
 {
 	if (ft_strcheck(c_cmd->arg[0]) == 1)

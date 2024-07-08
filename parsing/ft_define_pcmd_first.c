@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:43 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:31:56 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:44:15 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	ft_create_arg(
 	}
 }
 
-//define if the first arg is a command, a redirection etc
 void	ft_define_first_pcmd(
 	char *first_arg, t_commands *p_cmd, t_pars *p, t_utils *utils)
 {

@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_butils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:49:24 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 18:58:57 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:49:17 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// return index from 0 to the var in env or export
 int	ft_lfor_var(char **arr, char *var)
 {
 	int	i;
@@ -35,7 +34,6 @@ int	ft_lfor_var(char **arr, char *var)
 	return (-1);
 }
 
-// Find the variable in env
 char	*ft_get_env_var(char **env, char *var)
 {
 	int	len;

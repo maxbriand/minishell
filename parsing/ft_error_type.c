@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:56 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:31:22 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:44:27 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static int	ft_is_pipe(char *input, int i, t_utils *utils)
 	return (0);
 }
 
-//check if there is consecutive pipe
 int	ft_pipe_unexpected(char *input, t_pars *p, t_utils *utils)
 {
 	int		i;

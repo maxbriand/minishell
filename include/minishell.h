@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:54:54 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 22:39:32 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:48:05 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,9 @@
 extern int	g_sig;
 # endif
 
-//void	ft_print_fd_content(int fd);
-
-// Utils
 int		ft_pipe_counter(t_commands *p_cmd);
 int		ft_is_a_directory(char *cmd);
 
-// Error
 void	ft_exitf(char *msg, int ec, t_commands *c_cmd, t_minishell *data);
 int		ft_write_error(char *msg);
 void	ft_free_data(t_minishell *data);
@@ -52,34 +48,27 @@ void	ft_free_data_exit(t_minishell *data);
 void	ft_free_p_cmd(t_commands *p_cmd);
 void	ft_free_str(char *str);
 
-// Exe
 void	ft_create_heredocs(t_minishell *data, t_commands *p_cmd);
 void	ft_exe(t_minishell *data, t_commands *p_cmd);
 char	*ft_check_path(t_minishell *data, t_commands *current_cmd);
-//int		ft_sc(char **str);
 void	ft_input_redir(t_minishell *data, t_commands *c_cmd, int *pipefd);
 int		ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data);
 void	ft_output_redir(t_minishell *data, t_commands *p_cmd, int *pipefd);
 void	ft_builtins_exe(t_minishell *data, t_commands *c_cmd);
 
-// Before exe
 int		ft_before_cmd_exe(t_minishell *data, t_commands *p_cmd);
 void	ft_if_only_exit(t_minishell *data, t_commands *p_cmd);
 int		ft_if_no_command(t_commands *p_cmd);
 int		ft_if_exitcode_2(t_minishell *data, t_commands *p_cmd);
 
-// Exe - 1 builtin
 int		ft_exe_1_builtin(t_minishell *data, t_commands *p_cmd);
 
-// Exe - in fork
 void	ft_exe_in_fork(t_minishell *data, t_commands *p_cmd);
 
-// Exe - Pipes management
 int		**ft_create_pipes(int pipenbr, t_minishell *data);
 void	ft_set_pfd(t_minishell *data, t_commands *c_cmd, int **pipefds, int c);
 void	ft_close_pipes(t_minishell *data, int **pipefds);
 
-// Builtins
 void	ft_cd(t_minishell *data, t_commands *p_cmd);
 void	ft_exit(t_minishell *data, t_commands *p_cmd);
 void	ft_echo(t_commands *p_cmd);
@@ -90,12 +79,9 @@ void	ft_export_env(t_minishell *data, char *var);
 char	*ft_pwd(t_minishell *data, int i);
 void	ft_unset(t_minishell *data, t_commands *p_cmd);
 
-// Builtins utils
 char	*ft_get_env_var(char **env, char *var);
 int		ft_lfor_var(char **env, char *var);
 
-// Signals
 void	ft_signals(int d);
-//void	ft_set_newterm(t_minishell *data);
 
 #endif

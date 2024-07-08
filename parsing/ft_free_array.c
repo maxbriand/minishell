@@ -6,13 +6,12 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:50:00 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:45:01 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:44:33 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//return NULL
 void	*ft_free_array(char **tab)
 {
 	int	i;

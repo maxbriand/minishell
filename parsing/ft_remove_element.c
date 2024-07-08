@@ -6,13 +6,12 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:13 by gmersch           #+#    #+#             */
-/*   Updated: 2024/06/28 16:52:01 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:45:39 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//remove an element from a char **
 void	ft_remove_element(char **array, int id_rm)
 {
 	int	len;

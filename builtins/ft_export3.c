@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:58:13 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 19:10:53 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:49:53 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// MODIFY LINE IN ENV
 static void	ft_modify_line(t_minishell *data, char *var, int n)
 {
 	free(data->env[n]);
@@ -21,7 +20,6 @@ static void	ft_modify_line(t_minishell *data, char *var, int n)
 		ft_exitf("malloc issue", 1, NULL, data);
 }
 
-// ADD A LINE VAR IN EXPORT
 static void	ft_add_line(t_minishell *data, char *var)
 {
 	char	**new_env;
@@ -40,7 +38,6 @@ static void	ft_add_line(t_minishell *data, char *var)
 	data->env = new_env;
 }
 
-// CHOOSE BETWEEN ADD OR MODIFY A VAR IN ENV
 void	ft_export_env(t_minishell *data, char *var)
 {
 	int	n;

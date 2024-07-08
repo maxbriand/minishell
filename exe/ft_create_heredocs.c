@@ -6,13 +6,12 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 01:13:34 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/08 21:33:13 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:48:40 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// have I to add +1 for the null terminated?
 static void	ft_write_heredoc(int fd, char *hd_stop)
 {
 	char	*input;
@@ -34,7 +33,6 @@ end-of-file");
 	}
 }
 
-// check heredocs file permissions on line 47
 int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
 {
 	int	i;

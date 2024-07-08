@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:07 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/08 22:18:35 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:45:11 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static void	ft_all_verif_process(t_minishell *mini, t_pars *p, t_utils *utils)
 	ft_hd_set(mini, utils->buf_pcmd, mini->p_cmd, utils);
 }
 
-// init export + env
 static void	ft_init_data(t_minishell *data, t_utils *utils, char **env)
 {
 	ft_init_env(data, utils, env);
@@ -91,7 +90,6 @@ static void	ft_init_data(t_minishell *data, t_utils *utils, char **env)
 	data->count_hd = 0;
 }
 
-//main's of the parsing. if return null, no command need to be done
 void	ft_parsing(t_minishell *data, char *input, char **env)
 {
 	t_pars		*p;

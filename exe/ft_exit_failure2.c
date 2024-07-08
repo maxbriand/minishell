@@ -6,13 +6,12 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 01:30:03 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/08 22:42:30 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:48:59 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// delete heredoc if user close minishell
 void	ft_free_str(char *str)
 {
 	if (!str)

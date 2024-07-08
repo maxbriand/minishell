@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 23:22:30 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/05 10:03:58 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:45:46 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static char	*ft_should_split(bool *on_quote, int *i, char *str, t_utils *utils)
 	return (result);
 }
 
-//need to initialize the two booleen on false or valgrind error
 static int	ft_split_parsing(
 			char *str, bool *on_quote, t_utils *utils)
 {
@@ -117,8 +116,6 @@ static int	ft_count_cut(char *str, char c, bool *on_quote)
 	return (nb_cut);
 }
 
-//a split but when char priority is found, seach for the next char priority
-//and then split, and continue with char c.
 char	**ft_split_quote_ignore(char *str, char c, t_utils *utils)
 {
 	int		nb_cut;

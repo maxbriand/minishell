@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_p.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:39:59 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/07 20:32:12 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:44:59 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static void	ft_if_no_error(
 	n->error_msg = NULL;
 }
 
-//create a new node for my struct t_pars. every node is a cmd separed by pipe
 static t_pars	*ft_new_node(char **input_no_pipe, int i, t_utils *utils)
 {
 	t_pars	*n;
@@ -103,7 +102,6 @@ static int	ft_iter_new_node(
 	return (0);
 }
 
-//function for get a structure with segmented line of command
 t_pars	*ft_define_p(t_utils *utils, char *input)
 {
 	char	**cut_input;

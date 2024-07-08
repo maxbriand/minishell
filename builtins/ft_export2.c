@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:57:09 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/09 00:19:44 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:49:46 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void	ft_modify_line(t_minishell *data, char *var, int n)
 		ft_exitf("malloc issue", 1, NULL, data);
 }
 
-// ADD A LINE VAR IN EXPORT
 static void	ft_add_line(t_minishell *data, char *var)
 {
 	char	**new_export;
@@ -79,7 +78,6 @@ static void	ft_add_line(t_minishell *data, char *var)
 	data->export = new_export;
 }
 
-// CHOOSE BETWEEN ADD OR MODIFY A VAR IN EXPORT
 void	ft_export_export(t_minishell *data, char *var)
 {
 	int	n;

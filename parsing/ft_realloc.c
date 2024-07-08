@@ -6,13 +6,12 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 09:53:33 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:45:37 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//add 1 element to a array. Free old array, so not needed to free it after
 char	**ft_addback(char **old_array, char *new_element)
 {
 	char	**new_array;
@@ -42,7 +41,6 @@ char	**ft_addback(char **old_array, char *new_element)
 	return (new_array);
 }
 
-//same has addback, but free new_element
 char	**ft_addback_free(char **old_array, char *new_element)
 {
 	char	**new_array;
@@ -72,8 +70,6 @@ char	**ft_addback_free(char **old_array, char *new_element)
 	return (new_array);
 }
 
-//add a char to a string, need to send a adress of the string to old array
-//FREE AND EXIT
 char	*ft_charaddback(
 		char **old_array, char new_element, t_utils *utils)
 {

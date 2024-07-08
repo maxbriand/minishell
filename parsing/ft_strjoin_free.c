@@ -6,13 +6,12 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:40:28 by gmersch           #+#    #+#             */
-/*   Updated: 2024/07/05 07:48:48 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:46:01 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//free s1 but not s2, and accept if s1 or s2 is empty, EXIT AND FREE utils
 char	*ft_strjoin_free_s1(char *s1, char *s2, t_utils *utils)
 {
 	char	*result;
@@ -38,7 +37,6 @@ char	*ft_strjoin_free_s1(char *s1, char *s2, t_utils *utils)
 	return (result);
 }
 
-//free s2 but not s1, and accept if s1 or s2 is empty, EXIT AND FREE utils
 char	*ft_strjoin_free_s2(char *s1, char *s2, t_utils *utils)
 {
 	char	*result;
@@ -66,7 +64,6 @@ char	*ft_strjoin_free_s2(char *s1, char *s2, t_utils *utils)
 	return (result);
 }
 
-//free s1 AND s2, and accept if s1 or s2 is empty, EXIT AND FREE utils
 char	*ft_strjoin_free(char *s1, char *s2, t_utils *utils)
 {
 	char	*result;

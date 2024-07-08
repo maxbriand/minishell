@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:40 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/08 23:34:06 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:48:56 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_free_pipefds(int **pipefds, int pipenbr)
 	free (pipefds);
 }
 
-// use close pipe 
 void	ft_free_data(t_minishell *data)
 {
 	ft_free_p_cmd(data->p_cmd);

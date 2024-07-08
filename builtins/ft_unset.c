@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:43:10 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 17:37:58 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:49:59 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	ft_unset_export(char **env, int n, t_minishell *data)
 	data->export = new_env;
 }
 
-// have to free the old env if it's a malloc env
 void	ft_unset_env(char **env, int n, t_minishell *data)
 {
 	int		size_env;
