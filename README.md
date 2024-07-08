@@ -3,10 +3,15 @@
 
 #valgrind --tool=memcheck --track-origins=yes --show-leak-kinds=all --leak-check=full --track-fds=yes --trace-children=yes -s --suppressions=valgrind.supp ./minishell
 
+Galaad
 echo -awduidhaw test
 echo -nnnnnn waefaw -n
+<< d | << w cat | cat leaks
+
+Max
 ctrl c heredoc
-echo "	" | cat -e -> leak
+
+
 "' quote not close -> leak
 env -i ./minishell / export -> segfault
 PATH=$PATH:$PWD -> minishell dans autre directory fonctionne pas0

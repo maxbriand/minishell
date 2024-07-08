@@ -6,17 +6,21 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:57:08 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/04 01:43:18 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/08 17:14:53 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_if_only_hd(t_commands *c_cmd)
+static void	ft_if_only_hd(t_minishell *data, t_commands *c_cmd, int **pipefds)
 {
+	(void) data;
 	if (!c_cmd->cmd)
 	{
+		ft_close_pipes(data, pipefds);
 		unlink(c_cmd->heredoc);
+		ft_free_data(data);
+		ft_free_data_exit(data);
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -25,7 +29,7 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 {
 	char	*path;
 
-	ft_if_only_hd(c_cmd);
+	ft_if_only_hd(data, c_cmd, pipefds);
 	if (c_cmd->exit_code != 0)
 		ft_exitf(c_cmd->msg_error, c_cmd->exit_code, c_cmd, data);
 	ft_set_pfd(data, c_cmd, pipefds, c);
@@ -45,6 +49,8 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	else
 	{
 		ft_builtins_exe(data, c_cmd);
+		ft_free_data(data);
+		ft_free_data_exit(data);
 		exit(EXIT_SUCCESS);
 	}
 }
