@@ -16,6 +16,7 @@ env -i valgrind ./minishell + export -> segfault
 
 Max
 ctrl c heredoc
+should free heredoc in t_minishell, there is leaks from there
 
 
 PB : 
