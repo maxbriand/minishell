@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 01:13:34 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/08 02:40:04 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/08 17:35:26 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ end-of-file");
 		if (ft_strcmp(input, hd_stop) == 0)
 			break ;
 		write(fd, input, ft_strlen(input));
+		write(fd, "\n", 1);
 		free(input);
 	}
 }

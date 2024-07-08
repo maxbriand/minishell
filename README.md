@@ -7,13 +7,12 @@ Galaad
 echo -awduidhaw test
 echo -nnnnnn waefaw -n
 << d | << w cat | cat leaks
+"" " -> dquotes not closed (same with simple quote)
+env -i valgrind ./minishell + export -> segfault
+<< d cat test + cat test -> leak
 
 Max
 ctrl c heredoc
 
 
-"' quote not close -> leak
-env -i ./minishell / export -> segfault
 PATH=$PATH:$PWD -> minishell dans autre directory fonctionne pas0
-heredoc \n aussi leak
-cat | cat | ls a verif parcec que bzr
