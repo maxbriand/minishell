@@ -6,11 +6,19 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:57:08 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/08 17:14:53 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/08 17:49:03 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_builtin_path(t_minishell *data, t_commands *c_cmd)
+{
+	ft_builtins_exe(data, c_cmd);
+	ft_free_data(data);
+	ft_free_data_exit(data);
+	exit(EXIT_SUCCESS);
+}
 
 static void	ft_if_only_hd(t_minishell *data, t_commands *c_cmd, int **pipefds)
 {
@@ -48,10 +56,7 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	}
 	else
 	{
-		ft_builtins_exe(data, c_cmd);
-		ft_free_data(data);
-		ft_free_data_exit(data);
-		exit(EXIT_SUCCESS);
+		ft_builtin_path(data, c_cmd);
 	}
 }
 

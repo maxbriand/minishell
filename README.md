@@ -13,6 +13,3 @@ env -i valgrind ./minishell + export -> segfault
 
 Max
 ctrl c heredoc
-
-
-PATH=$PATH:$PWD -> minishell dans autre directory fonctionne pas0
