@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_failure.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:40 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/07 02:43:03 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/08 23:34:06 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void	ft_exitf(char *msg, int ec, t_commands *c_cmd, t_minishell *data)
 		data->exit_code = 1;
 	store_ec = data->exit_code;
 	ft_free_data_exit(data);
+	rl_clear_history();
 	exit(store_ec);
 }

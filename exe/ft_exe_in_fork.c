@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 01:57:08 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/08 22:37:34 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:35:09 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_child_exe(t_minishell *data, t_commands *c_cmd, int **pipefds, int c)
 	{
 		if (ft_strncmp(c_cmd->cmd, "minishell", ft_strlen(c_cmd->cmd)))
 			execve(path, c_cmd->arg_cmd, data->env);
-		ft_exitf(" command not found\n", 127, c_cmd, data);
+		ft_exitf(" commanda not found\n", 127, c_cmd, data);
 	}
 	else
 	{

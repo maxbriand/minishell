@@ -3,35 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 16:57:09 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 19:13:10 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/09 00:19:44 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// FT_STRDUP ADDING DQUOTES
-char	*ft_strdup_dquotes(char *s, t_minishell *data)
+static void	ft_set_new_s(char *new_s, char *s)
 {
-	int		len;
-	char	*new_s;
-	int		i;
+	int	i;
+	int	already;
 
-	if (ft_strchr(s, '=') == 0)
-		return (ft_strdup(s));
-	len = ft_strlen(s) + 2 + 1;
-	new_s = malloc(sizeof(char) * len);
-	if (!new_s)
-		ft_exitf("malloc issue", 1, NULL, data);
 	i = 0;
+	already = 0;
 	while (*s)
 	{
 		new_s[i] = *s;
-		if (*s == '=')
+		if (*s == '=' && already == 0)
 		{
 			i++;
+			already++;
 			new_s[i] = '"';
 		}
 		i++;
@@ -39,6 +33,20 @@ char	*ft_strdup_dquotes(char *s, t_minishell *data)
 	}
 	new_s[i] = '"';
 	new_s[i + 1] = '\0';
+}
+
+char	*ft_strdup_dquotes(char *s, t_minishell *data)
+{
+	int		len;
+	char	*new_s;
+
+	if (ft_strchr(s, '=') == 0)
+		return (ft_strdup(s));
+	len = ft_strlen(s) + 2 + 1;
+	new_s = malloc(sizeof(char) * len);
+	if (!new_s)
+		ft_exitf("malloc issue", 1, NULL, data);
+	ft_set_new_s(new_s, s);
 	return (new_s);
 }
 
