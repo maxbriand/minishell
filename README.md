@@ -10,6 +10,13 @@ echo -nnnnnn waefaw -n
 "" " -> dquotes not closed (same with simple quote)
 env -i valgrind ./minishell + export -> segfault
 << d cat test + cat test -> leak
+<< s< dddd |  echo "tre" | echo "fini"
+<< f << d | >> | fd 
+<< f << d | >> | fd THEN  | >> | fd
 
 Max
 ctrl c heredoc
+
+
+PB : 
+
