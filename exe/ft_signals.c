@@ -6,20 +6,11 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 20:36:12 by mbriand           #+#    #+#             */
-/*   Updated: 2024/06/10 18:12:31 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/08 02:41:07 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	handle_ctrl_c_3(int sig)
-{
-	g_sig = sig;
-	ft_printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
 
 static void	handle_ctrl_c_2(int sig)
 {
@@ -55,10 +46,5 @@ void	ft_signals(int d)
 	{
 		signal(SIGQUIT, handle_ctrl_backslash);
 		signal(SIGINT, handle_ctrl_c_2);
-	}
-	if (d == 2)
-	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, handle_ctrl_c_3);
 	}
 }

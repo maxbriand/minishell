@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 01:13:34 by mbriand           #+#    #+#             */
-/*   Updated: 2024/07/07 18:57:08 by mbriand          ###   ########.fr       */
+/*   Updated: 2024/07/08 02:40:04 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_iterate_heredocs(t_commands *c_cmd, t_minishell *data)
 }
 
 void	ft_create_heredocs(t_minishell *data, t_commands *p_cmd)
-{
+{	
 	if (!p_cmd)
 		return ;
 	while (p_cmd)
