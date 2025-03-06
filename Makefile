@@ -91,4 +91,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY all re fclean clean
+.PHONY: all re fclean clean

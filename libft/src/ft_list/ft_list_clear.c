@@ -6,7 +6,7 @@
 /*   By: mbriand <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:02:32 by mbriand           #+#    #+#             */
-/*   Updated: 2024/04/02 18:02:46 by mbriand          ###   ########.fr       */
+/*   Updated: 2025/03/06 15:12:30 by mbriand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_list_clear(t_list *begin_list, void (*free_fct)(void *))
 		store = begin_list;
 		begin_list = begin_list->next;
 		free(store);
-		store->next = NULL;
 	}
 }
 
